@@ -1,0 +1,14 @@
+ObjectType = Image
+NDims = 2
+BinaryData = True
+BinaryDataByteOrderMSB = False
+CompressedData = True
+CompressedDataSize = 29
+TransformMatrix = 1 0 0 1
+Offset = 20.0293 20.1387
+CenterOfRotation = 0 0
+ElementSpacing = 0.5 0.5
+DimSize = 81 81
+AnatomicalOrientation = ??
+ElementType = MET_UCHAR
+ElementDataFile = labelImage.zraw

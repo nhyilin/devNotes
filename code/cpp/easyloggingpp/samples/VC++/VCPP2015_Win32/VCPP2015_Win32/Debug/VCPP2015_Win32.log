@@ -1,0 +1,6 @@
+﻿  main.cpp
+  easylogging++.cpp
+e:\devnotes\notea\cpp\code\easyloggingpp\src\easylogging++.cc(2657): warning C4101: “ex”: 未引用的局部变量
+  正在生成代码...
+  VCPP2015_Win32.vcxproj -> E:\devNotes\notea\Cpp\code\easyloggingpp\samples\VC++\VCPP2015_Win32\Debug\VCPP2015_Win32.exe
+  VCPP2015_Win32.vcxproj -> E:\devNotes\notea\Cpp\code\easyloggingpp\samples\VC++\VCPP2015_Win32\Debug\VCPP2015_Win32.pdb (Full PDB)

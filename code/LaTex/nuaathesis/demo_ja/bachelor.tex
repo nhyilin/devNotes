@@ -1,0 +1,34 @@
+\documentclass[
+  lang=ja,
+  degree=bachelor,
+  % blindtrail,
+  % openany,oneside
+  openany,twoside
+]{nuaathesis}
+
+\graphicspath{{./logo/},{../logo/}}
+
+\input{global.tex}
+% \includeonly{content/start,}
+
+\begin{document}
+
+\makecover
+\makedeclare
+\frontmatter
+\makeabstract
+\expandafter\nuaatableofcontents
+
+\mainmatter
+
+\include{content/start}
+\include{content/intro}
+
+\appendix
+\include{content/manref}    % if reference is hand-coded
+% 如果需要附录的话
+
+\backmatter
+\include{content/acknowledge}
+
+\end{document}

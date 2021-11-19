@@ -1,0 +1,38 @@
+\documentclass[
+  lang=en,
+  degree=bachelor,
+  fontset=fandol,
+  % blindtrail,
+  % openany,oneside
+  openany,twoside
+]{nuaathesis}
+
+\graphicspath{{./fig/},{./logo/},{../logo/}}
+
+\input{global.tex}
+% \includeonly{content/start,}
+
+\begin{document}
+
+\makecover
+\makedeclare
+\frontmatter
+\makeabstract
+\expandafter\nuaatableofcontents
+
+\mainmatter
+
+\include{content/start}
+\include{content/windows}
+\include{content/intro}
+
+\appendix
+\bibliographystyle{nuaabib}   % biber style
+\bibliography{bib/sample}   % biber database
+\include{content/manref}    % if reference is hand-coded
+% include appendix here
+
+\backmatter
+\include{content/acknowledge}
+
+\end{document}

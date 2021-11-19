@@ -1,0 +1,3 @@
+### Description
+
+An example that shows how to use the [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html) to clip a [vtkRectilinearGrid](http://www.vtk.org/doc/nightly/html/classvtkRectilinearGrid.html) with an arbitrary polydata. [vtkImplicitPolyDataDistance](http://www.vtk.org/doc/nightly/html/classvtkImplicitPolyDataDistance.html) is used to turn the polydata into an implicit function. Every point of the grid is evaluated before sending to [vtkClipDataSet](http://www.vtk.org/doc/nightly/html/classvtkClipDataSet.html). This example uses a [vtkConeSource](http://www.vtk.org/doc/nightly/html/classvtkConeSource.html) to generate polydata to use, however any polydata could be used, including stl files.
