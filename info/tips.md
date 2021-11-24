@@ -8,8 +8,9 @@
 - [vscode](#vscode)
 - [Linux](#linux)
   - [for Development](#for-development)
+    - [tar命令解压](#tar命令解压)
   - [as a Server](#as-a-server)
-  - [银河麒麟](#银河麒麟)
+  - [麒麟](#麒麟)
 - [Data](#data)
 - [GitAndSVN](#gitandsvn)
   - [svn](#svn)
@@ -22,6 +23,7 @@
 - [dump windows](#dump-windows)
 - [myMac](#mymac)
 - [work experience](#work-experience)
+
 
 
 
@@ -232,6 +234,24 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `wget`指令：Linux中下载文件的工具，详见`wget --help`（安装方法：`yum install -y wget`）
 - `source /etc/profile`使环境变量生效，且该`profile`文件即为环境变量储存文件
 - `/mnt/hgfs/VMshared`共享文件夹在Ubuntu内的路径
+- `rm -rf 要删除的文件或目录`：删除当前目录下所有文件及目录，并且直接删除无需逐一确认
+- `xdg-open`打开文件或文件夹(macOs下对应`open`命令)
+- 增添环境变量：（以cmake为例）
+    - `vim ~/.bashrc`
+    - 在文末，执行`i`指令（insert），添加`export PATH=/xxx:&PATH`，xxx是cmake地址，到bin目录
+    - `source ~/.bashrc`
+
+### tar命令解压
+1. `*.tar`：用`tar -xvf`解压
+2. `*.gz`：用`gzip -d`或者`gunzip`解压
+3. `*.tar.gz`和`*.tgz`：用`tar -xzf`解压
+4. `*.bz2`用`bzip2 -d`或者用`bunzip2`解压
+5. `*.tar.bz2`用`tar -xjf`解压
+6. `*.Z`用`uncompress`解压
+7. `*.tar.Z`用`tar -xZf`解压
+8. `*.xz`用`tar -xf`解压
+
+
 
 ## as a Server
 
@@ -251,9 +271,10 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
     - 配置文件路径：`/etc/nginx`
     - 启动nginx：`/usr/sbin/nginx`
 
-## 银河麒麟
+## 麒麟
 
 - 分辨率调整：`xrandr -s 1280x800_60`(`xrandr`查看分辨率列表，其中60为刷新率...)
+- 用户、管理员改为**短密码**：`sudo apt remove libpam-cracklib`(其实在其它Linux上`sudo passwd 用户名`就直接可以完成修改，但是麒麟额外需要卸载掉负责检查密码复杂度的`cracklib`包)
 
 # Data
 
