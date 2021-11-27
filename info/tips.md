@@ -235,11 +235,15 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `source /etc/profile`使环境变量生效，且该`profile`文件即为环境变量储存文件
 - `/mnt/hgfs/VMshared`共享文件夹在Ubuntu内的路径
 - `rm -rf 要删除的文件或目录`：删除当前目录下所有文件及目录，并且直接删除无需逐一确认
-- `xdg-open`打开文件或文件夹(macOs下对应`open`命令)
+- `xdg-open`打开文件或文件夹,无空格。(macOs下对应`open`命令)
 - 增添环境变量：（以cmake为例）
     - `vim ~/.bashrc`
     - 在文末，执行`i`指令（insert），添加`export PATH=/xxx:&PATH`，xxx是cmake地址，到bin目录
     - `source ~/.bashrc`
+- lib库默认安装位置在`/usr/lib/`或者`/usr/local/lib`
+- `alt+F4`:关闭
+- `dynamic`：动态库，`.so`文件,`static`：静态库，`.a`文件
+- 接上一条，在win下，`.lib`为静态库，`.dll`为动态库。在`Mac`下，`.a`为静态库`.dylb`动态库，`.Framework`为打包方式，将库的二进制文件打包在一起。
 
 ### tar命令解压
 1. `*.tar`：用`tar -xvf`解压

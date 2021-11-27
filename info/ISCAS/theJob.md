@@ -1,36 +1,12 @@
 # Table of Contents
-- [Table of Contents](#table-of-contents)
-- [Assist X](#assist-x)
-- [visual studio](#visual-studio)
-- [cLion](#clion)
-- [python](#python)
-  - [pycharm](#pycharm)
-- [vscode](#vscode)
-- [Linux](#linux)
-  - [for Development](#for-development)
-    - [tar命令解压](#tar命令解压)
-  - [as a Server](#as-a-server)
-  - [银河麒麟](#银河麒麟)
-- [Data](#data)
-- [GitAndSVN](#gitandsvn)
-  - [svn](#svn)
-  - [code maintenance](#code-maintenance)
-  - [code download](#code-download)
-    - [环境搭建](#环境搭建)
-    - [SSH Keys生成及添加](#ssh-keys生成及添加)
-    - [克隆代码到本地](#克隆代码到本地)
-  - [svn](#svn-1)
-- [dump windows](#dump-windows)
-- [myMac](#mymac)
-- [work experience](#work-experience)
-
-
-
-
-
-# Table of Contents
 <pre>
 <a href="#November">November</a>
+    <a href="#2021-11-26">2021-11-26</a>
+    <a href="#2021-11-25">2021-11-25</a>
+    <a href="#2021-11-24">2021-11-24</a>
+    <a href="#2021-11-22">2021-11-22</a>
+weekend
+    <a href="#2021-11-17">2021-11-17</a>
     <a href="#2021-11-16">2021-11-16</a>
 weekend
     <a href="#2021-11-16">2021-11-16</a>
@@ -66,20 +42,82 @@ weekend
     <a href="#2021-10-08">2021-10-08</a>
 </pre>
 
+
 2021工作记录
 <!--more-->
 
 # November
+# 2021-11-26
+主要任务：在Linux平台测试fastDDS库的可用性
+进展：完成了在Windows系统visual studio平台下helloworld的测试
+剩余部分：仍需对Windows以及Linux系统的QtCreator平台进行针对fastDDS库的测试
+
+遇到困难：
+用QtCreator导入、创建工程时，工程无法正常跑起来。
+
+拟解决方案：
+1. 周末在自家电脑上进行测试，排除qt版本差异的可能性
+2. 查阅相关报错，再一一进行解决
+3. 更换其他helloworld程序进行测试
+
+[![top] Goto Top](#table-of-contents)
+
+# 2021-11-25
+
+遇到困难：
+编译SimNode、SimCentre节点静态库仍存在问题，问题如下：
+- /usr/bin/ld: 找不到 -l./../../install/lib/libfastrtps.so.2.3.0。已尝试重新编译dds，dds编译没有问题，但无法奏效。尝试检查qmakelist中lib语法，语法正确但无法奏效。计划再多搜索相关资料，找其他解决方法
+- SimCentre用的qt模板为core gui widgets winextras concurrent，模块为Windows拓展模块难以移植到Linux。拟将模块换位core gui widget再尝试编译
+
+
+计划：
+1. 尽早完成软件在麒麟下的编译
+
+遇到困难：
+- 这几个库分别是做什么用的，具体编译时用哪个？
+- 为什么总是提示找不到，需要添加环境变量吗，install目录是否需要，还是本地安装完就行了，那pro文件还需要引用吗
+
+[![top] Goto Top](#table-of-contents)
+
+## 2021-11-24
+完成：
+1. fast dds动态库编译
+2. SimDDS动态库编译
+
+待完成：
+1. SimNode编译
+2. SimCentre编译
+
+遇到问题：
+1. SimNode编译过程中出现很多报错，以及lib库无法链接问题
+
+拟解决方案：
+1. 核对qmakelist中lib语法
+2. 检查lib库是否正确
+3. 检查SimDDS库编译是否正确
+4. 重装qt5.12以避免无谓error
+5. 尝试用cmake替换qmake重新构建
+
+
+
+未来：
+- `dds.tastID = settings->value("tastID").toString().toStdString();//TODO:会不会转换出错`
+
+[![top] Goto Top](#table-of-contents)
+
 ## 2021-11-22
 完成：
 1. 编译fast-dds三方库（基于麒麟系统）
 
+[![top] Goto Top](#table-of-contents)
 
 ## 2021-11-17
 
 计划：
 1. 时间demo
 2. fast dds
+
+[![top] Goto Top](#table-of-contents)
 
 ## 2021-11-16
 计划：
@@ -99,6 +137,7 @@ weekend
 - void RasterWindow::exposeEvent(QExposeEvent *)含义
 - .pri文件`INCLUDEPATH+ = $$PWD`、`SOURCES += $$PWD/rasterwindow.cpp`、`HEADERS += $$PWD/rasterwindow.h`
 
+[![top] Goto Top](#table-of-contents)
 
 ## 2021-11-16
 计划：
@@ -107,7 +146,7 @@ weekend
     - 在示例程序基础上进行小幅调整，多台机器上进行协同控制（收发信息即可）
 2. 计算时间demo
 
-
+[![top] Goto Top](#table-of-contents)
 
 
 ## 2021-11-15
