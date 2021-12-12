@@ -60,3 +60,39 @@ int main(int argc, char *argv[])
 
 
 
+# 编译中奇葩问题们
+
+1. `multiple definition of qInitResources`
+解决方案：在Qt官网看到相关解释，主要思路是重复调用了`qrc`资源，原文解释如下:`u must not add this generated file to ur SOURCE since it's automatically added when adding the .qrc file to RECOURES. Therefore the file is compoled (and linked) twice `
+
+我在pro文件里注释掉了相关引用，`#RESOURCES += FastDemoWidget.qrc`，即可避免重复引用，all done well
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

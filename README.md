@@ -62,6 +62,7 @@ reservSurgicalPreparationState.md：保存上一页面数据状态
 theInterview.md：面试
 winSDK.md：Windows开发
 zxz01.txt：第一次补课
+basicAlg.md：基础算法积累，由简到难吧
 
 
 
@@ -115,6 +116,7 @@ macroApp.cpp：宏demo
 hj_surceCode文件夹：侯捷老师的代码、
 logger：log的demo
 cppPrimer：c++primer练习代码
+cppLearning：看课本过程中写的代码，来源北大出版《新标准C++程序设计教程》等
 
 [![top] Goto Top](#table-of-contents)
 ## MATLAB

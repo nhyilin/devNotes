@@ -1,6 +1,9 @@
 # Table of Contents
 <pre>
 <a href="#November">November</a>
+    <a href="#2021-11-30">2021-11-30</a>
+    <a href="#2021-11-29">2021-11-29</a>
+weekend
     <a href="#2021-11-26">2021-11-26</a>
     <a href="#2021-11-25">2021-11-25</a>
     <a href="#2021-11-24">2021-11-24</a>
@@ -47,6 +50,22 @@ weekend
 <!--more-->
 
 # November
+# 2021-11-30
+
+主要任务：
+1. 完成编译、运行、测试simNode可用性
+
+计划：
+1. 编译、运行simCentre（一到两个工作日）
+
+# 2021-11-29
+
+主要任务：
+1. 完成fastDDS的helloworld验证
+2. 完成fastDDS基于win和Linux两个平台通信的验证
+3. 基于明奇的sinNode尚未编译通过，试错积累了一些经验，预计明天可以完成
+
+
 # 2021-11-26
 主要任务：在Linux平台测试fastDDS库的可用性
 进展：完成了在Windows系统visual studio平台下helloworld的测试

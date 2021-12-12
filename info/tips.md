@@ -447,6 +447,10 @@ btw,已经将include指令添加快件进番茄助手，简直不要再香，快
 当别人回答你的问题后，你对回答的评论：
 1. thank you for your answer sincerely 感谢回答blabla
 
+思路整理：
+1. 每种错误最多允许自己走一遍，如果错过那就记下来，不要重复试错，很浪费时间，更糟糕的是容易使脑子混乱。
+2. 记住走错的方法容易走向误区，就是很详尽，不用遍历，但是方法的方向要把握，具体的度要在工作中把握。
+3. 总之多推理少无谓的试错。
 
 [![top] Goto Top](#table-of-contents)
 
@@ -454,46 +458,10 @@ btw,已经将include指令添加快件进番茄助手，简直不要再香，快
 
 
 
+
+
 <!-- figures -->
 [top]: up.png
-<!-- 
 
-[top]: https://amrayn.github.io/easyloggingpp/images/up.png?v=4
-
- -->
-
-[banner]: https://amrayn.github.io/easyloggingpp/images/banner.png?v=4
-[ubuntu]: https://amrayn.github.io/easyloggingpp/images/icons/ubuntu.png?v=2
-[mint]: https://amrayn.github.io/easyloggingpp/images/icons/linux-mint.png?v=2
-[freebsd]: https://amrayn.github.io/easyloggingpp/images/icons/free-bsd.png?v=2
-[sl]: https://amrayn.github.io/easyloggingpp/images/icons/scientific-linux.png?v=2
-[fedora]: https://amrayn.github.io/easyloggingpp/images/icons/fedora.png?v=3
-[mac]: https://amrayn.github.io/easyloggingpp/images/icons/mac-osx.png?v=2
-[winxp]: https://amrayn.github.io/easyloggingpp/images/icons/windowsxp.png?v=2
-[win7]: https://amrayn.github.io/easyloggingpp/images/icons/windows7.png?v=2
-[win8]: https://amrayn.github.io/easyloggingpp/images/icons/windows8.png?v=2
-[win10]: https://amrayn.github.io/easyloggingpp/images/icons/windows10.png?v=2
-[qt]: https://amrayn.github.io/easyloggingpp/images/icons/qt.png?v=3
-[boost]: https://amrayn.github.io/easyloggingpp/images/icons/boost.png?v=3
-[wxwidgets]: https://amrayn.github.io/easyloggingpp/images/icons/wxwidgets.png?v=3
-[devcpp]: https://amrayn.github.io/easyloggingpp/images/icons/devcpp.png?v=3
-[gtkmm]: https://amrayn.github.io/easyloggingpp/images/icons/gtkmm.png?v=3
-[tdm]: https://amrayn.github.io/easyloggingpp/images/icons/tdm.png?v=3
-[raspberrypi]: https://amrayn.github.io/easyloggingpp/images/icons/raspberry-pi.png?v=3
-[solaris]: https://amrayn.github.io/easyloggingpp/images/icons/solaris.png?v=3
-[aix]: https://amrayn.github.io/easyloggingpp/images/icons/aix.png?v=4
-
-[gcc]: https://amrayn.github.io/easyloggingpp/images/icons/gcc.png?v=4
-[mingw]: https://amrayn.github.io/easyloggingpp/images/icons/mingw.png?v=2
-[cygwin]: https://amrayn.github.io/easyloggingpp/images/icons/cygwin.png?v=2
-[vcpp]: https://amrayn.github.io/easyloggingpp/images/icons/vcpp.png?v=2
-[llvm]: https://amrayn.github.io/easyloggingpp/images/icons/llvm.png?v=2
-[intel]: https://amrayn.github.io/easyloggingpp/images/icons/intel.png?v=2
-[android]: https://amrayn.github.io/easyloggingpp/images/icons/android.png?v=2
-[manual]: https://amrayn.github.io/easyloggingpp/images/help.png?v=3
-[download]: https://amrayn.github.io/easyloggingpp/images/download.png?v=2
-[samples]: https://amrayn.github.io/easyloggingpp/images/sample.png?v=2
-[notes]: https://amrayn.github.io/easyloggingpp/images/notes.png?v=4
-[top]: https://amrayn.github.io/easyloggingpp/images/up.png?v=4
-[www]: https://amrayn.github.io/easyloggingpp/images/logo-www.png?v=6
+[top]: https://upload.nhyilin.cn/2021-11-19-up.png
 
