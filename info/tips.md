@@ -1,5 +1,7 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
+- [c++编译错误](#c编译错误)
+- [c++ 常用函数](#c-常用函数)
 - [Assist X](#assist-x)
 - [visual studio](#visual-studio)
 - [cLion](#clion)
@@ -7,6 +9,7 @@
   - [pycharm](#pycharm)
 - [vscode](#vscode)
 - [Linux](#linux)
+  - [vim](#vim)
   - [for Development](#for-development)
     - [tar命令解压](#tar命令解压)
   - [as a Server](#as-a-server)
@@ -21,10 +24,30 @@
     - [克隆代码到本地](#克隆代码到本地)
   - [svn](#svn-1)
 - [dump windows](#dump-windows)
+  - [office](#office)
+    - [word](#word)
+    - [visio](#visio)
 - [myMac](#mymac)
 - [work experience](#work-experience)
 
+# c++编译错误
+1. 数组越界
+如：
+```cpp
+int a[-2];
+a[-2] = 5;
+```
+`a[-2]`代表位于地址`n + (-2) * size(int)`处的一个int类型变量写入数值5，即位于`n - 8`处，有可能存放其他变量甚至是指令，往该处写入5，造成程序不安全，跟踪调试时，某个变量突然变成了一个不正确的值，却查不出该变量在哪里变成该值，应该考虑数组越界。
 
+2. 不要在函数（包括main）中定义大数组。
+3. `""`也是合法字符串，该字符串中没有字符，成为“空串”，仍然会占据一个字节存储空间，用来存放代表结束位置的`\0`
+
+# c++ 常用函数
+1. strcmp，用于比较字符串，返回值有-1、0、1
+2. strcpy，字符串复制
+3. strlen，求字符串长度
+4. strcat，字符串连接
+5. strupr/strlwr，字符串转大/小写
 
 
 # Assist X
@@ -87,6 +110,7 @@ $end$
 [![top] Goto Top](#table-of-contents)
 
 # visual studio
+- [CMake命令/函数汇总（翻译自官方手册）](https://www.cnblogs.com/52php/p/5684588.html)
 
 - 项目结构(base on cmake)：
 ```bash
@@ -164,10 +188,17 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 >习惯于VisualStudio开发，故在快捷键模块直接设置成为了：`Visual Studio copy`
 
 - `code`标签页中:Reformate Code,重新整理代码，快捷键：`Ctrl+Alt+Enter`
+- [clion使用技巧](https://www.cnblogs.com/xueqiuqiu/articles/12912209.html)
+- 整理代码快捷键：
+    - win：Control+Alt+L
+    - Mac：command+Alt+L（可设置为command+control+L方便按）
+- ⇧ + ⌘ + A 然后输入你想用到的功能，然后选中就可以了，尤其是当快捷键太多记不住的时候真的是很实用啊
 
 [![top] Goto Top](#table-of-contents)
 
 # python
+
+- [离线安装anaconda及第三方库](https://blog.csdn.net/SEU_LL/article/details/119385057)
 
 ## pycharm
 
@@ -224,6 +255,16 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 
 # Linux
 
+## vim
+- `cat`显示指令
+- `dd`删除当前行（在一般模式下）
+- `ndd`删除光标及其下n行
+- `u`撤销
+- `yy`复制当前行
+- `p`粘贴到下一行
+- `nyy`复制n行
+- 修改文件名：`mv a b`将a文件命名为b
+
 ## for Development
 
 - `alt+F2`：相当于win的`win+R`，可执行前往文件夹等指令
@@ -244,6 +285,12 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `alt+F4`:关闭
 - `dynamic`：动态库，`.so`文件,`static`：静态库，`.a`文件
 - 接上一条，在win下，`.lib`为静态库，`.dll`为动态库。在`Mac`下，`.a`为静态库`.dylb`动态库，`.Framework`为打包方式，将库的二进制文件打包在一起。
+- 文件以tree形式列出：`tree`(sudo apt  install tree)
+- Linux设置vi编辑器
+    - 配置文件：`sudo vi /etc/vim/vimrc
+    - tab键位4个空格：`set ts=4`
+    - 显示代码行数：`set nu`
+
 
 ### tar命令解压
 1. `*.tar`：用`tar -xvf`解压
@@ -258,11 +305,15 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 
 
 ## as a Server
-
+以下服务端仅针对Ubuntu（麒麟适用），其他Linux方式可能会不同
+- 本机IP地址查询`ip addr show`，在第二个段落中`inet`字符后面
+- 或者`ifconfig -a`
 - `sudo su`：登录root用户
 - `sudo ufw status`：查看端口启用情况
 - `sudo ufw allow <端口号>`：开启端口号
 - `sudo ufw enable`：开启防火墙
+- `sudo ufw disable`：关闭防火墙
+- `sudo ufw reload`：重启防火墙
 - `lsof -i:80`查看端口是否开放，如果开放，则有返回信息，反之未开放，也可用`netstat -apth`查看当前所有开放端口（`netstat`指令需提前安装`net-tools`工具）
 - 无法在指定文件夹进行新建、复制粘贴等操作：
     - 权限管理，`sudo chmod 777 /var/www`
@@ -279,6 +330,8 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 
 - 分辨率调整：`xrandr -s 1280x800_60`(`xrandr`查看分辨率列表，其中60为刷新率...)
 - 用户、管理员改为**短密码**：`sudo apt remove libpam-cracklib`(其实在其它Linux上`sudo passwd 用户名`就直接可以完成修改，但是麒麟额外需要卸载掉负责检查密码复杂度的`cracklib`包)
+
+[![top] Goto Top](#table-of-contents)
 
 # Data
 
@@ -401,12 +454,26 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 
 - 静态网页局域网访问，百度该关键字即可
 
+## office
+### word
+- 建立图片索引
+    - 右键图片，选择“插入题注”
+    - 新建想要的标签，完成建立索引
+    - 当需要索引图片时，【插入】功能栏中选择【交叉引用】，选取所需即可
+    - 在撰写文档时：可将字体设置为Menlo等开发时使用的字体，显示word中有代码的效果
+### visio
+- visio对其所有连接线：在`设计`中点击连接线下面的小三角，`分隔：相关线条`，`重叠：相关线条`。
+
+
 [![top] Goto Top](#table-of-contents)
 
 
  # myMac
 
 - 安全与隐私中，通用栏，`进入睡眠或开始屏幕保护程序...要求输入密码`，控制时间有利于中途查看代码，减少解锁次数
+- magnet快捷键：`control + option + 上下左右`（调整应用程序贴合屏幕位置）
+- magnet快捷键：`control + option + enter`（最大化显示）
+- Downie下载：设置中，下载目录文件格式设置为`播放清单索引 - 标题`，下载文件保存至文件夹：勾选任意一个可保证下载列表视频时，自动创建文件夹来放置下载的视频，否则所有文件下载至当前目录造成混乱。
 
 [![top] Goto Top](#table-of-contents)
 

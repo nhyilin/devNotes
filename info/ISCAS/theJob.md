@@ -1,5 +1,19 @@
 # Table of Contents
 <pre>
+<a href="#November">December</a>
+    <a href="#2021-12-16">2021-12-16</a>
+    <a href="#2021-12-15">2021-12-15</a>
+    <a href="#2021-12-14">2021-12-14</a>
+    <a href="#2021-12-13">2021-12-13</a>
+weekend
+    <a href="#2021-12-09">2021-12-09</a>
+    <a href="#2021-12-08">2021-12-08</a>
+    <a href="#2021-12-07">2021-12-07</a>
+    <a href="#2021-12-06">2021-12-06</a>
+weekend
+    <a href="#2021-12-03">2021-12-03</a>
+    <a href="#2021-12-02">2021-12-02</a>
+    <a href="#2021-12-01">2021-12-01</a>
 <a href="#November">November</a>
     <a href="#2021-11-30">2021-11-30</a>
     <a href="#2021-11-29">2021-11-29</a>
@@ -48,9 +62,95 @@ weekend
 
 2021工作记录
 <!--more-->
+# December
+## 2021-12-16
+1. 组内电脑硬件整理出文档
+2. 备份计算机，创建恢复节点
+
+## 2021-12-15
+文档
+
+## 2021-12-14
+报销
+
+## 2021-12-13
+
+整理文档
+.net
+dds移植
+qt移植
+
+debug中的memory1-4有什么区别吗
+memory中的地址顺序为什么是相反的如：b8 f1 02 00实际数据为：00 02 f1 b8
+更新有道词典词库
+
+
+
+## 2021-12-09
+
+
+## 2021-12-08
+
+主要工作：
+1. 辅助庞老师撰写BS架构部署文档
+2. 学习c++知识
+
+[![top] Goto Top](#table-of-contents)
+
+## 2021-12-07
+主要任务：
+搭建完成三台麒麟的node、center，完成三台机器的通信，可以展开下一步性能测试
+
+[![top] Goto Top](#table-of-contents)
+
+## 2021-12-06
+
+工作内容：
+1. 整理node和center在Linux下的编译路径
+2. 在三台电脑上分别布置了麒麟环境下的一个中心和两个节点
+3. 搭建三台电脑的局域网
+
+存在问题：
+1. 两台虚拟机之间无法ping通，无法互相访问
+
+拟解决方案：
+1. 调整VMWare的网络策略
+2. 直接安装麒麟双系统
+3. 大概半个到一个工作日
+
+
+[![top] Goto Top](#table-of-contents)
+
+## 2021-12-03
+
+主要工作：
+1. 麒麟下完成simCenter的移植
+2. 测试证明功能完整(直接推进、全速推进、实时推进)
+3. 麒麟-Windows、麒麟-麒麟通信测试完成
+
+
+[![top] Goto Top](#table-of-contents)
+
+## 2021-12-02
+
+主要工作：
+麒麟下完成simNode移植（包括发送、接收）
+
+计划：
+移植simCenter，大概一个工作日
+
+[![top] Goto Top](#table-of-contents)
+
+## 2021-12-01
+
+主要工作：
+重新配置vs、Qt环境
+
+[![top] Goto Top](#table-of-contents)
 
 # November
-# 2021-11-30
+
+## 2021-11-30
 
 主要任务：
 1. 完成编译、运行、测试simNode可用性
@@ -58,15 +158,19 @@ weekend
 计划：
 1. 编译、运行simCentre（一到两个工作日）
 
-# 2021-11-29
+[![top] Goto Top](#table-of-contents)
+
+## 2021-11-29
 
 主要任务：
 1. 完成fastDDS的helloworld验证
 2. 完成fastDDS基于win和Linux两个平台通信的验证
 3. 基于明奇的sinNode尚未编译通过，试错积累了一些经验，预计明天可以完成
 
+[![top] Goto Top](#table-of-contents)
 
-# 2021-11-26
+## 2021-11-26
+
 主要任务：在Linux平台测试fastDDS库的可用性
 进展：完成了在Windows系统visual studio平台下helloworld的测试
 剩余部分：仍需对Windows以及Linux系统的QtCreator平台进行针对fastDDS库的测试
@@ -81,7 +185,7 @@ weekend
 
 [![top] Goto Top](#table-of-contents)
 
-# 2021-11-25
+## 2021-11-25
 
 遇到困难：
 编译SimNode、SimCentre节点静态库仍存在问题，问题如下：
@@ -99,6 +203,7 @@ weekend
 [![top] Goto Top](#table-of-contents)
 
 ## 2021-11-24
+
 完成：
 1. fast dds动态库编译
 2. SimDDS动态库编译
@@ -139,6 +244,7 @@ weekend
 [![top] Goto Top](#table-of-contents)
 
 ## 2021-11-16
+
 计划：
 1. 时间demo
 2. 更新网易词典
@@ -512,3 +618,4 @@ ISCAS属性配置：
 
 [top]: up.png
 
+[top]: https://upload.nhyilin.cn/2021-11-19-up.png
