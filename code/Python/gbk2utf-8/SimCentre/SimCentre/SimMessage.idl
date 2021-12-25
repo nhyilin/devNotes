@@ -1,0 +1,11 @@
+struct SimMessage
+{
+	unsigned long inforsrcID;	//信源
+	unsigned long infordestID;	//信宿
+	string	MessageTypeID;		//记录当前消息接口定义
+	string	MessageSubTypeID;	//记录当前消息接口定义的子类型
+	unsigned int MessageCount;	//记录当前发送的消息次数
+	string	MessageTime;		//时间戳
+	string	stringEx;			//备用扩展
+	sequence<octet> data;		//pDx
+};

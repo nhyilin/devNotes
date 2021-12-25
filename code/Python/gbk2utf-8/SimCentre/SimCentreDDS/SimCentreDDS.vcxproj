@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AE96E7B5-5BBC-4E3F-A894-6E876DBD938C}</ProjectGuid>
+    <Keyword>QtVS_v302</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>concurrent;core;gui;svg;widgets</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>FASTRTPS_DYN_LINK;FASTCDR_DYN_LINK;SUB_THREAD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;D:\project\Fast\build-rtps\install\include;.\..\SimDDS;$(QTDIR)\include\QtConcurrent;$(QTDIR)\include\QtWinExtras;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>D:\project\Fast\build-rtps\install\lib\fastrtpsd-2.3.lib;D:\project\Fast\build-rtps\install\lib\fastcdrd-1.0.lib;$(QTDIR)\lib\Qt5Cored.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\msvc2017_64\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <QtMoc>
+      <QTDIR>$(QTDIR)</QTDIR>
+      <IncludePath>$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets</IncludePath>
+    </QtMoc>
+    <QtRcc>
+      <QTDIR>$(QTDIR)</QTDIR>
+    </QtRcc>
+    <QtUic>
+      <QTDIR>$(QTDIR)</QTDIR>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat />
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="feedbackcorrunArrayTimer.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapSet.cpp" />
+    <ClCompile Include="MiddleByValueSet.cpp" />
+    <ClCompile Include="MyPubCallbackSubscriber.cpp" />
+    <ClCompile Include="MyPublisherFullSpeedThread.cpp" />
+    <ClCompile Include="MyPublisherRealTimer.cpp" />
+    <ClCompile Include="MyPublisherRealTimerTest.cpp" />
+    <ClCompile Include="MyPublisherRealTimerTestfirst.cpp" />
+    <ClCompile Include="MyPublisherRealTimerTestone.cpp" />
+    <ClCompile Include="MyPublisherRealTimerTestTwo.cpp" />
+    <ClCompile Include="MyPublisherTimer.cpp" />
+    <ClCompile Include="MyPubSubscriberThread.cpp" />
+    <ClCompile Include="QtMyTextEdit.cpp" />
+    <ClCompile Include="qtsettingset.cpp" />
+    <ClCompile Include="RealDataDealTimer.cpp" />
+    <ClCompile Include="RealDataDealTimerTwo.cpp" />
+    <ClCompile Include="SimCentreDDS.cpp" />
+    <ClCompile Include="SimCentrePublisher.cpp" />
+    <ClCompile Include="SimCentrePubSubTypes.cxx" />
+    <ClCompile Include="SimCentreSubscriber.cpp" />
+    <ClCompile Include="SimDataAnalysis.cpp" />
+    <ClCompile Include="simdds.cpp" />
+    <ClCompile Include="SimMessage.cxx" />
+    <ClCompile Include="simplelog.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="SimCentreDDS.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="SimCentreDDS.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="SimCentreDDS.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="feedbackcorrunArrayTimer.h" />
+    <ClInclude Include="MapSet.h" />
+    <ClInclude Include="MiddleByValueSet.h" />
+    <QtMoc Include="MyPublisherRealTimerTestfirst.h" />
+    <ClInclude Include="MyPubCallbackSubscriber.h" />
+    <QtMoc Include="MyPublisherRealTimerTestone.h" />
+    <ClInclude Include="qtglobalout.hpp" />
+    <ClInclude Include="qttestout.hpp" />
+    <ClInclude Include="SimCentrePublisher.h" />
+    <ClInclude Include="SimCentrePubSubTypes.h" />
+    <ClInclude Include="SimCentreSubscriber.h" />
+    <ClInclude Include="SimDataAnalysis.h" />
+    <ClInclude Include="simdds.h" />
+    <ClInclude Include="SimMessage.h" />
+    <ClInclude Include="SimMessageDDs.h" />
+    <QtMoc Include="simplelog.h" />
+    <QtMoc Include="RealDataDealTimerTwo.h" />
+    <QtMoc Include="RealDataDealTimer.h" />
+    <QtMoc Include="qtsettingset.h" />
+    <QtMoc Include="QtMyTextEdit.h" />
+    <QtMoc Include="MyPubSubscriberThread.h" />
+    <QtMoc Include="MyPublisherTimer.h" />
+    <QtMoc Include="MyPublisherRealTimerTestTwo.h" />
+    <QtMoc Include="MyPublisherRealTimerTest.h" />
+    <QtMoc Include="MyPublisherRealTimer.h" />
+    <QtMoc Include="MyPublisherFullSpeedThread.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

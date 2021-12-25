@@ -1,0 +1,12 @@
+struct SimMessage
+{
+	string tastID;	//任务代号
+	string destID;	//信宿
+	string src;	 	//信源
+	string time;	//时间戳
+	string step;	//步长
+	string type;	//指令类
+	string subtype;	//子类型
+	unsigned long count;	//计数
+	sequence<octet> data;	//pDx
+};

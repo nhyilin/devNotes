@@ -179,6 +179,10 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 
 - 没有为此解决方案配置选中要生成的项目：右键项目，查看属性，常规里的配置管理器，勾选上“生成”选项即可
 
+- **编译报错**：'initializing': cannot convert from 'const char [6]' to 'char *'
+    - c++语言版本支持出现的问题
+    - 在vs项目属性中c/c++中language中Conformance mode（符合模式），默认为true改为false即可
+
 
 
 [![top] Goto Top](#table-of-contents)
@@ -290,6 +294,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
     - 配置文件：`sudo vi /etc/vim/vimrc
     - tab键位4个空格：`set ts=4`
     - 显示代码行数：`set nu`
+- 解决报错，运行脚本时，build.sh /bin/bash^M :坏的解释器：没有那个文件或目录：`sed -i 's/\$//' xxx.sh`，xxx.sh为对应脚本
 
 
 ### tar命令解压
@@ -330,6 +335,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 
 - 分辨率调整：`xrandr -s 1280x800_60`(`xrandr`查看分辨率列表，其中60为刷新率...)
 - 用户、管理员改为**短密码**：`sudo apt remove libpam-cracklib`(其实在其它Linux上`sudo passwd 用户名`就直接可以完成修改，但是麒麟额外需要卸载掉负责检查密码复杂度的`cracklib`包)
+- 麒麟系统下Qt安装路径`/usr/lib/x86_64-linux-gnu/qt5`
 
 [![top] Goto Top](#table-of-contents)
 
