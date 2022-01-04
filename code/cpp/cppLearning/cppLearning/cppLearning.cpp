@@ -1,42 +1,66 @@
 #include <iostream>
 #include<string>
+#include <memory>
 
-class Example
-{
+class Entity {
 public:
-    Example() {
-        std::cout << "default function" << std::endl;
-    }
-    Example(int x) {
-        std::cout << "define with " << x << std::endl;
-    }
+    void Print()const { std::cout << "hello" << std::endl; }
 };
 
-class Entity
-{
+class ScopedPtr {//智能指针类
 private:
-    std::string m_Name;
-    Example m_Example;//调用了默认构造
+    Entity* m_Obj;
 public:
-    const std::string& GetName()const { return m_Name; }
-    Entity()
-        :m_Name("Unknown"), m_Example(8)//或者
-    {
+    ScopedPtr(Entity*entity)
+        : m_Obj(entity) {
     }
 
-    Entity(const std::string& name)
-        :m_Name(name)
-    {
+    ~ScopedPtr() {
+        delete m_Obj;
     }
+
+    Entity* operator->() {
+        return m_Obj;
+    }
+
+    const Entity* operator->() const{
+        return m_Obj;
+    }
+
 };
 
-int main()
-{
-    Entity e0;
 
+int main() {
+    {
+        const ScopedPtr entity = new Entity();
+        entity->Print();
+    }
     std::cin.get();
-    return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

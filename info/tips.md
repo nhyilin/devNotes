@@ -157,6 +157,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `Alt+shift+o`：打开输出窗口
 
 - `ctrl+\,e`：打开错误列表
+- `ctrl + q`：search visual studio，类似clion查找快捷键的搜索方式
 
 
 - [注释/取消注释快捷键  control / ‘ 设置里的（编辑.注释）](https://zhuanlan.zhihu.com/p/343307484)
@@ -197,6 +198,8 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
     - win：Control+Alt+L
     - Mac：command+Alt+L（可设置为command+control+L方便按）
 - ⇧ + ⌘ + A 然后输入你想用到的功能，然后选中就可以了，尤其是当快捷键太多记不住的时候真的是很实用啊
+- shift + alt + 上下箭头，clion上下移动选中代码
+- 菜单栏-扩展-resharper-option-IntelliSense-Autopopup，将所有的菜单都选择Display and preselect，也就是预先选择，之后就可以用enter而不是用tab进行补全了。之后tab为replace，enter为insert
 
 [![top] Goto Top](#table-of-contents)
 
@@ -459,6 +462,8 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 - 检测本地IP：在cmd中敲：`ipconfig/all`，其中IPv4地址即为本机IP地址（随即敲`arp -a`可显示局域网内IP列表）
 
 - 静态网页局域网访问，百度该关键字即可
+- VMware快捷键：`Ctrl + B`启动，`Ctrl + E`关闭，`Ctrl + R`重启
+- `netsh advfirewall set allprofiles state off`：关闭防火墙
 
 ## office
 ### word
