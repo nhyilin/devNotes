@@ -1,1 +1,0 @@
-﻿C:\Users\Lenovo\AppData\Local\QtMsBuild\rcc\qtrcc.targets(116,5): error MSB3073: 命令“"C:\Qt\Qt5.12.8\5.12.8\msvc2017_64\bin\rcc.exe" --list "simcentre.qrc" > "x64\Debug\rcc_list.txt" 2> nul”已退出，代码为 3。

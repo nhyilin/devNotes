@@ -1,0 +1,1 @@
+REG ADD "HKLM\SOFTWARE\Microsoft\Windows Embedded\KeyboardFilter" /v BreakoutKeyScanCode /t REG_DWORD /d 0 /f >> C:\osCfg.log

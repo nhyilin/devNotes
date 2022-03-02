@@ -1,9 +1,9 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
-- [c++编译错误](#c编译错误)
-- [c++ 常用函数](#c-常用函数)
-- [Assist X](#assist-x)
+- [Xcode](#xcode)
 - [visual studio](#visual-studio)
+  - [resharper插件](#resharper插件)
+  - [Assist X插件](#assist-x插件)
 - [cLion](#clion)
 - [python](#python)
   - [pycharm](#pycharm)
@@ -30,27 +30,74 @@
 - [myMac](#mymac)
 - [work experience](#work-experience)
 
-# c++编译错误
-1. 数组越界
-如：
-```cpp
-int a[-2];
-a[-2] = 5;
+# Xcode
+
+- [格式化代码](https://www.cnblogs.com/Wayou/p/xcode_clang_setup.html)
+- 删除整行快捷键,my：`alt + L`，快捷键里自己添加的，但是是要在英文输入法的状态下。
+
+
+# visual studio
+- [CMake命令/函数汇总（翻译自官方手册）](https://www.cnblogs.com/52php/p/5684588.html)
+- 项目结构(base on cmake)：
+```bash
+cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\ThirdParty -DQT_DIR=C:/Qt/Qt5.9.6/5.9.6/msvc2017_64/lib/cmake -S D:\myDevelop\project\kneev2021\src -B D:\myDevelop\build\kneeV2021
 ```
-`a[-2]`代表位于地址`n + (-2) * size(int)`处的一个int类型变量写入数值5，即位于`n - 8`处，有可能存放其他变量甚至是指令，往该处写入5，造成程序不安全，跟踪调试时，某个变量突然变成了一个不正确的值，却查不出该变量在哪里变成该值，应该考虑数组越界。
+-  项目属性中，以下参数的灵活使用
+`output directory`:灵活制定调试程序的输出目录，方便在调试过程中的直接运行
+`target name`:制定输出可执行文件的名称
+- linker中`UAC Execution Level`：运行程序权限
+- `ctrl+tab`：在VS中切换打开的窗口，即切换各个文件
+- `ctrl+K+D`：代码整理（好用）
+- `Ctrl+K+F`：整理选中代码
+- `Ctrl+Shift+F9`：清理所有断点
+- `F12`：转到所调用函数或变量的定义
+- `Shift+Tab`：减少缩进
+- `Ctrl+M`：展开或折叠当前的代码（展开或收缩方法，类等）
+- `ctrl+-`：跳回上次编辑位置很好用
+- `Ctrl+m+m`：折叠\展开函数
+- `Edit.commentSelection(编辑.注释选定内容)`：在设置中搜索，自定义添加注释快捷键：`Ctro+/`
+- `Edit.UncommentSelection(编辑.取消注释选定内容)`：在设置中搜索，自定义添加取消注释快捷键：`Ctro+'`
+- `Window.NextDocumentWindowNav`设置切换打开页面快捷键：`Ctro+T`
+- `Auto Hide`：命令行输出，自动隐藏对看代码很友好
+- `shift+F12`：Find All References
+- `Alt+shift+o`：打开输出窗口
+- `ctrl+\,e`：打开错误列表
+- `ctrl + q`：search visual studio，类似clion查找快捷键的搜索方式
+- `ctrl + -`：返回，返回上一文件，如果ctrl进入定义后，回到原文件处
+- [注释/取消注释快捷键  control / ‘ 设置里的（编辑.注释）](https://zhuanlan.zhihu.com/p/343307484)
+- vs2015中原生不支持ctrl+单击进入定义，`GoToDef.vsix`插件可满足需求
+- [vs中tab换位空格](https://blog.csdn.net/u012308586/article/details/101027542)
+- 设置visualstudio默认打开方式为管理员权限：
+找到vs安装目录下的：C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe
 
-2. 不要在函数（包括main）中定义大数组。
-3. `""`也是合法字符串，该字符串中没有字符，成为“空串”，仍然会占据一个字节存储空间，用来存放代表结束位置的`\0`
+右键->兼容性疑难解答->疑难解答程序->勾选该程序需要附加权限->测试后下一步->保存设置。
 
-# c++ 常用函数
-1. strcmp，用于比较字符串，返回值有-1、0、1
-2. strcpy，字符串复制
-3. strlen，求字符串长度
-4. strcat，字符串连接
-5. strupr/strlwr，字符串转大/小写
+以后甭管双击sln还是快捷方式，都默认使用管理员权限启动vs2017了。
+
+- 没有为此解决方案配置选中要生成的项目：右键项目，查看属性，常规里的配置管理器，勾选上“生成”选项即可
+- **编译报错**：'initializing': cannot convert from 'const char [6]' to 'char *'
+    - c++语言版本支持出现的问题
+    - 在vs项目属性中c/c++中language中Conformance mode（符合模式），默认为true改为false即可
+
+- vs在Release模式下开启Debug调试
+  - 项目属性 -> c/c++ -> 常规 -> 调试信息格式化 -> 程序数据库(/Zi)
+  - 项目属性 -> c/c++ -> 常规 -> 优化 -> 已禁用(/Od)
+  - 项目属性 -> 链接器 -> 调试 -> 生成调试信息 -> 生成调试信息(/DEBUG)
+
+[![top] Goto Top](#table-of-contents)
+
+## resharper插件
+- [resharper](https://www.jetbrains.com/resharper/)
+- `contorl + shift + G`：显示简洁的`navigate to`，有一些常用的操作，如查看调用等
+- 菜单栏-扩展-resharper-option-IntelliSense-Autopopup，将所有的菜单都选择Display and preselect，也就是预先选择，之后就可以用enter而不是用tab进行补全了。之后tab为replace，enter为insert
+- `ctrl + shift + F7`：在文件中突出被引用的地方，在右侧进度条也可看到相应的标记
+- `ctrl + shift + n`：打开文件（Go to file）
 
 
-# Assist X
+[![top] Goto Top](#table-of-contents)
+
+
+## Assist X插件
 
 - 增添修改快捷键前，最好命名时在最前面加上`yilin_xxx`，有利于后期维护，如：`yilin_qDebug`
 
@@ -109,84 +156,6 @@ $end$
 
 [![top] Goto Top](#table-of-contents)
 
-# visual studio
-- [CMake命令/函数汇总（翻译自官方手册）](https://www.cnblogs.com/52php/p/5684588.html)
-
-- 项目结构(base on cmake)：
-```bash
-cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\ThirdParty -DQT_DIR=C:/Qt/Qt5.9.6/5.9.6/msvc2017_64/lib/cmake -S D:\myDevelop\project\kneev2021\src -B D:\myDevelop\build\kneeV2021
-```
-
--  项目属性中，以下参数的灵活使用
-
-`output directory`:灵活制定调试程序的输出目录，方便在调试过程中的直接运行
-
-`target name`:制定输出可执行文件的名称
-
-- linker中`UAC Execution Level`：运行程序权限
-
-
-- `ctrl+tab`：在VS中切换打开的窗口，即切换各个文件
-
-- `ctrl+K+D`：代码整理（好用）
-
-- `Ctrl+K+F`：整理选中代码
-
-- `Ctrl+Shift+F9`：清理所有断点
-
-- `F12`：转到所调用函数或变量的定义
-
-- `Shift+Tab`：减少缩进
-
-- `Ctrl+M`：展开或折叠当前的代码（展开或收缩方法，类等）
-
-- `ctrl+-`：跳回上次编辑位置很好用
-
-- `Ctrl+m+m`：折叠\展开函数
-
-- `Edit.commentSelection(编辑.注释选定内容)`：在设置中搜索，自定义添加注释快捷键：`Ctro+/`
-
-- `Edit.UncommentSelection(编辑.取消注释选定内容)`：在设置中搜索，自定义添加取消注释快捷键：`Ctro+'`
-
-- `Window.NextDocumentWindowNav`设置切换打开页面快捷键：`Ctro+T`
-
-- `Auto Hide`：命令行输出，自动隐藏对看代码很友好
-
-- `shift+F12`：Find All References
-
-- `Alt+shift+o`：打开输出窗口
-
-- `ctrl+\,e`：打开错误列表
-- `ctrl + q`：search visual studio，类似clion查找快捷键的搜索方式
-
-
-- [注释/取消注释快捷键  control / ‘ 设置里的（编辑.注释）](https://zhuanlan.zhihu.com/p/343307484)
-
-
-- vs2015中原生不支持ctrl+单击进入定义，`GoToDef.vsix`插件可满足需求
-
-- [resharper](https://www.jetbrains.com/resharper/)
-
-- [vs中tab换位空格](https://blog.csdn.net/u012308586/article/details/101027542)
-
-
-- 设置visualstudio默认打开方式为管理员权限：
-
-找到vs安装目录下的：C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe
-
-右键->兼容性疑难解答->疑难解答程序->勾选该程序需要附加权限->测试后下一步->保存设置。
-
-以后甭管双击sln还是快捷方式，都默认使用管理员权限启动vs2017了。
-
-- 没有为此解决方案配置选中要生成的项目：右键项目，查看属性，常规里的配置管理器，勾选上“生成”选项即可
-
-- **编译报错**：'initializing': cannot convert from 'const char [6]' to 'char *'
-    - c++语言版本支持出现的问题
-    - 在vs项目属性中c/c++中language中Conformance mode（符合模式），默认为true改为false即可
-
-
-
-[![top] Goto Top](#table-of-contents)
 
 # cLion
 
@@ -199,7 +168,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
     - Mac：command+Alt+L（可设置为command+control+L方便按）
 - ⇧ + ⌘ + A 然后输入你想用到的功能，然后选中就可以了，尤其是当快捷键太多记不住的时候真的是很实用啊
 - shift + alt + 上下箭头，clion上下移动选中代码
-- 菜单栏-扩展-resharper-option-IntelliSense-Autopopup，将所有的菜单都选择Display and preselect，也就是预先选择，之后就可以用enter而不是用tab进行补全了。之后tab为replace，enter为insert
+
 
 [![top] Goto Top](#table-of-contents)
 
@@ -222,27 +191,16 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 # vscode
 
 - [markdown自动生成toc轮子](https://ecotrust-canada.github.io/markdown-toc/)
-
 - [基础配置](https://zhuanlan.zhihu.com/p/62913725)
-
 - `Restore Windows`：设置重新打开编辑器时，是否恢复所有已打开文件（建议不打开，否则每次打开都是上一次的文件很不舒服）
-
 - 字符自动换行：设置中`Editor: Word Wrap`改为on即可
-
 - vscode中文乱码，编码自动检测：`files.autoGuessEncoding`
-
 - [中文乱码解决方案](https://www.jianshu.com/p/6a2c21cc07bb)
-
 - [万字长文把 VSCode 打造成 C++ 开发利器](https://zhuanlan.zhihu.com/p/96819625)（很多可以借鉴的地方）
-
 - 代码整理：
-
-在Windows环境下使用快捷键：`Shift + Alt + F`
-
-在Mac环境下使用快捷键：`Shift + Option + F`
-
-在Ubuntu环境下使用快捷键：`Ctrl + Shift + I`
-
+  - 在Windows环境下使用快捷键：`Shift + Alt + F`
+  - 在Mac环境下使用快捷键：`Shift + Option + F`
+  - 在Ubuntu环境下使用快捷键：`Ctrl + Shift + I`
 - `tab替换为空格`：[VSCode烦人的空格处理](https://zhuanlan.zhihu.com/p/343307484)
 
 总之配置如下：
@@ -255,6 +213,11 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 ``` 
 
 - [vscode关闭受限模式（工作区信任），启用调试等功能](https://blog.csdn.net/weixin_45755666/article/details/117877321)：`security.workspace.trust`改为`false`即可
+
+- 光标处的代码折叠：
+  - 折叠 Ctrl+Shift+[
+  - 展开 Ctrl+Shift+]
+  - 如果你有更多需求的话，可以使用Ctrl+Shift+P搜索fold和unfold，以查看更多选项。以下命令使用时查找即可，不必记忆(但上文的两种还是有必要熟悉的)。
 
 
 
@@ -322,6 +285,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `sudo ufw enable`：开启防火墙
 - `sudo ufw disable`：关闭防火墙
 - `sudo ufw reload`：重启防火墙
+- `/etc/network/interfaces`修改ip地址的文件
 - `lsof -i:80`查看端口是否开放，如果开放，则有返回信息，反之未开放，也可用`netstat -apth`查看当前所有开放端口（`netstat`指令需提前安装`net-tools`工具）
 - 无法在指定文件夹进行新建、复制粘贴等操作：
     - 权限管理，`sudo chmod 777 /var/www`
@@ -370,6 +334,11 @@ ISCAS属性配置：
 3. c/c++优化：禁用
 4. 预编译头文件：`stable.h`
 5. 链接器：调试中的生成调试信息设为`优化以便于调试（注意debug以及release）`
+
+
+https://192.168.0.33/svn/cstkKernel/
+https://192.168.0.33/svn/TZSatelliteSimTool/
+https://192.168.0.33/svn/TZTKBQPlatform/
 
 
 
@@ -465,6 +434,8 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 - VMware快捷键：`Ctrl + B`启动，`Ctrl + E`关闭，`Ctrl + R`重启
 - `netsh advfirewall set allprofiles state off`：关闭防火墙
 
+- 修改键位：
+
 ## office
 ### word
 - 建立图片索引
@@ -485,6 +456,7 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 - magnet快捷键：`control + option + 上下左右`（调整应用程序贴合屏幕位置）
 - magnet快捷键：`control + option + enter`（最大化显示）
 - Downie下载：设置中，下载目录文件格式设置为`播放清单索引 - 标题`，下载文件保存至文件夹：勾选任意一个可保证下载列表视频时，自动创建文件夹来放置下载的视频，否则所有文件下载至当前目录造成混乱。
+- HomeBrew安装脚本`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
 
 [![top] Goto Top](#table-of-contents)
 
