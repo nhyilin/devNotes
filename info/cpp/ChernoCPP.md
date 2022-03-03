@@ -135,6 +135,9 @@
   - [136_虚函数与动态绑定](#136_虚函数与动态绑定)
   - [137_抽象类](#137_抽象类)
   - [138_override与final](#138_override与final)
+  - [161_范性程序设计的基本概念](#161_范性程序设计的基本概念)
+  - [162_STL简介](#162_stl简介)
+  - [163_迭代器](#163_迭代器)
 
 省略部分：
 01. Welcome to C++
@@ -5765,19 +5768,151 @@ struct Derived2 : Base2 {
 [![top] Goto Top](#table-of-contents)
 
 
+## 161_范性程序设计的基本概念
+
+泛型程序设计：
+- 编写不依赖于具体数据类型的程序
+- 将算法从特定的数据结构中抽象出来成为通用的
+- C++的模板为泛型程序设计奠定了关键的基础
+
+术语：概念
+- 用来界定具备一定功能的数据类型。例如：
+  - 将“可以比大小的所有数据类型（有比较运算符）”这一概念记为 Comparable
+  - 将“具有公有的复制构造函数并可以用‘='赋值的数据类型”这一概，念记为 Assignable
+  - 将“可以比大小、具有公有的复制构造函数并可以用'='赋值的所有数据类型”这个概念记作 Sortable
+- 对于两个不同的概念 A 和 B，如果概念 A 所需求的所有功能也是概，念 B 所需求的功能，那么就说概念 B 是概念 A 的子概念。例如：
+  - Sortablel 既是 Comparablel 的子概念，也是 Assignable 的子概，念
 
 
+术语：模型
+- 模型（mode!）：符合一个概念的数据类型称为该概念的模型，例如：
+    - int 型是 Comparable 概念的模型
+    - 静态数组类型不是 Assignablef 概念的模型（无法用“=”给整个静态数组赋值）
 
+用概念做模版参数名：很多STL的实现代码就是使用概念来命名模版参数的
 
-
-
-
+用概念做模板参数名：
+- 为概念赋予一个名称，并使用该名称作为模板参数名
+- 例如：表示 insertionSort 这样一个函数模板的原型：
+    ```cpp
+    template  <class Sortable>
+    void insertionSort (Sortable a[], int n);
+    ```
 
 [![top] Goto Top](#table-of-contents)
 
----
+## 162_STL简介
 
-<!-- figures -->
+STL 简介：
+- 标准模板库（Standard Template Library，简称 STL）定义了一套概念体系，为泛型程序设计提供了逻辑基础
+- STL 中的各个类模板、函数模板的参数都是用这个体系中的概念来规定的。
+- 使用 STL 的模板时，类型参数既可以是 C++标准库中已有的类型，也可以是自定义的类型一只要这些类型是所要求概念的模型。
+
+STL 的基本组件
+- 容器（container)
+- 迭代器（iterator)
+- 函数对象（function object）
+- 算法（algorithms)
+
+STL 的基本组件
+- Iterators（迭代器）是算法和容器的桥梁
+    - 将迭代器作为算法的参数、通过迭代器来访问容器而不是把容器直接作为算法的参数。
+- 将函数对象作为算法的参数而不是将函数所执行的运算作为算法的一部分。
+- 使用 STL 中提供的或自定义的迭代器和函数对象，配合 STL 的算法，可以组合出各种各样的功能。
+
+STL 的基本组件—容器（container)
+- 容纳、包含一组元素的对象。
+- 基本容器类模板
+    - 顺序容器
+    array（数组）、vector（向量）、deque（双端队列）、forward list（单链表）、Iist（列表）
+    - （有序）关联容器
+    set（集合）、multiset（多重集合）、map（映射）、multimap（多重映射）
+    - 无序关联容器
+    unordered_set（无序集合）、unordered_multiset（无序多重集合）unordered_map（无序映射）、unorder_multimap（无序多重映射）
+
+容器适配器(使用容器，需要包涵对应的头文件)
+- stack（栈）
+- queue（队列）
+- priority_queue（优先队列）
+
+STL 的基本组件一迭代器（iterator）
+- 提供了顺序访问容器中每个元素的方法
+- 可以使用”++”运算符来获得指向下一个元素的迭代器；
+- 可以使用”*”运算符访问迭代器所指向的元素，如果元素类型是类或结构体，还可以使用”->”运算符直接访问该元素的一个成员
+- 有些迭代器还支持通过”--”运算符获得指向上一个元素的
+- 迭代器迭代器是泛化的指针：指针也具有同样的特性，因此指针本身就是一种迭代器；
+- 使用独立于 STL 容器的迭代器，需要包含头文件<iterator>。
+
+
+STL 的基本组件一函数对象（function object)
+- 一个行为类似函数的对象，对它可以像调用函数一样调用。
+- 函数对象是泛化的函数：任何普通的函数和任何重载了“()”运算符的类的对象都可以作为函数对像使用
+- 使用 STL 的函数对象，需要包含头文件<functional>
+
+
+STL 的基本组件一算法（algorithms）
+- 可以广泛用于不同的对象和内置的数据类型。
+- STL 包括 70 多个算法
+    - 例如：排序算法，消除算法，计数算法，比较算法，变换算法，置换算法和容器管理等使用 STL 的算法，需要包含头文件<algorithm>
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <iterator>
+#include <algorithm>
+#include <functional>
+
+int main(){
+    const int N =5;
+    std::vector<int>s(N);//n容器
+    for (int i = 0; i < N; ++i) {
+        std::cin>>s[i];
+        std::transform(s.begin(),s.end(), std::ostream_iterator<int>(std::cout,""),std::negate<int>());
+        //transform为算法，negate为函数对象，s.begin()、s.end()、ostream_iterator为迭代器
+        std::cout<<std::endl;
+        return 0;
+    }
+}
+```
+transrorm算法：
+```cpp
+template <class _InputIterator, class _OutputIterator, class _UnaryOperation>
+inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX17
+_OutputIterator
+transform(_InputIterator __first, _InputIterator __last, _OutputIterator __result, _UnaryOperation __op)
+{
+    for (; __first != __last; ++__first, (void) ++__result)
+        *__result = __op(*__first);
+    return __result;
+```
+- Transform：算法顺序遍历 first 和 last 两个迭代器所指向的元素；
+- 将每个元素的值作为函数对象 op 的参数；
+- 将 op 的返回值通过迭代器 result 顺序输出
+- 遍历完成后 result 迭代器指向的是输出的最后一个元素的下一个位置 transform 会将该迭代器返回
+
+[![top] Goto Top](#table-of-contents)
+
+## 163_迭代器
+
+- 迭代器是算法和容器的桥梁
+    - 迭代器用作访问容器中的元素
+    - 算法不直接操作容器中的数据，而是通过迭代器间接操作
+- 算法和容器独立
+    - 增加新的算法，无需影响容器的实现
+    - 增加新的容器，原有的算法也能适用
+
+输入流迭代器和输出流迭代器
+- 输入流迭代器：`istream iterator <T>`
+    - 以输入流（如 cin）为参数构造
+    - 可用* (p++）获得下一个输入的元素
+- 输出流迭代器`ostream iterator <T>`
+    - 构造时需要提供输出流（如 cout）
+    - 可用（*p++) =x 将 x 输出到输出流
+- 二者都属于适配器
+    - 适配器是用来为已有对象提供新的接口的对象
+    - 输入流适配器和输出流适配器为流对象提供了迭代器的接口
+
+[![top] Goto Top](#table-of-contents)
 
 [top]: up.png
 [top]: https://upload.nhyilin.cn/2021-11-19-up.png
