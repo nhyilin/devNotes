@@ -138,6 +138,7 @@
   - [161_范性程序设计的基本概念](#161_范性程序设计的基本概念)
   - [162_STL简介](#162_stl简介)
   - [163_迭代器](#163_迭代器)
+  - [STL库另作篇章，在此部分不再详谈。](#stl库另作篇章在此部分不再详谈)
 
 省略部分：
 01. Welcome to C++
@@ -5911,6 +5912,64 @@ transform(_InputIterator __first, _InputIterator __last, _OutputIterator __resul
 - 二者都属于适配器
     - 适配器是用来为已有对象提供新的接口的对象
     - 输入流适配器和输出流适配器为流对象提供了迭代器的接口
+
+
+```cpp
+#include <iostream>
+#include <iterator>
+#include <algorithm>
+double square(double x) {
+    return x * x;
+}
+
+int main() {
+    //从标准输入读入若干实数，分别将平方输出
+    std::transform(std::istream_iterator<double>(std::cin),
+                   std::istream_iterator<double>(),
+                   std::ostream_iterator<double>(std::cout, "\t"), square);
+    return 0;
+};
+```
+
+迭代器支持的操作:
+- 迭代器是泛化的指针，提供了类似指针的操作(诸如++、*、->运算符)
+- 输入迭代器
+    - 可以用来从序列中读取数据，如输入流迭代器
+- 输出迭代器
+    - 允许向序列中写入数据，如输出流迭代器
+- 前向迭代器
+    - 既是输入迭代器又是输出迭代器，并且可以对序列进行单向的遍历
+- 双向迭代器
+    - 与前向迭代器相似，但是在两个方向上都可以对数据遍历
+- 随机访问迭代器
+    - 也是双向迭代器，但能够在序列中的任意两个位置之间进行跳转如指针、使用 vector 的 begin()、end() 函数得到的迭代器
+
+
+迭代器的区间
+- 两个迭代器表示一个区间：[p1, p2)
+- STL 算法常以迭代器的区间作为输入，传递输入数据
+- 合法的区间
+  - p1 经过 n 次(n>0) 自增(++)操作后满足 p1==p2 区间包含 p1, 但不包含 p2
+
+---
+STL库另作篇章，在此部分不再详谈。
+---
+
+
+[![top] Goto Top](#table-of-contents)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 [![top] Goto Top](#table-of-contents)
 
