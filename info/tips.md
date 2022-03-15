@@ -66,7 +66,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `ctrl + -`：返回，返回上一文件，如果ctrl进入定义后，回到原文件处
 - [注释/取消注释快捷键  control / ‘ 设置里的（编辑.注释）](https://zhuanlan.zhihu.com/p/343307484)
 - vs2015中原生不支持ctrl+单击进入定义，`GoToDef.vsix`插件可满足需求
-- [vs中tab换位空格](https://blog.csdn.net/u012308586/article/details/101027542)
+- [vs中tab换位空格](https://blog.csdn.net/u012308586/article/details/101027542)：制表符大小选为4，勾选插入空格，即可
 - 设置visualstudio默认打开方式为管理员权限：
 找到vs安装目录下的：C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe
 
@@ -168,7 +168,9 @@ $end$
     - Mac：command+Alt+L（可设置为command+control+L方便按）
 - ⇧ + ⌘ + A 然后输入你想用到的功能，然后选中就可以了，尤其是当快捷键太多记不住的时候真的是很实用啊
 - shift + alt + 上下箭头，clion上下移动选中代码
-
+- idea设置选中状态下括号的提示颜色：Editor->Color Scheme->General->Match brace
+- Intellij设置默认开启不打开上一次项目：配置中的System Settings，右边的Reopen last project on startup
+- `Alt + cmd + 左右键`：切换前、后编辑器tab
 
 [![top] Goto Top](#table-of-contents)
 
@@ -202,7 +204,6 @@ $end$
   - 在Mac环境下使用快捷键：`Shift + Option + F`
   - 在Ubuntu环境下使用快捷键：`Ctrl + Shift + I`
 - `tab替换为空格`：[VSCode烦人的空格处理](https://zhuanlan.zhihu.com/p/343307484)
-
 总之配置如下：
 ```json
 "editor.detectIndentation": false,  //关闭检测第一个tab后面就tab
@@ -211,14 +212,13 @@ $end$
 "editor.tabSize": 4,//tab为四个空格
 "editor.insertSpaces": true //转为空格
 ``` 
-
 - [vscode关闭受限模式（工作区信任），启用调试等功能](https://blog.csdn.net/weixin_45755666/article/details/117877321)：`security.workspace.trust`改为`false`即可
-
 - 光标处的代码折叠：
   - 折叠 Ctrl+Shift+[
   - 展开 Ctrl+Shift+]
   - 如果你有更多需求的话，可以使用Ctrl+Shift+P搜索fold和unfold，以查看更多选项。以下命令使用时查找即可，不必记忆(但上文的两种还是有必要熟悉的)。
 
+- markdown预览快捷键：`shift + cmd + v`
 
 
 [![top] Goto Top](#table-of-contents)
@@ -457,6 +457,7 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 - magnet快捷键：`control + option + enter`（最大化显示）
 - Downie下载：设置中，下载目录文件格式设置为`播放清单索引 - 标题`，下载文件保存至文件夹：勾选任意一个可保证下载列表视频时，自动创建文件夹来放置下载的视频，否则所有文件下载至当前目录造成混乱。
 - HomeBrew安装脚本`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
+- 显示桌面快捷键：`command + F3`，或者`Fn + F11`
 
 [![top] Goto Top](#table-of-contents)
 
@@ -472,6 +473,7 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 提交代码前可保证代码干净整洁,happy codding~
 btw,已经将include指令添加快件进番茄助手，简直不要再香，快捷键为:`#`
 
+- Qt程序运行提示“it could not find or load the QT platform plugin “windows”，打开qt的终端，然后进入release目录，执行`windeployqt ***.exe`即可完成qt库的收集。
 
 - 工作初期，尽量不要信心满满说：“我完成了”、“没问题了”之类的话，应该将："您再帮我审查下“，"您再帮我把把关"
 

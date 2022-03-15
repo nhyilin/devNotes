@@ -142,6 +142,7 @@
   - [179_I/O流的概念及流类库结构](#179_io流的概念及流类库结构)
   - [192_异常处理的思想与程序实现](#192_异常处理的思想与程序实现)
   - [193_异常处理中的构造与析构](#193_异常处理中的构造与析构)
+  - [194_标准程序库异常处理](#194_标准程序库异常处理)
 
 省略部分：
 01. Welcome to C++
@@ -4522,6 +4523,10 @@ int main() {
 
 我们会深入到一个项目中讨论如何通过多线程来提高性能。
 
+std::asnyc以及std::futures。做并行最难的是找出彼此依赖关系，并想清楚在不同的线程中放什么。
+
+在程序中，有一些东西能被放倒不同线程中，叫做工作线程，他可以独立完成，什么时候开始什么时候结束并不重要，但是当他完成时，你可以得到一些反馈或者一些加载的新资源。当你处理大量数据时，你需要考虑策略或方法来减轻对CPU处理时间的影响
+
 
 [![top] Goto Top](#table-of-contents)
 
@@ -6038,7 +6043,65 @@ That is ok.
 
 ## 193_异常处理中的构造与析构
 
-应当将易出问题的代码防在`try`块中
+应当将易出问题的代码防在`try`块中，这样当代码出现问题时可以被catch捕获。
+
+自动的析构
+- 找到一个匹配的 catch 异常处理后
+    - 初始化异常参数。
+    - 将从对应的 try 块开始到异常被抛掷处之间构造(且尚未析构)的所有自动对象进行析构。
+    - 从最后一个 catch 处理之后开始恢复执行。
+
+```cpp
+#include <iostream>
+#include <string>
+
+
+class MyException {
+public:
+    MyException(const std::string &message) : message(message) {}
+
+    ~MyException() {}
+
+    const std::string &getMessage() const { return message; }
+
+private:
+    std::string message;
+};
+
+class Demo {
+public:
+    Demo() { std::cout << "Constructor of Demo" << std::endl; }
+
+    ~Demo() { std::cout << "Destructor of Demo" << std::endl; }
+};
+
+void func() throw(MyException) {
+    Demo d;
+    std::cout << "Throw MyException in func()" << std::endl;
+    throw MyException("exception thrown by func()");
+}
+
+int main() {
+    std::cout << "In main function" << std::endl;
+    try {
+        func();
+    } catch (MyException &e) { std::cout << "Caught an exception" << e.getMessage() << std::endl; }
+    std::cout << "Resume the execution of main()" << std::endl;
+
+    return 0;
+};
+```
+以上代码适用c++11，并不兼容c++17。以上代码可测试出，先析构，执行抛出异常、处理异常。
+
+## 194_标准程序库异常处理
+
+如有所需，请参照类库。
+
+标准异常类的基础：
+- exception：标准程序库异常类的公共基类。
+- logic_error 表示可以在程序中被预先检测到的异常
+  - 如果小心地编写程序，这类异常能够避免。
+- runtime_error 表示难以被预先检测的异常。
 
 
 
