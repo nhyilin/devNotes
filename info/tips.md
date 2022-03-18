@@ -171,6 +171,17 @@ $end$
 - idea设置选中状态下括号的提示颜色：Editor->Color Scheme->General->Match brace
 - Intellij设置默认开启不打开上一次项目：配置中的System Settings，右边的Reopen last project on startup
 - `Alt + cmd + 左右键`：切换前、后编辑器tab
+- 调试快捷键
+  - Step Over:`cmd + '`
+  - Step Into:`cmd + ;`
+  - Force Step Over:`alt + cmd + '`
+  - Force Step Into:`alt + cmd + ;`
+  - Smart Step into:`alt + cmd + ;`
+  - Step out:`cmd + \`
+  - Run to Cursor:`ctrl + shift + \`
+  - Force Run to Cursor:`alt + ctrl + shift + \`
+  - Resume Program:`ctrl + \`
+- 返回上一文件光标(back & forward)：`cmd + [ or ]`
 
 [![top] Goto Top](#table-of-contents)
 
