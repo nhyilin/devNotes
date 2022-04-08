@@ -268,10 +268,19 @@ $end$
 - 接上一条，在win下，`.lib`为静态库，`.dll`为动态库。在`Mac`下，`.a`为静态库`.dylb`动态库，`.Framework`为打包方式，将库的二进制文件打包在一起。
 - 文件以tree形式列出：`tree`(sudo apt  install tree)
 - Linux设置vi编辑器
-    - 配置文件：`sudo vi /etc/vim/vimrc
+    - 配置文件：`sudo vi /etc/vim/vimrc`
     - tab键位4个空格：`set ts=4`
     - 显示代码行数：`set nu`
 - 解决报错，运行脚本时，build.sh /bin/bash^M :坏的解释器：没有那个文件或目录：`sed -i 's/\$//' xxx.sh`，xxx.sh为对应脚本
+- 只下载不安装`sudo apt-get install -d <软件包>`
+  - `ls /var/cache/apt/archives/` #下载的包目录
+- [ubuntu 执行`apt-get update`报错`Failed to fetch`：](https://blog.csdn.net/feiniao8651/article/details/60332535)
+  如果要换源的话，可以在`/etc/apt`里面打开`source.list`文件，会出现一个设置框，在导航栏第一个里面的`download from`里面选择源。如果要选择国内的源，找到`China`，里面有很多可以选择，个人体验较好清华镜像，记得`sudo apt-get update`
+- 重命名:
+  例子：将目录A重命名为B：`mv A B`
+  例子：将/a目录移动到/b下，并重命名为c：`mv /a /b/c`
+  
+
 
 
 ### tar命令解压

@@ -1,0 +1,195 @@
+银河麒麟及arm64环境下，离线编译osg3.4.0和osgEarth2.9库文件
+
+# 特别注意
+
+1. `osg`和`osgEarth`的关系是，`osg`是一个专门为了三维图像而生的函数库，而`osgEarth`则是在`osg`的基础上，更加集中于构建三维下的地球的一个函数库。
+
+2. `osg`和`osgEarth`的版本选择很重要！两者的版本号是有相关性的，所以一定要注意你所下载的`osg`和`osgEarth`的版本，是否适配。所谓的适配，意思是，在`osgEarth`中会调用到一系列的`osg`的函数，但是这些函数，在最新的osg版本中，可能已经被取消了，或者更名了，都有可能。最新的`osg`是`3.6.5`版本，但是并不适用于所有的`osgEarth`的版本，`osgEarth`我能找到的最新版本是`3.1`，试了一下，`osgEarth3.1`和`osg3.6.4`版本，是无法成功编译的，当然，不能说是不适配，因为在我试的过程中，可能存在别的问题。但我可以肯定的是，`osg3.4.0`和`osgEarth2.8`以及`osgEarth2.9`版本是适配。
+
+3. 注意在切换`osg`版本时，一定要将原版本卸载干净。我在这儿就吃了亏，一开始选用`osg3.6.4`版本，后来更换为`osg3.4.0`版本，当时没清理干净，导致在编译`osgEarth`时，不断报错，提示`xxx:未定义的引用`，当时很奇怪，这函数明明是源代码自带的代码中的函数，为什么一直报未定义的引用，这个报错，意思是在在头文件声明了，但是cpp中，或者说编译后的库文件中，未定义。后来我查到，库文件的链接，即`LINK`不对，指向了`osg3.6.4`版本，就是没删除干净。要删除干净，就需要搞清楚源代码编译究竟生成了什么，放在了哪里。源代码编译的时候，根据个人习惯，一是可以将依赖的库文件编译后放在一个自定义的位置，比如通过再`configure`后追加参数，`./configure --prefix=/home/greatwall/`，另一种是放在默认位置，即`/usr/local`下，这个看个人习惯，各有各的好处，放在自定义的位置，方便卸载，放在默认位置，不用考虑环境变量的问题。源代码编译后的结果无非三种文件，一种是头文件，即函数的声明，默认放在`/usr/local/include`下，一种的可执行文件，默认放在`/usr/local/bin`下，一种是库文件，即函数的定义，默认放在`/usr/local/lib`或者`/usr/local/lib64`下。因此，知道了有什么东西，放在哪，卸载的时候，即手动去删除，务必删除干净。
+
+4. 在编译`osg`代码时，需要指定使用`QT5`版本，因为现在大部分`linux`系统下，自带`QT4`和`QT5`，所以需要指定位置。在`CMakeList.txt`文件的`IF(OSG_USE_QT AND NOT ANDROID)`的前一行，添加`SET(DESIRED_QT_VERSION 5)`。
+
+5. 在编译`osgEarth`时，在2.8版本中，如果不指定使用`X11`版本，会报错，因此，需要修改`CMakeList.txt`文件，在首行添加，`add_definitions(-std=gnu++11)`或者`add_definitions(-std=c++11)`。
+
+6. 在`osgEarth`编译时，为生成可供`Qt`使用的库文件，修改`CMakeList.txt`中如下两处，由`OFF`改为`ON`。
+```bash
+OPTION(OSGEARTH_QT_BUILD "Enable to use Qt (build Qt-dependent libraries, plugins and examples)" ON)
+OPTION(OSGEARTH_QT_BUILD_LEGACY_WIDGETS "Build the legacy Qt widgets" ON)
+```
+7. 将`bin`和`lib`文件夹写入环境变量。编译`osg`和`osgEarth`成功之后，在编译的目录下会出现`lib`和`bin`两个文件夹（inlcude的文件，已经默认放在了`/usr/local/include`下），将这两个单独放置一个妥善位置，建议同`osg`的`DATA`文件放一起，方便管理，而后将`lib`和`bin`的目录所在地址，写入`/etc/profile`，每次修改完这个文件profile后，记得`source /etc/profile`，使其生效。
+```bash
+export PATH=${PATH}:/home/greatwall/osg_install/OpenSceneGraph-build/bin
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/greatwall/osg_install/OpenSceneGraph-build/lib
+export OSG_FILE_PATH=/home/greatwall/osg_install/OpenSceneGraph-Data
+```
+
+## 二、库文件依赖的解决
+依赖问题始终是最棘手的问题，为了解决依赖问题，可以根据`osg`和`osgEarth`中的`CMakeList`中的提示，可以获悉需要什么依赖，以及该库的版本号。我在解决依赖问题的时候，将所有能下到的依赖库的源代码下了下来，自行编译，其实本人觉得，直接编译源代码会简单一些，源代码的编译方法其实相对比较简单，大致上就是两个方法去编译，一个就是看见源代码目录下，有`configure`文件，就使用`./configure`来编译，生成Makefile文件，第二种方法是看见目录下，有`CMakeList.txt`文件，就使用`cmake CMakeList.txt`去生成Makefile，总之，都是为了生成`Makefile`文件，然后可以进一步`make`，`sudo make install`。
+
+在处理`osg`和`osgEarth`中涉及的依赖时，只编译了部分依赖，其实还有一些依赖未解决，但不影响`osg`和osgEarth编译的成功，不过不解决，会导致后面部分功能无法使用。
+
+网上有一个集成依赖库的，`OSG`配置第三方资源库`3rdparty`，这个仅适用于`windows`平台，不适用于`linux`。
+
+`osg`和`osgEarth`所涉及的依赖的库文件，他们之间也存在一些依赖关系，所以编译的顺序应该较为严格执行。以下顺序仅供参考。
+
+1. 编译 zlib                            //`sudo ldconfig`
+2. 编译 png
+3. 编译 curl
+4. 编译 freetype
+5. 编译 gdal（proj->geos->gdal）
+6. 编译 jpeg（nasm->libjpeg）
+7. 编译 tiff
+8. 编译 minizip
+9. 编译 sqlite
+10. 编译 SDL2
+11. 编译 libtool
+12. 编译 googletest
+13. 编译 protobuf                       //请参考下面的特殊情况
+14. 编译 rocksdb(gflags->rocksdb)       //请参考下面的特殊情况
+
+在上述库文件的编译过程中，大部分只需要简单的编译。
+如，有`configure`文件时候，使用
+```bash
+./configure
+make -j8
+sudo make install
+```
+有CMakeList.txt时，使用
+```bash
+cmake CMakeList.txt
+make -j8
+sudo make install
+```
+只有下述几个情况比较特殊。
+
+在用`configure`生成`Makefile`文件时，有时候会报错`configure:error: cannot guess build type; you must specify one`，这时候，只需要在`configure`后添加参数，指定编译所用的引擎即可。`./configure --build=arm-linux`。
+
+在编译`gflags`库，默认只生成静态库，而在编译`rocksdb`时候，需要调用`gflags`的动态库，需要动态库才行。解决的方法。在`cmake`生成`Makefile`时，启用动态库。`cmake -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=ON -DINSTALL_HEADERS=ON -DINSTALL_SHARED_LIBS=ON -DINSTALL_STATIC_LIBS=ON`。
+
+在编译`protobuf`库文件时，需要首先运行`./autogen.sh`而后才会出现`configure`文件。
+
+每编译完一个库文件，建议在命令行输入一次`sudo ldconfig`，更新引用，不然可能会有部分库文件不能马上生效，导致后续相关依赖的库文件编译时报错。
+
+如若在库文件编译时，自定义目录，建议将所有目录统一，方便写入环境变量，写入环境变量，则需要使用`export`，写在`/etc/profile`最后面。
+
+
+# 三、测试是否成功
+测试osg，可以在命令行运行`osgviewer cow.osg`是否显示一头牛，或者`osgversion`，看是否显示版本号。
+
+测试`osgEarth`，可以在命令行运行`osgearth_version`，看是否显示版本号。
+
+
+# 四、乱七八糟的问题
+## 4.1安装cmake时间遇到了系统没有openssl环境
+
+以`./bootstrap -- -DCMAKE_USE_OPENSSL=OFF`方式执行安装脚本，然后执行`sudo make && make install`
+
+> configure CMake with -DCMAKE_USE_OPENSSL=OFF to build without OpenSSL.
+
+1. `c++: internal compiler error: 已杀死 (program cc1plus)Please submit a full bug report,with preprocessed source if appropriate.` 解决方案，提升虚拟机内存空间。
+
+## 4.2为避免过多额外报错
+
+尤其是googletest库，最好升级至最新cmake版本，`cmake-3.23.0-rc5-linux-x86_64.tar.gz`经验证是可行版。
+
+## 4.3报错未发现QtOpenGL
+
+使用高级别版本qt（5.12），避免使用系统自带qt（5.6）。
+
+    1. 下载`qt-opensource-linux-x64-5.12.12.run`文件
+    2. chmod +x qt-opensource-linux-x64-5.12.12.run
+    3. sudo ./qt-opensource-linux-x64-5.12.12.run
+
+## 4.4安装qt时
+遇到`symbol lookup error: /home/frank/Qt5.12.2/5.12.2/gcc_64/lib/libQt5XcbQpa.so.5: undefined symbol: FT_Property_Set`类似的问题
+
+> 我遇到的这种情况是因为有两个版本的freeetype导致的。
+
+输入`find /usr -name libfreetype*`出现如下结果：
+```bash
+/usr/lib/x86_64-linux-gnu/libfreetype.a
+/usr/lib/x86_64-linux-gnu/libfreetype.so.6
+/usr/lib/x86_64-linux-gnu/libfreetype.la
+/usr/lib/x86_64-linux-gnu/libfreetype.so
+/usr/lib/x86_64-linux-gnu/libfreetype.so.6.12.1
+/usr/local/lib/libfreetype.a
+/usr/local/lib/libfreetype.so.6
+/usr/local/lib/libfreetype.so.6.9.0
+/usr/local/lib/libfreetype.la
+/usr/local/lib/libfreetype.so
+```
+解决方案为：
+`sudo rm /usr/local/lib/libfreetype.so.6`
+或者
+```bash
+cd /usr/local/lib
+sudo rm libfreetype.so.6 libfreetype.so libfreetype.so.6.9.0
+```
+切记：
+不要把两个地方的libfreetype.so.6都删出了，我都删了之后，出现无法使用快捷键(如：ctrl+alt+t无法弹出终端)，以及重启无法进入系统的情况，最后通过重新创建/usr/lib/x86_64-linux-gnu/里面的/usr/lib/x86_64-linux-gnu/libfreetype.so.6，才重新进入系统。（libfreetype.so.6是一个软链接文件）
+
+## 4.5 qtchooser加入新的qmake版本
+
+编辑环境变量：
+`sudo vim /etc/profile`
+按下i输入，在其最后添加以下信息
+```bash
+export QTDIR=/usr/local/Qt-5.12
+export PATH=$QTDIR/bin:$PATH
+export MANPATH=$QTDIR/man:$MANPATH
+export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+```
+按Esc后输入:wq保存退出。
+
+银河麒麟上的Qt版本管理工具是qtchooser：
+输入qtchooser -l显示qmake的几种版本的列表：
+```bash
+kylin@kylin:/usr/lib/aarch64-linux-gnu/qtchooser$ qtchooser -l
+4
+5
+default
+qt-5.12-aarch64-linux-gnu
+qt4-aarch64-linux-gnu
+qt4
+qt5-aarch64-linux-gnu
+qt5
+```
+添加一个名字为5.12的:
+`qtchooser -install qt5.9 /opt/Qt5.12/5.12/gcc_64/bin/qmake`
+
+然后再看一下
+`crayon@ubuntu:~$ `qtchooser -l`
+```bash
+4
+5
+default
+qt4-x86_64-linux-gnu
+qt4
+qt5-x86_64-linux-gnu
+qt5.9
+qt5
+```
+好了加完了，再设一下环境变量
+`export QT_SELECT=qt5.12`
+好了现在的qmake就是5.12的了
+
+
+## 4.6编译完成后
+执行osgversion(earth同理)提示无法找到lib文件，执行`sudo ldconfig`刷新lib库。
+
+若还是不行，网上有资料用Linux记事本打开某文件(`sudo gedit /etc/ld.so.conf`)，但是麒麟没有，建议用执行`sudo xdg-open /etc/ld.so.conf`，将
+```bash
+include /etc/ld.so.conf.d/*.conf
+/usr/local/lib
+```
+写入该文件，然后执行`sudo ldconfig`
+若还是不行，那么再加一行：
+```bash
+/usr/local/lib64
+```
+麒麟下的osg在这里目录里。
+
+
+## 4.7找不到data的问题
+终端输入osgviewer cow.osg测试时提示找不到测试文件时，和上面问题一样终端执行`export OSG_FILE_PATH="/home/nhyilin/dev/OpenSceneGraph-Data"`也可以在～/.bashrc最后添加，个人觉得没必要，每次指定即可。
