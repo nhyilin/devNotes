@@ -24,7 +24,7 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/greatwall/osg_install/OpenSceneG
 export OSG_FILE_PATH=/home/greatwall/osg_install/OpenSceneGraph-Data
 ```
 
-## 二、库文件依赖的解决
+# 二、库文件依赖的解决
 依赖问题始终是最棘手的问题，为了解决依赖问题，可以根据`osg`和`osgEarth`中的`CMakeList`中的提示，可以获悉需要什么依赖，以及该库的版本号。我在解决依赖问题的时候，将所有能下到的依赖库的源代码下了下来，自行编译，其实本人觉得，直接编译源代码会简单一些，源代码的编译方法其实相对比较简单，大致上就是两个方法去编译，一个就是看见源代码目录下，有`configure`文件，就使用`./configure`来编译，生成Makefile文件，第二种方法是看见目录下，有`CMakeList.txt`文件，就使用`cmake CMakeList.txt`去生成Makefile，总之，都是为了生成`Makefile`文件，然后可以进一步`make`，`sudo make install`。
 
 在处理`osg`和`osgEarth`中涉及的依赖时，只编译了部分依赖，其实还有一些依赖未解决，但不影响`osg`和osgEarth编译的成功，不过不解决，会导致后面部分功能无法使用。
