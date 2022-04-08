@@ -135,10 +135,10 @@ sudo rm libfreetype.so.6 libfreetype.so libfreetype.so.6.9.0
 `sudo vim /etc/profile`
 按下i输入，在其最后添加以下信息
 ```bash
-export QTDIR=/usr/local/Qt-5.12
+export QTDIR=/opt/Qt5.12.12/5.12.12/gcc_64
 export PATH=$QTDIR/bin:$PATH
 export MANPATH=$QTDIR/man:$MANPATH
-export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$QTDIR/lib:&LD_LIBRARY_PAT
 ```
 按Esc后输入:wq保存退出。
 
@@ -159,7 +159,7 @@ qt5
 `qtchooser -install qt5.9 /opt/Qt5.12/5.12/gcc_64/bin/qmake`
 
 然后再看一下
-`crayon@ubuntu:~$ `qtchooser -l`
+`qtchooser -l`
 ```bash
 4
 5
@@ -167,7 +167,7 @@ default
 qt4-x86_64-linux-gnu
 qt4
 qt5-x86_64-linux-gnu
-qt5.9
+qt5.12
 qt5
 ```
 好了加完了，再设一下环境变量
