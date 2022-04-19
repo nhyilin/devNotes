@@ -279,7 +279,39 @@ $end$
 - 重命名:
   例子：将目录A重命名为B：`mv A B`
   例子：将/a目录移动到/b下，并重命名为c：`mv /a /b/c`
-  
+- 终端记录输出：`script -f output.txt`
+- `make install`指定目标目录
+  1. 当有`configure`文件时指定`./configure --prefix=/...自定路径`，然后`sudo make && make install`即可
+  2. 当只有`CMakeLists`时，对于大多数工程，特别是`cmake`生成的工程，`make`后`sudo make install DESTDIR=/...路径`
+  3. 当只有CMakeLists时，少数工程如源码安装git发现用方法1实际上安装到了`/install/directory//home/username` 目录，即用户根目录，这是因为`Makefile`内部已经设置了一遍安装目标目录，手工设置的目录仅仅作为了一个前缀，打开`Makefile`文件，发现有如下代码（就在最顶端）
+  ```bash
+  prefix = (HOME) bindir =(prefix)/bin
+  mandir = (prefix)/share/man infodir =(prefix)/share/info
+  gitexecdir = libexec/git-core
+  mergetoolsdir = (gitexecdir)/mergetools sharedir =(prefix)/share
+  gitwebdir = (sharedir)/gitweb perllibdir =(sharedir)/perl5
+  localedir = (sharedir)/locale template_dir = share/git-core/templates htmldir =(prefix)/share/doc/git-doc
+  ETC_GITCONFIG = (sysconfdir)/gitconfig ETC_GITATTRIBUTES =(sysconfdir)/gitattributes
+  ```
+  修改第一行`prefix`对应目录即可
+- linux 下长命令的简化（命令别名）:在`~/.bashrc`文件中添加`alias gps='git push origin HEAD:refs/for/master'`，`source ~/.bashrc`
+
+- 查看cpu架构：
+  - cat /proc/version
+  - uname -a
+  - uname -r
+- 查看linux版本信息
+  - lsb_release -a
+  - cat /etc/issue
+- 查看linux是64为还是32位
+  - getconf LONG_BIT
+  - file /bin/ls
+- 直接查看系统的架构
+  - dpkg --print-architecture
+  - arch
+  - file /lib/systemd/systemd
+- x86_64，x64，AMD64基本上是同一个东西x86是intel开发的一种32位指令集。x84_64是CPU迈向64位的时候,x86_64是一种64位的指令集，x86_64是x86指令的超集，在x86上可以运行的程序，在x86_64上也可以运行，x86_64是AMD发明的，也叫AMD64。现在用的intel/amd的桌面级CPU基本上都是x86_64，与之相对的arm、pcc等都不是x86_64
+- [查看显卡型号](https://blog.csdn.net/maizousidemao/article/details/88821949)
 
 
 
@@ -292,7 +324,6 @@ $end$
 6. `*.Z`用`uncompress`解压
 7. `*.tar.Z`用`tar -xZf`解压
 8. `*.xz`用`tar -xf`解压
-
 
 
 ## as a Server
@@ -323,6 +354,15 @@ $end$
 - 分辨率调整：`xrandr -s 1280x800_60`(`xrandr`查看分辨率列表，其中60为刷新率...)
 - 用户、管理员改为**短密码**：`sudo apt remove libpam-cracklib`(其实在其它Linux上`sudo passwd 用户名`就直接可以完成修改，但是麒麟额外需要卸载掉负责检查密码复杂度的`cracklib`包)
 - 麒麟系统下Qt安装路径`/usr/lib/x86_64-linux-gnu/qt5`
+- 分辨率问题：
+  1. `export QT_DEVICE_PIXEL_RATIO=2`：该方法针对了qt的应用，例如qtcreator，qtcreator字体显示正常了，系统字体依旧小
+  2. `gsettings set org.mate.font-rendering dpi 150.0`：桌面字体终于看得清了，不足的是该方案仅仅是放大了字体，系统原来的布局并没有一起放大
+- `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)
+- 在当前文件下打开终端的快捷键：`shift + F10`，然后按下`t`
+
+
+
+
 
 [![top] Goto Top](#table-of-contents)
 
