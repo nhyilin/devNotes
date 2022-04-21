@@ -287,31 +287,11 @@ $end$
   ```bash
   prefix = (HOME) bindir =(prefix)/bin
   mandir = (prefix)/share/man infodir =(prefix)/share/info
-  gitexecdir = libexec/git-core
-  mergetoolsdir = (gitexecdir)/mergetools sharedir =(prefix)/share
-  gitwebdir = (sharedir)/gitweb perllibdir =(sharedir)/perl5
-  localedir = (sharedir)/locale template_dir = share/git-core/templates htmldir =(prefix)/share/doc/git-doc
-  ETC_GITCONFIG = (sysconfdir)/gitconfig ETC_GITATTRIBUTES =(sysconfdir)/gitattributes
   ```
   修改第一行`prefix`对应目录即可
 - linux 下长命令的简化（命令别名）:在`~/.bashrc`文件中添加`alias gps='git push origin HEAD:refs/for/master'`，`source ~/.bashrc`
+- deb文件安装：`sudo dpkg -i 软件包名.deb`
 
-- 查看cpu架构：
-  - cat /proc/version
-  - uname -a
-  - uname -r
-- 查看linux版本信息
-  - lsb_release -a
-  - cat /etc/issue
-- 查看linux是64为还是32位
-  - getconf LONG_BIT
-  - file /bin/ls
-- 直接查看系统的架构
-  - dpkg --print-architecture
-  - arch
-  - file /lib/systemd/systemd
-- x86_64，x64，AMD64基本上是同一个东西x86是intel开发的一种32位指令集。x84_64是CPU迈向64位的时候,x86_64是一种64位的指令集，x86_64是x86指令的超集，在x86上可以运行的程序，在x86_64上也可以运行，x86_64是AMD发明的，也叫AMD64。现在用的intel/amd的桌面级CPU基本上都是x86_64，与之相对的arm、pcc等都不是x86_64
-- [查看显卡型号](https://blog.csdn.net/maizousidemao/article/details/88821949)
 
 
 
@@ -355,9 +335,9 @@ $end$
 - 用户、管理员改为**短密码**：`sudo apt remove libpam-cracklib`(其实在其它Linux上`sudo passwd 用户名`就直接可以完成修改，但是麒麟额外需要卸载掉负责检查密码复杂度的`cracklib`包)
 - 麒麟系统下Qt安装路径`/usr/lib/x86_64-linux-gnu/qt5`
 - 分辨率问题：
-  1. `export QT_DEVICE_PIXEL_RATIO=2`：该方法针对了qt的应用，例如qtcreator，qtcreator字体显示正常了，系统字体依旧小
+  1. `export QT_DEVICE_PIXEL_RATIO=1.5`：该方法针对了qt的应用，例如qtcreator，qtcreator字体显示正常了，系统字体依旧小
   2. `gsettings set org.mate.font-rendering dpi 150.0`：桌面字体终于看得清了，不足的是该方案仅仅是放大了字体，系统原来的布局并没有一起放大
-- `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)
+- `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)，`sudo service lightdm start`
 - 在当前文件下打开终端的快捷键：`shift + F10`，然后按下`t`
 
 

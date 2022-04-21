@@ -1,6 +1,6 @@
 银河麒麟及arm64环境下，离线编译osg3.4.0和osgEarth2.9库文件
 
-# 特别注意
+# 一、三方库编译之前
 
 1. `osg`和`osgEarth`的关系是，`osg`是一个专门为了三维图像而生的函数库，而`osgEarth`则是在`osg`的基础上，更加集中于构建三维下的地球的一个函数库。
 
@@ -23,6 +23,18 @@ export PATH=${PATH}:/home/greatwall/osg_install/OpenSceneGraph-build/bin
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/greatwall/osg_install/OpenSceneGraph-build/lib
 export OSG_FILE_PATH=/home/greatwall/osg_install/OpenSceneGraph-Data
 ```
+
+8. 最好先清理旧版本cmake，安装新版cmake(`cmake-3.23.0-rc5-linux-x86_64.tar.gz`)。
+```bash
+sudo apt-get remove cmake
+sudo rm -rf /usr/local/share/cmake*
+sudo rm -rf /usr/local/bin/cmake*
+```
+9. 编译三方库尤其是freetype之前最好先更新qt，否则该库会对qt安装造成影响，详见第三部分
+
+10. 若是cmake报错或者警告提示某一库未找到，则应当将三方库（或者向前依赖项安装时指定路径，有时候不给默认参数也会造成三方库没有编译在`/usr/local`之中，造成想当然的错误）
+
+11. 恒歌版本源码的问题。在编译恒歌osgearth之前，请确认gdal大版本号为`2.1`，小版本我使用的是`2.14`。源码`ReaderWriterGDAL`文件**2000**行处，papszOptions参数类型应该为`const char**`，将恒歌源码`CPLFetchBool`函数入参`papszOptions`强制转为`(const char**)`即可
 
 # 二、库文件依赖的解决
 依赖问题始终是最棘手的问题，为了解决依赖问题，可以根据`osg`和`osgEarth`中的`CMakeList`中的提示，可以获悉需要什么依赖，以及该库的版本号。我在解决依赖问题的时候，将所有能下到的依赖库的源代码下了下来，自行编译，其实本人觉得，直接编译源代码会简单一些，源代码的编译方法其实相对比较简单，大致上就是两个方法去编译，一个就是看见源代码目录下，有`configure`文件，就使用`./configure`来编译，生成Makefile文件，第二种方法是看见目录下，有`CMakeList.txt`文件，就使用`cmake CMakeList.txt`去生成Makefile，总之，都是为了生成`Makefile`文件，然后可以进一步`make`，`sudo make install`。
@@ -89,11 +101,8 @@ sudo make install
 
 1. `c++: internal compiler error: 已杀死 (program cc1plus)Please submit a full bug report,with preprocessed source if appropriate.` 解决方案，提升虚拟机内存空间。
 
-## 4.2为避免过多额外报错
 
-尤其是googletest库，最好升级至最新cmake版本，`cmake-3.23.0-rc5-linux-x86_64.tar.gz`经验证是可行版。
-
-## 4.3报错未发现QtOpenGL
+## 4.2报错未发现QtOpenGL
 
 使用高级别版本qt（5.12），避免使用系统自带qt（5.6）。
 
@@ -101,7 +110,7 @@ sudo make install
     2. chmod +x qt-opensource-linux-x64-5.12.12.run
     3. sudo ./qt-opensource-linux-x64-5.12.12.run
 
-## 4.4安装qt时
+## 4.3安装qt时
 遇到`symbol lookup error: /home/frank/Qt5.12.2/5.12.2/gcc_64/lib/libQt5XcbQpa.so.5: undefined symbol: FT_Property_Set`类似的问题
 
 > 我遇到的这种情况是因为有两个版本的freeetype导致的。
@@ -129,16 +138,15 @@ sudo rm libfreetype.so.6 libfreetype.so libfreetype.so.6.9.0
 切记：
 不要把两个地方的libfreetype.so.6都删出了，我都删了之后，出现无法使用快捷键(如：ctrl+alt+t无法弹出终端)，以及重启无法进入系统的情况，最后通过重新创建/usr/lib/x86_64-linux-gnu/里面的/usr/lib/x86_64-linux-gnu/libfreetype.so.6，才重新进入系统。（libfreetype.so.6是一个软链接文件）
 
-## 4.5 qtchooser加入新的qmake版本
+## 4.4 qtchooser加入新的qmake版本
 
 编辑环境变量：
-`sudo vim /etc/profile`
+`sudo vi ~/.bashrc`
 按下i输入，在其最后添加以下信息
 ```bash
-export QTDIR=/opt/Qt5.12.12/5.12.12/gcc_64
-export PATH=$QTDIR/bin:$PATH
-export MANPATH=$QTDIR/man:$MANPATH
-export LD_LIBRARY_PATH=$QTDIR/lib:&LD_LIBRARY_PAT
+export QTDIR=/home/iscas123/Qt5.12.12/5.12.12
+export PATH=$QTDIR/gcc_64/bin:$PATH
+export LD_LIBRARY_PATH=$QTDIR/gcc_64/lib
 ```
 按Esc后输入:wq保存退出。
 
@@ -156,7 +164,7 @@ qt5-aarch64-linux-gnu
 qt5
 ```
 添加一个名字为5.12的:
-`qtchooser -install qt5.9 /opt/Qt5.12/5.12/gcc_64/bin/qmake`
+`qtchooser -install qt5.12 /home/iscas123/Qt5.12.12/5.12.12/gcc_64/bin/qmake`
 
 然后再看一下
 `qtchooser -l`
@@ -175,7 +183,7 @@ qt5
 好了现在的qmake就是5.12的了
 
 
-## 4.6编译完成后
+## 4.5编译完成后
 执行osgversion(earth同理)提示无法找到lib文件，执行`sudo ldconfig`刷新lib库。
 
 若还是不行，网上有资料用Linux记事本打开某文件(`sudo gedit /etc/ld.so.conf`)，但是麒麟没有，建议用执行`sudo xdg-open /etc/ld.so.conf`，将
@@ -191,5 +199,20 @@ include /etc/ld.so.conf.d/*.conf
 麒麟下的osg在这里目录里。
 
 
-## 4.7找不到data的问题
+## 4.5找不到data的问题
 终端输入osgviewer cow.osg测试时提示找不到测试文件时，和上面问题一样终端执行`export OSG_FILE_PATH="/home/nhyilin/dev/OpenSceneGraph-Data"`也可以在～/.bashrc最后添加，个人觉得没必要，每次指定即可。
+
+
+## 4.6编译好的库移植其他电脑
+将lib、include等文件夹放在指定路径，且在`/etc/ld.so.conf`将路径写入
+
+## 4.7显卡安装
+1. 打开`/boot/grub/grub.cfg`在`Linux /vmlinuz-4.5.0....quiet splash `所在行最后加上`vt_handoff nouveau.modeset=0`，并且将驱动文件防止在容易找的位置，如home文件夹内
+2. 重启系统，分辨率变模糊
+3. 使用`Ctrl+Alt+F2`进入命令行模式，先`sudo su`进入root用户，然后执行`init 3`进入完全多用户
+4. `./***.run`命令安装显卡
+
+## 4.8missing: ZLIB_LIBRARY
+
+make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
+解决方案：`cmake .. -DZLIB_INCLUDE_DIR=/usr/include -DZLIB_LIBRARY=/usr/lib`
