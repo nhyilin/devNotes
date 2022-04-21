@@ -45,14 +45,14 @@ sudo rm -rf /usr/local/bin/cmake*
 
 `osg`和`osgEarth`所涉及的依赖的库文件，他们之间也存在一些依赖关系，所以编译的顺序应该较为严格执行。以下顺序仅供参考。
 
-1. 编译 zlib                            //`sudo ldconfig`
-2. 编译 png
-3. 编译 curl
-4. 编译 freetype
-5. 编译 gdal（proj->geos->gdal）
-6. 编译 jpeg（nasm->libjpeg）
-7. 编译 tiff
-8. 编译 minizip
+1. 编译 zlib-1.2.8                       //`sudo ldconfig`
+2. 编译 png-1.2.40
+3. 编译 curl-7.47.0
+4. 编译 freetype-2.4.8                   //编译前检查qt是否更新的目标版本
+5. 编译 gdal（proj-4.9.2->geos-3.5.0->gdal-2.1.14）
+6. 编译 jpeg（nasm-2.13.03->libjpeg-turbo-1.2.1）
+7. 编译 tiff-3.8.2
+8. 编译 minizip                         //下面为可选项
 9. 编译 sqlite
 10. 编译 SDL2
 11. 编译 libtool
@@ -111,6 +111,8 @@ sudo make install
     3. sudo ./qt-opensource-linux-x64-5.12.12.run
 
 ## 4.3安装qt时
+> 这个问题可以通过先安装qt或者安装qt时将自己编译的freeetype临时隐藏得到解决，否则请参考下面方法
+
 遇到`symbol lookup error: /home/frank/Qt5.12.2/5.12.2/gcc_64/lib/libQt5XcbQpa.so.5: undefined symbol: FT_Property_Set`类似的问题
 
 > 我遇到的这种情况是因为有两个版本的freeetype导致的。
