@@ -24,7 +24,7 @@
 
 文档维护清单：
 
-[tops.md](./info/tips.md)
+[tips.md](./info/tips.md)
 
 # info
 
