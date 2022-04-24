@@ -59,6 +59,7 @@ sudo rm -rf /usr/local/bin/cmake*
 12. 编译 googletest
 13. 编译 protobuf                      			 //请参考下面的特殊情况
 14. 编译 rocksdb(gflags->rocksdb)      //请参考下面的特殊情况
+15. qwt-6.2.0
 
 在上述库文件的编译过程中，大部分只需要简单的编译。
 如，有`configure`文件时候，使用
@@ -85,6 +86,7 @@ sudo make install
 
 如若在库文件编译时，自定义目录，建议将所有目录统一，方便写入环境变量，写入环境变量，则需要使用`export`，写在`/etc/profile`最后面。
 
+qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
 
 # 三、测试是否成功
 测试osg，可以在命令行运行`osgviewer cow.osg`是否显示一头牛，或者`osgversion`，看是否显示版本号。
@@ -93,7 +95,14 @@ sudo make install
 
 
 # 四、乱七八糟的问题
-## 4.1安装cmake时间遇到了系统没有openssl环境
+
+## 4.1显卡安装
+1. 打开`/boot/grub/grub.cfg`在`Linux /vmlinuz-4.5.0....quiet splash `所在行最后加上`$vt_handoff nouveau.modeset=0`，并且将驱动文件防止在容易找的位置，如home文件夹内
+2. 重启系统，分辨率变模糊
+3. 使用`Ctrl+Alt+F2`进入命令行模式，先`sudo su`进入root用户，然后执行`init 3`进入完全多用户
+4. `./***.run`命令安装显卡
+
+## 4.2安装cmake时间遇到了系统没有openssl环境
 
 以`./bootstrap -- -DCMAKE_USE_OPENSSL=OFF`方式执行安装脚本，然后执行`sudo make && make install`
 
@@ -102,7 +111,7 @@ sudo make install
 1. `c++: internal compiler error: 已杀死 (program cc1plus)Please submit a full bug report,with preprocessed source if appropriate.` 解决方案，提升虚拟机内存空间。
 
 
-## 4.2报错未发现QtOpenGL
+## 4.3报错未发现QtOpenGL
 
 使用高级别版本qt（5.12），避免使用系统自带qt（5.6）。
 
@@ -110,7 +119,8 @@ sudo make install
     2. chmod +x qt-opensource-linux-x64-5.12.12.run
     3. sudo ./qt-opensource-linux-x64-5.12.12.run
 
-## 4.3安装qt时
+
+## 4.4安装qt时
 > 这个问题可以通过先安装qt或者安装qt时将自己编译的freeetype临时隐藏得到解决，否则请参考下面方法
 
 遇到`symbol lookup error: /home/frank/Qt5.12.2/5.12.2/gcc_64/lib/libQt5XcbQpa.so.5: undefined symbol: FT_Property_Set`类似的问题
@@ -140,7 +150,7 @@ sudo rm libfreetype.so.6 libfreetype.so libfreetype.so.6.9.0
 切记：
 不要把两个地方的libfreetype.so.6都删出了，我都删了之后，出现无法使用快捷键(如：ctrl+alt+t无法弹出终端)，以及重启无法进入系统的情况，最后通过重新创建/usr/lib/x86_64-linux-gnu/里面的/usr/lib/x86_64-linux-gnu/libfreetype.so.6，才重新进入系统。（libfreetype.so.6是一个软链接文件）
 
-## 4.4 qtchooser加入新的qmake版本
+## 4.5 qtchooser加入新的qmake版本
 
 编辑环境变量：
 `sudo vi ~/.bashrc`
@@ -185,7 +195,13 @@ qt5
 好了现在的qmake就是5.12的了
 
 
-## 4.5编译完成后
+## 4.6 missing: ZLIB_LIBRARY
+
+make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
+解决方案：`cmake .. -DZLIB_INCLUDE_DIR=/usr/include -DZLIB_LIBRARY=/usr/lib`
+
+
+## 4.7 编译完成后
 执行osgversion(earth同理)提示无法找到lib文件，执行`sudo ldconfig`刷新lib库。
 
 若还是不行，网上有资料用Linux记事本打开某文件(`sudo gedit /etc/ld.so.conf`)，但是麒麟没有，建议用执行`sudo xdg-open /etc/ld.so.conf`，将
@@ -201,20 +217,11 @@ include /etc/ld.so.conf.d/*.conf
 麒麟下的osg在这里目录里。
 
 
-## 4.5找不到data的问题
-终端输入osgviewer cow.osg测试时提示找不到测试文件时，和上面问题一样终端执行`export OSG_FILE_PATH="/home/nhyilin/dev/OpenSceneGraph-Data"`也可以在～/.bashrc最后添加，个人觉得没必要，每次指定即可。
-
-
-## 4.6编译好的库移植其他电脑
-将lib、include等文件夹放在指定路径，且在`/etc/ld.so.conf`将路径写入
-
-## 4.7显卡安装
-1. 打开`/boot/grub/grub.cfg`在`Linux /vmlinuz-4.5.0....quiet splash `所在行最后加上`vt_handoff nouveau.modeset=0`，并且将驱动文件防止在容易找的位置，如home文件夹内
-2. 重启系统，分辨率变模糊
-3. 使用`Ctrl+Alt+F2`进入命令行模式，先`sudo su`进入root用户，然后执行`init 3`进入完全多用户
-4. `./***.run`命令安装显卡
-
-## 4.8missing: ZLIB_LIBRARY
-
-make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
-解决方案：`cmake .. -DZLIB_INCLUDE_DIR=/usr/include -DZLIB_LIBRARY=/usr/lib`
+## 4.8 编译好的库移植其他电脑
+将lib、include等文件夹放在指定路径,如devEnv文件夹中，且在`～/.bashrc`将路径写入
+```bash
+export PATH=${PATH}:/home/nhyilin/devEnv/bin
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/nhyilin/devEnv/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/nhyilin/devEnv/lib64
+export OSG_FILE_PATH=/home/nhyilin/devEnv/data
+```
