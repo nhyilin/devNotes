@@ -25,6 +25,7 @@
 文档维护清单：
 
 [tips.md](./info/tips.md)
+[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
 # info
 

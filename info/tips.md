@@ -473,7 +473,7 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 - 静态网页局域网访问，百度该关键字即可
 - VMware快捷键：`Ctrl + B`启动，`Ctrl + E`关闭，`Ctrl + R`重启
 - `netsh advfirewall set allprofiles state off`：关闭防火墙
-
+- 测试软件时，尽量在虚拟机上搞...
 - 修改键位：
 
 ## office
