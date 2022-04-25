@@ -242,14 +242,23 @@ int main() {
 数据存储是以“字节”（Byte）为单位，数据传输大多是以“位”（bit，又名“比特”）为单位，一个位就代表一个0或1（即二进制），每8个位（bit，简写为b）组成一个字节（Byte，简写为B），是最小一级的信息单位
 
 1字节(Byte)=8位(bit)
+
 1KB( Kilobyte，千字节)=1024B
+
 1MB( Megabyte，兆字节)=1024KB
+
 1GB( Gigabyte，吉字节，千兆)=1024MB
+
 1TB( Trillionbyte，万亿字节，太字节)=1024GB
+
 1PB( Petabyte，千万亿字节，拍字节)=1024TB
+
 1EB( Exabyte，百亿亿字节，艾字节)=1024PB
+
 1ZB(Zettabyte，十万亿亿字节，泽字节)=1024EB
+
 1YB( Yottabyte，一亿亿亿字节，尧字节)=1024ZB
+
 1BB( Brontobyte，千亿亿亿字节)=1024YB
 
 [![top] Goto Top](#table-of-contents)
