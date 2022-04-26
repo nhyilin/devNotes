@@ -53,7 +53,7 @@ ADD_EXECUTABLE(hello main.c;func.c)
   - `PROJECT(projectname [CXX] [C] [Java])`指定工程名称,并可指定工程支持的语言。支持语言列表可忽略,默认支持所有语言
 - `SET`
     - `SET(VAR [VALUE] [CACHE TYPE DOCSTRING [FORCE]])`：定义变量(可以定义多个`VALUE`,如`SET(SRC_LIST main.c util.c reactor.c))`
-- MESSAGE
+- `MESSAGE`
     - `MESSAGE([SEND_ERROR | STATUS | FATAL_ERROR] “message to display” …)`：向终端输出用户定义的信息或变量的值
     - `SEND_ERROR`, 产生错误,生成过程被跳过
     - `STATUS`, 输出前缀为 `—` 的信息
