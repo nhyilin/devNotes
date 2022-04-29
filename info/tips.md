@@ -230,6 +230,9 @@ $end$
   - 如果你有更多需求的话，可以使用Ctrl+Shift+P搜索fold和unfold，以查看更多选项。以下命令使用时查找即可，不必记忆(但上文的两种还是有必要熟悉的)。
 
 - markdown预览快捷键：`shift + cmd + v`
+- code + 文件名，vscode打开指定文件
+- [mermaid画markdown流程图插件](https://www.cnblogs.com/dao0/p/4489837.html)
+- tree终端指令列出当前文件夹下文件，然后写入到md文件中，格式按代码块处理
 
 
 [![top] Goto Top](#table-of-contents)
