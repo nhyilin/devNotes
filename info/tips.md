@@ -248,6 +248,12 @@ $end$
 - `p`粘贴到下一行
 - `nyy`复制n行
 - 修改文件名：`mv a b`将a文件命名为b
+- :wq  保存后退出vi，若为 :wq! 则为强制储存后退出（常用）
+- :w    保存但不退出（常用）
+- :w!   若文件属性为『只读』时，强制写入该档案
+- :q    离开 vi （常用）
+- :q!   若曾修改过档案，又不想储存，使用 ! 为强制离开不储存档案。
+- :e!   将档案还原到最原始的状态！
 
 ## for Development
 
@@ -294,6 +300,27 @@ $end$
   修改第一行`prefix`对应目录即可
 - linux 下长命令的简化（命令别名）:在`~/.bashrc`文件中添加`alias gps='git push origin HEAD:refs/for/master'`，`source ~/.bashrc`
 - deb文件安装：`sudo dpkg -i 软件包名.deb`
+- 修改文件创建时间属性：`touch -mt YYYYMMDDhhmm`，比如：`touch -mt 201412010000 *`修改当前文件夹内所有文件时间为`201412010000`，Mac相同
+- alias o='sudo xdg-open'
+- alias osg='osgviewer'
+- alias osge='osgearth_viewer'
+- alias getbash='sudo xdg-open ~/.bashrc'
+- alias setbash='source ~/.bashrc'
+- alias log='scirpt -f /home/yilin/output.txt'
+- alias c='cmake CMakeLists.txt'
+- alias clion='/home/yilin/softWare/clion-2022.1/bin/clion.sh'
+- alias share='sudo xdg-open /mnt/hgfs/dev'
+- 某些环境变量，Linux下在`~/.bashrc`，在Mac中为`~/.bash_profile`
+  ```bash
+  export QTDIR=/home/yilin/Qt5.12.12/5.12.12
+  export PATH=$QTDIR/gcc_64/bin:$PATH
+  export LD_LIBRARY_PATH=$QTDIR/gcc_64/lib
+
+  export PATH=${PATH}:/home/yilin/env/osg_oe/bin
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/yilin/env/osg_oe/lib
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/yilin/env/osg_oe/lib64
+  export OSG_FILE_PATH=/home/yilin/env/osg_oe/data
+  ```
 
 
 
@@ -501,6 +528,8 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 - Downie下载：设置中，下载目录文件格式设置为`播放清单索引 - 标题`，下载文件保存至文件夹：勾选任意一个可保证下载列表视频时，自动创建文件夹来放置下载的视频，否则所有文件下载至当前目录造成混乱。
 - HomeBrew安装脚本`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
 - 显示桌面快捷键：`command + F3`，或者`Fn + F11`
+- 环境变量文件：`~/.bash_profile`，可参考Linux部分alias指令
+
 
 [![top] Goto Top](#table-of-contents)
 
