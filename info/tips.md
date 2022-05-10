@@ -321,7 +321,7 @@ $end$
   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/yilin/env/osg_oe/lib64
   export OSG_FILE_PATH=/home/yilin/env/osg_oe/data
   ```
-
+- 关闭触摸板：`sudo modprobe -r psmouse`，打开`sudo modprobe psmouse`，[详见](https://blog.csdn.net/SAKURASANN/article/details/104262048)
 
 
 
@@ -369,6 +369,7 @@ $end$
   2. `gsettings set org.mate.font-rendering dpi 150.0`：桌面字体终于看得清了，不足的是该方案仅仅是放大了字体，系统原来的布局并没有一起放大
 - `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)，`sudo service lightdm start`
 - 在当前文件下打开终端的快捷键：`shift + F10`，然后按下`t`
+- 无法更新软件源头，在`/etc/apt/source.list`中将源修改为如下：`deb http://archive.kylinos.cn/kylin/KYLIN-ALL 4.0.2-desktop main restricted universe multiverse`，[其他版本在这里](http://archive.kylinos.cn/kylin/KYLIN-ALL/)
 
 
 
@@ -378,7 +379,7 @@ $end$
 
 # Data
 
-（局域网，别费劲了你）
+（局域网）
 
 svn：yilin
 123456
