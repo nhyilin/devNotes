@@ -369,7 +369,7 @@ $end$
   2. `gsettings set org.mate.font-rendering dpi 150.0`：桌面字体终于看得清了，不足的是该方案仅仅是放大了字体，系统原来的布局并没有一起放大
 - `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)，`sudo service lightdm start`
 - 在当前文件下打开终端的快捷键：`shift + F10`，然后按下`t`
-- 无法更新软件源头，在`/etc/apt/source.list`中将源修改为如下：`deb http://archive.kylinos.cn/kylin/KYLIN-ALL 4.0.2-desktop main restricted universe multiverse`，[其他版本在这里](http://archive.kylinos.cn/kylin/KYLIN-ALL/)
+- 无法更新软件源头，在`/etc/apt/sources.list`中将源修改为如下：`deb http://archive.kylinos.cn/kylin/KYLIN-ALL 4.0.2-desktop main restricted universe multiverse`，[其他版本在这里](http://archive.kylinos.cn/kylin/KYLIN-ALL/)
 
 
 
