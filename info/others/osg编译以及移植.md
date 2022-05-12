@@ -103,22 +103,24 @@ qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
 
 ## 四、乱七八糟的问题
 
-### 4.1显卡安装
+### 4.1 显卡安装
 1. 打开`/boot/grub/grub.cfg`在`Linux /vmlinuz-4.5.0....quiet splash `所在行最后加上`$vt_handoff nouveau.modeset=0`，并且将驱动文件防止在容易找的位置，如home文件夹内
 2. 重启系统，分辨率变模糊
 3. 使用`Ctrl+Alt+F2`进入命令行模式，先`sudo su`进入root用户，然后执行`init 3`进入完全多用户
 4. `./***.run`命令安装显卡
 
-### 4.2安装cmake时间遇到了系统没有openssl环境
+### 4.2 安装cmake时间遇到了系统没有openssl环境
 
 以`./bootstrap -- -DCMAKE_USE_OPENSSL=OFF`方式执行安装脚本，然后执行`sudo make && make install`
 
 > configure CMake with -DCMAKE_USE_OPENSSL=OFF to build without OpenSSL.
 
-1. `c++: internal compiler error: 已杀死 (program cc1plus)Please submit a full bug report,with preprocessed source if appropriate.` 解决方案，提升虚拟机内存空间。
+### 4.3 进程杀死
+
+`c++: internal compiler error: 已杀死 (program cc1plus)Please submit a full bug report,with preprocessed source if appropriate.` 解决方案：提升虚拟机内存空间。
 
 
-### 4.3报错未发现QtOpenGL
+### 4.4 报错未发现QtOpenGL
 
 使用高级别版本qt（5.12），避免使用系统自带qt（5.6）。
 
@@ -127,7 +129,7 @@ qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
     3. sudo ./qt-opensource-linux-x64-5.12.12.run
 
 
-### 4.4安装qt时
+### 4.5 安装qt时
 > 这个问题可以通过先安装qt或者安装qt时将自己编译的freeetype临时隐藏得到解决，否则请参考下面方法
 
 遇到`symbol lookup error: /home/frank/Qt5.12.2/5.12.2/gcc_64/lib/libQt5XcbQpa.so.5: undefined symbol: FT_Property_Set`类似的问题
@@ -159,7 +161,7 @@ sudo rm libfreetype.so.6 libfreetype.so libfreetype.so.6.9.0
 1. 如果其中一个libfreetype是之前自己编译的，暂时将其隐藏即可，达到环境变量找不到这个动态库的目的
 2. 不要把两个地方的libfreetype.so.6都删除了，我都删了之后，出现无法使用快捷键(如：ctrl+alt+t无法弹出终端)，以及重启无法进入系统的情况，最后通过重新创建/usr/lib/x86_64-linux-gnu/里面的/usr/lib/x86_64-linux-gnu/libfreetype.so.6，才重新进入系统。（libfreetype.so.6是一个软链接文件）
 
-### 4.5 qtchooser加入新的qmake版本
+### 4.6 qtchooser加入新的qmake版本
 
 编辑环境变量：
 `sudo vi ~/.bashrc`
@@ -204,7 +206,7 @@ qt5
 好了现在的qmake就是5.12的了
 
 
-### 4.6 missing: ZLIB_LIBRARY
+### 4.7 missing: ZLIB_LIBRARY
 
 make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
 解决方案：`cmake .. -DZLIB_INCLUDE_DIR=/usr/include -DZLIB_LIBRARY=/usr/lib`
