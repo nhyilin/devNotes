@@ -8,7 +8,7 @@
 
 2. `osg`和`osgEarth`的版本选择很重要！两者的版本号是有相关性的，所以一定要注意你所下载的`osg`和`osgEarth`的版本，是否适配。所谓的适配，意思是，在`osgEarth`中会调用到一系列的`osg`的函数，但是这些函数，在最新的osg版本中，可能已经被取消了，或者更名了，都有可能。最新的`osg`是`3.6.5`版本，但是并不适用于所有的`osgEarth`的版本，`osgEarth`我能找到的最新版本是`3.1`，试了一下，`osgEarth3.1`和`osg3.6.4`版本，是无法成功编译的，当然，不能说是不适配，因为在我试的过程中，可能存在别的问题。但我可以肯定的是，`osg3.4.0`和`osgEarth2.8`以及`osgEarth2.9`版本是适配。
 
-3. 注意在切换`osg`版本时，一定要将原版本卸载干净。我在这儿就吃了亏，一开始选用`osg3.6.4`版本，后来更换为`osg3.4.0`版本，当时没清理干净，导致在编译`osgEarth`时，不断报错，提示`xxx:未定义的引用`，当时很奇怪，这函数明明是源代码自带的代码中的函数，为什么一直报未定义的引用，这个报错，意思是在在头文件声明了，但是cpp中，或者说编译后的库文件中，未定义。后来我查到，库文件的链接，即`LINK`不对，指向了`osg3.6.4`版本，就是没删除干净。要删除干净，就需要搞清楚源代码编译究竟生成了什么，放在了哪里。源代码编译的时候，根据个人习惯，一是可以将依赖的库文件编译后放在一个自定义的位置，比如通过再`configure`后追加参数，`./configure --prefix=/home/greatwall/`，另一种是放在默认位置，即`/usr/local`下，这个看个人习惯，各有各的好处，放在自定义的位置，方便卸载，放在默认位置，不用考虑环境变量的问题。源代码编译后的结果无非三种文件，一种是头文件，即函数的声明，默认放在`/usr/local/include`下，一种的可执行文件，默认放在`/usr/local/bin`下，一种是库文件，即函数的定义，默认放在`/usr/local/lib`或者`/usr/local/lib64`下。因此，知道了有什么东西，放在哪，卸载的时候，即手动去删除，务必删除干净。
+3. 注意在切换`osg`版本时，一定要将原版本卸载干净。我在这儿就吃了亏，一开始选用`osg3.6.4`版本，后来更换为`osg3.4.0`版本，当时没清理干净，导致在编译`osgEarth`时，不断报错，提示`xxx:未定义的引用`，当时很奇怪，这函数明明是源代码自带的代码中的函数，为什么一直报未定义的引用，这个报错，意思是在在头文件声明了，但是cpp中，或者说编译后的库文件中，未定义。后来我查到，库文件的链接，即`LINK`不对，指向了`osg3.6.4`版本，就是没删除干净。要删除干净，就需要搞清楚源代码编译究竟生成了什么，放在了哪里。源代码编译的时候，根据个人习惯，一是可以将依赖的库文件编译后放在一个自定义的位置，比如通过再`configure`后追加参数，`./configure --prefix=/home/iscas/`，另一种是放在默认位置，即`/usr/local`下，这个看个人习惯，各有各的好处，放在自定义的位置，方便卸载，放在默认位置，不用考虑环境变量的问题。源代码编译后的结果无非三种文件，一种是头文件，即函数的声明，默认放在`/usr/local/include`下，一种的可执行文件，默认放在`/usr/local/bin`下，一种是库文件，即函数的定义，默认放在`/usr/local/lib`或者`/usr/local/lib64`下。因此，知道了有什么东西，放在哪，卸载的时候，即手动去删除，务必删除干净。
 
 4. 在编译`osg`代码时，需要指定使用`QT5`版本，因为现在大部分`linux`系统下，自带`QT4`和`QT5`，所以需要指定位置。在`CMakeList.txt`文件的`IF(OSG_USE_QT AND NOT ANDROID)`的前一行，添加`SET(DESIRED_QT_VERSION 5)`。
 
@@ -38,7 +38,7 @@ sudo rm -rf /usr/local/bin/cmake*
 
 11. 恒歌版本源码的问题。在编译恒歌osgearth之前，请确认gdal大版本号为`2.1`，小版本我使用的是`2.14`。源码`ReaderWriterGDAL`文件**2000**行处，papszOptions参数类型应该为`const char**`，将恒歌源码`CPLFetchBool`函数入参`papszOptions`强制转为`(const char**)`即可
 
-12. 我个人将其编译路径设置为：`/home/iscas/osg_install/usr/local`，这样目的是为了没有makefile的第三方库在利用cmakelists生成时，和其他第三方库层次不一的问题
+12. 我个人将其编译路径设置为：`/home/iscas/osg_install/usr/local`，这样目的是为了没有makefile的第三方库在利用cmakelists生成时，和其他第三方库层次不一的问题，具体见下方install步骤
 
 ## 二、库文件依赖的解决
 依赖问题始终是最棘手的问题，为了解决依赖问题，可以根据`osg`和`osgEarth`中的`CMakeList`中的提示，可以获悉需要什么依赖，以及该库的版本号。我在解决依赖问题的时候，将所有能下到的依赖库的源代码下了下来，自行编译，其实本人觉得，直接编译源代码会简单一些，源代码的编译方法其实相对比较简单，大致上就是两个方法去编译，一个就是看见源代码目录下，有`configure`文件，就使用`./configure`来编译，生成Makefile文件，第二种方法是看见目录下，有`CMakeList.txt`文件，就使用`cmake CMakeList.txt`去生成Makefile，总之，都是为了生成`Makefile`文件，然后可以进一步`make`，`sudo make install`。
@@ -68,7 +68,7 @@ sudo rm -rf /usr/local/bin/cmake*
 在上述库文件的编译过程中，大部分只需要简单的编译。
 如，有`configure`文件时候，使用
 ```bash
-./configure
+./configure --prefix=/home/iscas/osg_install/usr/local
 make -j8
 sudo make install
 ```
@@ -76,8 +76,10 @@ sudo make install
 ```bash
 cmake CMakeList.txt
 make -j8
-sudo make install
+sudo make install DESTDIR=/home/iscas/osg_install
 ```
+正如上文所言，这样写为了避免文件夹路径层次不一，当然，如果你事先了解这两种安装的区别，那么可以无视这条建议。
+
 只有下述几个情况比较特殊。
 
 在用`configure`生成`Makefile`文件时，有时候会报错`configure:error: cannot guess build type; you must specify one`，这时候，只需要在`configure`后添加参数，指定编译所用的引擎即可。`./configure --build=arm-linux`。
@@ -206,9 +208,6 @@ qt5
 
 make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
 解决方案：`cmake .. -DZLIB_INCLUDE_DIR=/usr/include -DZLIB_LIBRARY=/usr/lib`
-
-
-
 
 
 
