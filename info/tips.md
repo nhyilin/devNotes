@@ -361,13 +361,12 @@ $end$
 
 ## 麒麟
 
-- 分辨率调整：`xrandr -s 1280x800_60`(`xrandr`查看分辨率列表，其中60为刷新率...)
 - 用户、管理员改为**短密码**：`sudo apt remove libpam-cracklib`(其实在其它Linux上`sudo passwd 用户名`就直接可以完成修改，但是麒麟额外需要卸载掉负责检查密码复杂度的`cracklib`包)
 - 麒麟系统下Qt安装路径`/usr/lib/x86_64-linux-gnu/qt5`
 - 分辨率问题：
   1. `export QT_DEVICE_PIXEL_RATIO=1.5`：该方法针对了qt的应用，例如qtcreator，qtcreator字体显示正常了，系统字体依旧小
   2. `gsettings set org.mate.font-rendering dpi 150.0`：桌面字体终于看得清了，不足的是该方案仅仅是放大了字体，系统原来的布局并没有一起放大
-- `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)，`sudo service lightdm start`
+- `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)，`sudo service lightdm start`、`sudo service lightdm stop`
 - 在当前文件下打开终端的快捷键：`shift + F10`，然后按下`t`
 - 无法更新软件源头，在`/etc/apt/sources.list`中将源修改为如下：`deb http://archive.kylinos.cn/kylin/KYLIN-ALL 4.0.2-desktop main restricted universe multiverse`，[其他版本在这里](http://archive.kylinos.cn/kylin/KYLIN-ALL/)
 

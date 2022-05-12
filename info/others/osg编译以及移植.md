@@ -225,3 +225,5 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/nhyilin/devEnv/lib
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/nhyilin/devEnv/lib64
 export OSG_FILE_PATH=/home/nhyilin/devEnv/data
 ```
+
+缺少`lib`的话参考4.7，在指定文件添加`lib`路径即可
