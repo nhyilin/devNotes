@@ -1,6 +1,8 @@
 银河麒麟及arm64环境下，离线编译osg3.4.0和osgEarth2.9库文件
 
-# 一、三方库编译之前
+# 编译
+## 一、第三方库
+编译前：
 
 1. `osg`和`osgEarth`的关系是，`osg`是一个专门为了三维图像而生的函数库，而`osgEarth`则是在`osg`的基础上，更加集中于构建三维下的地球的一个函数库。
 
@@ -19,9 +21,9 @@ OPTION(OSGEARTH_QT_BUILD_LEGACY_WIDGETS "Build the legacy Qt widgets" ON)
 ```
 7. 将`bin`和`lib`文件夹写入环境变量。编译`osg`和`osgEarth`成功之后，在编译的目录下会出现`lib`和`bin`两个文件夹（inlcude的文件，已经默认放在了`/usr/local/include`下），将这两个单独放置一个妥善位置，建议同`osg`的`DATA`文件放一起，方便管理，而后将`lib`和`bin`的目录所在地址，写入`/etc/profile`，每次修改完这个文件profile后，记得`source /etc/profile`，使其生效。
 ```bash
-export PATH=${PATH}:/home/greatwall/osg_install/OpenSceneGraph-build/bin
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/greatwall/osg_install/OpenSceneGraph-build/lib
-export OSG_FILE_PATH=/home/greatwall/osg_install/OpenSceneGraph-Data
+export PATH=${PATH}:/home/iscas/osg_install/OpenSceneGraph-build/bin
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/iscas/osg_install/OpenSceneGraph-build/lib
+export OSG_FILE_PATH=/home/iscas/osg_install/OpenSceneGraph-Data
 ```
 
 8. 最好先清理旧版本cmake，安装新版cmake(`cmake-3.23.0-rc5-linux-x86_64.tar.gz`)。
@@ -36,7 +38,9 @@ sudo rm -rf /usr/local/bin/cmake*
 
 11. 恒歌版本源码的问题。在编译恒歌osgearth之前，请确认gdal大版本号为`2.1`，小版本我使用的是`2.14`。源码`ReaderWriterGDAL`文件**2000**行处，papszOptions参数类型应该为`const char**`，将恒歌源码`CPLFetchBool`函数入参`papszOptions`强制转为`(const char**)`即可
 
-# 二、库文件依赖的解决
+12. 我个人将其编译路径设置为：`/home/iscas/osg_install/usr/local`，这样目的是为了没有makefile的第三方库在利用cmakelists生成时，和其他第三方库层次不一的问题
+
+## 二、库文件依赖的解决
 依赖问题始终是最棘手的问题，为了解决依赖问题，可以根据`osg`和`osgEarth`中的`CMakeList`中的提示，可以获悉需要什么依赖，以及该库的版本号。我在解决依赖问题的时候，将所有能下到的依赖库的源代码下了下来，自行编译，其实本人觉得，直接编译源代码会简单一些，源代码的编译方法其实相对比较简单，大致上就是两个方法去编译，一个就是看见源代码目录下，有`configure`文件，就使用`./configure`来编译，生成Makefile文件，第二种方法是看见目录下，有`CMakeList.txt`文件，就使用`cmake CMakeList.txt`去生成Makefile，总之，都是为了生成`Makefile`文件，然后可以进一步`make`，`sudo make install`。
 
 在处理`osg`和`osgEarth`中涉及的依赖时，只编译了部分依赖，其实还有一些依赖未解决，但不影响`osg`和osgEarth编译的成功，不过不解决，会导致后面部分功能无法使用。
@@ -88,21 +92,22 @@ sudo make install
 
 qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
 
-# 三、测试是否成功
+## 三、测试是否成功
 测试osg，可以在命令行运行`osgviewer cow.osg`是否显示一头牛，或者`osgversion`，看是否显示版本号。
 
 测试`osgEarth`，可以在命令行运行`osgearth_version`，看是否显示版本号。
 
 
-# 四、乱七八糟的问题
 
-## 4.1显卡安装
+## 四、乱七八糟的问题
+
+### 4.1显卡安装
 1. 打开`/boot/grub/grub.cfg`在`Linux /vmlinuz-4.5.0....quiet splash `所在行最后加上`$vt_handoff nouveau.modeset=0`，并且将驱动文件防止在容易找的位置，如home文件夹内
 2. 重启系统，分辨率变模糊
 3. 使用`Ctrl+Alt+F2`进入命令行模式，先`sudo su`进入root用户，然后执行`init 3`进入完全多用户
 4. `./***.run`命令安装显卡
 
-## 4.2安装cmake时间遇到了系统没有openssl环境
+### 4.2安装cmake时间遇到了系统没有openssl环境
 
 以`./bootstrap -- -DCMAKE_USE_OPENSSL=OFF`方式执行安装脚本，然后执行`sudo make && make install`
 
@@ -111,7 +116,7 @@ qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
 1. `c++: internal compiler error: 已杀死 (program cc1plus)Please submit a full bug report,with preprocessed source if appropriate.` 解决方案，提升虚拟机内存空间。
 
 
-## 4.3报错未发现QtOpenGL
+### 4.3报错未发现QtOpenGL
 
 使用高级别版本qt（5.12），避免使用系统自带qt（5.6）。
 
@@ -120,7 +125,7 @@ qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
     3. sudo ./qt-opensource-linux-x64-5.12.12.run
 
 
-## 4.4安装qt时
+### 4.4安装qt时
 > 这个问题可以通过先安装qt或者安装qt时将自己编译的freeetype临时隐藏得到解决，否则请参考下面方法
 
 遇到`symbol lookup error: /home/frank/Qt5.12.2/5.12.2/gcc_64/lib/libQt5XcbQpa.so.5: undefined symbol: FT_Property_Set`类似的问题
@@ -147,10 +152,12 @@ qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
 cd /usr/local/lib
 sudo rm libfreetype.so.6 libfreetype.so libfreetype.so.6.9.0
 ```
-切记：
-不要把两个地方的libfreetype.so.6都删出了，我都删了之后，出现无法使用快捷键(如：ctrl+alt+t无法弹出终端)，以及重启无法进入系统的情况，最后通过重新创建/usr/lib/x86_64-linux-gnu/里面的/usr/lib/x86_64-linux-gnu/libfreetype.so.6，才重新进入系统。（libfreetype.so.6是一个软链接文件）
 
-## 4.5 qtchooser加入新的qmake版本
+切记：
+1. 如果其中一个libfreetype是之前自己编译的，暂时将其隐藏即可，达到环境变量找不到这个动态库的目的
+2. 不要把两个地方的libfreetype.so.6都删除了，我都删了之后，出现无法使用快捷键(如：ctrl+alt+t无法弹出终端)，以及重启无法进入系统的情况，最后通过重新创建/usr/lib/x86_64-linux-gnu/里面的/usr/lib/x86_64-linux-gnu/libfreetype.so.6，才重新进入系统。（libfreetype.so.6是一个软链接文件）
+
+### 4.5 qtchooser加入新的qmake版本
 
 编辑环境变量：
 `sudo vi ~/.bashrc`
@@ -195,35 +202,33 @@ qt5
 好了现在的qmake就是5.12的了
 
 
-## 4.6 missing: ZLIB_LIBRARY
+### 4.6 missing: ZLIB_LIBRARY
 
 make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
 解决方案：`cmake .. -DZLIB_INCLUDE_DIR=/usr/include -DZLIB_LIBRARY=/usr/lib`
 
 
-## 4.7 编译完成后
-执行osgversion(earth同理)提示无法找到lib文件，执行`sudo ldconfig`刷新lib库。
-
-若还是不行，网上有资料用Linux记事本打开某文件(`sudo gedit /etc/ld.so.conf`)，但是麒麟没有，建议用执行`sudo xdg-open /etc/ld.so.conf`，将
-```bash
-include /etc/ld.so.conf.d/*.conf
-/usr/local/lib
-```
-写入该文件，然后执行`sudo ldconfig`
-若还是不行，那么再加一行：
-```bash
-/usr/local/lib64
-```
-麒麟下的osg在这里目录里。
 
 
-## 4.8 编译好的库移植其他电脑
-将lib、include等文件夹放在指定路径,如devEnv文件夹中，且在`～/.bashrc`将路径写入
-```bash
-export PATH=${PATH}:/home/nhyilin/devEnv/bin
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/nhyilin/devEnv/lib
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/nhyilin/devEnv/lib64
-export OSG_FILE_PATH=/home/nhyilin/devEnv/data
-```
 
-缺少`lib`的话参考4.7，在指定文件添加`lib`路径即可
+
+# 移植
+
+此处移植是指编译完成后移植到另一台电脑配置开发环境。默认已完成Qt5.12、cmake的安装，若不满足条件，请参考第一部分。
+
+1. 将编译好的库文件、头文件、可执行文件打包好后(osg_oe)文件夹放在指定路径，如`/home/iscas/env`，将其解压
+2. 动态库、静态库路径写入环境变量：
+   1. `sudo xdg-open /etc/ld.so.conf`
+   2. 在文件末尾写入：`/usr/local/lib`、`/usr/local/lib64`(需换行)
+   3. 执行：`sudo ldconfig`
+3. 环境变量中添加osg：`sudo xdg-open ～/.bashrc`
+    文件末尾写入：
+    ```bash
+    export PATH=${PATH}:/home/iscas/env/bin
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/iscas/env/lib
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/iscas/env/lib64
+    export OSG_FILE_PATH=/home/iscas/env/data
+    ```
+
+完成部署
+
