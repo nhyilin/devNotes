@@ -164,7 +164,7 @@ sudo rm libfreetype.so.6 libfreetype.so libfreetype.so.6.9.0
 ### 4.6 qtchooser加入新的qmake版本
 
 编辑环境变量：
-`sudo vi ~/.bashrc`
+`sudo xdg-open ~/.bashrc`
 按下i输入，在其最后添加以下信息
 ```bash
 export QTDIR=/home/iscas123/Qt5.12.12/5.12.12
@@ -211,24 +211,22 @@ qt5
 make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
 解决方案：`cmake .. -DZLIB_INCLUDE_DIR=/usr/include -DZLIB_LIBRARY=/usr/lib`
 
-
-
 # 移植
 
-此处移植是指编译完成后移植到另一台电脑配置开发环境。默认已完成Qt5.12、cmake的安装，若不满足条件，请参考第一部分。
+此处移植是指编译完成后移植到另一台电脑配置开发环境。开发环境需完成Qt5.12、cmake的安装，若不满足条件，请参考第一部分(4.2、4.4~4.6)。
 
 1. 将编译好的库文件、头文件、可执行文件打包好后(osg_oe)文件夹放在指定路径，如`/home/iscas/env`，将其解压
 2. 动态库、静态库路径写入环境变量：
    1. `sudo xdg-open /etc/ld.so.conf`
-   2. 在文件末尾写入：`/usr/local/lib`、`/usr/local/lib64`(需换行)
+   2. 在文件末尾写入：`/home/iscas/env/osg_oe/lib`、`/home/iscas/env/osg_oe/lib64`(需换行)
    3. 执行：`sudo ldconfig`
-3. 环境变量中添加osg：`sudo xdg-open ～/.bashrc`
+3. 环境变量中添加osg：`sudo xdg-open ~/.bashrc`
     文件末尾写入：
     ```bash
-    export PATH=${PATH}:/home/iscas/env/bin
-    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/iscas/env/lib
-    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/iscas/env/lib64
-    export OSG_FILE_PATH=/home/iscas/env/data
+    export PATH=${PATH}:/home/iscas/env/osg_oe/bin
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/iscas/env/osg_oe/lib
+    export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/iscas/env/osg_oe/lib64
+    export OSG_FILE_PATH=/home/iscas/env/osg_oe/data
     ```
 
 完成部署
