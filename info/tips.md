@@ -322,7 +322,7 @@ $end$
   export OSG_FILE_PATH=/home/yilin/env/osg_oe/data
   ```
 - 关闭触摸板：`sudo modprobe -r psmouse`，打开`sudo modprobe psmouse`，[详见](https://blog.csdn.net/SAKURASANN/article/details/104262048)
-
+- Ubuntu修改短密码：`/etc/pam.d/common-password`文件`password	[success=2 default=ignore]	...`行，将`minlen=4`附加即可
 
 
 ### tar命令解压
