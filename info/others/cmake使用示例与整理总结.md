@@ -301,3 +301,7 @@ t6示例如何使用自定义的`cmake`模块(编写了自定义的`FindHELLO.cm
 参考`SET`和`AUX_SOURCE_DIRECTORY`用法
 
 建议：在`Project`根目录先建立`build`,然后在`build`文件夹内运行`cmake ..`，这样就不会污染源代码, 如果不想要这些自动生成的文件了，只要简单的删除`build`文件夹就可以
+
+# 有待整理部分
+
+1. 生成可执行文件时，指令为`add_executable`，若要生成静态库，则`add_library(pro_name library.cpp)`，动态库：`add_library(pro_name SHARED library.cpp)`
