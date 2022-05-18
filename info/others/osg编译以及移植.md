@@ -247,5 +247,6 @@ make报错：`cmake Could NOT find ZLIB (missing: ZLIB_LIBRARY)`
     export OSG_FILE_PATH=/home/iscas/env/osg_oe/data
     ```
 4. last but not least：在上述步骤3时，和qt版本设置的PATH设置冲突，此时应将两者的path合并且用`:`间隔
+
 完成部署
 
