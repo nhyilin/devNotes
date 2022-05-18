@@ -4,7 +4,7 @@
 
 # 文档维护清单： 
 
-日常开发快捷键[tips.md](./info/tips.md)
+日常开发用到的[tips.md](./info/tips.md)
 
 c++笔记[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
