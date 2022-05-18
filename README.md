@@ -1,6 +1,7 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
 - [文档维护清单：](#文档维护清单)
+- [待整理](#待整理)
 
 # 文档维护清单： 
 
@@ -13,7 +14,7 @@ cmake清单[cmake使用示例与整理总结](./info/others/cmake使用示例与
 osg麒麟编译及移植[osg编译以及移植.md](./info/others/osg编译以及移植.md)
 
 
-
+# 待整理
 
 theJob.md：工作进度以及临时笔记记录
 newAndDeletStars.md：借助stk删除或者新建星系，借助QSTKEarth类来访问stk的相关功能和接口
