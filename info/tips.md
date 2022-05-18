@@ -300,7 +300,7 @@ $end$
   修改第一行`prefix`对应目录即可
 - linux 下长命令的简化（命令别名）:在`~/.bashrc`文件中添加`alias gps='git push origin HEAD:refs/for/master'`，`source ~/.bashrc`
 - deb文件安装：`sudo dpkg -i 软件包名.deb`
-- 修改文件创建时间属性：`touch -mt YYYYMMDDhhmm`，比如：`touch -mt 201412010000 *`修改当前文件夹内所有文件时间为`201412010000`，Mac相同
+- 修改文件创建时间属性：`touch -mt YYYYMMDDhhmm`，比如：`touch -amt 201412010000 *`修改当前文件夹内所有文件时间为`201412010000`，Mac相同。参数：-a: 修改访问时间，或 –time=atime 或 –time=access 或 –time=use。-c: 或 –no-creat，如果文件不存在则不创建文件。-d: 使用指定的日期时间，可以使用不同的格式。-m: 或 –time=mtime 或 –time=modify，改变修改时间。-r: 把指定的文件日期更设成和参考文档或目录日期相同的时间。-t: 使用指定的日期时间，格式与 date 指令相同
 - alias o='sudo xdg-open'
 - alias osg='osgviewer'
 - alias osge='osgearth_viewer'
