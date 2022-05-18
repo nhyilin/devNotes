@@ -13,6 +13,8 @@ cmake清单：[cmake使用示例与整理总结](./info/others/cmake使用示例
 
 osg麒麟编译及移植：[osg编译以及移植.md](./info/others/osg编译以及移植.md)
 
+gbk2utf-8_文件编码批处理：[gbk2utf-8](./code/Python/gbk2utf-8/)
+
 
 # 待整理
 
