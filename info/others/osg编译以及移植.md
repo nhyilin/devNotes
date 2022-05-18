@@ -108,6 +108,7 @@ qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
 2. 重启系统，分辨率变模糊
 3. 使用`Ctrl+Alt+F2`进入命令行模式，先`sudo su`进入root用户，然后执行`init 3`进入完全多用户
 4. `./***.run`命令安装显卡
+5. 需要注意的是，在一个Would you like to run the nvidia-xconfig utility to automatically update your x configuration file so that the NVIDIA X dirver will be used when you restart X ? 选项中要选择yes...
 
 ### 4.2 安装cmake时间遇到了系统没有openssl环境
 
