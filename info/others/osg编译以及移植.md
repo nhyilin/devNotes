@@ -1,5 +1,22 @@
 银河麒麟及arm64环境下，离线编译osg3.4.0和osgEarth2.9库文件
 
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [编译](#编译)
+  - [一、第三方库](#一第三方库)
+  - [二、库文件依赖的解决](#二库文件依赖的解决)
+  - [三、测试是否成功](#三测试是否成功)
+  - [四、乱七八糟的问题](#四乱七八糟的问题)
+    - [4.1 显卡安装](#41-显卡安装)
+    - [4.2 安装cmake时间遇到了系统没有openssl环境](#42-安装cmake时间遇到了系统没有openssl环境)
+    - [4.3 进程杀死](#43-进程杀死)
+    - [4.4 报错未发现QtOpenGL](#44-报错未发现qtopengl)
+    - [4.5 安装qt时](#45-安装qt时)
+    - [4.6 qtchooser加入新的qmake版本](#46-qtchooser加入新的qmake版本)
+    - [4.7 missing: ZLIB_LIBRARY](#47-missing-zlib_library)
+- [移植](#移植)
+
+
 # 编译
 ## 一、第三方库
 编译前：
