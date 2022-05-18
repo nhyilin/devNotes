@@ -19,7 +19,7 @@ MoveFiles_文件移动、删除批处理：[MoveFiles](./code/Python/MoveFiles/m
 
 processCSV：[processCSV](./code/Python/processCSV/writeFile.py)
 
-简历模板：[resume](./code/LaTex/resume/resume.tex)
+简历模板：[resume](./code/LaTex/resume/)
 
 # 待整理
 
