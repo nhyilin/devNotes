@@ -15,6 +15,7 @@ osg麒麟编译及移植：[osg编译以及移植.md](./info/others/osg编译以
 
 gbk2utf-8_文件编码批处理：[gbk2utf-8](./code/Python/gbk2utf-8/)
 
+MoveFiles_文件移动、删除批处理：[MoveFiles](./code/Python/MoveFiles/)
 
 # 待整理
 
