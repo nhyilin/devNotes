@@ -5,13 +5,13 @@
 
 # 文档维护清单： 
 
-日常开发用到的[tips.md](./info/tips.md)
+日常开发用到的：[tips.md](./info/tips.md)
 
-c++笔记[ChernoCPP.md](./info/cpp/ChernoCPP.md)
+c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
-cmake清单[cmake使用示例与整理总结](./info/others/cmake使用示例与整理总结.md)
+cmake清单：[cmake使用示例与整理总结](./info/others/cmake使用示例与整理总结.md)
 
-osg麒麟编译及移植[osg编译以及移植.md](./info/others/osg编译以及移植.md)
+osg麒麟编译及移植：[osg编译以及移植.md](./info/others/osg编译以及移植.md)
 
 
 # 待整理
