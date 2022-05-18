@@ -1,0 +1,18 @@
+\newcommand{\paint}[3]{
+    \begin{minipage}{#1}
+        \includegraphics[width=#1,height=#2]{#3}
+    \end{minipage} 
+}
+\newcommand{\myheader}{
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}rr}
+  && \multirow{4}*{\paint{2.31cm}{3.3cm}{./resume.jpg}}\\
+  \specialrule{0em}{4pt}{4pt}
+  \textbf{{\LARGE 烈性果汁}} & {185....}$\,${\color{labelgrey}(电话)} & \\
+  江苏省南京市秦淮区御道街29号$\,${\color{labelgrey}(地址)} & \href{https://nhyilin.cn}{nhyilin.cn}$\,${\color{labelgrey}(个人主页)} & \\
+  210016$\,${\color{labelgrey}(邮编)} & \href{mailto:nhyilin@outlook.com}{nhyilin@outlook.com}$\,${\color{labelgrey}(邮件)} & \\
+  \end{tabular*}\\\vspace{0.1in}
+
+}
+
+\myheader
+
