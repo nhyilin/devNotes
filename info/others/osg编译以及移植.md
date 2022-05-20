@@ -121,6 +121,7 @@ qwt编译：`qmake qwt.pro`(指定好了qmake和qwt文件夹内的pro文件)
 ## 四、乱七八糟的问题
 
 ### 4.1 显卡安装
+0. `lspci | grep -i vga`查看显卡型号，返回十六进制数[在这里](http://pci-ids.ucw.cz/mods/PC/10de?action=help?help=pci)查看对应型号
 1. 打开`/boot/grub/grub.cfg`在`Linux /vmlinuz-4.5.0....quiet splash `所在行最后加上`$vt_handoff nouveau.modeset=0`，并且将驱动文件防止在容易找的位置，如home文件夹内
 2. 重启系统，分辨率变模糊
 3. 使用`Ctrl+Alt+F2`进入命令行模式，先`sudo su`进入root用户，然后执行`init 3`进入完全多用户
