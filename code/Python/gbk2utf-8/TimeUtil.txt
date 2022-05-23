@@ -1,0 +1,157 @@
+#ifndef _TIMEUTIL_H
+#define _TIMEUTIL_H
+
+
+#include <string>
+#include <math.h>
+using namespace std;
+
+
+/* Arcseconds to radians */
+#define DAS2R (4.848136811095359935899141e-6)
+
+// 将“度、分、秒”转换成弧度
+#define ArcToRadian(d,m,s) ( 60.0 * ( 60.0 * ( (double) abs(d) ) + ( (double) abs(m) ) ) + fabs(s) ) * DAS2R
+
+
+/*	将时间字符串转换为独立的数字形式的年月日时分秒毫秒
+
+	** 输入:
+	**		szTime:			时间字符串，格式：dd mmm yyyy HH:MM:SS.FFF
+
+	** 输出:
+	**		day:			Day of month (1–31)
+	**		month:			月 (1 - 12)
+	**		year:			年
+	**		hour:			Hours since midnight (0–23)
+	**		minute:			Minutes after hour (0–59)
+	**		second:			Seconds after minute (0–59)
+	**		millisecond:	(0 - 999)
+*/
+void SplitCalendar(const char* szTime, int& day, int& month, int& year, 
+				   int& hour, int& minute, int& second, int& millisecond);
+
+
+/*	将秒时间转换为独立的数字形式的年月日时分秒毫秒
+
+	** 输入:
+	**		MJDInSecond:	秒时间，等于约当儒略日（MJD）乘以每日的秒数（86400.0）
+
+	** 输出:
+	**		day:			Day of month (1–31)
+	**		month:			月 (1 - 12)
+	**		year:			年
+	**		hour:			Hours since midnight (0–23)
+	**		minute:			Minutes after hour (0–59)
+	**		second:			Seconds after minute (0–59)
+	**		millisecond:	(0 - 999)
+*/
+void SplitSecond(double MJDInSecond, int& day, int& month, int& year, 
+				 int& hour, int& minute, int& second, int& millisecond);
+
+
+
+/*	将日历字符串转换为秒时间
+
+	** 输入:
+	**		szCalendar:		日历字符串，格式：dd mmm yyyy HH:MM:SS.FFF
+
+	** 输出:
+	**		约当儒略日对应的秒数，等于约当儒略日（MJD）乘以每日的秒数（86400.0）
+*/
+double TimeStrToSecond(const char* szCalendar);
+
+
+
+/*	将秒时间转换为日历字符串
+
+	** 输入:
+	**		MJDInSecond:	秒时间，等于约当儒略日（MJD）乘以每日的秒数（86400.0）
+
+	** 输出:
+	**		日历字符串，格式：dd mmm yyyy HH:MM:SS.FFF
+*/
+string TimeSecondToStr(double MJDInSecond);
+
+
+
+/*	将字符串表示的月份转换成整数表示的月份
+
+	** 输入:
+	**		szMonth:	字符串表示的月份，Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+
+	** 输出:
+	**		整数表示的月份(1 - 12)
+*/
+int MonthStrToInt(const char* szMonth);
+
+
+
+/*	将整数表示的月份转换成字符串表示的月份
+
+	** 输入:
+	**		im:	整数表示的月份(1 - 12)
+
+	** 输出:
+	**		字符串表示的月份，Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+*/
+string MonthIntToStr(int im);
+
+
+
+/*	计算儒略日
+
+	** 输入:
+	**		MJDInSecond:	秒时间，等于约当儒略日（MJD）乘以每日的秒数（86400.0）
+
+	** 输出:
+	**		MJDInSecond 对应的儒略日
+*/
+double ComputeJD( double MJDInSecond );
+
+
+/*	计算儒略日（重载）
+
+	** 输入:
+	**		szCalendar:		日历字符串，格式：dd mmm yyyy HH:MM:SS.FFF
+
+	** 输出:
+	**		szCalendar 对应的儒略日
+*/
+double ComputeJD(const char* szCalendar);
+
+
+/*	计算约当儒略日
+
+	** 输入:
+	**		MJDInSecond:	秒时间，等于约当儒略日（MJD）乘以每日的秒数（86400.0）
+
+	** 输出:
+	**		MJDInSecond 对应的约当儒略日
+*/
+double ComputeMJD( double MJDInSecond );
+
+
+/*	计算约当儒略日（重载）
+
+	** 输入:
+	**		szCalendar:		日历字符串，格式：dd mmm yyyy HH:MM:SS.FFF
+
+	** 输出:
+	**		szCalendar 对应的约当儒略日
+*/
+double ComputeMJD(const char* szCalendar);
+
+
+
+/*	将儒略日传换成格里高利历字符串
+
+	** 输入:
+	**		JD:		儒略日
+
+	** 输出:
+	**		JD 对应的格里高利历字符串
+*/
+string JD2Calendar(double JD);
+
+#endif
