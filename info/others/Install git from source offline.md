@@ -1,7 +1,7 @@
 Linux离线安装git(eg:ubuntu)
 <!--more-->
 准备
-Ubuntu16.04安装机
+Ubuntu16.04安装机(较低版本ubuntu内核系统，麒麟适用)
 任意公网机下载安装包
 按照以下顺序执行安装可完美避坑
 
