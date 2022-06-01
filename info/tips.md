@@ -370,6 +370,7 @@ $end$
 - `ctrl+alt+f5`进入命令行界面,`Ctrl+Alt+F7`回到图形界面即可。[（有的电脑是f1）ubuntu同理](https://blog.csdn.net/stone_fall/article/details/95971718)，`sudo service lightdm start`、`sudo service lightdm stop`
 - 在当前文件下打开终端的快捷键：`shift + F10`，然后按下`t`
 - 无法更新软件源头，在`/etc/apt/sources.list`中将源修改为如下：`deb http://archive.kylinos.cn/kylin/KYLIN-ALL 4.0.2-desktop main restricted universe multiverse`，[其他版本在这里](http://archive.kylinos.cn/kylin/KYLIN-ALL/)
+- 开发纯离线机常时间戳对不上：`make: warning:  Clock skew detected.  Your build may be incomplete.`，意思就是检测到时钟偏差了，主要是两个设备系统之间的时间上存在差距。解决：`find . -exec touch {} \;`
 
 
 
