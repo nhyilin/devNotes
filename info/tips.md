@@ -183,6 +183,13 @@ $end$
   - Resume Program:`ctrl + \`
 - 返回上一文件光标(back & forward)：`cmd + [ or ]`
 
+Linux(麒麟)下：
+search everywhere: `Double Shift`
+Go to File: `Ctrl+Shift+n`
+Recent File: `Ctrl+E`
+Navigation Bar: `Alt+Home`
+
+
 [![top] Goto Top](#table-of-contents)
 
 # python
