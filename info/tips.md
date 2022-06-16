@@ -188,7 +188,7 @@ search everywhere: `Double Shift`
 Go to File: `Ctrl+Shift+n`
 Recent File: `Ctrl+E`
 Navigation Bar: `Alt+Home`
-
+Find in Files: `Ctrl+Shift+F`
 
 [![top] Goto Top](#table-of-contents)
 

@@ -27,9 +27,9 @@ pro2CMakeLists：[pro2CMakeLists](./code/Python/pro2cmakelists/)
 
 **其他：**
 
-简历模板：[resume](./code/LaTex/resume/)
-
 日常开发用到的：[tips.md](./info/tips.md)
+
+简历模板：[resume](./code/LaTex/resume/)
 
 osg麒麟编译及移植：[osg编译以及移植.md](./info/others/osg编译以及移植.md)
 
