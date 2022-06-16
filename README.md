@@ -11,7 +11,10 @@ c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
 cmake清单：[cmake使用示例与整理总结](./info/others/cmake使用示例与整理总结.md)
 
+---
+
 **python部分：**
+
 gbk2utf-8_文件编码批处理：[gbk2utf-8](./code/Python/gbk2utf-8/main.py)
 
 MoveFiles_文件移动、删除批处理：[MoveFiles](./code/Python/MoveFiles/main.py)
@@ -20,7 +23,10 @@ processCSV：[processCSV](./code/Python/processCSV/writeFile.py)
 
 pro2CMakeLists：[pro2CMakeLists：](./code/Python/pro2cmakelists/)
 
+---
+
 **其他：**
+
 简历模板：[resume](./code/LaTex/resume/)
 
 日常开发用到的：[tips.md](./info/tips.md)
