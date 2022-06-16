@@ -1,0 +1,10 @@
+{
+    "checksum": "67468e439bd9ee97bad4cf11fc12f2f4",
+    "schema_version": "1",
+    "cache": {
+        "conditions": {
+            "": "ON",
+            "(QT_VERSION_MAJOR GREATER 4)": "(QT_VERSION_MAJOR GREATER 4)"
+        }
+    }
+}
