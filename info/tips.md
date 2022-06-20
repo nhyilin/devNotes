@@ -536,7 +536,10 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 - HomeBrew安装脚本`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
 - 显示桌面快捷键：`command + F3`，或者`Fn + F11`
 - 环境变量文件：`~/.bash_profile`，可参考Linux部分alias指令
-
+- 无法ping 通 github.com:在[这里](https://www.ipaddress.com/)查询[github.com](https://ipaddress.com/website/github.com#ipinfo)以及[github.global.ssl.fastly.netip](https://ipaddress.com/website/github.global.ssl.fastly.net#ipinfo)地址，`/etc/hosts`文件中最后添加：
+  - `140.82.112.3    github.com`
+  - `146.75.77.194  github.global.ssl.fastly.net`
+ 重启DNS：`sudo killall -HUP mDNSResponder`再ping github.com就通了！（Ubuntu下`udo /etc/init.d/network-manager restart`重启网络)
 
 [![top] Goto Top](#table-of-contents)
 
