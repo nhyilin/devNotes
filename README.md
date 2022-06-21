@@ -11,6 +11,8 @@ c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
 cmake清单：[cmake使用示例与整理总结](./info/others/cmake使用示例与整理总结.md)
 
+cmakelist添加资源文件:[cmakelist添加资源文件](./info/others/cmakelist添加资源文件.md)
+
 ---
 
 **python部分：**
