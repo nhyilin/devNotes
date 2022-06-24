@@ -3326,11 +3326,12 @@ int main() {
     
     worker.join();
     std::cout<<"Finisher."<<std::endl;
-    std::cout<<"Started thread id: "<<std::this_thread::get_id()
+    std::cout<<"Started thread id: "<<std::this_thread::get_id();
     
     std::cin.get();
 }
 ```
+
 `worker.join();`等待一个线程完成他的工作的方式，针对的是worker线程对象。join函数本质上是要等待这个线程加入进来(thread joining)，她所做的是说：嘿，你能在当前线程上等待这个线程完成工作吗？因此阻塞当前线程直到另一个线程完成。因为这个东西是并行运行，我们的主线程开始一个工作线程，最后我们写的这个join调用的目的，是在主线程上等待工作线程完成所有的执行后，再继续执行主线程。
 
 所以我们想写的程序是：直到我们按下回车，等待我们按回车的那行代码阻塞了执行，因为他在等我们按回车，所以他不能连续打印working。所以在一个线程上并不能真正工作，我们需要能够在同一时间做两件事：我们希望能等待用户按下enter，并反复检查用户是否按下enter，而且还希望将working记录到控制台。
