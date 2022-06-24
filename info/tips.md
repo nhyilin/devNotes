@@ -16,13 +16,8 @@
   - [麒麟](#麒麟)
 - [Data](#data)
 - [GitAndSVN](#gitandsvn)
-  - [svn](#svn)
   - [code maintenance](#code-maintenance)
-  - [code download](#code-download)
-    - [环境搭建](#环境搭建)
-    - [SSH Keys生成及添加](#ssh-keys生成及添加)
-    - [克隆代码到本地](#克隆代码到本地)
-  - [svn](#svn-1)
+  - [git常用操作](#git常用操作)
 - [dump windows](#dump-windows)
   - [office](#office)
     - [word](#word)
@@ -425,7 +420,6 @@ https://192.168.0.33/svn/TZTKBQPlatform/
 
 # GitAndSVN
 
-## svn
 ## code maintenance
 
 1. 本地检出develop分支
@@ -460,40 +454,16 @@ git push origin feature_1906_addInfo:feature_1906_addInfo    #:号前边是本�
 
 btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从暂存区回到了工作区
 
+## git常用操作
 
-
-## code download
-
-### 环境搭建
-
-1. [git下载](https://git-scm.com/downloads)
-2. git安装，一路默认
-
-
-### SSH Keys生成及添加
-
-1. 右击打开Git Bash，并输入命令    ssh-keygen -t ed25519 -C "pyl@hhrbrobot.com"
-2. 回车后，输入设置密码：XXXXXXX
-3. 生成文件id_ed25519.pub（默认存放在Git Bash打开所在目录）
-4. 输入命令 `cat /c/Users/Administrator/.ssh/id_ed25519.pub`
-   或：`cat ~/.ssh/id_ed25519.pub`
-5. 网页进入GitLab，点击右上角名字下拉列表，选择【Setting】->【SSH Keys】，将id_ed25519.pub里面的内容全选并粘贴到网页输入框，然后点击按钮【Add key】，至此完成。
-
-
-### 克隆代码到本地
-
-1. 在本地新建代码目录：D:\gitWorkCode\StatgeVersion，如：（D:\myDevelop\KneeV2021）
-2. 在文件夹D:\gitWorkCode\StatgeVersion下，右击选择【Git Bash Here】打开Git Bash命令行窗口
-3. 输入git clone git@192.168.102.89:cppdev/kneev2021.git   ，回车后输入正确的用户名及密码。
-4. git pull 从服务端拉取代码
-
-
-## svn
-
-- 在setting里的saved data中，可清理Authentiction Data，清理上一个电脑使用者的数据。
-清理完成之后，需要在svn管理员电脑服务端，一般是VisualSVNServer，新建用户，并且在目标项目上右键，权限（或者是属性巴拉巴拉的），把自己的用户名添加进去，否则访问会被拒。
-
-- svn理念和git不同，很是麻烦和落伍，谨记一点就是：修改和提交代码之前，一定要保持代码是最新状态（否则会冲突）
+- 恢复所有本地修改至当前分枝`git checkout .`
+- 当修改.ignore文件后，清除远端数据：
+```git
+git rm -r --cached . 
+git add . 
+git commit -m 'update .gitignore'
+git push <远程主机名> <本地分支名>:<远程分支名>
+```
 
 [![top] Goto Top](#table-of-contents)
 
