@@ -327,6 +327,7 @@ Find in Files: `Ctrl+Shift+F`
 - Ubuntu修改短密码：`/etc/pam.d/common-password`文件`password	[success=2 default=ignore]	...`行，将`minlen=4`附加即可，当第一次输入时，会提示`bad password:the password is shorter than 8 characters`,让你`retype new password`，直接再输入一次即可完成更新
 - linux下给目录下所有子目录和文件赋权`sudo chmod -R 777 *`
 - 终端关闭进程，用于特殊情境只能调动终端时：`ps -ef | grep ***`其中星号为进程名(若不知道进程名试试窗口名)，然后`kill -9 ****`其中星号为进程后的第一串数字，也就是PID
+- 在Windows上代码，移植Linux前转utf-8-bom，而不是utf-8，这样是为了兼顾vs编译
 
 ### tar命令解压
 1. `*.tar`：用`tar -xvf`解压

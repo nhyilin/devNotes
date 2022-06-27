@@ -36,15 +36,15 @@ def file_code_conversion(file_name, tag_code_type):
     src_file.close()
 
     if file_context == "":
-        print (file_name + "  --  empty file")
+        print(file_name + "  --  empty file")
         return
 
     code_type = chardet.detect(file_context)["encoding"]
     if code_type.lower() == tag_code_type.lower():
-        print (file_name + "  --  escape file")
+        print(file_name + "  --  escape file")
         return
     else:
-        print (file_name + ("  --  converted from %s into %s" % (code_type, tag_code_type)))
+        print(file_name + ("  --  converted from %s into %s" % (code_type, tag_code_type)))
         tag_utf8_context = conversion_to_utf8(file_context, code_type)
         tag_context = utf8_conversion(tag_utf8_context, tag_code_type)
         tag_file = open(file_name, "wb")
@@ -54,11 +54,10 @@ def file_code_conversion(file_name, tag_code_type):
 
 if __name__ == "__main__":
     src_dir = "."
-    tag_type = "utf-8"
+    tag_type = "utf-8-bom"
     type_filter = [".cpp", ".h", ".hpp", ".cxx"]
 
     for dir_path, dirs, files in os.walk(src_dir):
         for name in files:
             if os.path.splitext(name)[1] in type_filter:
                 file_code_conversion(os.path.join(dir_path, name), tag_type)
-
