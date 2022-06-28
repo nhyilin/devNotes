@@ -284,7 +284,4 @@ int main(int argc, char *argv[])
 
 
 
-
-[![top] Goto Top](#table-of-contents)
-
 [top]: up.png
