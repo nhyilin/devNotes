@@ -1,11 +1,14 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
 - [文档维护清单](#文档维护清单)
+  - [c++部分](#c部分)
+  - [python部分](#python部分)
+  - [其他](#其他)
 - [待整理](#待整理)
 
 # 文档维护清单
 
-**c++部分：**
+## c++部分
 
 c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
@@ -31,7 +34,7 @@ log的demo：[logger](./code/cpp/logger/)
 
 ---
 
-**python部分：**
+## python部分
 
 gbk2utf-8_文件编码批处理：[gbk2utf-8.py](./code/Python/gbk2utf-8/main.py)
 
@@ -43,7 +46,7 @@ pro2CMakeLists：[pro2CMakeLists](./code/Python/pro2cmakelists/)
 
 ---
 
-**其他：**
+## 其他
 
 日常开发用到的：[tips.md](./info/tips.md)
 
