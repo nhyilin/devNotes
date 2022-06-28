@@ -11,9 +11,9 @@ c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
 Qt笔记：[Qt5学习之路.md](./info/Qt/Qt5学习之路.md)
 
-cmake清单：[cmake使用示例与整理总结](./info/others/cmake使用示例与整理总结.md)
+cmake清单：[cmake使用示例与整理总结.md](./info/others/cmake使用示例与整理总结.md)
 
-cmakelist添加资源文件:[cmakelist添加资源文件](./info/others/cmakelist添加资源文件.md)
+cmakelist添加资源文件:[cmakelist添加资源文件.md](./info/others/cmakelist添加资源文件.md)
 
 指针引用带来的思考：[指针引用带来的思考.md](./info/cpp/指针引用带来的思考.md)
 
@@ -25,7 +25,7 @@ notesOnEasylogging++[notesOnEasylogging++.md](./info/cpp/notesOnEasylogging++.md
 
 侯捷老师代码：[cpp_houjie](./info/cpp/cpp_houjie)、[hj_surceCode](./code/cpp/hj_surceCode)
 
-宏demo：[macroApp](./code/cpp/macroApp.cpp)
+宏demo：[macroApp.cpp](./code/cpp/macroApp.cpp)
 
 log的demo：[logger](./code/cpp/logger/)
 
@@ -33,11 +33,11 @@ log的demo：[logger](./code/cpp/logger/)
 
 **python部分：**
 
-gbk2utf-8_文件编码批处理：[gbk2utf-8](./code/Python/gbk2utf-8/main.py)
+gbk2utf-8_文件编码批处理：[gbk2utf-8.py](./code/Python/gbk2utf-8/main.py)
 
-MoveFiles_文件移动、删除批处理：[MoveFiles](./code/Python/MoveFiles/main.py)
+MoveFiles_文件移动、删除批处理：[MoveFiles.py](./code/Python/MoveFiles/main.py)
 
-processCSV：[processCSV](./code/Python/processCSV/writeFile.py)
+processCSV：[processCSV.py](./code/Python/processCSV/writeFile.py)
 
 pro2CMakeLists：[pro2CMakeLists](./code/Python/pro2cmakelists/)
 
