@@ -185,6 +185,9 @@ Recent File: `Ctrl+E`
 Navigation Bar: `Alt+Home`
 Find in Files: `Ctrl+Shift+F`
 
+- clion在确保cmakelist没有问题的情况下(可以从命令行之行cmake测试)，仍报错cmake找不到某三方库，如Qt5webengine等，尝试在clion的cmake设置里添加环境变量，并且Reset Cache and Reload Project
+
+
 [![top] Goto Top](#table-of-contents)
 
 # python
