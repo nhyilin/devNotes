@@ -22,9 +22,9 @@ cmakelist添加资源文件:[cmakelist添加资源文件.md](./info/others/cmake
 
 带指针类的初始化：[带指针类的初始化.md](./info/cpp/带指针类的初始化.md)
 
-new和malloc关键字[new和malloc关键字.md](./info/cpp/new和malloc关键字.md)
+new和malloc关键字：[new和malloc关键字.md](./info/cpp/new和malloc关键字.md)
 
-notesOnEasylogging++[notesOnEasylogging++.md](./info/cpp/notesOnEasylogging++.md)
+notesOnEasylogging++：[notesOnEasylogging++.md](./info/cpp/notesOnEasylogging++.md)
 
 侯捷老师代码：[cpp_houjie](./info/cpp/cpp_houjie)、[hj_surceCode](./code/cpp/hj_surceCode)
 
