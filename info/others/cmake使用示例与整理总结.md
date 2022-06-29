@@ -305,3 +305,12 @@ t6示例如何使用自定义的`cmake`模块(编写了自定义的`FindHELLO.cm
 # 有待整理部分
 
 1. 生成可执行文件时，指令为`add_executable(pro_name library.cpp)`，若要生成静态库，则`add_library(pro_name library.cpp)`，动态库：`add_library(pro_name SHARED library.cpp)`
+2. 关闭C++11特性
+   ```cmake
+   add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
+   或者
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIBCXX_USE_CXX11_ABI=0")
+   ```
+
+
+
