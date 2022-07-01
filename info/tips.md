@@ -278,8 +278,10 @@ Find in Files: `Ctrl+Shift+F`
     - `source ~/.bashrc`
 - lib库默认安装位置在`/usr/lib/`或者`/usr/local/lib`
 - `alt+F4`:关闭
-- `dynamic`：动态库，`.so`文件,`static`：静态库，`.a`文件
-- 接上一条，在win下，`.lib`为静态库，`.dll`为动态库。在`Mac`下，`.a`为静态库`.dylb`动态库，`.Framework`为打包方式，将库的二进制文件打包在一起。
+- `dynamic`：动态库，`static`：静态库
+- linux下，`.so`动态库;，`.a`静态库
+- win下，`.lib`：静态库，`.dll`动态库。
+- Mac下，`.a`静态库`.dylb`动态库，`.Framework`为打包方式，将库的二进制文件打包在一起。
 - 文件以tree形式列出：`tree`(sudo apt  install tree)
 - Linux设置vi编辑器
     - 配置文件：`sudo vi /etc/vim/vimrc`
