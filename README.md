@@ -4,6 +4,7 @@
   - [c++部分](#c部分)
   - [python部分](#python部分)
   - [其他](#其他)
+- [c++ 学习资料](#c-学习资料)
 - [待整理](#待整理)
 
 # 文档维护清单
@@ -72,6 +73,28 @@ pku的paper模板：[PKUpaper](./code/LaTex/PKUpaper/)
 
 [![top] Goto Top](#table-of-contents)
 
+
+# c++ 学习资料
+
+[cppreference.com](https://en.cppreference.com/w/)
+
+[C++ Standard Library headers](https://en.cppreference.com/w/cpp/header)
+
+[C++ FAQ LITE — Frequently Asked Questions](http://www.sunistudio.com/cppfaq/)
+
+[facebook/folly](https://github.com/facebook/folly)
+
+[boost](https://www.boost.org/)
+
+[Joey de Vries的OpenGL](https://learnopengl-cn.github.io/)
+
+[GAMES101-现代计算机图形学入门-闫令琪](https://www.bilibili.com/video/BV1X7411F744?p=5&vd_source=928ab8f00870337fdf2817d5be74ba86)
+
+[google/googletest](https://github.com/google/googletest)
+
+[Standard C++ Library reference](https://cplusplus.com/reference/)
+
+[Stack Overflow c++-faq](https://stackoverflow.com/questions/tagged/c%2b%2b-faq?sort=votes)
 
 # 待整理
 
