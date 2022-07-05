@@ -516,6 +516,8 @@ git push <远程主机名> <本地分支名>:<远程分支名>
   - `140.82.112.3    github.com`
   - `146.75.77.194  github.global.ssl.fastly.net`
  重启DNS：`sudo killall -HUP mDNSResponder`再ping github.com就通了！（Ubuntu下`udo /etc/init.d/network-manager restart`重启网络)
+- brew安装：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
+- brew卸载：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`
 
 [![top] Goto Top](#table-of-contents)
 
