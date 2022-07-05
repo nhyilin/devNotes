@@ -28,7 +28,7 @@
   - [32. How Strings Work in C++ (and how to use them)](#32-how-strings-work-in-c-and-how-to-use-them)
   - [33. String Literals in C++](#33-string-literals-in-c)
   - [34. CONST in C++](#34-const-in-c)
-  - [35. The Mutable Keyword in C++.srt](#35-the-mutable-keyword-in-csrt)
+  - [35. The Mutable Keyword in C++](#35-the-mutable-keyword-in-c)
   - [36. Member Initializer Lists in C++ (Constructor Initializer List)](#36-member-initializer-lists-in-c-constructor-initializer-list)
   - [37. Ternary Operators in C++ (Conditional Assignment)](#37-ternary-operators-in-c-conditional-assignment)
   - [38. How to CREATE INSTANTIATE OBJECTS in C++](#38-how-to-create-instantiate-objects-in-c)
@@ -1121,7 +1121,7 @@ public:
 ```
 [![top] Goto Top](#table-of-contents)
 
-## 35. The Mutable Keyword in C++.srt
+## 35. The Mutable Keyword in C++
 
 mutable：易变的
 immutable：不可改变的
