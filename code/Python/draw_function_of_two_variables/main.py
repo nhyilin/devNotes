@@ -17,22 +17,33 @@ V = np.arange(1.8, 3.2, 0.1)
 THETA = np.arange(-0.06 * np.pi, 0.06 * np.pi, 0.02)
 YITA = random.random()
 
-fig = plt.figure()
-ax = Axes3D(fig, auto_add_to_figure=False)
-fig.add_axes(ax)
-x = np.arange(-2 * np.pi, 2 * np.pi, 0.1)
-y = np.arange(-2 * np.pi, 2 * np.pi, 0.1)
-X, Y = np.meshgrid(x, y)  # 网格的创建，这个是关键
-Z = np.sin(X) * np.cos(Y)
-plt.xlabel('x')
-plt.ylabel('y')
-ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='rainbow')
-plt.show()
+RESULT = []
+for j in range(len(V)):
+    for i in range(len(THETA)):
+        y = (np.cos(
+            THETA[i] + np.arctan(V[j] * np.sin(THETA[i]) / (YITA * (V[j] + V[j] * np.cos(THETA[i])))))) - np.cos(
+            THETA[i] - np.arctan(V[j] * np.sin(THETA[i]) / (YITA * (V[j] - V[j] * np.cos(THETA[i])))))
+        dx = THETA[1] - THETA[0]
+        fArea = np.sum(y * dx)
+        RESULT.append(fArea)
+        # print("Integral area:", fArea)
+# print(RESULT[len(RESULT) - 1])
 
+RESULT = np.array(RESULT).reshape(len(V), len(THETA))
+print(RESULT)
 
-x = THETA
-y = (np.cos(THETA + np.arctan(V * np.sin(THETA) / (YITA * (V + V * np.cos(THETA)))))) - np.cos(THETA - np.arctan(V * np.sin(THETA) / (YITA * (V - V * np.cos(THETA)))))
-dx = x[1] - x[0]
-fArea = np.sum(y*dx)
-print("Integral area:", fArea)
+print("length of THETA:", len(THETA))
+print("length of V:", len(V))
+# print("length of RESULT_THETA:", len(RESULT))
 
+# fig = plt.figure()
+# ax = Axes3D(fig, auto_add_to_figure=False)
+# fig.add_axes(ax)
+# x = np.arange(-2 * np.pi, 2 * np.pi, 0.1)
+# y = np.arange(-2 * np.pi, 2 * np.pi, 0.1)
+# X, Y = np.meshgrid(x, y)  # 网格创建
+# Z = np.sin(X) * np.cos(Y)
+# plt.xlabel('x')
+# plt.ylabel('y')
+# ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='rainbow')
+# plt.show()
