@@ -14,7 +14,7 @@ M = 19.96
 G = 9.8
 MU = np.arange(0.05, 0.1, 0.01)
 V = np.arange(1.8, 3.2, 0.1)
-THETA = np.arange(-0.06 * np.pi, 0.06 * np.pi, 0.02)
+THETA = np.arange(-0.06 * np.pi, 0.06 * np.pi, 0.2)
 YITA = random.random()
 
 RESULT = []
@@ -29,13 +29,18 @@ for j in range(len(V)):
         # print("Integral area:", fArea)
 # print(RESULT[len(RESULT) - 1])
 
-RESULT = np.array(RESULT).reshape(len(V), len(THETA))
+RESULT = np.array(RESULT).reshape(len(THETA), len(V))
 print(RESULT)
 
 print("length of THETA:", len(THETA))
 print("length of V:", len(V))
-# print("length of RESULT_THETA:", len(RESULT))
+print("shape of RESULT:", shape(RESULT))
 
+DRAW_RESULT = [V, THETA.tolist()]
+print(DRAW_RESULT)
+
+
+def cal_integration()
 # fig = plt.figure()
 # ax = Axes3D(fig, auto_add_to_figure=False)
 # fig.add_axes(ax)
