@@ -29,8 +29,8 @@ def cal_integration(v, mu):
 RESULT = []
 for i in range(len(MU)):
     for j in range(len(V)):
-        RESULT.append(i)
-        RESULT.append(j)
+        RESULT.append(MU[i])
+        RESULT.append(V[j])
         RESULT.append(cal_integration(V[j], MU[i]))
 RESULT = np.array(RESULT).reshape(len(MU) * len(V), 3)
 RESULT_MU = [RESULT[:, 0]]
