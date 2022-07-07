@@ -1,21 +1,16 @@
 from sympy import *
-import math
-from scipy.integrate import quad
+import numpy as np
 import random
 from scipy import integrate
-import numpy as np
 from matplotlib import pyplot as plt
-from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
-import scipy.integrate
 
 # 论文中为投掷后的分数与投掷角度、速度的函数
 # 本文为速度与摩擦系数、角度的函数
 M = float(19.96)
 G = float(9.8)
 MU = np.arange(0.05, 0.1, 0.01).tolist()
-# MU = list(range(0.05, 0.1, 0.01))
-V = np.arange(1.8, 3.2, 0.1).tolist()
+V = np.arange(1.8, 3.2, 0.01).tolist()
 THETA = np.arange(-0.06 * np.pi, 0.06 * np.pi, 0.02).tolist()
 YITA = random.random()
 
@@ -37,7 +32,7 @@ for i in range(len(MU)):
         RESULT.append(i)
         RESULT.append(j)
         RESULT.append(cal_integration(V[j], MU[i]))
-RESULT = np.array(RESULT).reshape(len(MU)*len(V), 3)
+RESULT = np.array(RESULT).reshape(len(MU) * len(V), 3)
 RESULT_MU = [RESULT[:, 0]]
 RESULT_V = [RESULT[:, 1]]
 RESULT_F = [RESULT[:, 2]]
@@ -52,17 +47,24 @@ RESULT_F = [RESULT[:, 2]]
 # print(DRAW_RESULT)
 
 
+# fig = plt.figure()
+# ax = Axes3D(fig, auto_add_to_figure=False)
+# fig.add_axes(ax)
+#
+# ax.scatter(RESULT_MU, RESULT_V, RESULT_F, c='r', marker='*')
+#
+# ax.set_xlabel('MU label')  # 画出坐标轴
+# ax.set_ylabel('V label')
+# ax.set_zlabel('F label')
+# plt.show()
 
-fig = plt.figure()
-ax = Axes3D(fig,auto_add_to_figure=False)
-fig.add_axes(ax)
 
-ax.scatter(RESULT_MU,RESULT_V,RESULT_F) # 画出(xs1,ys1,zs1)的散点图。
-ax.scatter(RESULT_MU,RESULT_V,RESULT_F,c='r',marker='^')
-ax.scatter(RESULT_MU,RESULT_V,RESULT_F,c='g',marker='*')
 
-ax.set_xlabel('MU label') # 画出坐标轴
-ax.set_ylabel('V label')
-ax.set_zlabel('F label')
+# 创建绘图图表对象，可以不显式创建，跟cv2中的cv2.namedWindow()用法差不多
+plt.figure('Draw')
 
+plt.plot(RESULT_V, RESULT_F, 'ro')
+plt.draw()  # 显示绘图
+
+# plt.savefig("easyplot.jpg")  # 保存图象
 plt.show()
