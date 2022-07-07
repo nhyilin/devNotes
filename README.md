@@ -47,6 +47,8 @@ pro2CMakeLists：[pro2CMakeLists](./code/Python/pro2cmakelists/)
 
 XLSX file analysis interval drop number：[Number of interval drop points](./code/Python/statisticalIntervals/main.py)
 
+draw_function_of_two_variables_：[draw_function_of_two_variables_](./code/Python/draw_function_of_two_variables_/main.py)
+
 [![top] Goto Top](#table-of-contents)
 
 ## 其他
