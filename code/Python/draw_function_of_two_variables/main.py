@@ -27,7 +27,16 @@ for j in range(len(V)):
         fArea = np.sum(y * dx)
         RESULT.append(fArea)
         # print("Integral area:", fArea)
+
+
 # print(RESULT[len(RESULT) - 1])
+
+def cal_integration(v, mu):
+    f = lambda theta: np.cos(theta + np.arctan(v * np.sin(theta) / YITA * (v + v * np.cos(theta)))) - np.cos(
+        theta - np.arctan(v * np.sin(theta) / (YITA * (v - v * np.cos(theta)))))
+    integration = integrate.quad(f, 0, np.pi / 2)
+    return -1 * integration * (1 / np.pi) * mu * M * G
+
 
 RESULT = np.array(RESULT).reshape(len(THETA), len(V))
 print(RESULT)
@@ -40,15 +49,10 @@ DRAW_RESULT = [V, THETA.tolist()]
 print(DRAW_RESULT)
 
 
-def cal_integration()
-# fig = plt.figure()
-# ax = Axes3D(fig, auto_add_to_figure=False)
-# fig.add_axes(ax)
-# x = np.arange(-2 * np.pi, 2 * np.pi, 0.1)
-# y = np.arange(-2 * np.pi, 2 * np.pi, 0.1)
-# X, Y = np.meshgrid(x, y)  # 网格创建
-# Z = np.sin(X) * np.cos(Y)
-# plt.xlabel('x')
-# plt.ylabel('y')
-# ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='rainbow')
-# plt.show()
+
+def main():
+
+
+
+if __name__ == '__main__':
+    main()
