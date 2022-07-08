@@ -79,6 +79,9 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
   - 项目属性 -> c/c++ -> 常规 -> 优化 -> 已禁用(/Od)
   - 项目属性 -> 链接器 -> 调试 -> 生成调试信息 -> 生成调试信息(/DEBUG)
 
+- 在 Visual Studio 开发环境中设置此编译器选项：
+  -  
+
 [![top] Goto Top](#table-of-contents)
 
 ## resharper插件
@@ -488,6 +491,10 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 - `netsh advfirewall set allprofiles state off`：关闭防火墙
 - 测试软件时，尽量在虚拟机上搞...
 - 修改键位：
+- ALT+Esc 当前窗口最小化
+- Win+D 最小化所有窗口，再按一下就可以还原窗口
+- Windows+M：最小化所有窗口
+- Windows+Shift+M：还原最小化的窗口。
 
 ## office
 ### word
