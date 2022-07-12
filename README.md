@@ -13,6 +13,10 @@
 
 c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
+c++编译报错积累：[cpp_compilation_error_sorting.md](./info/cpp/cpp_compilation_error_sorting.md)
+
+c++跨平台开发、移植笔记：[Cross_platform_porting.md](./info/cpp/Cross_platform_porting.md)
+
 Qt笔记：[Qt5学习之路.md](./info/Qt/Qt5学习之路.md)
 
 cmake清单：[cmake使用示例与整理总结.md](./info/others/cmake使用示例与整理总结.md)
