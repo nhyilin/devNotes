@@ -49,7 +49,7 @@ widget::widget(QWidget *parent) :
     btn->show();
 }
 ```
-在msvc编译器下上述代码注释部分，若开启则乱码，若注释则正常状态,mingw以及clang下均正确。
+在`msvc`编译器下上述代码注释部分，若开启则乱码，若注释则正常状态,`mingw`以及`clang`下均正确。
 
 乱码总结：
 1. 源码字符集(the source character set)：源码文件是使用何种编码保存的
