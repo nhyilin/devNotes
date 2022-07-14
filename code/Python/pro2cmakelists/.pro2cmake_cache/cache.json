@@ -4,7 +4,8 @@
     "cache": {
         "conditions": {
             "": "ON",
-            "(QT_VERSION_MAJOR GREATER 4)": "(QT_VERSION_MAJOR GREATER 4)"
+            "(QT_VERSION_MAJOR GREATER 4)": "(QT_VERSION_MAJOR GREATER 4)",
+            "WIN32": "WIN32"
         }
     }
 }

@@ -185,4 +185,5 @@ fabric.properties
 # .idea
 .vscode/settings.json
 .vscode/settings.json
-info/JobHistory/*
+
+Thumbs.db
