@@ -1490,6 +1490,8 @@ int main()
 
 一般在数学库之类的东西使用`explicit`，因为我不想总是将数字变成向量，我想确保我的代码尽可能安全。其实并不常用它。当你写低级封装(low level wrapper)时，或者类似的事情，它可以派上用场，它可以防止做意外转换，导致性能问题或bug，有很多内容，但是无需担心，只要意识到他能为你做些什么就可以了。我认为这节课中最大的收获就是意识到隐形构造函数的存在。
 
+[cppreference中有相关demo不错](https://en.cppreference.com/w/cpp/language/explicit)
+
 [![top] Goto Top](#table-of-contents)
 
 
