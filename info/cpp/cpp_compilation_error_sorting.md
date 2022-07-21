@@ -1,3 +1,4 @@
+# 编译
 1. error "extra qualification ‘student::’ on member ‘student’ [-fpermissive] "
 
 [In-class definitions of member function(s)/constructor(s)/destructor don't require qualification](https://stackoverflow.com/questions/11692806/error-extra-qualification-student-on-member-student-fpermissive)
@@ -57,7 +58,16 @@ int main() {
 
 只有当你想改变参数的值时，你才需要一个非const引用。这在复制构造函数中似乎是非常罕见的，如果你这样做的话，也很罕见。
 
+# 链接
 
+1. Undefined symbols for architecture x86_64
+
+编译过程中链接错误
+```bash
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+```
+这种情况我碰到的原因是函数只有声明没有实现，但是被调用了。
 
 
 
