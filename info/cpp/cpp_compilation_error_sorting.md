@@ -58,6 +58,13 @@ int main() {
 
 只有当你想改变参数的值时，你才需要一个非const引用。这在复制构造函数中似乎是非常罕见的，如果你这样做的话，也很罕见。
 
+
+
+4. 'initializing': cannot convert from 'const char [6]' to 'char *'
+   - c++语言版本支持出现的问题
+   - 在vs项目属性中c/c++中language中Conformance mode（符合模式），默认为true改为false即可
+
+
 # 链接
 
 1. Undefined symbols for architecture x86_64
@@ -68,6 +75,7 @@ ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
 这种情况我碰到的原因是函数只有声明没有实现，但是被调用了。
+
 
 
 
