@@ -1,8 +1,0 @@
-[13:55:10 | ERROR] -----error log
-[13:55:10 | WARNING] ------warning log
-[13:55:10 | INFO] ------info log
-[13:55:10 | TRACE] ------trace log
-[13:55:10 | DEBUG] ------debug log
-[13:55:10 | INFO] 2021/10/19 11:19 [yilin] for TEST logger
-[13:55:10 | INFO] vir is:9
-
