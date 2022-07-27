@@ -70,9 +70,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 以后甭管双击sln还是快捷方式，都默认使用管理员权限启动vs2017了。
 
 - 没有为此解决方案配置选中要生成的项目：右键项目，查看属性，常规里的配置管理器，勾选上“生成”选项即可
-- **编译报错**：'initializing': cannot convert from 'const char [6]' to 'char *'
-    - c++语言版本支持出现的问题
-    - 在vs项目属性中c/c++中language中Conformance mode（符合模式），默认为true改为false即可
+
 
 - vs在Release模式下开启Debug调试
   - 项目属性 -> c/c++ -> 常规 -> 调试信息格式化 -> 程序数据库(/Zi)
@@ -479,6 +477,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 - 不删除工作空间改动代码，撤销`commit`，并且撤销`git add .` ：`git reset --mixed HEAD^`
 - 撤销`commit`，不撤销`git add .` ：`git reset --soft HEAD^`
 - 删除工作空间改动代码，撤销`commit`，撤销`git add .` ,注意完成这个操作后，会删除工作空间代码！！！恢复到上一次的`commit`状态。慎重！！！：`git reset --hard HEAD^`
+- LF will be replaced by CRLF: Windows中换行符为CRLF，而Linux换行符是LF，git默认是CRLF，若发现项目有LF，就会弹出警告了，最终push就会统一转成CRLF作为换行符。false就是不转换符号，默认是true，[参考这里](https://blog.csdn.net/Jae_Wang/article/details/80379133)
 
 [![top] Goto Top](#table-of-contents)
 
