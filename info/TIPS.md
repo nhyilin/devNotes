@@ -516,14 +516,15 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 
 
  # myMac
-
+- [配置环境变量](https://blog.csdn.net/liaowenxiong/article/details/112180532)
 - 安全与隐私中，通用栏，`进入睡眠或开始屏幕保护程序...要求输入密码`，控制时间有利于中途查看代码，减少解锁次数
 - magnet快捷键：`control + option + 上下左右`（调整应用程序贴合屏幕位置）
 - magnet快捷键：`control + option + enter`（最大化显示）
 - Downie下载：设置中，下载目录文件格式设置为`播放清单索引 - 标题`，下载文件保存至文件夹：勾选任意一个可保证下载列表视频时，自动创建文件夹来放置下载的视频，否则所有文件下载至当前目录造成混乱。
 - HomeBrew安装脚本`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
 - 显示桌面快捷键：`command + F3`，或者`Fn + F11`
-- 环境变量文件：`~/.bash_profile`，可参考Linux部分alias指令
+- 用户环境变量文件：`~/.bash_profile`，可参考Linux部分alias指令
+- 修改系统环境变零：`/etc/profile`文件中添加，如`export PATH=/opt/local/bin:$PATH`
 - 无法ping 通 github.com:在[这里](https://www.ipaddress.com/)查询[github.com](https://ipaddress.com/website/github.com#ipinfo)以及[github.global.ssl.fastly.netip](https://ipaddress.com/website/github.global.ssl.fastly.net#ipinfo)地址，`/etc/hosts`文件中最后添加：
   - `140.82.112.3    github.com`
   - `146.75.77.194  github.global.ssl.fastly.net`
@@ -531,6 +532,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 - brew安装：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
 - brew卸载：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`
 - 显示隐藏文件：`cmd + shift + .`
+
 
 [![top] Goto Top](#table-of-contents)
 

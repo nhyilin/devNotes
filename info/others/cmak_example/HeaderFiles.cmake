@@ -1,0 +1,346 @@
+
+
+set(Header_Files
+    "mainwindow.h"
+)
+
+set(Header_Files__common
+	common/MathFunction.h
+	common/armLimitPosDialog.h
+	common/armZeroCheckDialog.h
+	common/armfollowdialog.h
+	common/armmovingdialog.h
+	common/armunlockdialog.h
+    common/audiothread.h
+    common/alarmcontroller.h
+	common/common.h
+	common/config.h
+	common/context.h
+	common/datamanager.h
+	common/diskspacewidget.h
+	common/drawTool.h
+	common/logger.h
+	common/mathhelper.h
+	common/matrix.h
+	common/modulemanager.h
+	common/modulewidget.h
+	common/notificationwidget.h
+	common/pedalflashingwidget.h
+	common/picturelabel.h
+	common/rdialog.h
+	common/rfilesystemmodel.h
+	common/rmessagebox.h
+	common/robotconfighelper.h
+	common/robotfilehelper.h
+	common/rprogressdialog.h
+	common/rsetdialog.h
+	common/storagewidget.h
+	common/style.h
+	common/translate.h
+	common/utility.h
+	common/constDefine.h
+	common/average.h
+	common/average-eigin.h
+	common/screenshot.h
+)
+
+set(Header_Files__cut
+	cut/cutcommon.h
+	cut/armrangewidget.h
+	cut/bonedatamanager.h
+	cut/boneviewer.h
+	cut/collisionDetection.h
+	cut/cutcontroller.h
+	cut/cutflowwidget.h
+	cut/cutstepwidget.h
+	cut/cutwidget.h
+	cut/forcelinewidget.h
+	cut/hintDoublePlaneInfoWgt.h
+	cut/offsetlegendwidget.h
+	cut/pedalonclickmousewidget.h
+	cut/pedaltimingwidget.h
+	cut/planecorrection.h
+	cut/stiffLimits.h
+	cut/switchCtrlModeDlg.h
+    cut/boneCenterPositionWidget.h
+    cut/offsetRecorder.h
+    cut/PausableElapsedTimer.h
+	cut/cutPrecisionTestDlg.h
+)
+
+set(Header_Files__db
+	db/dbmanager.h
+	db/doctor.h
+	db/mysql_interface.h
+	db/patient.h
+	db/prosthesis.h
+)
+
+set(Header_Files__init
+	init/ComConnection.h
+	init/DeviceManager.h
+	init/DeviceManagerBase.h
+	init/PcieDevice.h
+	init/RS485Device.h
+	init/RS485protocol.h
+	init/armbrakewidget.h
+	init/cmdqueue.h
+	init/finishingwidget.h
+	init/initializer.h
+	init/initwidget.h
+	init/restorecutscence.h
+	init/serialportop.h
+	init/softshutdownconditionsdlg.h
+	init/videowidget.h
+	init/FirmwareCRC.h
+	init/FirmwareDevice.h
+	init/FirmwareProtocal.h
+)
+
+
+set(Header_Files__io
+	io/ProjectSave.h
+	io/iodatamanager.h
+	io/ioworker.h
+	io/projectopen.h
+	io/projectimportv11.h
+	io/prosthesismanage.h
+	io/zipreader.h
+	io/zipwriter.h
+	io/iohelper.h
+)
+
+set(Header_Files__login
+	login/accountWidget.h
+	login/adminwidget.h
+	login/diskfreelabel.h
+	login/doctormainwidget.h
+	login/engineerwidget.h
+	login/framelesswidget.h
+	login/hospitalmasterwidget.h
+	login/loginwidget.h
+	login/logmanagerwidget.h
+	login/machinearmwidget.h
+	login/navigatorwidget.h
+	login/passwordlineedit.h
+	login/prothesisManageWidget.h
+	login/reportitemwidget.h
+	login/searchreportedit.h
+	login/usermanagerwidget.h
+	login/ndisamplingstatisticsdialog.h
+)
+
+set(Header_Files__manage
+	manage/filesmanageworker.h
+	manage/labelwidget.h
+	manage/localplanmanagerwidget.h
+	manage/managewidget.h
+	manage/myqsqlquerymodel.h
+)
+
+
+set(Header_Files__mount
+	mount/interactorStyleCamera.h
+	mount/mountController.h 
+	mount/mountwidget.h
+)
+
+set(Header_Files__plan
+	plan/cuttingPlan.h
+	plan/planController.h
+	plan/planwidget.h
+)
+
+set(Header_Files__plan__vtk
+    "plan/vtk/myBezierContourLineInterpolator.h"
+    "plan/vtk/myContourLineInterpolator.h"
+    "plan/vtk/myContourRepresentation.h"
+    "plan/vtk/myContourWidget.h"
+    "plan/vtk/myOrientedGlyphContourRepresentation.h"
+)
+
+set(Header_Files__prepare
+	prepare/findbackWidget.h
+	prepare/freecollectionwidget.h
+	prepare/lampwidget.h
+	prepare/layoutwidget.h
+	prepare/ndicapturewidget.h
+	prepare/ndispace.h
+	prepare/pickedpointstatisticswidget.h
+	prepare/probewidget.h
+	prepare/robotpositionwidget.h
+	prepare/surgicalpreparewidgetV2.h
+	prepare/verifyWidget.h
+	prepare/navigatepreparewidget.h
+	prepare/deviceinndispaceposdialog.h
+)
+
+set(Header_Files__reconstruction
+	reconstruction/BooleanoperationWidget.h
+	reconstruction/anglemeasurementinteractorstyle.h
+	reconstruction/axesactor.h
+	reconstruction/connectwidget.h
+	reconstruction/dicomimportwidget.h
+	reconstruction/dicomtagparser.h
+	reconstruction/distancemeasurementinteractorstyle.h
+	reconstruction/filebrowserwidget.h
+	reconstruction/filterworker.h
+	reconstruction/histogramwidget.h
+	reconstruction/importworker.h
+	reconstruction/lineactor.h
+	reconstruction/maskactor.h
+	reconstruction/maskwidget.h
+	reconstruction/multiplanarwidget.h
+	reconstruction/multiplesliceseditwidget.h
+	reconstruction/myfilesystemmodel.h
+	reconstruction/mytablewidget.h
+	reconstruction/paintcontourcallback.h
+	reconstruction/pointactor.h
+	reconstruction/pointguidwidget.h
+	reconstruction/polyactor.h
+	reconstruction/projectimportwidget.h
+	reconstruction/reconstructionwidget.h
+	reconstruction/segmentdatamanager.h
+	reconstruction/segmentdialogbase.h
+	reconstruction/segmentlegend.h
+	reconstruction/stlwidget.h
+	reconstruction/thresholdwidget.h
+	reconstruction/tibiaforcelinecallback.h
+	reconstruction/tibiaforcelinewidget.h
+	reconstruction/typedefine.h
+	reconstruction/undocontourcommand.h
+	reconstruction/undointerpolatecommand.h
+    reconstruction/linepointreprensentation.h
+    reconstruction/linepointreprensentationbase.h
+    reconstruction/raylinepointreprensentation.h
+)
+
+set(Header_Files__reconstruction__algorithm
+    "reconstruction/algorithm/algorithmbase.h"
+    "reconstruction/algorithm/algorithmworker.h"
+    "reconstruction/algorithm/bonescoordsystemalgorithm.h"
+    "reconstruction/algorithm/booleanoperationalgorithm.h"
+    "reconstruction/algorithm/connectalgorithm.h"
+    "reconstruction/algorithm/contouralgorithm.h"
+    "reconstruction/algorithm/featureedgesalgorithm.h"
+    "reconstruction/algorithm/multiplesliceseditalgorithm.h"
+    "reconstruction/algorithm/spherefittingalgorithm.h"
+    "reconstruction/algorithm/thresholdalgorithm.h"
+)
+
+set(Header_Files__reconstruction__vtk
+    "reconstruction/vtk/myDICOMImageReader.h"
+    "reconstruction/vtk/myImageViewer2.h"
+    "reconstruction/vtk/myInteractorStyleImage.h"
+    "reconstruction/vtk/myInteractorStyleTrackballCamera.h"
+    "reconstruction/vtk/myLineWidget.h"
+    "reconstruction/vtk/myResliceCursor.h"
+    "reconstruction/vtk/myResliceCursorActor.h"
+    "reconstruction/vtk/myResliceCursorLineRepresentation.h"
+    "reconstruction/vtk/myResliceCursorPicker.h"
+    "reconstruction/vtk/myResliceCursorPolyDataAlgorithm.h"
+    "reconstruction/vtk/myResliceCursorRepresentation.h"
+    "reconstruction/vtk/myResliceCursorThickLineRepresentation.h"
+    "reconstruction/vtk/myResliceCursorWidget.h"
+    "reconstruction/vtk/myResliceImageViewer.h"
+    "reconstruction/vtk/myResliceImageViewerMeasurements.h"
+)
+
+
+set(Header_Files__registration
+	registration/highlightInteractorStyle.h
+	registration/pointPickerInteractorStyle.h
+	registration/propPickerInteractorStyle.h
+	registration/registrationController.h
+	registration/registrationwidget.h
+)
+
+set(Header_Files__settings
+	settings/DisableHotKey.h
+	settings/RomImportFileWidget.h
+	settings/accuracyController.h
+	settings/accuracyLocation.h
+	settings/accuracySystem.h
+	settings/accuracyTestEMC.h
+	settings/accuracyTest_EMC.h
+	settings/armcontrolsettingswidget.h
+	settings/logsettingswidget.h
+	settings/parametersettingswidget.h
+	settings/probeParameterWidget.h
+	settings/romFileWidget.h
+	settings/sawParameterWidget.h
+	settings/setProbeParameter.h
+	settings/setRomVersion.h
+	settings/setSawParameter.h
+	settings/setingmainwidget.h
+	settings/setsysinfowidget.h
+	settings/settingsubwidget.h
+	settings/standByWidget.h
+	settings/systeminfosettingswidget.h
+	settings/systemsettingswidget.h
+	settings/armtorquetestdlg.h
+	settings/armanglerangewidget.h
+	settings/armmoving2fixedangledialog.h
+	settings/quickSawLoadTestDlg.h
+)
+
+# header files in Expert folders
+set(INNER_HEADER_FILES
+    ${Header_Files}
+    ${Header_Files__common}
+    ${Header_Files__cut}
+    ${Header_Files__db}
+    ${Header_Files__init}
+    ${Header_Files__io}
+    ${Header_Files__login}
+    ${Header_Files__manage}
+    ${Header_Files__mount}
+    ${Header_Files__plan}
+    ${Header_Files__plan__vtk}
+    ${Header_Files__prepare}
+    ${Header_Files__reconstruction}
+    ${Header_Files__reconstruction__algorithm}
+    ${Header_Files__reconstruction__vtk}
+    ${Header_Files__registration}
+    ${Header_Files__settings}
+) 
+
+	
+set(Header_Files__..__Robot__common
+    "../Robot/common/robotconfig.h"
+)
+
+set(Header_Files__..__Robot__coordinate
+    "../Robot/coordinate/coordinateTransformation.h"
+)
+
+set(Header_Files__..__Robot__io
+    "../Robot/io/bdaqctrl.h"
+    "../Robot/io/robotio.h"
+)
+
+set(Header_Files__..__Robot__navigator
+    "../Robot/navigator/navigator.h"
+    "../Robot/navigator/navigatorController.h"
+)
+
+set(Header_Files__..__Robot__roboticArm
+    "../Robot/roboticArm/CommunicationModule.h"
+    "../Robot/roboticArm/MessagePack.h"
+    "../Robot/roboticArm/StringHelper.h"
+)
+
+set(Header_Files__..__common
+    "../common/commontype.h"
+	"../common/versiondef.h"
+)
+
+# header files out of  Expert folders but in this project
+set(EXTERNAL_HEADER_FILES
+    ${Header_Files__..__Robot__common}
+    ${Header_Files__..__Robot__coordinate}
+    ${Header_Files__..__Robot__io}
+    ${Header_Files__..__Robot__navigator}
+    ${Header_Files__..__Robot__roboticArm}
+    ${Header_Files__..__common}
+)
