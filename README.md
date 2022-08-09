@@ -57,7 +57,7 @@ draw_function_of_two_variables_：[draw_function_of_two_variables_](./code/Pytho
 
 ## 其他
 
-日常开发用到的：[tips.md](./info/tips.md)
+日常开发用到的：[tips.md](./info/TIPS.md)
 
 osg麒麟编译及移植：[osg编译以及移植.md](./info/others/osg编译以及移植.md)
 
