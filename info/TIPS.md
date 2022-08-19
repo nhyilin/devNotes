@@ -478,7 +478,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 - 撤销`commit`，不撤销`git add .` ：`git reset --soft HEAD^`
 - 删除工作空间改动代码，撤销`commit`，撤销`git add .` ,注意完成这个操作后，会删除工作空间代码！！！恢复到上一次的`commit`状态。慎重！！！：`git reset --hard HEAD^`
 - LF will be replaced by CRLF: Windows中换行符为CRLF，而Linux换行符是LF，git默认是CRLF，若发现项目有LF，就会弹出警告了，最终push就会统一转成CRLF作为换行符。false就是不转换符号，默认是true，[参考这里](https://blog.csdn.net/Jae_Wang/article/details/80379133)
-- [Git 少用 Pull 多用 Fetch 和 Merge](https://www.oschina.net/translate/git-fetch-and-merge?print)
+- git的pull操作会导致本地未提交修改消失，[Git 少用 Pull 多用 Fetch 和 Merge](https://www.oschina.net/translate/git-fetch-and-merge?print)
 
 [![top] Goto Top](#table-of-contents)
 
