@@ -104,6 +104,8 @@ pku的paper模板：[PKUpaper](./code/LaTex/PKUpaper/)
 
 [Stack Overflow c++-faq](https://stackoverflow.com/questions/tagged/c%2b%2b-faq?sort=votes)
 
+[Boost C++ 库](http://zh.highscore.de/cpp/boost/)
+
 # 待整理
 
 
