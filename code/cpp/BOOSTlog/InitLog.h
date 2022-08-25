@@ -1,84 +1,54 @@
+﻿
 #pragma once
 
-#include <cassert>
-#include <iostream>
-#include <fstream>
-#include <boost/locale/generator.hpp>
-#include <boost/date_time/posix_time/posix_time_types.hpp>
-
-#include <boost/log/common.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/console.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/sources/logger.hpp>
-#include <boost/log/support/date_time.hpp>
-
-#include <boost/filesystem.hpp>
-#include <boost/log/detail/thread_id.hpp>
-#include <boost/log/sources/global_logger_storage.hpp>
-namespace logging = boost::log;
-namespace sinks = boost::log::sinks;
-namespace attrs = boost::log::attributes;
-namespace src = boost::log::sources;
-namespace expr = boost::log::expressions;
-namespace keywords = boost::log::keywords;
+#include <string>
+#include <boost/log/trivial.hpp>
 
 
-enum severity_level
-{
+using std::string;
+#define LOG_TRACE\
+    BOOST_LOG_SEV((MyLog::s_slg),(boost::log::trivial::trace))
+#define LOG_DEBUG\
+    BOOST_LOG_SEV((MyLog::s_slg),(boost::log::trivial::debug))
+#define LOG_ERROR\
+    BOOST_LOG_SEV((MyLog::s_slg),(boost::log::trivial::error))
+//#define LOG_WARNING\
+//    BOOST_LOG_SEV((MyLog::s_slg),(boost::log::trivial::warning))
+// 在使用之前必须先调用 init
+// 使用方式  LOG_DEBUG<<"test string";
+// 也可以用boost 中的宏  BOOST_LOG_TRIVIAL(info)<<"test msg";
+
+
+
+
+enum severity_level {
     trace,
-    warning,
+    debug,
     error
-    
 };
 
-template< typename CharT, typename TraitsT >
-inline std::basic_ostream< CharT, TraitsT >& operator<< (std::basic_ostream< CharT, TraitsT >& strm, severity_level lvl)
-{
-    static const char* const str[] =
-            {
-                    "trace",
-                    "warning",
-                    "error"
-            };
-    if (static_cast< std::size_t >(lvl) < (sizeof(str) / sizeof(*str)))
-        strm << str[lvl];
-    else
-        strm << static_cast< int >(lvl);
-    return strm;
-}
 
-BOOST_LOG_ATTRIBUTE_KEYWORD(_severity,  "Severity",  severity_level)
-BOOST_LOG_ATTRIBUTE_KEYWORD(_timestamp, "TimeStamp", boost::posix_time::ptime)
-
-
-
-class CLogger
-{
+class MyLog {
 public:
-    CLogger(void);
-    ~CLogger(void);
-    static void Init();
-    static void Start();
-    static void Stop();
-    
-    
-    //日志严重等级过滤输出
-    static void SetFilterTrace();
-    static void SetFilterWarning();
-    static void SetFilterError();
-    
-    
-    void SetLogFilePath(std::wstring strPath);
-    void SetMinFreeSpace(size_t size);
-    void SetRotationsize(size_t size);
+    MyLog();
 
+    ~MyLog(void);
 
+    // 在使用之前必须先调用此函数
+    static void Init(const string& dir);
+
+    static void Log(const string& msg);
+
+    static void init_filter();
+
+    void SetFilterTrace();
+
+    void SetFilterDebug();
+
+    void SetFilterError();
+
+    static boost::log::sources::severity_logger<boost::log::trivial::severity_level> s_slg;
+protected:
 private:
-    static size_t m_szMinFreeSpace;
-    static size_t m_szRotationSize;
-    static std::wstring m_strFilePath;
-    static bool m_bAutoFlush;
-    
+
 };
