@@ -10,13 +10,16 @@
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/sources/global_logger_storage.hpp>
 #include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/console.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/sinks/text_ostream_backend.hpp>
 #include <boost/log/attributes/named_scope.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/support/date_time.hpp>
-#include <boost/log/detail/format.hpp>
 #include <boost/log/detail/thread_id.hpp>
+#include <boost/log/detail/format.hpp>
+#include <boost/log/sinks/text_ostream_backend.hpp>
+
+#include "ParseINI.h"
 
 
 namespace logging = boost::log;
@@ -26,32 +29,58 @@ namespace sinks = boost::log::sinks;
 namespace expr = boost::log::expressions;
 namespace attrs = boost::log::attributes;
 
+std::string InitLog::LogPath;
+bool InitLog::is_console_log = false;
+
 BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(my_logger, src::logger_mt)
 
-boost::log::sources::severity_logger<boost::log::trivial::severity_level> MyLog::s_slg;
+boost::log::sources::severity_logger<boost::log::trivial::severity_level> InitLog::s_slg;
 
-MyLog::MyLog() {
+InitLog::InitLog() {
 
-}
-
-MyLog::~MyLog(void) {
 
 }
 
-void MyLog::Init(const string& dir) {
+InitLog::~InitLog(void) {
 
-    MyLog::init_filter();
+}
+
+void InitLog::Init(const string& dir) {
+
+    InitLog::init_filter();
     if (boost::filesystem::exists(dir) == false) {
         boost::filesystem::create_directories(dir);
     }
 
+    if (is_console_log)
+    {
+        auto consoleSink = boost::log::add_console_log
+        (//控制台日志
+            std::cout,
+            keywords::auto_flush = true,
+            keywords::format =
+            (
+                expr::stream
+                << "[" << expr::attr<int>("RecordID") << "] "
+                << "[" << expr::format_date_time<boost::posix_time::ptime>("TimeStamp",
+                    "%Y-%m-%d %H:%M:%S.%f")
+                << " " << expr::attr<boost::log::aux::thread::id>("ThreadID")
+                << "] " << "[" << logging::trivial::severity << "] "
+                << expr::smessage
+                )
+        );
+        consoleSink->locked_backend()->auto_flush(true);
+    }
+
+
     auto pSink = logging::add_file_log
-    (
+    (//文件日志
+        keywords::target= InitLog::LogPath,
+        keywords::max_size= 100 * 1024 * 1024,
         keywords::open_mode = std::ios::app,
-        keywords::file_name = dir + "/%Y-%m-%d.log",
+        keywords::file_name = dir + "/%Y-%m-%d_%N.log",
         keywords::rotation_size = 10 * 1024 * 1024,
         keywords::time_based_rotation = sinks::file::rotation_at_time_point(0, 0, 0),
-        //                    keywords::format = "[%TimeStamp% %ThreadID%]: %Message%"
         keywords::format =
         (
             expr::stream
@@ -63,35 +92,61 @@ void MyLog::Init(const string& dir) {
             << expr::smessage
             )
     );
+
+
+
     // 如果不写这个 它不会实时的把日志写下去, 而是等待缓冲区满了,或者程序正常退出时写下,这样做的好处是减少IO操作.提高效率,  不过我这里不需要它. 因为我的程序可能会异常退出.
     pSink->locked_backend()->auto_flush(true);//使日志实时更新
+    
     //pSink->imbue(std::locale("zh_CN.UTF-8")); // 本地化
     logging::add_common_attributes();
 
     attrs::counter<int> RecordID(1);
     logging::core::get()->add_global_attribute("RecordID", RecordID);
+
 }
 
 
-void MyLog::Log(const string& msg) {
+void InitLog::Log(const string& msg) {
     src::logger lg;
     BOOST_LOG(lg) << msg;
 }
 
 
-void MyLog::SetFilterTrace() {
+void InitLog::SetFilterTrace() {
     logging::core::get()->set_filter(expr::attr<severity_level>("Severity") >= trace);
 }
 
-void MyLog::SetFilterDebug() {
+void InitLog::SetFilterDebug() {
     logging::core::get()->set_filter(expr::attr<severity_level>("Severity") >= debug);
 }
 
-void MyLog::SetFilterError() {
+void InitLog::SetFilterError() {
     logging::core::get()->set_filter(expr::attr<severity_level>("Severity") >= error);
 }
 
 
-void MyLog::init_filter() {
+void InitLog::init_filter() {
     logging::core::get()->set_filter(logging::trivial::severity >= logging::trivial::trace);//日志级别过滤，分trace、debug、error由低到高
 }
+
+void InitLog::readINI()
+{
+    ParseINI ini;
+    map<string, string> log_select;
+    const char* log_section = "Log";
+    ini.ReadConfig(InitLog::LogPath, log_select, log_section);
+    auto search = log_select.find("logpath");
+    // std::string LogPath;
+    if (search != log_select.end())
+    {
+        InitLog::LogPath = search->second;
+
+    }
+    else {
+        std::cout << "Not found\n";
+    }
+
+
+}
+

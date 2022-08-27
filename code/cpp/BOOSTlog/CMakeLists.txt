@@ -14,8 +14,6 @@ if(Boost_FOUND)
     MESSAGE( STATUS "Boost_LIBRARIES = ${Boost_LIBRARIES}.")
     MESSAGE( STATUS "Boost_LIB_VERSION = ${Boost_LIB_VERSION}.")
 
-    add_executable(${PROJECT_NAME} main.cpp InitLog.cpp InitLog.h)
+    add_executable(${PROJECT_NAME} main.cpp InitLog.cpp InitLog.h ParseINI.cpp ParseINI.h)
     target_link_libraries (${PROJECT_NAME} ${Boost_LIBRARIES})
 endif()
-
-

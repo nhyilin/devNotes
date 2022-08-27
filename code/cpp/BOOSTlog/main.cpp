@@ -1,20 +1,18 @@
 ﻿#include <iostream>
 #include "InitLog.h"
+#include "ParseINI.h"
+
 
 int main() {
 
-#ifdef _WIN32
-    MyLog::Init("./Log");
-#else
-    MyLog::Init("./Log");
-#endif
-
-    LOG_DEBUG << "debug 日志";
-
-    LOG_TRACE << "trace 日志";
-    LOG_ERROR << "error 日志";
+    InitLog::Init(InitLog::LogPath);
+    LOG_TRACE << InitLog::LogPath;
 
 
-    std::cout << "Hello, World!" << std::endl;
+    while (true)
+    {
+        LOG_ERROR << "error 日志";
+    };
+
     return 0;
 }
