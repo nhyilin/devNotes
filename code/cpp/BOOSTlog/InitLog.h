@@ -31,30 +31,32 @@ enum severity_level {
 class InitLog {
 public:
     InitLog();
-
+    
     ~InitLog(void);
-
+    
     // 在使用之前必须先调用此函数
-    static void Init(const string& dir);
-
-    static void Log(const string& msg);
-
+    static void Init(const string &dir);
+    
+    static void Log(const string &msg);
+    
     static void init_filter();
-
+    
     void SetFilterTrace();
-
+    
     void SetFilterDebug();
-
+    
     void SetFilterError();
-
+    
     void setMinFreeSpace(size_t size);
+    
     void setRotationSpace(size_t size);
+    
     static boost::log::sources::severity_logger<boost::log::trivial::severity_level> s_slg;
     static std::string LogPath;
     static bool is_console_log;
 
 private:
-
+    
     void readINI();
-
+    
 };
