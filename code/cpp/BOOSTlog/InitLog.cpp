@@ -29,15 +29,19 @@ namespace sinks = boost::log::sinks;
 namespace expr = boost::log::expressions;
 namespace attrs = boost::log::attributes;
 
-std::string InitLog::LogPath;
+std::string InitLog::InitFile = "./test.ini";//后期可以放在stdafx 中
+std::string InitLog::LogPath = "./Logs";
+severity_level InitLog::logLevel = trace;
+
+//TODO:什么时候适合用静态函数
+
 bool InitLog::is_console_log = false;
 
-BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(my_logger, src::logger_mt)
+BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(my_logger, src::logger_mt)//TODO: 设置默认log
 
 boost::log::sources::severity_logger<boost::log::trivial::severity_level> InitLog::s_slg;
 
 InitLog::InitLog() {
-
 
 }
 
@@ -46,15 +50,15 @@ InitLog::~InitLog(void) {
 }
 
 void InitLog::Init(const string &dir) {
-    
-    InitLog::init_filter();
+    InitLog::readINI();
+    InitLog::init_filter(InitLog::logLevel);
     if (boost::filesystem::exists(dir) == false) {
         boost::filesystem::create_directories(dir);
     }
     
     if (is_console_log) {
         auto consoleSink = boost::log::add_console_log
-                (//控制台日志
+                (       //控制台日志
                         std::cout,
                         keywords::auto_flush = true,
                         keywords::format =
@@ -73,7 +77,7 @@ void InitLog::Init(const string &dir) {
     
     
     auto pSink = logging::add_file_log
-            (//文件日志
+            (       //文件日志
                     keywords::target = InitLog::LogPath,
                     keywords::max_size = 100 * 1024 * 1024,
                     keywords::open_mode = std::ios::app,
@@ -125,25 +129,48 @@ void InitLog::SetFilterError() {
 }
 
 
-void InitLog::init_filter() {
+void InitLog::init_filter(const severity_level& logLevel_INI) {
     logging::core::get()->set_filter(
-            logging::trivial::severity >= logging::trivial::trace);//日志级别过滤，分trace、debug、error由低到高
+//            logging::trivial::severity >= logging::trivial::trace
+            logging::trivial::severity >= logLevel_INI
+            );//日志级别过滤，分trace、debug、error由低到高
 }
 
 void InitLog::readINI() {
+    //此函数查询区分大小写
+    
+    //解析log保存路径
     ParseINI ini;
     map<string, string> log_select;
-    const char *log_section = "Log";
-    ini.ReadConfig(InitLog::LogPath, log_select, log_section);
-    auto search = log_select.find("logpath");
-    // std::string LogPath;
-    if (search != log_select.end()) {
-        InitLog::LogPath = search->second;
-        
+    const char *log_section = "LOG";//在设置文件中的LOG节点查找
+    InitLog logger;
+    std::string ini_file_Path = logger.InitFile;
+    ini.ReadConfig(ini_file_Path, log_select, log_section);
+    auto search_log_path = log_select.find("logpath");
+    if (search_log_path != log_select.end()) {
+        InitLog::LogPath = search_log_path->second;
     } else {
-        std::cout << "Not found\n";
+        std::cout << "Not found " << log_section << "in INI File!\n";
+        LOG_ERROR << "Not found " << log_section << "in INI File!\n";
     }
     
-    
+    //解析logLevel
+    auto search_log_level = log_select.find("loglevel");
+    if (search_log_level != log_select.end()) {
+        std::string level_INI = search_log_level->second;
+        logger.setLogLevel(InitLog::logLevel, level_INI);
+        //InitLog::logLevel = search_log_level->second;//TODO: 从设置文件读取log层级
+        
+    } else {
+        std::cout << "Not found " << InitLog::logLevel << "in INI File!\n";
+        LOG_ERROR << "Not found " << InitLog::logLevel << "in INI File!\n";
+    }
 }
 
+void InitLog::setLogLevel(severity_level &logLevel, std::string &logLevel_INI) {
+    if (logLevel_INI == "trace")
+        InitLog::logLevel = trace;
+    else if (logLevel_INI == "debug")
+        InitLog::logLevel = debug;
+    else InitLog::logLevel = error;
+}

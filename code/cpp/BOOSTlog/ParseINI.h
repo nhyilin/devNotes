@@ -30,7 +30,7 @@ public:
     void PrintConfig(const map<string, string> &mContent);
 
 private:
-    std::string m_INIPath;
+    static std::string m_INIPath;
 };
 
 #endif

@@ -1,5 +1,5 @@
-﻿
-#pragma once
+﻿#ifndef INIT_LOG_H_
+#define INIT_LOG_H_
 
 #include <string>
 #include <boost/log/trivial.hpp>
@@ -17,9 +17,6 @@ using std::string;
 // 在使用之前必须先调用 init
 // 使用方式  LOG_DEBUG<<"test string";
 // 也可以用boost 中的宏  BOOST_LOG_TRIVIAL(info)<<"test msg";
-
-
-
 
 enum severity_level {
     trace,
@@ -39,7 +36,7 @@ public:
     
     static void Log(const string &msg);
     
-    static void init_filter();
+    static void init_filter(const severity_level& logLevel_INI);
     
     void SetFilterTrace();
     
@@ -52,11 +49,19 @@ public:
     void setRotationSpace(size_t size);
     
     static boost::log::sources::severity_logger<boost::log::trivial::severity_level> s_slg;
+    static std::string InitFile;       //TODO:后期放在预编译头文件中
     static std::string LogPath;
     static bool is_console_log;
 
+//    static std::string logLevel;
+//    static logging::trivial::trace logLevel;
+    static severity_level logLevel;
 private:
     
-    void readINI();
+    static void readINI();
+    
+    static void setLogLevel(severity_level &logLevel, std::string &logLevel_INI);
     
 };
+
+#endif

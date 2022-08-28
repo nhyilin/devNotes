@@ -2,9 +2,9 @@
 
 #include "InitLog.h"
 
+//std::string m_INIPath = "test.ini";
 
-ParseINI::ParseINI()
-        : m_INIPath("./TZSatelliteSimTool.ini") {
+ParseINI::ParseINI() {
 }
 
 ParseINI::~ParseINI() {
@@ -12,9 +12,11 @@ ParseINI::~ParseINI() {
 }
 
 bool ParseINI::ReadConfig(const string &filename, map<string, string> &mContent, const char *section) {
+    
     mContent.clear();
     ifstream infile(filename.c_str());
-    if (!infile) {
+    if (!infile)
+    {
         LOG_ERROR << "file open error!";
         return false;
     }
@@ -22,23 +24,32 @@ bool ParseINI::ReadConfig(const string &filename, map<string, string> &mContent,
     int pos = 0;
     string Tsection = string("[") + section + "]";
     bool flag = false;
-    while (getline(infile, line)) {
-        if (!flag) {
+    while (getline(infile, line))
+    {
+        if (!flag)
+        {
             pos = line.find(Tsection, 0);
-            if (-1 == pos) {
+            if (-1 == pos)
+            {
                 continue;
-            } else {
+            }
+            else
+            {
                 flag = true;
                 getline(infile, line);
             }
         }
-        if (0 < line.length() && '[' == line.at(0)) {
+        if (0 < line.length() && '[' == line.at(0))
+        {
             break;
         }
-        if (0 < line.length() && AnalyseLine(line, key, value)) {
+        if (0 < line.length() && AnalyseLine(line, key, value))
+        {
             
-            if (value.length() > 0) {
-                if (value[value.size() - 1] == '\r') {
+            if (value.length() > 0)
+            {
+                if (value[value.size() - 1] == '\r')
+                {
                     value[value.size() - 1] = '\0';
                 }
             }
