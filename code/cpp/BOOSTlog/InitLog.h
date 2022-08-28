@@ -36,7 +36,7 @@ public:
     
     static void Log(const string &msg);
     
-    static void init_filter(const severity_level& logLevel_INI);
+    static void init_filter(const severity_level &logLevel_INI);
     
     void SetFilterTrace();
     

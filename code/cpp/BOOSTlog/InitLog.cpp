@@ -129,11 +129,11 @@ void InitLog::SetFilterError() {
 }
 
 
-void InitLog::init_filter(const severity_level& logLevel_INI) {
+void InitLog::init_filter(const severity_level &logLevel_INI) {
     logging::core::get()->set_filter(
 //            logging::trivial::severity >= logging::trivial::trace
             logging::trivial::severity >= logLevel_INI
-            );//日志级别过滤，分trace、debug、error由低到高
+    );//日志级别过滤，分trace、debug、error由低到高
 }
 
 void InitLog::readINI() {
