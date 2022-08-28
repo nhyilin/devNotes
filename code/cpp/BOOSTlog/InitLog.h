@@ -44,17 +44,11 @@ public:
     
     void SetFilterError();
     
-    void setMinFreeSpace(size_t size);
-    
-    void setRotationSpace(size_t size);
-    
     static boost::log::sources::severity_logger<boost::log::trivial::severity_level> s_slg;
     static std::string InitFile;       //TODO:后期放在预编译头文件中
     static std::string LogPath;
     static bool is_console_log;
-
-//    static std::string logLevel;
-//    static logging::trivial::trace logLevel;
+    
     static severity_level logLevel;
 private:
     
@@ -62,6 +56,9 @@ private:
     
     static void setLogLevel(severity_level &logLevel, std::string &logLevel_INI);
     
+    void setMinFreeSpace(size_t size);//TODO:设置单个文件最大的大小，暂未开放，后期重构代码可以加入
+    
+    void setRotationSpace(size_t size);//TODO:设置所有log文件最大的大小，暂未开放，后期重构代码可以加入
 };
 
 #endif

@@ -109,7 +109,6 @@ void InitLog::Init(const string &dir) {
     
 }
 
-
 void InitLog::Log(const string &msg) {
     src::logger lg;
     BOOST_LOG(lg) << msg;
