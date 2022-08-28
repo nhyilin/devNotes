@@ -149,8 +149,8 @@ void InitLog::readINI() {
     if (search_log_path != log_select.end()) {
         InitLog::LogPath = search_log_path->second;
     } else {
-        std::cout << "Not found " << log_section << "in INI File!\n";
-        LOG_ERROR << "Not found " << log_section << "in INI File!\n";
+        std::cout << "Not found " << log_section << " in INI File!\n";
+        LOG_ERROR << "Not found " << log_section << " in INI File!\n";
     }
     
     //解析logLevel
