@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 
 set(BOOST_ROOT /Users/peiyilin/env/boost_1_80_0)
 set(Boost_NO_SYSTEM_PATHS ON)
-find_package(Boost COMPONENTS log log_setup thread date_time filesystem REQUIRED)
+find_package(Boost COMPONENTS log thread date_time filesystem REQUIRED)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
