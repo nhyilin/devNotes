@@ -55,6 +55,8 @@ private:
     static void readINI();
     
     static void setLogLevel(severity_level &logLevel, std::string &logLevel_INI);
+
+    static void setConsoleLog(bool& is_console_log, std::string& consolelog_INI);
     
     void setMinFreeSpace(size_t size);//TODO:设置单个文件最大的大小，暂未开放，后期重构代码可以加入
     
