@@ -37,7 +37,7 @@ notesOnEasylogging++：[notesOnEasylogging++.md](./info/cpp/notesOnEasylogging++
 
 log的demo：[logger](./code/cpp/logger/)
 
-booslog的demo：[Boost.log](./code/cpp/BOOSTlog/)
+booslog的demo：[Boost.log](./code/cpp/BOOSTlog/)，对应笔记[boost_log](./info/cpp/boost_log.md)
 
 [![top] Goto Top](#table-of-contents)
 
