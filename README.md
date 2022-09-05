@@ -39,6 +39,8 @@ log的demo：[logger](./code/cpp/logger/)
 
 booslog的demo：[Boost.log](./code/cpp/BOOSTlog/)，对应笔记[boost_log](./info/cpp/boost_log.md)
 
+boost实现timer:[Boost.timer](./info/cpp/boost_timer.md)
+
 [![top] Goto Top](#table-of-contents)
 
 ## python部分
