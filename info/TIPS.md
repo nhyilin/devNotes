@@ -81,6 +81,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
   -  
 
 - 【以下文件中的行尾不一致。是否将行尾标准化?】原因分析可能是写代码的时候行尾的标识可能不一样造成的。默认情况下是坐对行尾进行检查。建议直接忽略检查即可：选项->环境->文档->"加载时检查一致的行尾"钩去掉就不会检查了
+- 查看dll导出函数接口：工具->命令行->开发者PowerShell，执行`dumpbin /exports ./release/cstkkernel.dll /out:D:/a.txt`，将cstkkernel.dll输出到D盘的`a.txt`
 
 
 [![top] Goto Top](#table-of-contents)
