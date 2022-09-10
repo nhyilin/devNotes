@@ -3,4 +3,4 @@ project(C___concurrency_in_action)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(C___concurrency_in_action main.cpp)
+add_executable(CppConcurrency main.cpp)
