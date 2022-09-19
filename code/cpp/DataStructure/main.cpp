@@ -16,5 +16,5 @@ void IncreaseSize(Sqlist&L,int l){
 }
 int main(){
 
-    
+
 }
