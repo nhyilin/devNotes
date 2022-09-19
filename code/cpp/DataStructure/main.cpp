@@ -1,11 +1,8 @@
 #include <iostream>
+#include "Structs.h"
 #define InitSize 10
 
-struct Sqlist{
-    int *data;
-    int MaxSize;
-    int length;
-};
+
 
 void InitSqlist(Sqlist&L){
     L.data =new int[InitSize];
