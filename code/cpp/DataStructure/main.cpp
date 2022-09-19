@@ -2,8 +2,6 @@
 #include "Structs.h"
 #define InitSize 10
 
-
-
 void InitSqlist(Sqlist&L){
     L.data =new int[InitSize];
     L.length=0;
