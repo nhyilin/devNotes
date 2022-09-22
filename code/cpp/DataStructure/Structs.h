@@ -5,7 +5,7 @@
 #ifndef DATASTRUCTURE_STRUCTS_H
 #define DATASTRUCTURE_STRUCTS_H
 
-//*************本文件包含所有数据类型*************//
+//*************所有数据类型*************//
 
 
 
