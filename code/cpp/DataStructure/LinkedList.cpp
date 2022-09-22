@@ -101,7 +101,7 @@ bool ListInsert(LNode *&L, int i, int e) {
         p = p->next;
         j++;
     }
-    //以下部分可以调用InsertNextNode函数来实现
+    // 以下部分可以调用InsertNextNode函数来实现
     if (p == nullptr) return false;
     LNode *s = new LNode;
     s->next = p->next;
@@ -124,6 +124,39 @@ bool InsertNextNode(LNode *p, int element) {
     s->next = p->next;
     p->next = s;
     return true;
+}
+bool InsertPriorNode(LNode *p, int element) {
+    // 指定节点前插操作，其实是将p复制了一份给s，p本身作为前继节点
+    if (p == nullptr) return false;
+    LNode *s = new LNode;
+    s->data = p->data;
+    s->next = p->next;
+
+    p->data = element;
+    p->next = s;
+
+    return true;
+}
+bool ListDelete(LNode *L, int i, int element) {
+    // 按位序删除
+    if (i < 1) return false;
+    LNode *p;
+    p = L;
+    int j = 1;
+    while (p != nullptr && j < i - 1) {
+        p = p->next;
+        j++;
+    }
+    if (p == nullptr || p->next == nullptr) return false;
+    p->next = p->next->next;
+    element = p->next->data;
+
+    delete p->next;
+    return true;
+}
+bool DeleteNode(LNode *p) {
+    if (p==nullptr) return false;
+    
 }
 
 namespace singly_linked_list_no_head {
