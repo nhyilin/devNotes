@@ -5,7 +5,7 @@ namespace ordered_list {
 #define MaxSize 10
 struct SqList {
     int data[MaxSize];
-    int length
+    int length;
 };
 void InitList(SqList &L) {
     for (int i = 0; i < L.length; ++i) {
@@ -166,13 +166,24 @@ bool DeleteNode(LNode *p) {
 }
 
 LNode *GetElem(LNode *L, int i) {
+    // 按位查找
+    if (i < 0) return nullptr;
     LNode *p = new LNode;
     p = L;
     int j = 1;
-    while (p != nullptr && j < i+1) {
-        //这里j的取值很容易错，带个固定值试一试
+    while (p != nullptr && j < i + 1) {
+        // 这里j的取值很容易错，带个固定值试一试
         p = p->next;
         j++;
+    }
+    return p;
+}
+LNode *GetElem(LNode *&L, int element) {
+    // 按值查找
+    LNode *p;
+    p = L->next;  // 这里很容易忽略，从L的第一个节点开始查找
+    while (element != p->data && p != nullptr) {
+        p = p->next;
     }
     return p;
 }
@@ -212,4 +223,4 @@ bool ListInsert(LNode *&L, int i, int e) {
 }  // namespace singly_linked_list_no_head
 }  // namespace singly_linked_list
 }  // namespace list
-int _main() {}
+void _main() {}
