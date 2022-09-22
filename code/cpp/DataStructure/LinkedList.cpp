@@ -155,8 +155,26 @@ bool ListDelete(LNode *L, int i, int element) {
     return true;
 }
 bool DeleteNode(LNode *p) {
-    if (p==nullptr) return false;
-    
+    // 指定节点的删除
+    // 这里请注意，若p就是最后一个节点，那么无法采取下面取巧的办法
+    // 只能规规矩矩从头节点找到p的上一节点
+    if (p == nullptr) return false;
+    p->next = p->next->next;
+    p->data = p->next->data;
+    delete p->next;
+    return true;
+}
+
+LNode *GetElem(LNode *L, int i) {
+    LNode *p = new LNode;
+    p = L;
+    int j = 1;
+    while (p != nullptr && j < i+1) {
+        //这里j的取值很容易错，带个固定值试一试
+        p = p->next;
+        j++;
+    }
+    return p;
 }
 
 namespace singly_linked_list_no_head {
