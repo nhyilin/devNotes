@@ -187,6 +187,25 @@ LNode *GetElem(LNode *&L, int element) {
     }
     return p;
 }
+// TODO 若这时候传入的L并非头节点
+//  那么就无法遍历查找所有连链表节点了,考试这样就可以了
+LNode *LocateElem(LNode *&L, int element) {
+    // 按值查找
+    LNode *p = new LNode;
+    while (p != nullptr && p->data != element) p = p->next;
+    return p;
+}
+
+int length(LNode *&L) {
+    // 求链表长度
+    int len = 0;
+    LNode *p = new LNode;
+    while (p != nullptr) {
+        p = p->next;
+        len++;
+    }
+    return len;
+}
 
 namespace singly_linked_list_no_head {
 bool InitList(LNode *&L) {
