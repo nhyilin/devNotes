@@ -207,39 +207,93 @@ int length(LNode *&L) {
     return len;
 }
 
-namespace singly_linked_list_no_head {
-bool InitList(LNode *&L) {
-    L = nullptr;
-    return true;
-}
-
-bool IsEmpty(LNode *&L) { return (L == nullptr); }
-
-// 不带头节点时，当插入第一个元素时，需要特殊处理
-bool ListInsert(LNode *&L, int i, int e) {
-    if (i <= 1) return false;
-    if (i == 1) {
+LNode *List_TailInsert(LNode *&L) {
+    // 尾插法建立链表
+    // TODO 反正自己写的时候思路不太一样，但是方法都是一样的
+    L = new LNode;
+    L->next = nullptr;
+    // 这里尽量初始化，因为后面会有指定的next操作
+    // 但头插法一定要初始化
+    LNode *s, *r = L;
+    int element = 0;
+    std::cin >> element;
+    while (element != 999) {
         LNode *s = new LNode;
-        s->next = L;
-        s->data = e;
-        L = s;
+        s->data = element;
+        r->next = s;
+        r = s;
+    }
+    r->next = nullptr;
+    return L;
+}
+LNode *List_HeadInsert(LNOde *&L)
+
+    namespace singly_linked_list_no_head {
+    bool InitList(LNode * &L) {
+        L = nullptr;
         return true;
     }
 
-    LNode *p = new LNode;
-    int j = 1;
-    while (p != nullptr && j < i - 1) {
-        p = p->next;
-        j++;
+    bool IsEmpty(LNode * &L) { return (L == nullptr); }
+
+    // 不带头节点时，当插入第一个元素时，需要特殊处理
+    bool ListInsert(LNode * &L, int i, int e) {
+        if (i <= 1) return false;
+        if (i == 1) {
+            LNode *s = new LNode;
+            s->next = L;
+            s->data = e;
+            L = s;
+            return true;
+        }
+
+        LNode *p = new LNode;
+        int j = 1;
+        while (p != nullptr && j < i - 1) {
+            p = p->next;
+            j++;
+        }
+        if (p == nullptr) return false;
+        LNode *s = new LNode;
+        s->data = e;
+        s->next = p->next;
+        p->next = s;
+        return true;
     }
-    if (p == nullptr) return false;
-    LNode *s = new LNode;
-    s->data = e;
-    s->next = p->next;
+}  // namespace singly_linked_list_no_head
+}  // namespace singly_linked_list
+namespace double_linked_list {
+// 双链表
+struct DNode {
+    int data;
+    struct DNode *prior, *next;
+};
+
+bool InitDLinklist(DNode *&L) {
+    // 初始化双链表
+    L = new DNode;
+    if (L == nullptr) return false;
+    L->prior = nullptr;
+    L->next = nullptr;
+    return true;
+}
+bool Empty(const DNode *&L) {
+    // 判断是否为空，带头节点
+    if (L->next == nullptr)
+        return true;
+    else
+        return false;
+}
+bool InsertDNode(DNode *&p, DNode *&s) {
+    // 在p节点之后插入节点s
+    if (p == nullptr || s == nullptr) return false;  // TODO 易错
+    s->next = p;
+    s->prior = p->prior;
+    if (p->next != nullptr) p->next->prior = s;  // TODO 易错
     p->next = s;
     return true;
 }
-}  // namespace singly_linked_list_no_head
-}  // namespace singly_linked_list
+
+}  // namespace double_linked_list
 }  // namespace list
 void _main() {}
