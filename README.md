@@ -1,6 +1,7 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
 - [文档维护清单](#文档维护清单)
+  - [计算机基础知识](#计算机基础知识)
   - [c++部分](#c部分)
   - [python部分](#python部分)
   - [其他](#其他)
@@ -8,6 +9,9 @@
 - [待整理](#待整理)
 
 # 文档维护清单
+## 计算机基础知识
+
+数据结构与算法整理:[Data Structures and Algorithm](./code/cpp/DataStructure/)
 
 ## c++部分
 
