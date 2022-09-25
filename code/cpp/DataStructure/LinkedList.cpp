@@ -226,9 +226,9 @@ LNode *List_TailInsert(LNode *&L) {
     r->next = nullptr;
     return L;
 }
-LNode *List_HeadInsert(LNOde *&L)
+// LNode *List_HeadInsert(LNode *&L)
 
-    namespace singly_linked_list_no_head {
+namespace singly_linked_list_no_head {
     bool InitList(LNode * &L) {
         L = nullptr;
         return true;
