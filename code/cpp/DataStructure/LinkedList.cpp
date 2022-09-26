@@ -66,23 +66,6 @@ struct LNode {
     LNode *next;
 };
 
-void List_HeadInsert(LNode *&L) {
-    // 这个函数是一整个建立单链表的过程，用的方法是头插建立，应该说这个函数包含初始化
-    LNode *s;
-    int x;
-    L = new LNode;
-    L->next = nullptr;
-
-    std::cin >> x;
-    while (x != 999) {
-        s = new LNode;
-        s->data = x;
-        L->next = s;
-        s->next = nullptr;
-        std::cin >> x;
-    }
-}
-
 bool InitList(LNode *&L) {
     // 初始化
     L = new LNode;
@@ -226,40 +209,55 @@ LNode *List_TailInsert(LNode *&L) {
     r->next = nullptr;
     return L;
 }
-// LNode *List_HeadInsert(LNode *&L)
+void List_HeadInsert(LNode *&L) {
+    // 这个函数是一整个建立单链表的过程，用的方法是头插建立，应该说这个函数包含初始化
+    LNode *s;
+    int x;
+    L = new LNode;
+    L->next = nullptr;
+
+    std::cin >> x;
+    while (x != 999) {
+        s = new LNode;
+        s->data = x;
+        L->next = s;
+        s->next = nullptr;
+        std::cin >> x;
+    }
+}
 
 namespace singly_linked_list_no_head {
-    bool InitList(LNode * &L) {
-        L = nullptr;
-        return true;
-    }
+bool InitList(LNode *&L) {
+    L = nullptr;
+    return true;
+}
 
-    bool IsEmpty(LNode * &L) { return (L == nullptr); }
+bool IsEmpty(LNode *&L) { return (L == nullptr); }
 
-    // 不带头节点时，当插入第一个元素时，需要特殊处理
-    bool ListInsert(LNode * &L, int i, int e) {
-        if (i <= 1) return false;
-        if (i == 1) {
-            LNode *s = new LNode;
-            s->next = L;
-            s->data = e;
-            L = s;
-            return true;
-        }
-
-        LNode *p = new LNode;
-        int j = 1;
-        while (p != nullptr && j < i - 1) {
-            p = p->next;
-            j++;
-        }
-        if (p == nullptr) return false;
+// 不带头节点时，当插入第一个元素时，需要特殊处理
+bool ListInsert(LNode *&L, int i, int e) {
+    if (i <= 1) return false;
+    if (i == 1) {
         LNode *s = new LNode;
+        s->next = L;
         s->data = e;
-        s->next = p->next;
-        p->next = s;
+        L = s;
         return true;
     }
+
+    LNode *p = new LNode;
+    int j = 1;
+    while (p != nullptr && j < i - 1) {
+        p = p->next;
+        j++;
+    }
+    if (p == nullptr) return false;
+    LNode *s = new LNode;
+    s->data = e;
+    s->next = p->next;
+    p->next = s;
+    return true;
+}
 }  // namespace singly_linked_list_no_head
 }  // namespace singly_linked_list
 namespace double_linked_list {
@@ -294,6 +292,117 @@ bool InsertDNode(DNode *&p, DNode *&s) {
     return true;
 }
 
+bool DeleteNextNode(DNode *p) {
+    if (p == nullptr) return false;
+    if (p->next == nullptr) return false;
+    p->next = p->next->next;
+    p->next->prior = p;
+    delete p->next;
+    return true;
+}
+void DestoryList(DNode *&L) {
+    while (L->next != nullptr) {
+        DeleteNextNode(L);
+    }
+}
+void Traverse(DNode *p) {
+    // 向后遍历
+    //...对p处理过程
+    while (p != nullptr) p = p->next;
+
+    // 向前遍历
+    //...对p处理过程
+    while (p != nullptr) p = p->prior;
+
+    // 向前遍历，跳过头节点
+    //...对p处理过程
+    while (p->prior != nullptr) p = p->next;
+}
+
+void testDLinkList() { DNode *L; }
+
+namespace singly_linked_circular_list {
+
+struct LNode {
+    int data;
+    LNode *next;
+};
+
+bool InitList(LNode *&L) {
+    L = new LNode;
+    if (L == nullptr) return false;
+    L->next = L;
+    return true;
+}
+
+bool Empty(LNode *L) {
+    if (L->next = L)
+        return true;
+    else
+        return false;
+}
+bool isTail(LNode *&L, LNode *p) {
+    if (p->next == L)
+        return true;
+    else
+        return false;
+}
+}  // namespace singly_linked_circular_list
+namespace double_linked_circular_list {
+struct DNode {
+    int data;
+    DNode *next, *prior;
+};
+bool InitDLinkList(DNode *&L) {
+    L = new DNode;
+    if (L == nullptr) return false;
+    L->next = L;
+    L->prior = L;  // 这里需要注意，头节点初始值为L
+}
+bool Empty(DNode *&L) {
+    //判断循环双链表是否为空
+    //    if (L->next==L&&L->prior==L)return true;
+    if (L->next == L)
+        return true;
+    else
+        return false;
+}
+bool IsTail(DNode *&L, DNode *p) {
+    //判断节点p是否为循环列表的尾节点
+    if (p->next == L)
+        return true;
+    else
+        return false;
+}
+bool InsertNextNode(DNode *p, DNode *s) {
+    // 在p节点之后c插入s节点
+    s->next = p->next;
+    p->next->prior=s;//TODO 容易漏
+    s->prior = p;
+    p->next = s;
+    return true;
+}
+bool DeleteNode(DNode *p) {
+    // 删除p的后继节点
+    p->next=p->next->next;
+    p->next->next->prior=p;
+}
+namespace static_linked_list{
+    //静态链表
+#define MaxSize 10
+struct Node{
+    int data;
+    int next;
+};
+void test(){
+    //初始化方式值得体会
+    // ppt中列举了Node在定义时可定义为SLinkList[MaxSize]的方式可读性更佳
+    Node node[MaxSize];
+}
+
+
+} // namespace static_linked_list
+}  // namespace double_linked_circular_list
 }  // namespace double_linked_list
 }  // namespace list
 void _main() {}
