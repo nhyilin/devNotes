@@ -51,7 +51,7 @@ boost实现timer:[Boost.timer](./info/cpp/boost_timer.md)
 
 gbk2utf-8_文件编码批处理：[gbk2utf-8.py](./code/Python/gbk2utf-8/main.py)
 
-MoveFiles_文件移动、删除批处理：[MoveFiles.py](./code/Python/MoveFiles/main.py)
+MoveFiles_文件移动、删除批处理：[MoveFiles.py](./code/Python/MoveFiles/MoveFiles.py)
 
 processCSV：[processCSV.py](./code/Python/processCSV/refactor02.py)
 

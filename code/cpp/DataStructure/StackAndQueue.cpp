@@ -166,9 +166,8 @@ bool DeQueue(LinkQueue& Q, ElemType& x) {
     if (Q.rear == Q.front) return false;
     LinkNode* p = Q.front->next;  // 这里Q.front其实是头节点
     x = p->data;
-    Q.front->next=p->next;
-    if (Q.front==p)
-        Q.front=Q.rear;
+    Q.front->next = p->next;
+    if (Q.front == p) Q.front = Q.rear;
     delete p;
     return true;
 }
@@ -199,10 +198,41 @@ void EnQueue(LinkQueue& Q, ElemType& x) {
         Q.rear = s;
     }
 }
-void DeQueue(LinkQueue&Q,ElemType&x){
-    
+bool DeQueue(LinkQueue& Q, ElemType& x) {
+    if (Q.front == nullptr) return false;
+    LinkNode* p = Q.front;
+    x = p->data;
+    Q.front = p->next;
+    if (Q.rear == p) {
+        Q.front = nullptr;
+        Q.rear = nullptr;
+    }
+    delete p;
+    return true;
 }
 }  // namespace linked_queue_nohead
 }  // namespace linked_queue
 
+namespace double_ended_queue {
+/**
+ * 这部分只需要带入验证即可
+ *
+ */
+}  // namespace double_ended_queue
+
 }  // namespace  stack_and_queue
+
+namespace application {
+bool BracketCheck(char (&str)[], int length) {
+    //    using STACK= stack_and_queue::Sequence_Stack ;
+    stack_and_queue::Sequence_Stack::SqStack S;
+    stack_and_queue::Sequence_Stack::InitStack(S);
+
+    for (int i = 0; i < length; i++) {
+        if (str[i] == '{' || str[i] == '[' || str[i] == '(') {
+            stack_and_queue::Sequence_Stack::Push(S, str[i]);
+        }
+    }
+}
+
+}  // namespace application

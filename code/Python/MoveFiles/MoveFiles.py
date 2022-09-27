@@ -61,29 +61,28 @@ def zipDir(dirpath, outFullName):
     zip.close()
 
 
-if __name__ == "__main__":
-    # packaging
-    today = datetime.date.today().strftime('%Y-%m-%d')
-    input_path = "D:/myDevlop/CSTK/TZSatelliteSimTool/release"
-    output_path = "D:/TZSatelliteSimTool" + today + ".zip"
+def daily_dev():
+    copy_single_file('D:/myDevlop/AAAAA/VVP_LicenseV60.lic', 'D:/myDevlop/TZSatelliteSimTool/release')
+    copy_single_file('D:/myDevlop/AAAAA/VVP_LicenseV60.lic', 'D:/myDevlop/TZTKBCPlatform/release')
 
+def comperess_exe():
+    # packaging
+    # 整理文件夹还需要再整理一下
+    today = datetime.date.today().strftime('%Y-%m-%d')
+    input_path = "D:/myDevlop/TZSatelliteSimTool/release"
+    output_path = "D:/TZSatelliteSimTool" + today + ".zip"
+    print("checkout WINDOWS or CONSOLE!!!")
     print("remember to checkout main.cpp!,     ADDING QT DLL...")
-    copy_files_all_folder('D:/myDevlop/CSTK/related/packaging', 'D:/myDevlop/CSTK/TZSatelliteSimTool/release')
+    # copy_files_all_folder('D:/myDevlop/related/packaging', 'D:/myDevlop/TZSatelliteSimTool/release')
     print("finishing add Qt dll!,     DELETING VVP_LicenseV60.lic...")
-    delete_one_file("D:/myDevlop/CSTK/TZSatelliteSimTool/release/VVP_LicenseV60.lic")
+    delete_one_file("D:/myDevlop/TZSatelliteSimTool/release/VVP_LicenseV60.lic")
     print("finishing delete VVP_LicenseV60.lic!,     ZIPING RELEASE...")
     zipDir(input_path, output_path)
-    print("finishing zip release!, and the zip file was in" + output_path)
+    print("finishing zip release!, and the zip file was in     " + output_path)
 
 
-    # developing
-    # demo of using
-    # copy_single_file('D:/myDevlop/CSTK/cstkKernel/x64/Release/cstkKernel.dll',
-    #                  'D:/myDevlop/CSTK/TZSatelliteSimTool/release')
-    # copy_single_file('D:/myDevlop/CSTK/cstkKernel/x64/Release/cstkKernel.dll',
-    #                  'D:/myDevlop/CSTK/TZTKBCPlatform/release')
-    # copy_single_file('D:/myDevlop/CSTK/related/VVP_LicenseV60.lic', 'D:/myDevlop/CSTK/TZSatelliteSimTool/release')
-    # copy_single_file('D:/myDevlop/CSTK/related/VVP_LicenseV60.lic', 'D:/myDevlop/CSTK/TZTKBCPlatform/release')
+if __name__ == "__main__":
+    # daily_dev()
+    comperess_exe()
 
-    # deleteFile("D:/杂/1",[".txt", ".h", ".hpp", ".cxx"])
-    # print("well done!")
+    print("----------well done!----------")
