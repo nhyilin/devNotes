@@ -37,16 +37,17 @@ bool DeleteList(SqList &L, int i, int e) {
 
 int GetElem(const SqList &L, int i) { return L.data[i - 1]; }
 
-/* 静态分配顺序表  */
 
 struct SeqList {
+    //动态分配顺序表
     int *data;
     int max_size;
     int length;
 };
 
-// 扩容需要复制粘贴
+
 bool IncreaseSize(SeqList &L, int len) {
+    // 扩容需要复制粘贴
     if (len < 0) return false;
 
     int *p = L.data;
