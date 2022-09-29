@@ -311,7 +311,22 @@ namespace stack_to_recursive_calls{
  * 1 调用返回值
  * 2 实参
  * 3 局部变量
+ * 适用场景：把原始问题转化为属性相同，但规模较小(n-1)的问题
+ */
+
+/**
+ * 每进入一层递归，就将递归调用所需信息压入栈顶
+ * 每推出一层递归，就从栈顶弹出相应信息
+ * 缺点，效率低，太多层递归可能会导致栈溢出，可能包含很多重复机酸
+ * 也可自定义栈，将递归算法改造成非递归算法
  */
 }//namespace stack_to_recursive_calls
+
+namespace queue_application{
+/**
+ * 队列应用，树的层次遍历。多个进程争抢使用有限资源时，FCFS，先来先服务
+ */
+
+}//namespace queue_application
 
 }  // namespace application
