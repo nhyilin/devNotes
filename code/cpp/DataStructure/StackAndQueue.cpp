@@ -239,10 +239,10 @@ namespace double_ended_queue {
 }  // namespace  stack_and_queue
 
 namespace application {
+namespace BracketCheck {
 #define length 10
-
 bool BracketCheck(const char (&bracket)[length], int len) {
-    //括号匹配检查算法，入参为顺序栈，以及该栈数组的长度，感觉len这个参数挺无脑的
+    // 括号匹配检查算法，入参为顺序栈，以及该栈数组的长度，感觉len这个参数挺无脑的
     stack_and_queue::Sequence_Stack::SqStack S;
     stack_and_queue::Sequence_Stack::InitStack(S);
     for (int i = 0; i < len; ++i) {
@@ -257,14 +257,61 @@ bool BracketCheck(const char (&bracket)[length], int len) {
             stack_and_queue::Sequence_Stack::Pop(S, topElem);
         else
             return false;
-        //书中关于出栈这部分比较的写法有些累赘
-        //TODO 整体逻辑还是需要整理一下
-        //在考试中，基本操作手写函数即可，入出栈等
+        // 书中关于出栈这部分比较的写法有些累赘
+        // TODO 整体逻辑还是需要整理一下
+        // 在考试中，基本操作手写函数即可，入出栈等
     }
     return true;
 }
+}  // namespace BracketCheck
 
+namespace Calculated_Expressions {
 
+/**
+ * 用栈实现后缀表达式的计算(机算)：
+ * ①从左往右扫描下一个元素，直到处理完所有元素
+ * ②若扫描到操作数则压入栈，并回到①；否则执行③
+ * ③若扫描到运算符，则弹出两个栈顶元素，执行相应运算，运算结果压回栈顶，回到①
+ * 注意：先出栈的是“右操作数
+ */
 
+/**
+ * 用栈实现前缀表达式的计算：
+ * ①从右往左扫描下一个元素，直到处理完所有元素
+ * ②若扫描到操作数则压入栈，并回到①；否则执行③
+ * ③若扫描到运算符，则弹出两个栈顶元素，执行相应运算，运算结果压回栈顶，回到①
+ * 注意：先出栈的是“左操作数”
+ */
+
+/**
+ * 中缀表达式转后缀表达式（机算）
+ * 初始化一个栈，用于保存暂时还不能确定运算顺序的运算符。
+ * 从左到右处理各个元素，直到末尾。可能遇到三种情况：
+ * ①遇到操作数。直接加入后缀表达式。
+ * ②遇到界限符。遇到“（”直接入栈；遇到“）”则依次弹出栈内运算符并加入后缀表达式，直到弹出“（”为止。注意：“（”不加入后缀表达式。
+ * ③遇到运算符。依次弹出栈中优先级高于或等于当前运算符的所有运算符，并加入后缀表达式，若碰到“（”或栈空则停止。之后再把当前运算符入栈。
+ * 按上述方法处理完所有字符后，将栈中剩余运算符依次弹出，并加入后缀表达式。
+ */
+
+/**
+ * 中缀表达式的计算（用栈实现）
+ * 用栈实现中缀表达式的计算：
+ * 初始化两个栈，操作数栈和运算符栈
+ * 若扫描到操作数，压入操作数栈
+ * 若扫描到运算符或界限符，则按照“中缀转后缀”相同的逻辑压入运算符栈（期间也会弹出运算符，每当弹出一个运算符时，
+ * 就需要再弹出两个操作数栈的栈顶元素并执行相应运算，运算结果再压回操作数栈）
+ */
+
+}  // namespace Calculated_Expressions
+namespace stack_to_recursive_calls{
+
+/**
+ * 函数调用特点：最后调用最先执行结束LIFO
+ * 函数调用时，需要一个栈来存储
+ * 1 调用返回值
+ * 2 实参
+ * 3 局部变量
+ */
+}//namespace stack_to_recursive_calls
 
 }  // namespace application
