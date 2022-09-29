@@ -1,7 +1,7 @@
 //
 // Created by 裴奕霖 on 2022/9/26.
 //
-#define ElemType int
+#define ElemType char
 namespace stack_and_queue {
 namespace Sequence_Stack {
 #define MaxSize 10
@@ -9,28 +9,32 @@ struct SqStack {
     ElemType data[MaxSize];  // 静态数组存放栈中元素
     int top;                 // 栈顶指针
 };
-void InitStack(SqStack& S) { S.top = -1; }
-bool Empty(SqStack& S) {
+
+void InitStack(SqStack &S) { S.top = -1; }
+
+bool Empty(SqStack &S) {
     if (S.top == -1)
         return true;
     else
         return false;
 }
-bool Push(SqStack& S, ElemType e) {
+
+bool Push(SqStack &S, ElemType e) {
     // 进栈操作
     if (S.top == MaxSize - 1) return false;
     S.top++;  // TODO 易错，指针先上移，再赋值
     S.data[S.top] = e;
     return true;
 }
-bool Pop(SqStack& S, ElemType e) {
+
+bool Pop(SqStack &S, ElemType &e) {
     if (S.top == -1) return false;
     e = S.data[S.top];  // 先出栈，指针再下移
     S.top--;
     return true;
 }
 
-bool GetTop(SqStack& S, ElemType e) {
+bool GetTop(SqStack &S, ElemType e) {
     if (S.top == -1) return false;
     e = S.data[S.top];  // e记录栈顶元素
     return true;
@@ -43,9 +47,10 @@ struct ShStack {
     ElemType data[MaxSize];
     int top0;  // 0号栈栈顶指针
     int top1;  // 1号栈栈顶指针
-    // 栈满条件: top0 + 1 = top1
+               // 栈满条件: top0 + 1 = top1
 };
-void InitStack(ShStack& S) {
+
+void InitStack(ShStack &S) {
     S.top0 = -1;
     S.top1 = MaxSize;
 }
@@ -54,7 +59,7 @@ void InitStack(ShStack& S) {
 namespace link_stack {
 struct Linknode {
     ElemType data;
-    Linknode* next;
+    Linknode *next;
 };
 
 }  // namespace link_stack
@@ -65,14 +70,17 @@ struct SqQueue {
     ElemType data[MaxSize];
     int front, rear;
 };
-void InitQueue(SqQueue& Q) { Q.rear = Q.front = 0; };
-bool QueueEmpty(SqQueue& Q) {
+
+void InitQueue(SqQueue &Q) { Q.rear = Q.front = 0; };
+
+bool QueueEmpty(SqQueue &Q) {
     if (Q.rear == Q.front)  // TODO 无需等于零
         return true;
     else
         return false;
 }
-bool EnQueue(SqQueue& Q, ElemType x) {
+
+bool EnQueue(SqQueue &Q, ElemType x) {
     if ((Q.rear + 1) % MaxSize == Q.front) return false;
     Q.data[Q.rear] = x;
     Q.rear =
@@ -83,19 +91,21 @@ bool EnQueue(SqQueue& Q, ElemType x) {
     return true;
 }
 
-bool DeQueue(SqQueue& Q, ElemType& x) {
+bool DeQueue(SqQueue &Q, ElemType &x) {
     // 出队（删除一个队头元素，并用x返回）
     if (Q.rear == Q.front) return false;
     x = Q.data[Q.front];
     Q.front = (Q.front - 1) % MaxSize;
     return true;
 }
-bool GetHead(SqQueue& Q, ElemType& x) {
+
+bool GetHead(SqQueue &Q, ElemType &x) {
     // 获得队头元素的值，用x返回
     if (Q.front == Q.rear) return false;
     x = Q.data[Q.front];
     return true;
 }
+
 /**
  * 判断队列是否满,若是以EnQueue里的环状存储时,则存在浪费一个数组空间的问题
  * 另一个方案是结构体中保存队列长度变量
@@ -134,50 +144,55 @@ namespace linked_queue {
 struct LinkNode {
     // 链式队列节点
     ElemType data;
-    LinkNode* next;
+    LinkNode *next;
 };
 struct LinkQueue {
     // 链式队列
     LinkNode *front, *rear;
 };
 
-void InitQueue(LinkQueue& Q) {
+void InitQueue(LinkQueue &Q) {
     Q.front = Q.rear = new LinkNode;
     Q.rear->next = nullptr;
     Q.front->next = nullptr;
 }
-bool IsEmpty(const LinkQueue& Q) {
+
+bool IsEmpty(const LinkQueue &Q) {
     if (Q.front == Q.rear)
         return true;
     else
         return false;
 }
-void EnQueue(LinkQueue& Q, ElemType& x) {
-    LinkNode* s = new LinkNode;
+
+void EnQueue(LinkQueue &Q, ElemType &x) {
+    LinkNode *s = new LinkNode;
     s->data = x;
     s->next = nullptr;  // TODO 很容易漏
     Q.rear->next = s;
     Q.rear = s;  // TODO 很容易漏
 }
-bool DeQueue(LinkQueue& Q, ElemType& x) {
+
+bool DeQueue(LinkQueue &Q, ElemType &x) {
     // 队头元素出队
     // TODO
     // 易错，要搞清楚出列时，出的是哪一个节点，不能把头节点当成第一个元素移出去
     if (Q.rear == Q.front) return false;
-    LinkNode* p = Q.front->next;  // 这里Q.front其实是头节点
+    LinkNode *p = Q.front->next;  // 这里Q.front其实是头节点
     x = p->data;
     Q.front->next = p->next;
     if (Q.front == p) Q.front = Q.rear;
     delete p;
     return true;
 }
+
 namespace linked_queue_nohead {
-void InitQueue(LinkQueue& Q) {
+void InitQueue(LinkQueue &Q) {
     // 初始化队列(不带头节点)
     Q.front = nullptr;
     Q.rear = nullptr;
 }
-bool IsEmpty(const LinkQueue& Q) {
+
+bool IsEmpty(const LinkQueue &Q) {
     //    if (Q.rear == nullptr && Q.front == nullptr)
     if (Q.front == nullptr)  // 无需两个都判断
         return true;
@@ -185,9 +200,9 @@ bool IsEmpty(const LinkQueue& Q) {
         return false;
 }
 
-void EnQueue(LinkQueue& Q, ElemType& x) {
+void EnQueue(LinkQueue &Q, ElemType &x) {
     // TODO 易漏
-    LinkNode* s = new LinkNode;
+    LinkNode *s = new LinkNode;
     s->data = x;
     s->next = nullptr;
     if (Q.front == nullptr) {
@@ -198,9 +213,10 @@ void EnQueue(LinkQueue& Q, ElemType& x) {
         Q.rear = s;
     }
 }
-bool DeQueue(LinkQueue& Q, ElemType& x) {
+
+bool DeQueue(LinkQueue &Q, ElemType &x) {
     if (Q.front == nullptr) return false;
-    LinkNode* p = Q.front;
+    LinkNode *p = Q.front;
     x = p->data;
     Q.front = p->next;
     if (Q.rear == p) {
@@ -223,16 +239,32 @@ namespace double_ended_queue {
 }  // namespace  stack_and_queue
 
 namespace application {
-bool BracketCheck(char (&str)[], int length) {
-    //    using STACK= stack_and_queue::Sequence_Stack ;
+#define length 10
+
+bool BracketCheck(const char (&bracket)[length], int len) {
+    //括号匹配检查算法，入参为顺序栈，以及该栈数组的长度，感觉len这个参数挺无脑的
     stack_and_queue::Sequence_Stack::SqStack S;
     stack_and_queue::Sequence_Stack::InitStack(S);
-
-    for (int i = 0; i < length; i++) {
-        if (str[i] == '{' || str[i] == '[' || str[i] == '(') {
-            stack_and_queue::Sequence_Stack::Push(S, str[i]);
+    for (int i = 0; i < len; ++i) {
+        if (bracket[i] == '{' || bracket[i] == '[' || bracket[i] == '(')
+            stack_and_queue::Sequence_Stack::Push(S, bracket[i]);
+        else {
+            if (stack_and_queue::Sequence_Stack::Empty(S)) return false;
         }
+        char topElem = {};
+        stack_and_queue::Sequence_Stack::GetTop(S, topElem);
+        if (bracket[i] == topElem)
+            stack_and_queue::Sequence_Stack::Pop(S, topElem);
+        else
+            return false;
+        //书中关于出栈这部分比较的写法有些累赘
+        //TODO 整体逻辑还是需要整理一下
+        //在考试中，基本操作手写函数即可，入出栈等
     }
+    return true;
 }
+
+
+
 
 }  // namespace application

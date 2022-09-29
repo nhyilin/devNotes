@@ -45,6 +45,8 @@ booslog的demo：[Boost.log](./code/cpp/BOOSTlog/)，对应笔记[boost_log](./i
 
 boost实现timer:[Boost.timer](./info/cpp/boost_timer.md)
 
+qt解析ini文件:[qt解析ini文件](./code/cpp/QSetting_ini/)
+
 [![top] Goto Top](#table-of-contents)
 
 ## python部分
