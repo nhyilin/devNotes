@@ -37,14 +37,12 @@ bool DeleteList(SqList &L, int i, int e) {
 
 int GetElem(const SqList &L, int i) { return L.data[i - 1]; }
 
-
 struct SeqList {
-    //动态分配顺序表
+    // 动态分配顺序表
     int *data;
     int max_size;
     int length;
 };
-
 
 bool IncreaseSize(SeqList &L, int len) {
     // 扩容需要复制粘贴
@@ -337,7 +335,7 @@ bool InitList(LNode *&L) {
 }
 
 bool Empty(LNode *L) {
-    if (L->next = L)
+    if (L->next == L)
         return true;
     else
         return false;
@@ -359,17 +357,18 @@ bool InitDLinkList(DNode *&L) {
     if (L == nullptr) return false;
     L->next = L;
     L->prior = L;  // 这里需要注意，头节点初始值为L
+    return true;
 }
 bool Empty(DNode *&L) {
-    //判断循环双链表是否为空
-    //    if (L->next==L&&L->prior==L)return true;
+    // 判断循环双链表是否为空
+    //     if (L->next==L&&L->prior==L)return true;
     if (L->next == L)
         return true;
     else
         return false;
 }
 bool IsTail(DNode *&L, DNode *p) {
-    //判断节点p是否为循环列表的尾节点
+    // 判断节点p是否为循环列表的尾节点
     if (p->next == L)
         return true;
     else
@@ -378,31 +377,31 @@ bool IsTail(DNode *&L, DNode *p) {
 bool InsertNextNode(DNode *p, DNode *s) {
     // 在p节点之后c插入s节点
     s->next = p->next;
-    p->next->prior=s;//TODO 容易漏
+    p->next->prior = s;  // TODO 容易漏
     s->prior = p;
     p->next = s;
     return true;
 }
 bool DeleteNode(DNode *p) {
     // 删除p的后继节点
-    p->next=p->next->next;
-    p->next->next->prior=p;
+    p->next = p->next->next;
+    p->next->next->prior = p;
+    return true;
 }
-namespace static_linked_list{
-    //静态链表
+namespace static_linked_list {
+// 静态链表
 #define MaxSize 10
-struct Node{
+struct Node {
     int data;
     int next;
 };
-void test(){
-    //初始化方式值得体会
-    // ppt中列举了Node在定义时可定义为SLinkList[MaxSize]的方式可读性更佳
+void test() {
+    // 初始化方式值得体会
+    //  ppt中列举了Node在定义时可定义为SLinkList[MaxSize]的方式可读性更佳
     Node node[MaxSize];
 }
 
-
-} // namespace static_linked_list
+}  // namespace static_linked_list
 }  // namespace double_linked_circular_list
 }  // namespace double_linked_list
 }  // namespace list

@@ -113,18 +113,17 @@ int Index_KMP(const ordered_string::SString& S,
  * next数组通常手算即可优化next数组到nextval数组算法如下
  */
 int* Get_nextval(const ordered_string::SString& S,
-             const ordered_string::SString& Pattern, const int (&next)[]){
-    //返回nextval数组
-    static int nextval[1]={0};//j=1时nextval[j]无脑为零
-    for(int j=2;j<Pattern.length;j++){
-        if(Pattern.ch[next[j]==Pattern.ch[j]])
-            nextval[j]=nextval[next[j]];
+                 const ordered_string::SString& Pattern, const int (&next)[]) {
+    // 返回nextval数组
+    static int nextval[1] = {0};  // j=1时nextval[j]无脑为零
+    for (int j = 2; j < Pattern.length; j++) {
+        if (Pattern.ch[next[j] == Pattern.ch[j]])
+            nextval[j] = nextval[next[j]];
         else
-            nextval[j]=next[j]
+            nextval[j] = next[j];
     }
     return nextval;
 }
-
 
 }  // namespace KMP_Algorithm
 
