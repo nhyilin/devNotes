@@ -62,12 +62,71 @@ int IndexString(const ordered_string::SString& S,
     // 定位操作，若主串S中存在与字串T值相同的字串，则返回他在主串S中第一次出现的位置，否则函数值为0
     ordered_string::SString sub;
     for (int i = 1; i < Tsub.length; ++i) {
-        SubString(S,sub,i,Tsub.length);
-        if (CompareString(sub,Tsub)==0)return i;
+        SubString(S, sub, i, Tsub.length);
+        if (CompareString(sub, Tsub) == 0) return i;
     }
-    //书上写的while，无所谓了
+    // 书上写的while，无所谓了
     return 0;
-
 }
+
+namespace Plain_Pattern_Matching_Algorithm {
+// 通常主串长度n远大于模式串长度m
+int Index(const ordered_string::SString& S,
+          const ordered_string::SString& Pattern) {
+    int i = 1, j = 1;
+    for (i; i < S.length + 1; ++i) {
+        if (S.ch[i] != Pattern.ch[j])
+            j++;
+        else {
+            i = i - j + 2;  // TODO 这里是最重要一步，返回到起始点的下一个字串
+            j = 0;
+        }
+        if (j == Pattern.length)
+            return i - Pattern.length;  // TODO 很容易错，容易误以为返回i
+    }
+    return 0;
+    /**
+     * 书上用while，无所谓了
+     * 最坏时间复杂度O(mn),最好O(n)
+     */
+}
+
+}  // namespace Plain_Pattern_Matching_Algorithm
+namespace KMP_Algorithm {
+int Index_KMP(const ordered_string::SString& S,
+              const ordered_string::SString& Pattern, const int (&next)[]) {
+    // KMP算法的模式匹配部分
+    int i = 1, j = 1;
+    while (i < S.length && j < Pattern.length) {
+        if (j == 0 || S.ch[i] == Pattern.ch[j]) {
+            // 这里j=0的情况是为了代码书写方便，其实就是主串指针往下，模式串指针回到第一个
+            i++;
+            j++;
+        } else
+            j = next[j];
+        if (j > Pattern.length)
+            return i - Pattern.length;  // TODO 同朴素算法返回值
+    }
+}
+/**
+ * next数组还是手算为主，要多加练习，记清楚分割线在哪里，i指针在哪里
+ * next数组通常手算即可优化next数组到nextval数组算法如下
+ */
+int* Get_nextval(const ordered_string::SString& S,
+             const ordered_string::SString& Pattern, const int (&next)[]){
+    //返回nextval数组
+    static int nextval[1]={0};//j=1时nextval[j]无脑为零
+    for(int j=2;j<Pattern.length;j++){
+        if(Pattern.ch[next[j]==Pattern.ch[j]])
+            nextval[j]=nextval[next[j]];
+        else
+            nextval[j]=next[j]
+    }
+    return nextval;
+}
+
+
+}  // namespace KMP_Algorithm
+
 }  // namespace string_operation
 }  // namespace string
