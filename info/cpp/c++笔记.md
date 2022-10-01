@@ -27,3 +27,8 @@ int a, b;
 int pa, pb= &b;
 pa=&a;
 ```
+
+[![top] Goto Top](#table-of-contents)
+
+[top]: up.png
+[top]: https://upload.nhyilin.cn/2021-11-19-up.png
