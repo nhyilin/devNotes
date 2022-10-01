@@ -1,6 +1,7 @@
 //
 // Created by 裴奕霖 on 2022/9/26.
 //
+#include "StdAfx.h"
 #define ElemType char
 namespace stack_and_queue {
 namespace Sequence_Stack {

@@ -1,7 +1,8 @@
 //
 // Created by 裴奕霖 on 2022/9/29.
 //
-#include <algorithm>
+// #include "StdAfx.h"
+#include <iostream>
 namespace string {
 namespace ordered_string {
 
@@ -73,8 +74,9 @@ namespace Plain_Pattern_Matching_Algorithm {
 // 通常主串长度n远大于模式串长度m
 int Index(const ordered_string::SString& S,
           const ordered_string::SString& Pattern) {
-    int i = 1, j = 1;
-    for (i; i < S.length + 1; ++i) {
+    //    int i = 1, j = 1;如果在这里定义的话，会报warning
+    //    哈哈哈哈，强迫症要消掉所有warning，所以移到下面
+    for (int i = 1, j = 1; i < S.length + 1; ++i) {
         if (S.ch[i] != Pattern.ch[j])
             j++;
         else {
@@ -107,6 +109,7 @@ int Index_KMP(const ordered_string::SString& S,
         if (j > Pattern.length)
             return i - Pattern.length;  // TODO 同朴素算法返回值
     }
+    return 0;
 }
 /**
  * next数组还是手算为主，要多加练习，记清楚分割线在哪里，i指针在哪里

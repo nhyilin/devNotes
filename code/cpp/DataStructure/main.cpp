@@ -1,8 +1,5 @@
-#include <iostream>
-#include <variant>
-#include <string>
-#include <cassert>
 
+#include "StdAfx.h"
 int main()
 {
     std::variant<int, float> v, w;

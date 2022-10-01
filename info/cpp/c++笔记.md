@@ -4,9 +4,9 @@
 - [Table of Contents](#table-of-contents)
 - [*和&操作符](#和操作符)
 - [指针的指针，以及指针的引用](#指针的指针以及指针的引用)
-  - [一 指针作为函数参数传递时](#一-指针作为函数参数传递时)
-  - [二 引用作为函数参数传递时](#二-引用作为函数参数传递时)
-  - [三 所以在要达到同时修改指针的目的的话，就得使用引用了。](#三-所以在要达到同时修改指针的目的的话就得使用引用了)
+  - [为什么需要使用它们](#为什么需要使用它们)
+  - [使用指针的指针](#使用指针的指针)
+  - [指针的引用](#指针的引用)
 
 # *和&操作符
 这段话节选自郑莉老师c++课堂，觉得很经典故摘录
@@ -39,107 +39,86 @@ pa=&a;
 # 指针的指针，以及指针的引用
 
 不算生僻的一个知识点，记录备忘（这里说的指针的指针不是一个二维数组）
-## 一 指针作为函数参数传递时
+## 为什么需要使用它们
+当我们把一个指针做为参数传一个方法时，其实是把指针的复本传递给了方法，也可以说传递指针是指针的值传递。
 
-1. 类似于值传递，传入函数的指针只是原指针的一个拷贝，所以此时是存在两个指针，同时指向一个内存空间（同时指向原对象）
-2. 当在函数中不改变拷贝指针的指向时，修改指针的值，就相当于修改原指针指向的对象
-3. 当在函数中改变拷贝指针的指向时，只是改变了拷贝指针的指向，不改变原指针的指向，所以不改变原指针指向的对象。
-
+如果我们在方法内部修改指针会出现问题，在方法里做修改只是修改的指针的copy而不是指针本身，原来的指针还保留着原来的值。我们用下边的代码说明一下问题：
 ```cpp
-using namespace std;
+int m_value = 1;
 
-#include<iostream>
-
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+void func(int *p)
+{
+    p = &m_value;
 }
 
-int main(void) {
-    int a = 1, b = 2;
-    swap(&a, &b);
-    cout << a << " " << b << endl;
-    system("pause");
-    return 0;
-} //结果为2 1
-```
-
-此时函数改变了原指针指向的对象的值，正如上述2所说，当在函数中不改变拷贝指针的指向时，修改指针的值，就相当于修改原指针指向的对象。
-
-```cpp
-#include<iostream>
-
-using namespace std;
-
-void test(int *p) {
-    int a = 1;
-    p = &a;
-    cout << p << " " << *p << endl;
-}
-
-int main(void) {
-    int *p = NULL;
-    test(p);
-    if (p == NULL)
-        cout << "指针p为NULL" << endl;
-    system("pause");
+int main(int argc, char *argv[])
+{
+    int n = 2;
+    int *pn = &n;
+    cout << *pn << endl;
+    func(pn);
+    cout << *pn <<endl;
     return 0;
 }
 ```
-```sh
-0x7ff7b343e644 1
-指针p为NULL
-```
-结果中，指针p依旧为NULL，并未改变，此时函数未改变原指针指向的对象的值，正如上述3所说，当在函数中改变拷贝指针的指向时，只是改变了拷贝指针的指向，不改变原指针的指向，所以不改变原指针指向的对象。
+输出两个2
 
-## 二 引用作为函数参数传递时
-实质上传递的是实参本身，即传递进来的不是实参的一个拷贝，因此对形参的修改其实是对实参的修改，所以在用引用进行参数传递时，不仅节约时间，而且可以节约空间。
+## 使用指针的指针
 ```cpp
-void test(int &a) {
-    a++;
-    cout << &a << " " << a << endl;
+void func(int **p)
+{
+    *p = &m_value;
+
+    // 也可以根据你的需求分配内存
+    *p = new int;
+    **p = 5;
 }
 
-int main(void) {
-    int a = 1;
-    cout << &a << " " << a << endl;
-    test(a);
-    system("pause");
+int main(int argc, char *argv[])
+{
+    int n = 2;
+    int *pn = &n;
+    cout << *pn << endl;
+    func(&pn);
+    cout << *pn <<endl;
     return 0;
 }
 ```
-```sh
-0x7ff7b07b7668 1
-0x7ff7b07b7668 2
-```
+我们看一下`func(int **p)`这个方法
 
-由结果可知，地址相同，值被改变。
+- `p`：  是一个指针的指针，在这里我们不会去对它做修改，否则会丢失这个指针指向的指针地址
+- `*p`:  是被指向的指针，是一个地址。如果我们修改它，修改的是被指向的指针的内容。换句话说，我们修改的是`main()`方法里 `*pn`指针
+- `**p`: 两次解引用是指向`main()`方法里`*pn`的内容
 
-## 三 所以在要达到同时修改指针的目的的话，就得使用引用了。
+## 指针的引用
 ```cpp
-#include<iostream>
-using namespace std;
+int m_value = 1;
 
-void test(int *&p) {
-    int a = 1;
-    p = &a;
-    cout << p << " " << *p << endl;
+void func(int *&p)
+{
+    p = &m_value;
+
+    // 也可以根据你的需求分配内存
+    p = new int;
+    *p = 5;
 }
 
-int main(void) {
-    int *p = NULL;
-    test(p);
-    if (p != NULL)
-        cout << "指针p不为NULL" << endl;
-    system("pause");
+int main(int argc, char *argv[])
+{
+    int n = 2;
+    int *pn = &n;
+    cout << *pn << endl;
+    func(pn);
+    cout << *pn <<endl;
     return 0;
 }
 ```
-```sh
-0x7ff7b19b5644 1
-指针p不为NULL
-```
+看一下`func(int *&p)`方法
+
+- `p`:  是指针的引用，`main()`方法里的 `*pn`
+- `*p`:是`main()`方法里的`pn`指向的内容。
+
+
 
 [![top] Goto Top](#table-of-contents)
 

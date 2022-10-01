@@ -1,6 +1,7 @@
 //
 // Created by 裴奕霖 on 2022/9/30.
 //
+#include "StdAfx.h"
 namespace tree {
 #define Elemtype int
 #define MaxSize 10
@@ -52,8 +53,10 @@ struct BiTree {
 }  // namespace linked_tree
 
 namespace traversing_binary_tree {
-
-void PreOrder(linked_tree::BiTree &T) {
+void DoJob(){
+    std::cout<<"hello world\n";
+}
+bool PreOrder(linked_tree::BiTree *&T) {
     /**
      * 先序遍历（PreOrder）的操作过程如下：
      * 1. 若二叉树为空，则什么也不做；
@@ -62,7 +65,11 @@ void PreOrder(linked_tree::BiTree &T) {
      *      ②先序遍历左子树；
      *      ③先序遍历右子树。
      */
-//    if (&T== nullptr)
+//    if (T == nullptr) return false;
+//    else {
+//
+//    }
+    return true;
 }
 
 }  // namespace traversing_binary_tree
