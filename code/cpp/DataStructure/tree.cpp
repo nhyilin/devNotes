@@ -28,6 +28,13 @@ struct TreeNode {
      */
 };
 
+void testNode() {
+    TreeNode t[MaxSize];  // 使用时，将第一个位置留出来，使得下标和编号相同
+    for (auto &i : t)
+        i.isEmpty = true;  // TODO 按道理这里从1开始，但是书上是0，保险起见从0吧
+};
+}  // namespace ordered_tree
+namespace linked_tree {
 struct BiTree {
     Elemtype data;
     BiTree *lchild, *rchild;
@@ -41,11 +48,23 @@ struct BiTree {
      */
     BiTree *parent;  // 三叉链表，考试时一般不考这个
 };
-void testNode() {
-    TreeNode t[MaxSize];  // 使用时，将第一个位置留出来，使得下标和编号相同
-    for (auto &i : t)
-        i.isEmpty = true;  // TODO 按道理这里从1开始，但是书上是0，保险起见从0吧
-};
-}  // namespace ordered_tree
+
+}  // namespace linked_tree
+
+namespace traversing_binary_tree {
+
+void PreOrder(linked_tree::BiTree &T) {
+    /**
+     * 先序遍历（PreOrder）的操作过程如下：
+     * 1. 若二叉树为空，则什么也不做；
+     * 2. 若二叉树非空：
+     *      ①访问根结点；
+     *      ②先序遍历左子树；
+     *      ③先序遍历右子树。
+     */
+//    if (&T== nullptr)
+}
+
+}  // namespace traversing_binary_tree
 
 }  // namespace tree

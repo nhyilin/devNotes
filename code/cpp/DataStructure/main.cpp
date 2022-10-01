@@ -1,3 +1,4 @@
+#include <iostream>
 #include <variant>
 #include <string>
 #include <cassert>
@@ -30,3 +31,5 @@ int main()
     y = "xyz"s;
     assert(std::holds_alternative<std::string>(y)); // 成功
 }
+
+
