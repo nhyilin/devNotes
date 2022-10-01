@@ -17,6 +17,8 @@
 
 c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
 
+c++零碎笔记积累[c++笔记.md](./info/cpp/c++笔记.md)
+
 c++编译报错积累：[cpp_compilation_error_sorting.md](./info/cpp/cpp_compilation_error_sorting.md)
 
 c++跨平台开发、移植笔记：[Cross_platform_porting.md](./info/cpp/Cross_platform_porting.md)
