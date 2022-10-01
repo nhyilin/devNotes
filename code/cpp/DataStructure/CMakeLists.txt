@@ -3,4 +3,7 @@ project(DataStructure)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(DataStructure main.cpp Structs.h LinkedList.cpp StackAndQueue.cpp string.cpp tree.cpp)
+AUX_SOURCE_DIRECTORY(. SRC_LIST)
+
+add_executable(DataStructure ${SRC_LIST} )
+target_precompile_headers(${CMAKE_PROJECT_NAME} PRIVATE ./StdAfx.h)
