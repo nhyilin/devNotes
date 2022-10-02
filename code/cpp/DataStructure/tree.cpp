@@ -53,10 +53,12 @@ struct BiTree {
 }  // namespace linked_tree
 
 namespace traversing_binary_tree {
-void DoJob(){
-    std::cout<<"hello world\n";
+void DoJob(linked_tree::BiTree *&T) {
+    //    while (T->lchild!= nullptr)
+    //        DoJob(T->lchild);
+    std::cout << "hello world\n";
 }
-bool PreOrder(linked_tree::BiTree *&T) {
+void PreOrder(linked_tree::BiTree *&T) {
     /**
      * 先序遍历（PreOrder）的操作过程如下：
      * 1. 若二叉树为空，则什么也不做；
@@ -65,13 +67,51 @@ bool PreOrder(linked_tree::BiTree *&T) {
      *      ②先序遍历左子树；
      *      ③先序遍历右子树。
      */
-//    if (T == nullptr) return false;
-//    else {
-//
-//    }
-    return true;
+    if (T != nullptr) {
+        DoJob(T);
+        PreOrder(T->lchild);
+        PreOrder(T->rchild);
+    }
+    // 空间复杂度O(h)
 }
-
+void InOrder(linked_tree::BiTree *&T) {
+    /**
+     * 中序遍历（InOrder）的操作过程如下：1. 若二叉树为空，则什么也不做；
+     * 2. 若二叉树非空：
+     *      ①中序遍历左子树;
+     *      ②访问根结点;
+     *      ③中序遍历右子树
+     */
+    if (T != nullptr) {
+        InOrder(T->lchild);
+        DoJob(T);
+        InOrder(T->rchild);
+    }
+}
+void PostOrder(linked_tree::BiTree *&T) {
+    /**
+     * 后序遍历（InOrder）的操作过程如下：
+     * 1. 若二叉树为空，则什么也不做；
+     * 2. 若二叉树非空：
+     *      ①后序遍历左子树；
+     *      ②后序遍历右子树；
+     *      ③访问根结点。
+     */
+    if (T != nullptr) {
+        PostOrder(T->lchild);
+        PostOrder(T->rchild);
+        DoJob(T);
+    }
+}
+int treeDepth(linked_tree::BiTree *&T) {
+    if (T == nullptr)
+        return 0;
+    else {
+        int l = treeDepth(T->lchild);
+        int r = treeDepth(T->rchild);
+        return l > r ? l : r;
+    }
+}
 }  // namespace traversing_binary_tree
 
 }  // namespace tree

@@ -5,3 +5,5 @@
 栈和队列: [栈和队列](StackAndQueue.cpp)
 
 串：[串](string.cpp)
+
+树：[树](tree.cpp)
