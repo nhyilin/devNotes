@@ -2,6 +2,7 @@
 // Created by 裴奕霖 on 2022/9/30.
 //
 #include "StdAfx.h"
+#include "tree.h"
 namespace tree {
 #define Elemtype int
 #define MaxSize 10
@@ -109,9 +110,40 @@ int treeDepth(linked_tree::BiTree *&T) {
     else {
         int l = treeDepth(T->lchild);
         int r = treeDepth(T->rchild);
-        return l > r ? l : r;
+        return l > r ? l + 1 : r + 1;
     }
 }
+//
+//struct LinkNode {
+//    // 链式队列节点
+//    linked_tree::BiTree data;
+//    LinkNode *next;
+//};
+//bool DeQueue(LinkQueue &Q, linked_tree::BiTree &x) {
+//    // 队头元素出队
+//    // TODO
+//    // 易错，要搞清楚出列时，出的是哪一个节点，不能把头节点当成第一个元素移出去
+//    if (Q.rear == Q.front) return false;
+//    LinkNode *p = Q.front->next;  // 这里Q.front其实是头节点
+//    x = p->data;
+//    Q.front->next = p->next;
+//    if (Q.front == p) Q.front = Q.rear;
+//    delete p;
+//    return true;
+//}
+//
+//void LevelOrder(linked_tree::BiTree *&T){
+//    LinkQueue Q{};
+//    InitQueue(Q);
+//    linked_tree::BiTree p{};
+//    EnQueue(Q,T->data);
+//    while (!IsEmpty(Q)){
+//        DeQueue(Q,p);
+////        DoJob(p);
+//    }
+//    EnQueue(Q,T->data);
+//}
 }  // namespace traversing_binary_tree
 
 }  // namespace tree
+

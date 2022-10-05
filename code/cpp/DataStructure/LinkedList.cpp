@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-
+#include "Structs.h"
 namespace list {
 namespace ordered_list {
 #define MaxSize 10
@@ -405,4 +405,3 @@ void test() {
 }  // namespace double_linked_circular_list
 }  // namespace double_linked_list
 }  // namespace list
-void _main() {}
