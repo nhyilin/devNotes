@@ -99,21 +99,67 @@ void LevelOrder(linked_tree::BiTree *&T) {
 linked_tree::BiTree *p;                // 指向目标节点
 linked_tree::BiTree *pre = nullptr;    // 指向当前访问节点的前驱
 linked_tree::BiTree *final = nullptr;  // 用于记录最终结果
-void visit(linked_tree::BiTree *&q) {
+void visit_0(linked_tree::BiTree *&q) {
     if (p == q)
         final = pre;
     else
         pre = q;
 }
 void FindPre(linked_tree::BiTree *&T) {
-    //找前驱函数
+    // 找前驱的函数，土办法
     if (T != nullptr) {
         InOrder(T->lchild);
-        visit(T);
+        visit_0(T);
         InOrder(T->rchild);
     }
 }
 
+namespace threaded_binary_tree {
+// 设置几个全局变量
+traversing_binary_tree::threaded_binary_tree::ThreadNode *p;  // 指向目标节点
+traversing_binary_tree::threaded_binary_tree::ThreadNode *pre =
+    nullptr;  // 指向当前访问节点的前驱
+traversing_binary_tree::threaded_binary_tree::ThreadNode *final =
+    nullptr;  // 用于记录最终结果
+void visit_1(traversing_binary_tree::threaded_binary_tree::ThreadNode *q) {
+    if (q->lchild == nullptr) {
+        q->lchild = pre;
+        q->ltag = 1;
+    }
+    if (pre != nullptr && pre->lchild == nullptr) {
+        pre->rchild = q;
+        pre->rtag = 1;
+    }
+    pre = q;  // TODO 很容易漏，最后一步
+}
+void InThread(ThreadTree T) {
+    // 中序线索化
+    if (T != nullptr) {
+        InThread(T->lchild);
+        visit_1(T);
+        // 其实中序线索话的过程就是中序遍历的过程
+        // 只不过在访问该节点时进行一定处理
+        InThread(T->rchild);
+    }
+}
+void PreThread(ThreadTree T) {
+    // 中序线索化
+    if (T != nullptr) {
+        visit_1(T);
+        if (T->ltag == 0) PreThread(T->lchild);  // lchild不是前驱线索
+        // TODO 先序特有的检查，很易错，防止爱滴魔力转圈圈
+        PreThread(T->rchild);
+    }
+}
+void CreatInThread(ThreadTree T) {
+    pre = nullptr;  // 初始化为空指针
+    if (T != nullptr) {
+        InThread(T);
+        if (pre->rchild == nullptr)
+            pre->rtag = 1;  // TODO 很易漏，处理遍历的最后一个节点
+    }
+}
+}  // namespace threaded_binary_tree
 }  // namespace traversing_binary_tree
 
 }  // namespace tree

@@ -94,6 +94,14 @@ bool DeQueue(LinkQueue &Q, ElemType &x) {
     return true;
 }
 
+namespace threaded_binary_tree {
+typedef struct ThreadNode {
+    Elemtype data;
+    ThreadNode *lchild, *rchild;
+    int ltag, rtag;  // 左右线索标志
+} ThreadNode, *ThreadTree;
+
+}  // namespace threaded_binary_tree
 
 }  // namespace traversing_binary_tree
 
