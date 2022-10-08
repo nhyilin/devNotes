@@ -1,12 +1,55 @@
 //
-// Created by 裴奕霖 on 2022/10/4.
+// Created by 裴奕霖 on 2022/9/30.
 //
+#include "StdAfx.h"
 
-#ifndef DATASTRUCTURE__TREE_H_
-#define DATASTRUCTURE__TREE_H_
+namespace tree {
 
-#define ElemType int
+#define MaxSize 10
+namespace ordered_tree {
+#define Elemtype int
+struct TreeNode {
+    Elemtype data;
+    bool isEmpty;
 
+    /**
+     * i 的左孩子一[2i]
+     * i 的右孩子一[2i+1]
+     * i 的父节点一[i/2]
+     */
+
+    /**
+     * 若完全二叉树中共有 n 个结点，则
+     * 判断 i 是否有左孩子？一[2i]≤n?
+     * 判断 i 是否有右孩子？一[2i+1]≤n?
+     * 判断i是否是叶子/分支结点？一i>[n/2]?
+     */
+
+    /**
+     * 正因为有上述限制，一般不采取顺序结构的完全二叉树，因为必须每个节点放置在指定位序
+     */
+};
+
+}  // namespace ordered_tree
+namespace linked_tree {
+struct BiTree {
+    Elemtype data;
+    BiTree *lchild, *rchild;
+    /**
+     * n个节点有2n个指针域，除了根节点之外，每个节点脑袋上都有一根指针，即n-1个脑袋上指针
+     * 所以一定有n+1个空链域，后面会用于构造线索二叉树，所以本构造方式也称二叉链表
+     */
+
+    /**
+     * 该构造难找父节点，若常找父节点，最好再构造一个父节点指针，
+     */
+    BiTree *parent;  // 三叉链表，考试时一般不考这个
+};
+
+}  // namespace linked_tree
+
+namespace traversing_binary_tree {
+#define ElemType tree::linked_tree::BiTree
 struct LinkNode {
     // 链式队列节点
     ElemType data;
@@ -38,17 +81,20 @@ void EnQueue(LinkQueue &Q, ElemType &x) {
     Q.rear = s;  // TODO 很容易漏
 }
 
-//bool DeQueue(LinkQueue &Q, ElemType &x) {
-//    // 队头元素出队
-//    // TODO
-//    // 易错，要搞清楚出列时，出的是哪一个节点，不能把头节点当成第一个元素移出去
-//    if (Q.rear == Q.front) return false;
-//    LinkNode *p = Q.front->next;  // 这里Q.front其实是头节点
-//    x = p->data;
-//    Q.front->next = p->next;
-//    if (Q.front == p) Q.front = Q.rear;
-//    delete p;
-//    return true;
-//}
+bool DeQueue(LinkQueue &Q, ElemType &x) {
+    // 队头元素出队
+    // TODO
+    // 易错，要搞清楚出列时，出的是哪一个节点，不能把头节点当成第一个元素移出去
+    if (Q.rear == Q.front) return false;
+    LinkNode *p = Q.front->next;  // 这里Q.front其实是头节点
+    x = p->data;
+    Q.front->next = p->next;
+    if (Q.front == p) Q.front = Q.rear;
+    delete p;
+    return true;
+}
 
-#endif  // DATASTRUCTURE__TREE_H_
+
+}  // namespace traversing_binary_tree
+
+}  // namespace tree

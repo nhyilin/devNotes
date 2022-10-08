@@ -4,7 +4,19 @@
 [In-class definitions of member function(s)/constructor(s)/destructor don't require qualification](https://stackoverflow.com/questions/11692806/error-extra-qualification-student-on-member-student-fpermissive)
 
 2. C++非const引用问题：error: cannot bind non-const lvalue reference of type
-
+```cpp
+void DoJob(linked_tree::BiTree *&T) {
+    std::cout << "hello world\n";
+}
+void LevelOrder(linked_tree::BiTree *&T){
+    linked_tree::BiTree p{};
+    DeQueue(Q,p);
+    linked_tree::BiTree* _p=&p;
+    DoJob(_p);
+    // DoJob(&p);这一行就会报错
+    //you can`t have a non-const reference to a temporary value
+}
+```
 https://stackoverflow.com/questions/18565167/non-const-lvalue-references
 
 3. Copy&paste complete error messages!

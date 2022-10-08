@@ -1,34 +1,13 @@
 //
 // Created by 裴奕霖 on 2022/9/30.
 //
-#include "StdAfx.h"
 #include "tree.h"
+
+#include "StdAfx.h"
 namespace tree {
 #define Elemtype int
 #define MaxSize 10
 namespace ordered_tree {
-
-struct TreeNode {
-    Elemtype data;
-    bool isEmpty;
-
-    /**
-     * i 的左孩子一[2i]
-     * i 的右孩子一[2i+1]
-     * i 的父节点一[i/2]
-     */
-
-    /**
-     * 若完全二叉树中共有 n 个结点，则
-     * 判断 i 是否有左孩子？一[2i]≤n?
-     * 判断 i 是否有右孩子？一[2i+1]≤n?
-     * 判断i是否是叶子/分支结点？一i>[n/2]?
-     */
-
-    /**
-     * 正因为有上述限制，一般不采取顺序结构的完全二叉树，因为必须每个节点放置在指定位序
-     */
-};
 
 void testNode() {
     TreeNode t[MaxSize];  // 使用时，将第一个位置留出来，使得下标和编号相同
@@ -36,22 +15,7 @@ void testNode() {
         i.isEmpty = true;  // TODO 按道理这里从1开始，但是书上是0，保险起见从0吧
 };
 }  // namespace ordered_tree
-namespace linked_tree {
-struct BiTree {
-    Elemtype data;
-    BiTree *lchild, *rchild;
-    /**
-     * n个节点有2n个指针域，除了根节点之外，每个节点脑袋上都有一根指针，即n-1个脑袋上指针
-     * 所以一定有n+1个空链域，后面会用于构造线索二叉树，所以本构造方式也称二叉链表
-     */
-
-    /**
-     * 该构造难找父节点，若常找父节点，最好再构造一个父节点指针，
-     */
-    BiTree *parent;  // 三叉链表，考试时一般不考这个
-};
-
-}  // namespace linked_tree
+namespace linked_tree {}  // namespace linked_tree
 
 namespace traversing_binary_tree {
 void DoJob(linked_tree::BiTree *&T) {
@@ -104,6 +68,7 @@ void PostOrder(linked_tree::BiTree *&T) {
         DoJob(T);
     }
 }
+
 int treeDepth(linked_tree::BiTree *&T) {
     if (T == nullptr)
         return 0;
@@ -113,37 +78,42 @@ int treeDepth(linked_tree::BiTree *&T) {
         return l > r ? l + 1 : r + 1;
     }
 }
-//
-//struct LinkNode {
-//    // 链式队列节点
-//    linked_tree::BiTree data;
-//    LinkNode *next;
-//};
-//bool DeQueue(LinkQueue &Q, linked_tree::BiTree &x) {
-//    // 队头元素出队
-//    // TODO
-//    // 易错，要搞清楚出列时，出的是哪一个节点，不能把头节点当成第一个元素移出去
-//    if (Q.rear == Q.front) return false;
-//    LinkNode *p = Q.front->next;  // 这里Q.front其实是头节点
-//    x = p->data;
-//    Q.front->next = p->next;
-//    if (Q.front == p) Q.front = Q.rear;
-//    delete p;
-//    return true;
-//}
-//
-//void LevelOrder(linked_tree::BiTree *&T){
-//    LinkQueue Q{};
-//    InitQueue(Q);
-//    linked_tree::BiTree p{};
-//    EnQueue(Q,T->data);
-//    while (!IsEmpty(Q)){
-//        DeQueue(Q,p);
-////        DoJob(p);
-//    }
-//    EnQueue(Q,T->data);
-//}
+
+void LevelOrder(linked_tree::BiTree *&T) {
+    LinkQueue Q{};
+    InitQueue(Q);
+    linked_tree::BiTree p{};
+    EnQueue(Q, p);
+    while (!IsEmpty(Q)) {
+        DeQueue(Q, p);
+        linked_tree::BiTree *_p = &p;  // 防止临时变量的非静态访问
+        DoJob(_p);
+        if (p.lchild != nullptr)
+            EnQueue(Q, *p.lchild);  // 左孩子入队
+        else
+            EnQueue(Q, *p.rchild);  // 右孩子入队
+    }
+}
+
+// 设置几个全局变量
+linked_tree::BiTree *p;                // 指向目标节点
+linked_tree::BiTree *pre = nullptr;    // 指向当前访问节点的前驱
+linked_tree::BiTree *final = nullptr;  // 用于记录最终结果
+void visit(linked_tree::BiTree *&q) {
+    if (p == q)
+        final = pre;
+    else
+        pre = q;
+}
+void FindPre(linked_tree::BiTree *&T) {
+    //找前驱函数
+    if (T != nullptr) {
+        InOrder(T->lchild);
+        visit(T);
+        InOrder(T->rchild);
+    }
+}
+
 }  // namespace traversing_binary_tree
 
 }  // namespace tree
-

@@ -8,6 +8,7 @@
   - [使用指针的指针](#使用指针的指针)
   - [指针的引用](#指针的引用)
 - [三元运算符](#三元运算符)
+- [命名空间](#命名空间)
 
 # *和&操作符
 这段话节选自郑莉老师c++课堂，觉得很经典故摘录
@@ -131,6 +132,31 @@ if(condition){
    var = Y;
 }
 ```
+[![top] Goto Top](#table-of-contents)
+
+# 命名空间
+当自定义命名空间在h文件中，然后在cpp文件中希望使用时，见下代码：
+Consider a pair of two source files: an interface declaration file (`*.h` or `*.hpp`) and its implementation file (*.cpp).
+
+```cpp
+/***.h***/
+namespace MyNamespace {
+  class MyClass {
+  public:
+    int foo();
+  };
+}
+
+/***.cpp***/
+#include "MyClass.h"
+namespace MyNamespace {
+
+  int MyClass::foo() { ... }
+
+}
+```
+
+[stackoverflow](https://stackoverflow.com/questions/10816600/c-namespaces-how-to-use-in-header-and-source-files-correctly)
 
 [![top] Goto Top](#table-of-contents)
 
