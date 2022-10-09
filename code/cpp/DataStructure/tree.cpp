@@ -234,8 +234,15 @@ void RevInOrder(ThreadNode *T) {
 namespace storage_structure {}  // namespace storage_structure
 
 namespace binary_sort_tree {
-BSTNode* BST_Search(BSTree T,int key){
-
+BSTNode *BST_Search(BSTree T, int key) {
+    //在二叉排序树中找值为key的结点
+    while (T != nullptr && key != T->key) {
+        if (key < T->key)
+            T = T->lchild;
+        else
+            T = T->rchild;
+    }
+    return T;
 }
 }  // namespace binary_sort_tree
 }  // namespace tree
