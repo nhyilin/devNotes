@@ -143,7 +143,7 @@ void InThread(ThreadTree T) {
     }
 }
 void PreThread(ThreadTree T) {
-    // 中序线索化
+    // 先序线索化
     if (T != nullptr) {
         visit_1(T);
         if (T->ltag == 0) PreThread(T->lchild);  // lchild不是前驱线索
@@ -160,6 +160,82 @@ void CreatInThread(ThreadTree T) {
     }
 }
 }  // namespace threaded_binary_tree
-}  // namespace traversing_binary_tree
 
+namespace find_precursor_and_successor_in_threaded_binary_tree {
+using ThreadNode = traversing_binary_tree::threaded_binary_tree::ThreadNode;
+void DoJob(ThreadNode *p) { std::cout << "hello world!\n"; }
+
+// 中序找前驱后继
+
+ThreadNode *FirstNode(ThreadNode *p) {
+    // 找以p为根的子树中，第一个被中序遍历的节点
+    while (p->ltag != 0) p = p->lchild;
+    return p;
+}
+ThreadNode *NextNode(ThreadNode *p) {
+    // 在中序线索二叉树中找到节点p的后继节点
+    // 右子树的最左下角
+    if (p->ltag == 0)
+        return FirstNode(p->rchild);
+    else
+        return p->rchild;
+}
+void InOrder(ThreadNode *T) {
+    // 对中序线索二叉树进行中序遍历(利用线索实现的非递归算法)
+    // 时间复杂度O(1)
+    for (ThreadNode *p = FirstNode(T); p != nullptr; p = NextNode(p)) {
+        DoJob(p);
+    }
+}
+
+ThreadNode *LastNode(ThreadNode *p) {
+    // 找到p为根的子树中，最后一个被中序遍历的节点
+    // 循环找到p最右下的节点(不一定是叶节点)
+    while (p->rtag == 0) p = p->rchild;
+    return p;
+}
+ThreadNode *PreNode(ThreadNode *p) {
+    if (p->ltag == 0)
+        return LastNode(p->lchild);
+    else
+        return p->lchild;
+}
+void RevInOrder(ThreadNode *T) {
+    // 对中序线索二叉树进行逆向中序遍历(利用线索实现的非递归算法)
+    // 时间复杂度O(1)
+    for (ThreadNode *p = LastNode(T); p != nullptr; p = PreNode(p)) {
+        DoJob(p);
+    }
+}
+
+// 先序找前驱后继
+
+/**
+ * 先序遍历中，左右子树中的结点只可能是根的后继，不可能是前驱，无法在子结点中找到前驱
+ * 除非用土办法从头开始先序遍历
+ * 或者用三叉链表
+ *      ①如果能找到 p 的父节点，且 p 是左孩子，P 的父节点即为其前驱
+ *      ②如果能找到 p 的父节点，且 p 是右孩子，其左兄弟为空，P
+ * 的父节点即为其前驱 ③如果能找到 p 的父节点，且 p 是右孩子，其左兄弟非空，P
+ * 的前驱为左兄弟子树中最后一个被先序遍历的结点
+ */
+
+// 后序找前驱后继
+
+/**
+ * 后序遍历中，左右子树中的结点只可能是根的前驱，不可能是后继
+ * 除非用土办法从头开始先序遍历
+ */
+
+// ...还是现推比较好
+
+}  // namespace find_precursor_and_successor_in_threaded_binary_tree
+}  // namespace traversing_binary_tree
+namespace storage_structure {}  // namespace storage_structure
+
+namespace binary_sort_tree {
+BSTNode* BST_Search(BSTree T,int key){
+
+}
+}  // namespace binary_sort_tree
 }  // namespace tree

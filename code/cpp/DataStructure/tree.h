@@ -97,12 +97,55 @@ bool DeQueue(LinkQueue &Q, ElemType &x) {
 namespace threaded_binary_tree {
 typedef struct ThreadNode {
     Elemtype data;
-    ThreadNode *lchild, *rchild;
+    struct ThreadNode *lchild, *rchild;
     int ltag, rtag;  // 左右线索标志
 } ThreadNode, *ThreadTree;
 
 }  // namespace threaded_binary_tree
 
 }  // namespace traversing_binary_tree
+namespace storage_structure {
+#define MAX_TREE_SIZE 10
+/****** 双亲表示法(顺序存储)，每个节点保存指向双亲的"指针" *****/
+struct PTNode {
+    ElemType data;
+    int parent;
+};
+struct PTree {
+    PTNode nodes[MAX_TREE_SIZE];
+    int n;  // 结点数
+};
+
+/****** 孩子表示法(顺序+链式存储) *****/
+// 这种结构找孩子方便但是找双亲不方便
+struct CTNode {
+    int child;  // 孩子节点在数组中位置
+    CTNode *next;
+};
+struct CTBox {
+    // 结构中数据实际存储位置
+    ElemType data;
+    CTNode *firstChild;  // 指向第一个孩子
+};
+struct CTree {
+    CTBox nodes[MAX_TREE_SIZE];
+    int n, r;  // 结点数和根的位置
+};
+
+/****** 孩子兄弟表示法(链式存储) *****/
+
+typedef struct CSNode {
+    // 这个结构很像二叉链表
+    ElemType data;
+    struct CSNode *firstChild, *nextsibling;  // 第一个孩子和右兄弟指针
+} CSNode, *CSTree;
+
+}  // namespace storage_structure
+namespace binary_sort_tree {
+typedef struct BSTNode {
+    int key;
+    struct BSTNode *lchild, *rchild;
+} BSTNode, *BSTree;
+}  // namespace binary_sort_tree
 
 }  // namespace tree
