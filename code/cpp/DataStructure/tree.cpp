@@ -235,7 +235,7 @@ namespace storage_structure {}  // namespace storage_structure
 
 namespace binary_sort_tree {
 BSTNode *BST_Search(BSTree T, int key) {
-    //在二叉排序树中找值为key的结点
+    // 在二叉排序树中找值为key的结点
     while (T != nullptr && key != T->key) {
         if (key < T->key)
             T = T->lchild;
@@ -243,6 +243,55 @@ BSTNode *BST_Search(BSTree T, int key) {
             T = T->rchild;
     }
     return T;
+    // 最坏空间复杂度O(1)
 }
+BSTNode *BST_Search_2(BSTree T, int key) {
+    // 在二叉排序树中找值为key的结点(递归实现)
+    if (T == nullptr) return nullptr;
+    if (key == T->key)
+        return T;
+    else if (key < T->key)
+        return BST_Search_2(T->lchild, key);  // 在左子树中查找
+    else
+        return BST_Search_2(T->rchild, key);
+    // 最坏空间复杂度O(h)
+}
+
+int BST_Insert(BSTree &T, int k) {
+    // 在二叉排序树中插入关键字为k的新结点(递归实现)
+    // 最坏空间复杂度为O(h)
+    if (T == nullptr) {
+        T = new BSTNode;
+        T->key = k;
+        T->lchild = T->rchild = nullptr;
+        return 1;
+    }
+    if (k < T->key)
+        BST_Insert(T->lchild, k);
+    else if (T->key == k)
+        return 0;
+    else if (T->key > k)
+        BST_Insert(T->rchild, k);
+    return 1;
+}
+
+void Creat_BST(BSTree &T, int str[], int n) {
+    //按照str[]中的关键字序列建立二叉排序树
+    T = nullptr;
+    T = new BSTNode;
+    for (int i = 0; i < n; ++i) {
+        BST_Insert(T,str[i]);
+        i++;
+    }
+}
+
+/**
+ * 删除操作代码未给出
+ */
+
 }  // namespace binary_sort_tree
+
+namespace balanced_binary_trees{
+
+}//namspace balanced_binary_trees
 }  // namespace tree

@@ -10,6 +10,9 @@
   - [三元运算符](#三元运算符)
   - [命名空间](#命名空间)
   - [struct和typedef struct](#struct和typedef-struct)
+  - [else if](#else-if)
+  - [数组引用和指针引用](#数组引用和指针引用)
+  - [数组遍历十种方式](#数组遍历十种方式)
 
 ## *和&操作符
 这段话节选自郑莉老师c++课堂，觉得很经典故摘录
@@ -259,6 +262,104 @@ typedef struct {
     int class1;
 } stu;
 ```
+[![top] Goto Top](#table-of-contents)
+
+## else if
+其实直接if就可以完成的逻辑，但是else可以避免重复检查，提高效率
+
+```cpp
+int time = 22;
+if (time < 10) {
+  cout << "Good morning.";
+} else if (time < 20) {
+  cout << "Good day.";
+} else {
+  cout << "Good evening.";
+}
+// Outputs "Good evening."
+```
+
+[![top] Goto Top](#table-of-contents)
+
+## 数组引用和指针引用
+
+[数组引用和指针引用](http://www.codebaoku.com/it-c/it-c-221816.html)
+```cpp
+int *p [10] = // 指针数组， 这个数组里 可以装 10 个指针变量，
+int (*p) [10] = // 数组的指针， 这个指针可以只向一个 容量是10个int 的数组
+int (&r) [10] = // 引用， 引用一个 数组。 像这样的数组 `int a[10]
+```
+
+[![top] Goto Top](#table-of-contents)
+
+## 数组遍历十种方式
+
+```cpp
+int ia[3][4] = {1, 2, 3, 4, 5, 6, 7, 8};
+// 下标
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 4; j++) {
+        cout << ia[i][j] << endl;
+    }
+}
+// 指针
+for (int (*p)[4] = ia; p != ia + 3; p++) {
+    for (int *q = *p; q != *p + 4; q++) {
+        cout << *q << endl;
+    }
+}
+// 指针，迭代
+for (int (*p)[4] = begin(ia); p != end(ia); p++) {
+    for (int *q = begin(*p); q != end(*p); q++) {
+        cout << *q << endl;
+    }
+}
+// 范围for
+for (int (&p)[4] : ia) {
+    for (int q : p) {
+        cout << q << endl;
+    }
+}
+typedef int int_array[4];
+// 类别名+指针
+for (int_array *p = ia; p != ia + 3; p++) {
+    for (int *q = *p; q != *p + 4; q++) {
+        cout << *q << endl;
+    }
+}
+// 类别名+迭代
+for (int_array *p = begin(ia); p != end(ia); p++) {
+    for (int *q = begin(*p); q != end(*p); q++) {
+        cout << *q << endl;
+    }
+}
+// 类别名+范围for
+for (int_array &p : ia) {
+    for (int q : p) {
+        cout << q << endl;
+    }
+}
+// auto
+for (auto p = ia; p != ia + 3; p++) {
+    for (auto q = *p; q != *p + 4; q++) {
+        cout << *q << endl;
+    }
+}
+// auto+迭代
+for (auto p = begin(ia); p != end(ia); p++) {
+    for (auto q = begin(*p); q != end(*p); q++) {
+        cout << *q << endl;
+    }
+}
+// auto+范围for
+for (auto &p : ia) {
+    for (auto q : p) {
+        cout << q << endl;
+    }
+}
+```
+
+另：作为形参时`int str[]`=`int *str`
 
 [![top] Goto Top](#table-of-contents)
 
