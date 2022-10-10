@@ -56,6 +56,11 @@ struct ALGraph {
 }  // namespace Adjacency_list_method
 namespace crossword_list_method{
 //十字链表法，用于存储有向图
-
+//空间复杂度为O(|V|+|E|)
+//具体实现未给出，自己写一下
 }//namespace crossword_list_method
+namespace Adjacency_multiple_list{
+//邻接多重表法，用于存储无向图
+
+}//namespace Adjacency_multiple_list
 #endif  // DATASTRUCTURE_GRAPH_H_
