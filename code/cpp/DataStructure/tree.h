@@ -148,4 +148,8 @@ typedef struct BSTNode {
 } BSTNode, *BSTree;
 }  // namespace binary_sort_tree
 
+namespace Huffman_tree {}  // namespace Huffman_tree
+namespace Disjoint_set {
+
+}  // namespace Disjoint_set
 }  // namespace tree

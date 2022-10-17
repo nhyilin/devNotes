@@ -276,11 +276,11 @@ int BST_Insert(BSTree &T, int k) {
 }
 
 void Creat_BST(BSTree &T, int str[], int n) {
-    //按照str[]中的关键字序列建立二叉排序树
+    // 按照str[]中的关键字序列建立二叉排序树
     T = nullptr;
     T = new BSTNode;
     for (int i = 0; i < n; ++i) {
-        BST_Insert(T,str[i]);
+        BST_Insert(T, str[i]);
         i++;
     }
 }
@@ -291,7 +291,49 @@ void Creat_BST(BSTree &T, int str[], int n) {
 
 }  // namespace binary_sort_tree
 
-namespace balanced_binary_trees{
+namespace balanced_binary_trees {}  // namespace balanced_binary_trees
 
-}//namspace balanced_binary_trees
+namespace Disjoint_set {
+#define SIZE 13
+int UFSet[SIZE];
+
+void Initial(int (&S)[]) {
+    for (int i = 0; i < SIZE; ++i) {
+        S[i] = -1;
+    }
+}
+
+int Find(int (&S)[], int x) {
+    // 查操作，找x所属集合(返回x所属根节点)
+    int root = x;
+    while (S[root] > -1) root = S[root];
+    while (x != root) {
+        // TODO 这个while循环里需要做的事情，请记清楚
+        int t = S[x];  // t指向x的父节点
+        S[x] = root;   // x直接挂到根结点
+        x = t;         // 更新x
+    }
+    return x;
+}
+
+void Union(int (&S)[], int Root1, int Root2) {
+    // 并操作，将两个集合合为一个
+    if (Root1 == Root2) return;  // TODO 要求不能是同一个结点
+    // 将根Root2连接到另一个根Root1下面
+
+    /**
+     * 借助find操作找到根结点然后将其合并即可
+     * 时间复杂度O(1)
+     */
+    if (S[Root2] > S[Root1]) {           // Root2节点数更少
+        S[Root1] = S[Root1] + S[Root2];  // 累加节点数
+        S[Root2] = Root1;
+
+    } else {
+        S[Root2] = S[Root1] + S[Root2];
+        S[Root1] = Root2;
+    }
+}
+
+}  // namespace Disjoint_set
 }  // namespace tree
