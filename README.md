@@ -128,6 +128,8 @@ pku的paper模板：[PKUpaper](./code/LaTex/PKUpaper/)
 
 [C and C++ Users Group](https://www.hal9k.com/cug/) − C 和 C++ 的用户团体提供了免费的涵盖各种编程领域 C++ 项目的源代码，包括 AI、动画、编译器、数据库、调试、加密、游戏、图形、GUI、语言工具、系统编程等。
 
+[c语言中文网](http://c.biancheng.net/)
+
 # 待整理
 
 

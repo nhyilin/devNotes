@@ -63,7 +63,7 @@ namespace Adjacency_multiple_list {
 // 邻接多重表法，用于存储无向图
 
 }  // namespace Adjacency_multiple_list
-namespace Depth_first_traversal {
+namespace Breadth_First_Search {
 #define ElemType int
 struct LinkNode {
     // 链式队列节点
@@ -114,5 +114,20 @@ int NextNeibor(Adjacency_matrix_method::MGraph G, int x, int y) {
     // 下一个邻接点的顶点号，若y是x的最后一个邻接点，则返回-1
     return 1;
 }
+}  // namespace Breadth_First_Search
+
+namespace Depth_first_traversal {
+int FirstNeighbor(Adjacency_matrix_method::MGraph G, int i) {
+    return 1;  // 图G中顶点i的第一个临接点，若有则返回顶点号，无则返回-1
+    // 具体实现不用写};
+}
+int NextNeibor(Adjacency_matrix_method::MGraph G, int x, int y) {
+    // 假设图G中顶点y是顶点x的一个邻接点，返回除y之外顶点x的
+    // 下一个邻接点的顶点号，若y是x的最后一个邻接点，则返回-1
+    return 1;
+}
 }  // namespace Depth_first_traversal
+namespace Minimum_Spanning_Trees {
+// 最小生成树
+}  // namespace Minimum_Spanning_Trees
 #endif  // DATASTRUCTURE_GRAPH_H_
