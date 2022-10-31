@@ -29,13 +29,13 @@ using VertexType = char;
 struct ArcNode {
     //"边/弧"
     int advex;  //"边/弧"指向哪个结点
-    ArcNode *next;
+    ArcNode *nextArc;
     // InfoType info;//边权值
 };
 typedef struct VNode {
     // 顶点
     VertexType data;  // 顶点信息
-    ArcNode *first;   // 第一条边/弧
+    ArcNode *firstArc;   // 第一条边/弧
 } VNode, AdjList[MaxVertexNum];
 struct ALGraph {
     // 用邻接表存储的图
@@ -128,6 +128,44 @@ int NextNeibor(Adjacency_matrix_method::MGraph G, int x, int y) {
 }
 }  // namespace Depth_first_traversal
 namespace Minimum_Spanning_Trees {
-// 最小生成树
+// 最小生成树(最小代价树)
+// Prim算法，考察手算
+//
 }  // namespace Minimum_Spanning_Trees
+
+namespace Directed_Acyclic_Graph {
+#define MaxSize 10
+#define DataType int
+struct SqStack {
+    int data[MaxSize];
+    int top;
+};
+void InitStack(SqStack &S) { S.top = -1; }
+
+bool IsEmpty(const SqStack &S) {
+    if (S.top == -1)
+        return true;
+    else
+        return false;
+}
+bool Push(SqStack &S, const ElemType &e) {
+    if (S.top == MaxSize - 1) return false;
+    S.top += 1;
+    S.data[S.top] = e;
+    return true;
+}
+bool Pop(SqStack &S,ElemType e) {
+    if (S.top == -1) return false;
+    e = S.data[S.top];
+    S.top--;
+    return true;
+}
+bool GetTop(SqStack &S, ElemType e) {
+    if (S.top == -1) return false;
+    e = S.data[S.top];  // e记录栈顶元素
+    return true;
+}
+
+}  // namespace Directed_Acyclic_Graph
+
 #endif  // DATASTRUCTURE_GRAPH_H_

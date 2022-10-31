@@ -13,7 +13,7 @@ void BFS(Adjacency_matrix_method::MGraph G, int v) {
     // 广度优先遍历
     visit(v);
     visited[v] = true;
-    LinkQueue Q;
+    LinkQueue Q{};
     EnQueue(Q, v);
     while (!IsEmpty(Q)) {
         DeQueue(Q, v);  // 出列，先出列再访问出列的结点的Neighbor
@@ -29,7 +29,7 @@ void BFS(Adjacency_matrix_method::MGraph G, int v) {
 }
 void BFSTravel(Adjacency_matrix_method::MGraph G) {
     for (int i = 0; i < G.vexnum; ++i) visited[i] = false;
-    LinkQueue Q;
+    LinkQueue Q{};
     InitQueue(Q);
     for (int i = 0; i < G.vexnum; ++i) {
         // 这里遍历数组的目的是查看Visited数组是否还有为false的值
@@ -65,3 +65,58 @@ void DFSTravel(Adjacency_matrix_method::MGraph G, bool (&visited)[]) {
  */
 }  // namespace Depth_first_traversal
 namespace Minimum_Spanning_Trees {}  // namespace Minimum_Spanning_Trees
+
+namespace Directed_Acyclic_Graph {
+/**
+ * 基与邻接表来实现
+ */
+int indegree[MaxSize] = {};  // 记录每个结点入度
+int print[MaxSize] = {};     // 记录拓扑排序序列，记录结点编号
+bool TopologicalSort(Adjacency_list_method::ALGraph G) {
+    SqStack S{};  // 栈在这里用作保存度为零的结点，当然也可用堆或数组来代替
+    InitStack(S);
+    for (auto &p : print) print[p] = -1;
+    for (auto &p : indegree) {
+        if (indegree[p] == 0) Push(S, p);
+    }
+    int count = 0;
+    int i = 0;
+    while (!IsEmpty(S)) {
+        Pop(S, i);
+        print[count++] = i;
+        for (Adjacency_list_method::ArcNode *p = G.vertices[i].firstArc; p;
+             p = p->nextArc) {
+            int v = p->advex;
+            if (!(--indegree[v])) Push(S, v);
+        }
+    }
+    if (count < G.vexnum)
+        return false;
+    else
+        return true;
+}
+
+/*
+ * 以下这个例子是基与深度优先遍历(DFS)来实现的逆拓扑排序
+ */
+//bool indegree_DFS[MaxSize];
+//int print_DFS[MaxSize];
+//bool Visit[MaxSize];
+//void visit(int v) { std::cout << "hello world!\n"; }
+//void DFS(Adjacency_matrix_method::MGraph G, int v) {
+//    visit(v);
+//    Visit[v] = true;
+//    for (int w = Depth_first_traversal::FirstNeighbor(G, v); w >= 0;
+//         w = Depth_first_traversal::NextNeibor(G, v, w)) {
+//        if ()
+//    }
+//}
+//void DFSTransfer(Adjacency_list_method::ALGraph G) {
+//    for (auto &p : indegree_DFS) indegree_DFS[p] = false;
+//
+//    {
+//        if (indegree_DFS[p] == false) DFS(p);
+//    }
+//}
+
+}  // namespace Directed_Acyclic_Graph
