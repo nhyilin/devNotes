@@ -45,7 +45,7 @@ int Binary_Search(SSTable ST, ElemType key) {
 }  // namespace Sequence_Search
 
 namespace Binary_sort_tree{
-BSTNode *BSTSearch(BSTree,int key){
+BSTNode *BSTSearch(BSTree T,int key){
 
 
 }

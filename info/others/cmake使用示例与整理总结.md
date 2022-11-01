@@ -159,6 +159,17 @@ IF ("hello" MATCHES "ell")
     MESSAGE("true")
 ENDIF ("hello" MATCHES "ell")
 ```
+- `file`：[获取指定目录下的所有符合条件的文件名列表](https://blog.csdn.net/qq_31261509/article/details/88692736)
+
+    下面语句将会把`./src`目录下所有符合`*.cpp`结尾的文件存入`USER_LIBS_PATH`变量中，
+    
+    `file(GLOB USER_LIBS_PATH ./src/*.cpp)`
+    
+    如果我们不但在当前目录需要引入，还需要在当前目录子目录引入了，这里就直接使用GLOB_RECURSE
+    
+    `file(GLOB_RECURSE USER_LIBS_PATH ./src/*.cpp)`
+
+
 **数字比较表达式**
 
 `IF(variable LESS number)`

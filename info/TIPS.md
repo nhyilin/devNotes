@@ -182,6 +182,7 @@ $end$
   - Force Run to Cursor:`alt + ctrl + shift + \`
   - Resume Program:`ctrl + \`
 - 返回上一文件光标(back & forward)：`cmd + [ or ]`
+- [Intellij IDEA 关闭拼写检查](https://blog.csdn.net/Mars_wen/article/details/79013766)
 
 Linux(麒麟)下：
 search everywhere: `Double Shift`
