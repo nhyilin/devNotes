@@ -385,6 +385,7 @@ Find in Files: `Ctrl+Shift+F`
 - 无法更新软件源头，在`/etc/apt/sources.list`中将源修改为如下：`deb http://archive.kylinos.cn/kylin/KYLIN-ALL 4.0.2-desktop main restricted universe multiverse`，[其他版本在这里](http://archive.kylinos.cn/kylin/KYLIN-ALL/)
 - 开发纯离线机常时间戳对不上：`make: warning:  Clock skew detected.  Your build may be incomplete.`，意思就是检测到时钟偏差了，主要是两个设备系统之间的时间上存在差距。解决：`find . -exec touch {} \;`
 - `VMware: vmw_ioctl_command error Invalid argument.`：`echo "export SVGA_VGPU10=0" >> ~/.profile`
+- 在离线状态下，git可视化软件免费且较为好用的是GitAhead
 
 
 [![top] Goto Top](#table-of-contents)
@@ -503,6 +504,7 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 - Win+D 最小化所有窗口，再按一下就可以还原窗口
 - Windows+M：最小化所有窗口
 - Windows+Shift+M：还原最小化的窗口。
+- [3DMax离线安装激活](https://mp.weixin.qq.com/s?__biz=MzA4MjU4MTg2Ng==&mid=2247501581&idx=2&sn=05f48702515e57c3a145d601ed89501f&chksm=9f810708a8f68e1ea24951e5ee426ae5e69552a1104c7d7c2ffcd8b9fe95a0b6d992d0307085&scene=21#wechat_redirect)：安装时可能会失败，1. 打开Windows自动更新服务； 2. [离线安装.net framework 3.5](https://blog.csdn.net/chuozan6114/article/details/100768375)
 
 ## office
 ### word
