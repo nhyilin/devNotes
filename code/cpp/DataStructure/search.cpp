@@ -44,10 +44,28 @@ int Binary_Search(SSTable ST, ElemType key) {
 //
 }  // namespace Sequence_Search
 
-namespace Binary_sort_tree{
-BSTNode *BSTSearch(BSTree T,int key){
-
-
+namespace Binary_sort_tree {
+BSTNode *BSTSearch(BSTree T, int key) {
+    // 非递归实现二叉排序树中查找值为key的结点
+    while (T != nullptr && T->key != key) {
+        if (T->key > key)
+            T = T->rchild;
+        else
+            T = T->lchild;
+    }
+    return T;
+    // 数上代码风格喜欢将等于判断放在括号里，而不是while里，实际上对效率区别不大
+}
+BSTNode *BSTSearch_recursive(BSTree T, int key) {
+    // 递归实现二叉排序树中查找值为key的结点
+    if (T == nullptr) return nullptr;
+    if (T->key == key) return T;
+    if (T->key > key)
+        BSTSearch_recursive(T->rchild, key);
+    else
+        BSTSearch_recursive(T->lchild, key);
+    // 递归算法思想值得学习，尤其是这里的二叉树
+    // 递归算法空间复杂度较高，在这里和树的高度相关
 }
 
-}//namespace Binary_sort_tree
+}  // namespace Binary_sort_tree

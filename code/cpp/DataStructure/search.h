@@ -22,7 +22,7 @@ ElemType List[100];
 }  // namespace Block_to_Find
 namespace Binary_sort_tree {
 typedef struct BSTNode {
-    ElemType data;
+    int key;  // 这里的key可以不是int，但是比较大小时，能有固定的比大小规则就可以
     struct BSTNode *lchild, *rchild;
 } BSTNode, *BSTree;
 }  // namespace Binary_sort_tree

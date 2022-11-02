@@ -71,17 +71,21 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 
 - 没有为此解决方案配置选中要生成的项目：右键项目，查看属性，常规里的配置管理器，勾选上“生成”选项即可
 
-
 - vs在Release模式下开启Debug调试
   - 项目属性 -> c/c++ -> 常规 -> 调试信息格式化 -> 程序数据库(/Zi)
   - 项目属性 -> c/c++ -> 常规 -> 优化 -> 已禁用(/Od)
   - 项目属性 -> 链接器 -> 调试 -> 生成调试信息 -> 生成调试信息(/DEBUG)
 
-- 在 Visual Studio 开发环境中设置此编译器选项：
-  -  
-
 - 【以下文件中的行尾不一致。是否将行尾标准化?】原因分析可能是写代码的时候行尾的标识可能不一样造成的。默认情况下是坐对行尾进行检查。建议直接忽略检查即可：选项->环境->文档->"加载时检查一致的行尾"钩去掉就不会检查了
 - 查看dll导出函数接口：工具->命令行->开发者PowerShell，执行`dumpbin /exports ./release/cstkkernel.dll /out:D:/a.txt`，将cstkkernel.dll输出到D盘的`a.txt`
+- 在vs中设置目标生成路径，也可以设置生成后事件：项目属性->生成事件->后期生成事件->命令行中：
+  ```bash
+  copy /Y $(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).dll D:\myDev\TZSatelliteSimTool\release
+  copy /Y $(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).lib D:\myDev\TZSatelliteSimTool\release
+  copy /Y $(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).pdb D:\myDev\TZSatelliteSimTool\release
+  ```
+  `/Y`是禁止提示yes/no
+
 
 
 [![top] Goto Top](#table-of-contents)
@@ -469,8 +473,8 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 
 ## git常用操作
 
-- 恢复所有本地修改至当前分枝`git checkout .`
-- 当修改`.ignore`文件后，清除远端数据：
+1. 恢复所有本地修改至当前分枝`git checkout .`
+2. 当修改`.ignore`文件后，清除远端数据：
 ```git
 git rm -r --cached . 
 git add . 
@@ -481,8 +485,9 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 - 撤销`commit`，不撤销`git add .` ：`git reset --soft HEAD^`
 - 删除工作空间改动代码，撤销`commit`，撤销`git add .` ,注意完成这个操作后，会删除工作空间代码！！！恢复到上一次的`commit`状态。慎重！！！：`git reset --hard HEAD^`
 - LF will be replaced by CRLF: Windows中换行符为CRLF，而Linux换行符是LF，git默认是CRLF，若发现项目有LF，就会弹出警告了，最终push就会统一转成CRLF作为换行符。false就是不转换符号，默认是true，[参考这里](https://blog.csdn.net/Jae_Wang/article/details/80379133)
-- git的pull操作会导致本地未提交修改消失，[Git 少用 Pull 多用 Fetch 和 Merge](https://www.oschina.net/translate/git-fetch-and-merge?print)
-- [Git更新合并代码后，本地修改丢失](https://blog.csdn.net/wjw_de_java/article/details/110224170)
+3. git的pull操作会导致本地未提交修改消失，[Git 少用 Pull 多用 Fetch 和 Merge](https://www.oschina.net/translate/git-fetch-and-merge?print)
+4. [Git更新合并代码后，本地修改丢失](https://blog.csdn.net/wjw_de_java/article/details/110224170)
+5. git清除本地所有修改`git checkout . && git clean -xdf`前半段是丢弃所有git追踪的修改，`git clean`是删除文件夹内git没有跟踪的文件
 
 [![top] Goto Top](#table-of-contents)
 
@@ -522,22 +527,31 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 
 
  # myMac
-- [配置环境变量](https://blog.csdn.net/liaowenxiong/article/details/112180532)
-- 安全与隐私中，通用栏，`进入睡眠或开始屏幕保护程序...要求输入密码`，控制时间有利于中途查看代码，减少解锁次数
-- magnet快捷键：`control + option + 上下左右`（调整应用程序贴合屏幕位置）
-- magnet快捷键：`control + option + enter`（最大化显示）
-- Downie下载：设置中，下载目录文件格式设置为`播放清单索引 - 标题`，下载文件保存至文件夹：勾选任意一个可保证下载列表视频时，自动创建文件夹来放置下载的视频，否则所有文件下载至当前目录造成混乱。
-- HomeBrew安装脚本`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
-- 显示桌面快捷键：`command + F3`，或者`Fn + F11`
-- 用户环境变量文件：`~/.bash_profile`，可参考Linux部分alias指令
-- 修改系统环境变零：`/etc/profile`文件中添加，如`export PATH=/opt/local/bin:$PATH`
-- 无法ping 通 github.com:在[这里](https://www.ipaddress.com/)查询[github.com](https://ipaddress.com/website/github.com#ipinfo)以及[github.global.ssl.fastly.netip](https://ipaddress.com/website/github.global.ssl.fastly.net#ipinfo)地址，`/etc/hosts`文件中最后添加：
+1. [配置环境变量](https://blog.csdn.net/liaowenxiong/article/details/112180532)
+2. 安全与隐私中，通用栏，`进入睡眠或开始屏幕保护程序...要求输入密码`，控制时间有利于中途查看代码，减少解锁次数
+3. magnet快捷键：`control + option + 上下左右`（调整应用程序贴合屏幕位置）
+4. magnet快捷键：`control + option + enter`（最大化显示）
+5. Downie下载：设置中，下载目录文件格式设置为`播放清单索引 - 标题`，下载文件保存至文件夹：勾选任意一个可保证下载列表视频时，自动创建文件夹来放置下载的视频，否则所有文件下载至当前目录造成混乱。
+6. HomeBrew安装脚本`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
+7. 显示桌面快捷键：`command + F3`，或者`Fn + F11`
+8. 用户环境变量文件：`~/.bash_profile`，可参考Linux部分alias指令
+9. 修改系统环境变零：`/etc/profile`文件中添加，如`export PATH=/opt/local/bin:$PATH`
+10. 无法ping 通 github.com:在[这里](https://www.ipaddress.com/)查询[github.com](https://ipaddress.com/website/github.com#ipinfo)以及[github.global.ssl.fastly.netip](https://ipaddress.com/website/github.global.ssl.fastly.net#ipinfo)地址，`/etc/hosts`文件中最后添加：
   - `140.82.112.3    github.com`
   - `146.75.77.194  github.global.ssl.fastly.net`
  重启DNS：`sudo killall -HUP mDNSResponder`再ping github.com就通了！（Ubuntu下`udo /etc/init.d/network-manager restart`重启网络)
-- brew安装：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
-- brew卸载：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`
-- 显示隐藏文件：`cmd + shift + .`
+11. brew安装：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
+12. brew卸载：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`
+13. 显示隐藏文件：`cmd + shift + .`
+14. 前往文件夹：`cmd + shift +g`
+15. 当文件夹显示为列表时，可以`cmd + ➕`，放大显示效果
+16. brew 安装文件报错：[Error: No such file or directory @ rb_sysopen](https://blog.csdn.net/yuchangyuan5237/article/details/126925843?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&utm_relevant_index=1)使用国内镜像而该镜像未完全同步问题。临时去除镜像即可。
+
+```bash
+export HOMEBREW_BOTTLE_DOMAIN=''
+#重新安装
+brew install graphviz
+```
 
 
 [![top] Goto Top](#table-of-contents)
