@@ -66,6 +66,7 @@ BSTNode *BSTSearch_recursive(BSTree T, int key) {
         BSTSearch_recursive(T->lchild, key);
     // 递归算法思想值得学习，尤其是这里的二叉树
     // 递归算法空间复杂度较高，在这里和树的高度相关
+    return nullptr;
 }
 
 }  // namespace Binary_sort_tree

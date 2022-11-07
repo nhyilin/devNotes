@@ -53,3 +53,33 @@ void InsertSort_binary_search(int (&A)[size]) {
 };
 
 }  // namespace Insertion_sort
+
+namespace shell_sort {
+// 希尔排序
+void ShellSort(int (&A)[size]) {
+    int d;
+    int i =0, j=0;
+
+    for (d = size / 2; d >= 1; d = d / 2) {
+        for (i = d + 1; i < size; ++i) {
+            // 这里的++i是值得学习的
+            if (A[i] < A[i - d]) {
+                A[0] = A[i];
+                for (j = i - d; j > 0 && A[0] < A[j]; j -= d) A[j + d] = A[j];
+                A[j + d] = A[0];
+            }
+        }
+    }
+}
+}  // namespace shell_sort
+
+int main() {
+    int List[size] = {90, 5, 39, 9, 10, 4, 74, 88, 78, 46};
+    shell_sort::ShellSort(List);
+    for (int i = 0; i < size; ++i) {
+        std::cout<<List[i]<<std::endl;
+    }
+//    std::cout<<List[1]
+
+    return 0;
+}
