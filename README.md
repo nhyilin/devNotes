@@ -11,85 +11,85 @@
 # 文档维护清单
 ## 计算机基础知识
 
-数据结构与算法整理: [Data Structures and Algorithm](./code/cpp/DataStructure/README.md)
+数据结构与算法整理: [Data Structures and Algorithm](./cpp/DataStructure/README.md)
 
 ## c++部分
 
-c++笔记：[ChernoCPP.md](./info/cpp/ChernoCPP.md)
+c++笔记：[ChernoCPP.md](./cpp/ChernoCPP.md)
 
-c++零碎笔记积累[c++笔记.md](./info/cpp/c++笔记.md)
+c++零碎笔记积累[c++笔记.md](./cpp/c++笔记.md)
 
-c++编译报错积累：[cpp_compilation_error_sorting.md](./info/cpp/cpp_compilation_error_sorting.md)
+c++编译报错积累：[cpp_compilation_error_sorting.md](./cpp/cpp_compilation_error_sorting.md)
 
-c++跨平台开发、移植笔记：[Cross_platform_porting.md](./info/cpp/Cross_platform_porting.md)
+c++跨平台开发、移植笔记：[Cross_platform_porting.md](./cpp/Cross_platform_porting.md)
 
-Qt笔记：[Qt5学习之路.md](./info/Qt/Qt5学习之路.md)
+Qt笔记：[Qt5学习之路.md](./Qt/Qt5学习之路.md)
 
-cmake清单：[cmake使用示例与整理总结.md](./info/others/cmake使用示例与整理总结.md)
+cmake清单：[cmake使用示例与整理总结.md](./others/cmake使用示例与整理总结.md)
 
-cmakelist添加资源文件:[cmakelist添加资源文件.md](./info/others/cmakelist添加资源文件.md)
+cmakelist添加资源文件:[cmakelist添加资源文件.md](./others/cmakelist添加资源文件.md)
 
-指针引用带来的思考：[指针引用带来的思考.md](./info/cpp/指针引用带来的思考.md)
+指针引用带来的思考：[指针引用带来的思考.md](./cpp/指针引用带来的思考.md)
 
-带指针类的初始化：[带指针类的初始化.md](./info/cpp/带指针类的初始化.md)
+带指针类的初始化：[带指针类的初始化.md](./cpp/带指针类的初始化.md)
 
-new和malloc关键字：[new和malloc关键字.md](./info/cpp/new和malloc关键字.md)
+new和malloc关键字：[new和malloc关键字.md](./cpp/new和malloc关键字.md)
 
-notesOnEasylogging++：[notesOnEasylogging++.md](./info/cpp/notesOnEasylogging++.md)
+notesOnEasylogging++：[notesOnEasylogging++.md](./cpp/notesOnEasylogging++.md)
 
-侯捷老师代码：[cpp_houjie](./info/cpp/cpp_houjie)、[hj_surceCode](./code/cpp/hj_surceCode)
+侯捷老师代码：[cpp_houjie](./cpp/cpp_houjie)、[hj_surceCode](./cpp/hj_surceCode)
 
-宏demo：[macroApp.cpp](./code/cpp/macroApp.cpp)
+宏demo：[macroApp.cpp](./cpp/macroApp.cpp)
 
-log的demo：[logger](./code/cpp/logger/)
+log的demo：[logger](./cpp/logger/)
 
-booslog的demo：[Boost.log](./code/cpp/BOOSTlog/)，对应笔记[boost_log](./info/cpp/boost_log.md)
+booslog的demo：[Boost.log](./cpp/BOOSTlog/)，对应笔记[boost_log](./cpp/boost_log.md)
 
-boost实现timer:[Boost.timer](./info/cpp/boost_timer.md)
+boost实现timer:[Boost.timer](./cpp/boost_timer.md)
 
-qt解析ini文件:[qt解析ini文件](./code/cpp/QSetting_ini/)
+qt解析ini文件:[qt解析ini文件](./cpp/QSetting_ini/)
 
 [![top] Goto Top](#table-of-contents)
 
 ## python部分
 
-gbk2utf-8_文件编码批处理：[gbk2utf-8.py](./code/Python/gbk2utf-8/main.py)
+gbk2utf-8_文件编码批处理：[gbk2utf-8.py](./Python/gbk2utf-8/main.py)
 
-MoveFiles_文件移动、删除批处理：[MoveFiles.py](./code/Python/MoveFiles/MoveFiles.py)
+MoveFiles_文件移动、删除批处理：[MoveFiles.py](./Python/MoveFiles/MoveFiles.py)
 
-processCSV：[processCSV.py](./code/Python/processCSV/refactor02.py)
+processCSV：[processCSV.py](./Python/processCSV/refactor02.py)
 
-pro2CMakeLists：[pro2CMakeLists](./code/Python/pro2cmakelists/)
+pro2CMakeLists：[pro2CMakeLists](./Python/pro2cmakelists/)
 
-XLSX file analysis interval drop number：[Number of interval drop points](./code/Python/statisticalIntervals/main.py)
+XLSX file analysis interval drop number：[Number of interval drop points](./Python/statisticalIntervals/main.py)
 
-draw_function_of_two_variables_：[draw_function_of_two_variables_](./code/Python/draw_function_of_two_variables_/main.py)
+draw_function_of_two_variables_：[draw_function_of_two_variables_](./Python/draw_function_of_two_variables_/main.py)
 
 [![top] Goto Top](#table-of-contents)
 
 ## 其他
 
-日常开发用到的：[tips.md](./info/TIPS.md)
+日常开发用到的：[tips.md](./TIPS.md)
 
-osg麒麟编译及移植：[osg编译以及移植.md](./info/others/osg编译以及移植.md)
+osg麒麟编译及移植：[osg编译以及移植.md](./others/osg编译以及移植.md)
 
-Install git from source offline：[Install git from source offline](./info/others/Install%20git%20from%20source%20offline.md)
+Install git from source offline：[Install git from source offline](./others/Install%20git%20from%20source%20offline.md)
 
-基于win下bat指令创建服务：[batCreatService.md](./info/others/batCreatService.md)
+基于win下bat指令创建服务：[batCreatService.md](./others/batCreatService.md)
 
-nuaa论文模板：[nuaathesis](./code/LaTex/nuaathesis/)
+nuaa论文模板：[nuaathesis](./LaTex/nuaathesis/)
 
-ieee会议论文：[Conference-LaTeX](./code/LaTex/Conference-LaTeX/)
+ieee会议论文：[Conference-LaTeX](./LaTex/Conference-LaTeX/)
 
-ElegantBook：[ElegantBook](./code/LaTex/ElegantBook/)
+ElegantBook：[ElegantBook](./LaTex/ElegantBook/)
 
-ElegantPaper：[ElegantPaper](./code/LaTex/ElegantPaper/)
+ElegantPaper：[ElegantPaper](./LaTex/ElegantPaper/)
 
-ElegantNote：[ElegantNote](./code/LaTex/ElegantNote/)
+ElegantNote：[ElegantNote](./LaTex/ElegantNote/)
 
-pku的paper模板：[PKUpaper](./code/LaTex/PKUpaper/)
+pku的paper模板：[PKUpaper](./LaTex/PKUpaper/)
 
-简历模板：[resume](./code/LaTex/resume/)
+简历模板：[resume](./LaTex/resume/)
 
 [![top] Goto Top](#table-of-contents)
 
