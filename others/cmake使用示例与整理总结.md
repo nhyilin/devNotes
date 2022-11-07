@@ -1,5 +1,19 @@
 cmake使用示例与整理总结
 
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [`cmake`中一些预定义变量](#cmake中一些预定义变量)
+  - [系统信息](#系统信息)
+  - [开关选项](#开关选项)
+- [cmake常用命令](#cmake常用命令)
+  - [基本语法规则](#基本语法规则)
+  - [部分常用命令列表](#部分常用命令列表)
+- [cmake中如何生成动态库和静态库](#cmake中如何生成动态库和静态库)
+- [cmake中如何使用动态库和静态库（查找库的路径）](#cmake中如何使用动态库和静态库查找库的路径)
+- [cmake中如何指定生成文件的输出路径](#cmake中如何指定生成文件的输出路径)
+- [cmake中如何增加编译选项](#cmake中如何增加编译选项)
+- [有待整理部分](#有待整理部分)
+
 
 # `cmake`中一些预定义变量
 - `PROJECT_SOURCE_DIR`：工程的根目录
@@ -33,6 +47,8 @@ cmake使用示例与整理总结
 - `BUILD_SHARED_LIBS` 控制默认的库编译方式。如果未进行设置,使用`ADD_LIBRARY`时又没有指定库类型,默认编译生成的库都是静态库 （可在t3中稍加修改进行验证）
 - `CMAKE_C_FLAGS` 设置`C`编译选项
 - `CMAKE_CXX_FLAGS` 设置`C++`编译选项
+
+[![top] Goto Top](#table-of-contents)
 
 # cmake常用命令
 
@@ -277,9 +293,13 @@ ENDWHILE(condition)
           581114
           ```
 
+[![top] Goto Top](#table-of-contents)
+
 # cmake中如何生成动态库和静态库
 参考`ADD_LIBRARY`和`SET_TARGET_PROPERTIES`用法
 t3示例
+
+[![top] Goto Top](#table-of-contents)
 
 # cmake中如何使用动态库和静态库（查找库的路径）
 参考`INCLUDE_DIRECTORIES`,`LINK_DIRECTORIES`, `TARGET_LINK_LIBRARIES`用法
@@ -287,6 +307,8 @@ t4示例使用动态库或静态库
 t5示例如何使用`cmake`预定义的`cmake`模块(以`FindCURL.cmake`为例演示)
 t6示例如何使用自定义的`cmake`模块(编写了自定义的`FindHELLO.cmake`)
 注意读t5和t6的`CMakeLists.txt`和`FindHELLO.cmake`中的注释部分
+
+[![top] Goto Top](#table-of-contents)
 
 # cmake中如何指定生成文件的输出路径
 - 如上`ADD_SUBDIRECTORY`的时候指定目标二进制文件输出路径（推荐使用下面这种）
@@ -296,6 +318,8 @@ t6示例如何使用自定义的`cmake`模块(编写了自定义的`FindHELLO.cm
   SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
   ```
     上面的两条命令通常紧跟`ADD_EXECUTABLE`和`ADD_LIBRARY`,与其写在同一个`CMakeLists.txt`即可
+
+[![top] Goto Top](#table-of-contents)
 
 # cmake中如何增加编译选项
 使用变量`CMAKE_C_FLAGS`添加`C`编译选项
@@ -322,6 +346,14 @@ t6示例如何使用自定义的`cmake`模块(编写了自定义的`FindHELLO.cm
    或者
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIBCXX_USE_CXX11_ABI=0")
    ```
+3. CMakeLists.txt生成sln：
+    ```bash
+    cmake.exe -G "Visual Studio 17 2022" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\ThirdParty -DCMAKE_PREFIX_PATH=C:/Qt/Qt5.9.6/5.9.6/msvc2017_64/lib/cmake -S D:\myDevelop\project\kneev2021\src -B D:\myDevelop\build\kneeV2021
+    ```
+
+
+[![top] Goto Top](#table-of-contents)
 
 
 
+[top]: up.png
