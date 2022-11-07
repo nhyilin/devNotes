@@ -57,8 +57,8 @@ void InsertSort_binary_search(int (&A)[size]) {
 namespace shell_sort {
 // 希尔排序
 void ShellSort(int (&A)[size]) {
-    int d;
-    int i =0, j=0;
+    int d=0;
+    int i =0, j=0;//这里还是初始赋值为安全
 
     for (d = size / 2; d >= 1; d = d / 2) {
         for (i = d + 1; i < size; ++i) {
@@ -74,7 +74,7 @@ void ShellSort(int (&A)[size]) {
 }  // namespace shell_sort
 
 int main() {
-    int List[size] = {90, 5, 39, 9, 10, 4, 74, 88, 78, 46};
+    int List[size] = {0,90, 5, 39, 9, 10, 4, 74, 88, 78};//TODO 在这里第0位不存储信息，只做辅助位
     shell_sort::ShellSort(List);
     for (int i = 0; i < size; ++i) {
         std::cout<<List[i]<<std::endl;
