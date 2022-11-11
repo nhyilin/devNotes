@@ -47,3 +47,6 @@ endif()
 
 
 源码见[GitHub](https://github.com/nhyilin/devNotes/tree/main/code/cpp/BOOSTlog)
+
+# 报错记录
+若是提示找不到boost，则一定要确认boost文件夹下文件结构组织，因为lib文件夹内cmake文件夹内的cmakelists写定了各个头文件以及lib的相对路径关系
