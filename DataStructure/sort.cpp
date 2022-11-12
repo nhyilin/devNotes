@@ -66,8 +66,7 @@ void ShellSort(int (&A)[size]) {
       // 这里的++i是值得学习的
       if (A[i] < A[i - d]) {
         A[0] = A[i];
-        for (j = i - d; j > 0 && A[0] < A[j]; j -= d)
-          A[j + d] = A[j];
+        for (j = i - d; j > 0 && A[0] < A[j]; j -= d) A[j + d] = A[j];
         A[j + d] = A[0];
       }
     }
@@ -93,8 +92,7 @@ void BubbleSort(int (&A)[size]) {
         flag = true;
       }
     }
-    if (!flag)
-      return;
+    if (!flag) return;
   }
 }
 
@@ -104,13 +102,11 @@ int Partition(int (&A)[], int low, int high) {
   // 用第一个元素将待排序列表分成左右两个部分
   int pivot = A[low];
   while (low < high) {
-    while (low < high && A[high] > pivot)
-      --high;  // TODO
+    while (low < high && A[high] > pivot) --high;  // TODO
     // 这里的目的是移动high指针，下同，赋值语句其实不参与循环
     // TODO 这里这三个while循环的真是巧妙，可以达到彻底循环的效果
     A[low] = A[high];
-    while (low < high && A[low] < pivot)
-      low++;
+    while (low < high && A[low] < pivot) low++;
     A[high] = A[low];
     // 这两个内循环while分次序
   }
@@ -167,8 +163,7 @@ void my_BuildMaxHeap(int (&A)[], int len) {
 void HeadAdjust(int (&A)[], int k, int len) {
   A[0] = A[k];
   for (int i = 2 * k; i <= len; i *= 2) {
-    if (i < len && A[i] < A[i + 1])
-      i++;
+    if (i < len && A[i] < A[i + 1]) i++;
     if (A[0] >= A[i])
       break;
     else {
@@ -185,7 +180,7 @@ void BuildMaxHeap(int (&A)[], int len) {
   }
 }
 /*
- 哈工大实现
+ 哈工大课件的实现
  感觉王道的虽然对，但是逻辑很混乱
  */
 
@@ -199,9 +194,9 @@ void x_Swap(int* array, int i, int j) {
 
 /*大根堆调整*/
 void MaxHeapify(int* array, int heapSize, int currentNode) {
-  uint32_t leftChild, rightChild, largest;
-  leftChild = 2 * currentNode + 1;
-  rightChild = 2 * currentNode + 2;
+  int leftChild, rightChild, largest;
+  leftChild = 2 * currentNode;
+  rightChild = 2 * currentNode + 1;
   if (leftChild < heapSize && array[leftChild] > array[currentNode])
     largest = leftChild;
   else
@@ -216,21 +211,56 @@ void MaxHeapify(int* array, int heapSize, int currentNode) {
 /*构建大根堆*/
 void MaxHeapCreat(int* array, int heapSize) {
   int i;
-  for (i = heapSize / 2; i >= 0; i--) {
+  for (i = (heapSize - 1) / 2; i >= 0; i--) {
     MaxHeapify(array, heapSize, i);
   }
 }
 
+void HeapSort(int* array, int heapSize) {
+  for (int i = heapSize; i > 0; --i) {
+    int head = array[1];
+    x_Swap(array, head, array[i]);
+    MaxHeapify(array, heapSize, 1);
+  }
+}
+
 }  // namespace Heapsort
-int main() {
-  //    int A_n[10] = {78, 4, 90, 87, 46, 29, 18, 42, 72, 7};
-  int A_12[9] = {0, 87, 45, 78, 32, 17, 65, 53, 9};
-  for (auto(&p) : A_12)
-    std::cout << p << "\t";
-  std::cout << "\n";
-  Heapsort::BuildMaxHeap(A_12, 8);
-  for (auto(&p) : A_12)
-    std::cout << p << "\t";
+void test(int A[], int n) {
+  for (int i = 0; i < n; i++) std::cout << A[i] << "\t";
   std::cout << std::endl;
-  std::cout << "hello world " << std::endl;
+}
+
+namespace MergeSort {
+
+int* B = new int[size];
+void Merge(int* A, int low, int mid, int high) {
+  int i, j, k;
+  for (k = low; k < high + 1; k++) B[k] = A[k];
+  for (i = low, j = mid + 1, k = i; i < mid + 1 && j < high + 1; k++) {
+    if (B[i] <= B[j])
+      A[k] = B[i++];
+    else
+      A[k] = B[j++];
+  }
+  while (i < mid + 1) A[k] = B[i];
+  while (j < high + 1) A[k] = B[j];
+}
+void MergeSort(int* A, int low, int high) {
+  if (low < high) {
+    int mid = (low + high) / 2;  // TODO 这样写是为了后面可读性强
+    MergeSort(A, low, mid);
+    MergeSort(A, mid + 1, high);
+    Merge(A, low, mid, high);
+  }
+}
+
+}  // namespace MergeSort
+
+int main() {
+  int A_12[9] = {0, 87, 45, 78, 32, 17, 65, 53, 9};
+  test(A_12, 9);
+  Heapsort::MaxHeapCreat(A_12, 9);
+  test(A_12, 9);
+  Heapsort::HeapSort(A_12, 9);
+  test(A_12, 9);
 }
