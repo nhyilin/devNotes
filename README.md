@@ -49,6 +49,8 @@ boost实现timer:[Boost.timer](./cpp/boost_timer.md)
 
 qt解析ini文件:[qt解析ini文件](./cpp/QSetting_ini/)
 
+Xcode快捷键：[Xcode快捷键](./others/Xcode快捷键.md)
+
 [![top] Goto Top](#table-of-contents)
 
 ## python部分

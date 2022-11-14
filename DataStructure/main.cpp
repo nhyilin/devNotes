@@ -1,5 +1,5 @@
 
 #include "StdAfx.h"
-//int main() {
-//
-//}
+int main() {
+
+}

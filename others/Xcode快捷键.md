@@ -125,3 +125,118 @@ XVim快捷键使用见这里。
 
 ![vim命令图解](https://robberjj.github.io/imgs/vimCommod.png)
 
+常见快捷键
+⌘ + B：编译。
+***
+⌘ + R：运行。
+***
+⌘ + U：测试。
+***
+⌘ + .：停止。
+***
+⌃ + ⌘ + E：重命名。
+***
+⌃ + I：代码格式化。
+***
+⌃ + ⌘ + Click：跳转到点击内容的定义位置。
+***
+⌥ + ⌘ + /：添加文档注释。
+***
+⌘ + F：文件内查找。
+***
+⇧ + ⌘ + F：项目内查找。
+***
+⇧ + ⌘ + K：清理项目。
+***
+⌃ + ⌘ + → 和 ⌃ + ⌘ + ←：在最近打开的文件之间来回切换。
+***
+⌃ + ⌘ + ↑：生成当前文件的 interface。
+***
+⌘ + ⌥ + [和 ⌘ + ⌥ + ]：对选中代码进行上下移动。
+***
+⌘ + \：在当前行上添加或删除断点。
+***
+⌃ + 6：快速查看当前文件的方法列表。
+***
+⌃ + ⌘ + R：不编译直接运行（与QQ的录屏冲突）。
+***
+
+图标说明 
+
+⌃：control
+
+⌘：command
+
+⌥：option
+
+⇧：shift
+
+***
+
+
+1.Control + 空格：打开Spotlight菜单
+
+2.CMD + [: 左缩进
+   CMD + ]: 右缩进
+3.CMD + Option +Left: 折叠
+
+   CMD + Option +Right: 取消折叠
+
+   CMD + Option + Shift +Left: 折叠全部函数
+
+   CMD + Option +Shift + Right: 取消全部函数折叠
+
+4.CMD + /: 注释或取消注释
+
+5.CMD + R: 编译并运行
+
+6.CMD + Left：光标移到行首
+
+   CDM + Right：光标移到行尾
+
+   Option + Left：光标移到单词前
+
+   Option + Right：光标移到单词后
+
+   Option + delete：删除当前单词
+
+7.CMD + Control + Left：后退
+
+   CMD + Control + Right：前进
+
+8.CMD + Return：主编辑器
+
+   CMD + Option + Return：辅助编辑器
+
+9.CMD + 0 ：打开/关闭导航栏
+
+   CMD + Option + 0：打开/关闭工具栏
+
+   CMD + Shift + Y：打开/关闭调试窗口
+
+10.Tab：前进到第一个歧义点
+
+11.Control + Left/Right 切换屏幕   
+
+12.Control + Shift + 点击视图：选择重叠视图中的一个
+
+13.Ctrl + F ：前移光标
+   Ctrl + B ：后移光标
+   Ctrl + P ：移动光标到上一行
+   Ctrl + N：移动光标到下一行
+   Ctrl + A : 移动光标到本行行首
+   Ctrl + E : 移动光标到本行行尾
+
+   Ctrl + T ：交换光标左右两边的字符
+   Ctrl + D：删除光标右边的字符
+   Ctrl + K ：删除本行光标右边的所有字符
+   Ctrl + L : 将插入点置于窗口正中
+
+14.CMD + Shift + F：搜索导航器:Command+Shift+F
+
+15.CMD + Shift + O：快速打开(输入首字母就可以)
+
+16.CMD + Shift + J：展示当前你在工程导航器
+
+
+[比较全的一个资料](https://codeantenna.com/a/ecI5GJWXdS)

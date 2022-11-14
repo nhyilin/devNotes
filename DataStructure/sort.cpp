@@ -6,6 +6,13 @@
 
 #include <algorithm>
 #define size 10
+
+void Print(int A[], int n) {
+  for (int i = 0; i < n; i++) std::cout << A[i] << "\t";
+  std::cout << std::endl;
+}
+
+
 namespace Insertion_sort {
 void InsertSort(int (&A)[size]) {
   // 直接插入排序，思路是从头开始遍历，然后逐个和前一个元素相比
@@ -225,25 +232,21 @@ void HeapSort(int* array, int heapSize) {
 }
 
 }  // namespace Heapsort
-void test(int A[], int n) {
-  for (int i = 0; i < n; i++) std::cout << A[i] << "\t";
-  std::cout << std::endl;
-}
 
 namespace MergeSort {
 
 int* B = new int[size];
 void Merge(int* A, int low, int mid, int high) {
   int i, j, k;
-  for (k = low; k < high + 1; k++) B[k] = A[k];
-  for (i = low, j = mid + 1, k = i; i < mid + 1 && j < high + 1; k++) {
+  for (k = low; k <= high; k++) B[k] = A[k];
+  for (i = low, j = mid + 1, k = i; i <= mid && j <= high; k++) {
     if (B[i] <= B[j])
       A[k] = B[i++];
     else
       A[k] = B[j++];
   }
-  while (i < mid + 1) A[k] = B[i];
-  while (j < high + 1) A[k] = B[j];
+  while (i <= mid) A[k++] = B[i++];
+  while (j <= high) A[k++] = B[j++];
 }
 void MergeSort(int* A, int low, int high) {
   if (low < high) {
@@ -253,14 +256,10 @@ void MergeSort(int* A, int low, int high) {
     Merge(A, low, mid, high);
   }
 }
-
-}  // namespace MergeSort
-
-int main() {
+int T_MergeSort() {
   int A_12[9] = {0, 87, 45, 78, 32, 17, 65, 53, 9};
-  test(A_12, 9);
-  Heapsort::MaxHeapCreat(A_12, 9);
-  test(A_12, 9);
-  Heapsort::HeapSort(A_12, 9);
-  test(A_12, 9);
+  Print(A_12, 9);
+  MergeSort::MergeSort(A_12, 0, 9);
+  Print(A_12, 9);
 }
+}  // namespace MergeSort
