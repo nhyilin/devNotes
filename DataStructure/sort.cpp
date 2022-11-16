@@ -256,7 +256,7 @@ void MergeSort(int* A, int low, int high) {
     Merge(A, low, mid, high);
   }
 }
-int T_MergeSort() {
+void T_MergeSort() {
   int A_12[9] = {0, 87, 45, 78, 32, 17, 65, 53, 9};
   Print(A_12, 9);
   MergeSort::MergeSort(A_12, 0, 9);
