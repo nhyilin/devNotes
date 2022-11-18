@@ -21,9 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->pushButton->setFocus();
     ui->pushButton->setDefault(true);
-    ui->textEdit->installEventFilter(
-        this);  // 设置完后自动调用其eventFilter函数
-
+    // 设置完后自动调用其eventFilter函数
+    ui->textEdit->installEventFilter(this);
     ui->textEdit_4->setPlainText("45");
 }
 

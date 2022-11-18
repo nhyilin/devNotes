@@ -1,10 +1,8 @@
 ﻿#ifndef INIT_LOG_H_
 #define INIT_LOG_H_
 
-#include <string>
+#include "../StdAfx.h"
 #include <boost/log/trivial.hpp>
-
-
 using std::string;
 #define LOG_TRACE\
     BOOST_LOG_SEV((InitLog::s_slg),(boost::log::trivial::trace))

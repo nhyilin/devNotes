@@ -1,21 +1,5 @@
 ﻿#include "InitLog.h"
 
-#include <boost/filesystem.hpp>
-#include <boost/log/attributes/named_scope.hpp>
-#include <boost/log/detail/format.hpp>
-#include <boost/log/detail/thread_id.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/sinks/text_ostream_backend.hpp>
-#include <boost/log/sources/global_logger_storage.hpp>
-#include <boost/log/sources/logger.hpp>
-#include <boost/log/sources/record_ostream.hpp>
-#include <boost/log/support/date_time.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/utility/setup/console.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <iostream>
-#include <string>
-
 #include "ParseINI.h"
 
 namespace logging = boost::log;
@@ -24,8 +8,8 @@ namespace keywords = boost::log::keywords;
 namespace sinks = boost::log::sinks;
 namespace expr = boost::log::expressions;
 namespace attrs = boost::log::attributes;
-
-std::string InitLog::InitFile = "./test.ini";  // 后期可以放在stdafx 中
+std::string project_path_=PROJECT_PATH;
+std::string InitLog::InitFile = project_path_ +"/Refactoring.ini";  // 后期可以放在stdafx 中
 std::string InitLog::LogPath = "./Logs";
 severity_level InitLog::logLevel = trace;
 

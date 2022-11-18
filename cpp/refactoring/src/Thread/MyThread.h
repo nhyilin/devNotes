@@ -4,7 +4,7 @@
 
 #ifndef REFACTORING_SRC_MYTHREAD_H_
 #define REFACTORING_SRC_MYTHREAD_H_
-#include "../../StdAfx.h"
+#include "../StdAfx.h"
 
 class MyThread : public QThread {
     Q_OBJECT
