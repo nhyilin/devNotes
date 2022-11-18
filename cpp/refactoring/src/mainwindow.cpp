@@ -8,8 +8,8 @@
 #include <QTimer>
 #include <QtCore>
 
-#include "DataManager.h"
-#include "Student.h"
+#include "seven/DataManager.h"
+#include "seven/Student.h"
 #include "ui_MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent)

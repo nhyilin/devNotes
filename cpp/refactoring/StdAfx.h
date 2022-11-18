@@ -9,4 +9,5 @@
 #include <QWidget>
 #include <QWindow>
 #include <iostream>
+#include <QDebug>
 #endif  // REFACTORING_SRC_STDAFX_H_

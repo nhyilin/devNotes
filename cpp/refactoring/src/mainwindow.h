@@ -7,9 +7,9 @@
 #include <QKeyEvent>
 #include <QWidget>
 
-#include "Controller.h"
-#include "MyThread.h"
-#include "Student.h"
+#include "Thread/Controller.h"
+#include "Thread/MyThread.h"
+#include "seven/Student.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

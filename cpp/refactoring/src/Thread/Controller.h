@@ -5,7 +5,7 @@
 #ifndef REFACTORING_SRC_CONTROLLER_H_
 #define REFACTORING_SRC_CONTROLLER_H_
 
-#include "../StdAfx.h"
+#include "../../StdAfx.h"
 #include "Worker.h"
 class Controller : public QObject {
     Q_OBJECT
