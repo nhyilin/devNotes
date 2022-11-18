@@ -1,0 +1,328 @@
+
+set(Source_Files
+    "main.cpp"
+    "mainwindow.cpp"
+)
+
+set(Source_Files__common
+InitLog.cpp
+	common/armZeroCheckDialog.cpp
+	common/armfollowdialog.cpp
+	common/armmovingdialog.cpp
+	common/armunlockdialog.cpp
+    common/audiothread.cpp
+    common/alarmcontroller.cpp
+	common/common.cpp
+	common/config.cpp
+	common/context.cpp
+	common/datamanager.cpp
+	common/diskspacewidget.cpp
+	common/drawTool.cpp
+	common/logger.cpp
+	common/mathFunction.cpp
+	common/mathhelper.cpp
+	common/matrix.cpp
+	common/modulemanager.cpp
+	common/modulewidget.cpp
+	common/notificationwidget.cpp
+	common/pedalflashingwidget.cpp
+	common/picturelabel.cpp
+	common/prosthesislib.cpp
+	common/rdialog.cpp
+	common/rmessagebox.cpp
+	common/robotconfighelper.cpp
+	common/robotfilehelper.cpp
+	common/rprogressdialog.cpp
+	common/rsetdialog.cpp
+	common/storagewidget.cpp
+	common/style.cpp
+	common/utility.cpp
+	common/average.cpp
+	common/screenshot.cpp
+)
+
+set(Source_Files__cut
+	cut/armrangewidget.cpp
+	cut/bonedatamanager.cpp
+	cut/boneviewer.cpp
+	cut/collisionDetection.cpp
+	cut/cutcontroller.cpp
+	cut/cutflowwidget.cpp
+	cut/cutstepwidget.cpp
+	cut/cutwidget.cpp
+	cut/forcelinewidget.cpp
+	cut/hintDoublePlaneInfoWgt.cpp
+	cut/offsetlegendwidget.cpp
+	cut/pedalonclickmousewidget.cpp
+	cut/pedaltimingwidget.cpp
+	cut/planecorrection.cpp
+	cut/stiffLimits.cpp
+	cut/switchCtrlModeDlg.cpp
+    cut/boneCenterPositionWidget.cpp
+    cut/offsetRecorder.cpp
+    cut/PausableElapsedTimer.cpp
+	cut/cutPrecisionTestDlg.cpp
+)
+
+set(Source_Files__db
+	db/dbmanager.cpp
+	db/doctor.cpp
+	db/mysql_interface.cpp
+	db/patient.cpp
+	db/prosthesis.cpp
+)
+
+set(Source_Files__init
+	init/ComConnection.cpp
+	init/DeviceManager.cpp
+	init/DeviceManagerBase.cpp
+	init/PcieDevice.cpp
+	init/RS485Device.cpp
+	init/RS485protocol.cpp
+	init/armbrakewidget.cpp
+	init/cmdqueue.cpp
+	init/finishingwidget.cpp
+	init/initializer.cpp
+	init/initwidget.cpp
+	init/restorecutscence.cpp
+	init/serialportop.cpp
+	init/softshutdownconditionsdlg.cpp
+	init/videowidget.cpp
+	init/FirmwareCRC.cpp
+	init/FirmwareDevice.cpp
+	init/FirmwareProtocal.cpp
+)
+
+set(Source_Files__io
+	io/iodatamanager.cpp
+	io/ioworker.cpp
+	io/projectopen.cpp
+	io/projectimportv11.cpp
+	io/projectsave.cpp
+	io/prosthesismanage.cpp
+	io/zip.cpp
+	io/iohelper.cpp
+)
+
+set(Source_Files__login
+	login/accountWidget.cpp
+	login/adminwidget.cpp
+	login/diskfreelabel.cpp
+	login/doctormainwidget.cpp
+	login/engineerwidget.cpp
+	login/framelesswidget.cpp
+	login/hospitalmasterwidget.cpp
+	login/loginwidget.cpp
+	login/logmanagerwidget.cpp
+	login/machinearmwidget.cpp
+	login/navigatorwidget.cpp
+	login/passwordlineedit.cpp
+	login/prothesisManageWidget.cpp
+	login/reportitemwidget.cpp
+	login/searchreportedit.cpp
+	login/usermanagerwidget.cpp
+	login/ndisamplingstatisticsdialog.cpp
+)
+
+set(Source_Files__manage
+	manage/filesmanageworker.cpp
+	manage/labelwidget.cpp
+	manage/localplanmanagerwidget.cpp
+	manage/managewidget.cpp
+	manage/myqsqlquerymodel.cpp
+)
+
+set(Source_Files__mount
+	mount/interactorStyleCamera.cpp
+	mount/mountController.cpp
+	mount/mountwidget.cpp
+)
+
+set(Source_Files__plan
+	plan/cuttingPlan.cpp
+	plan/planController.cpp
+	plan/planwidget.cpp
+)
+
+set(Source_Files__plan__vtk
+    "plan/vtk/myBezierContourLineInterpolator.cxx"
+    "plan/vtk/myContourLineInterpolator.cxx"
+    "plan/vtk/myContourRepresentation.cxx"
+    "plan/vtk/myContourWidget.cxx"
+    "plan/vtk/myOrientedGlyphContourRepresentation.cxx"
+)
+
+set(Source_Files__prepare
+	prepare/findbackWidget.cpp
+	prepare/freecollectionwidget.cpp
+	prepare/lampwidget.cpp
+	prepare/layoutwidget.cpp
+	prepare/navigatepreparewidget.cpp
+	prepare/ndicapturewidget.cpp
+	prepare/ndispace.cpp
+	prepare/pickedpointstatisticswidget.cpp
+	prepare/probewidget.cpp
+	prepare/robotpositionwidget.cpp
+	prepare/surgicalpreparewidgetV2.cpp
+	prepare/verifyWidget.cpp
+	prepare/deviceinndispaceposdialog.cpp
+)
+
+set(Source_Files__reconstruction
+    "reconstruction/axesactor.cpp"
+    "reconstruction/anglemeasurementinteractorstyle.cpp"
+    "reconstruction/booleanoperationwidget.cpp"
+    "reconstruction/connectwidget.cpp"
+    "reconstruction/dicomimportwidget.cpp"
+    "reconstruction/dicomtagparser.cpp"
+    "reconstruction/filebrowserwidget.cpp"
+    "reconstruction/filterworker.cpp"
+    "reconstruction/histogramwidget.cpp"
+    "reconstruction/lineactor.cpp"
+    "reconstruction/maskactor.cpp"
+    "reconstruction/maskwidget.cpp"
+    "reconstruction/multiplanarwidget.cpp"
+    "reconstruction/multiplesliceseditwidget.cpp"
+    "reconstruction/myfilesystemmodel.cpp"
+    "reconstruction/paintcontourcallback.cpp"
+    "reconstruction/pointactor.cpp"
+    "reconstruction/pointguidwidget.cpp"
+    "reconstruction/polyactor.cpp"
+    "reconstruction/projectimportwidget.cpp"
+    "reconstruction/reconstructionwidget.cpp"
+    "reconstruction/segmentdatamanager.cpp"
+    "reconstruction/segmentdialogbase.cpp"
+    "reconstruction/segmentlegend.cpp"
+    "reconstruction/stlwidget.cpp"
+    "reconstruction/thresholdwidget.cpp"
+    "reconstruction/tibiaforcelinecallback.cpp"
+    "reconstruction/tibiaforcelinewidget.cpp"
+    "reconstruction/undocontourcommand.cpp"
+    "reconstruction/undointerpolatecommand.cpp"
+    "reconstruction/linepointreprensentation.cpp"
+    "reconstruction/linepointreprensentationbase.cpp"
+    "reconstruction/raylinepointreprensentation.cpp"
+)
+
+set(Source_Files__reconstruction__algorithm
+    "reconstruction/algorithm/algorithmbase.cpp"
+    "reconstruction/algorithm/algorithmworker.cpp"
+    "reconstruction/algorithm/bonescoordsystemalgorithm.cpp"
+    "reconstruction/algorithm/booleanoperationalgorithm.cpp"
+    "reconstruction/algorithm/connectalgorithm.cpp"
+    "reconstruction/algorithm/contouralgorithm.cpp"
+    "reconstruction/algorithm/featureedgesalgorithm.cpp"
+    "reconstruction/algorithm/multiplesliceseditalgorithm.cpp"
+    "reconstruction/algorithm/spherefittingalgorithm.cpp"
+    "reconstruction/algorithm/thresholdalgorithm.cpp"
+)
+
+set(Source_Files__reconstruction__vtk
+    "reconstruction/vtk/myDICOMImageReader.cxx"
+    "reconstruction/vtk/myImageViewer2.cxx"
+    "reconstruction/vtk/myInteractorStyleImage.cxx"
+    "reconstruction/vtk/myInteractorStyleTrackballCamera.cxx"
+    "reconstruction/vtk/myLineWidget.cxx"
+    "reconstruction/vtk/myResliceCursor.cxx"
+    "reconstruction/vtk/myResliceCursorActor.cxx"
+    "reconstruction/vtk/myResliceCursorLineRepresentation.cxx"
+    "reconstruction/vtk/myResliceCursorPicker.cxx"
+    "reconstruction/vtk/myResliceCursorPolyDataAlgorithm.cxx"
+    "reconstruction/vtk/myResliceCursorRepresentation.cxx"
+    "reconstruction/vtk/myResliceCursorThickLineRepresentation.cxx"
+    "reconstruction/vtk/myResliceCursorWidget.cxx"
+    "reconstruction/vtk/myResliceImageViewer.cxx"
+    "reconstruction/vtk/myResliceImageViewerMeasurements.cxx"
+)
+
+set(Source_Files__registration
+    "registration/highlightInteractorStyle.cpp"
+    "registration/pointPickerInteractorStyle.cpp"
+    "registration/propPickerInteractorStyle.cpp"
+    "registration/registrationController.cpp"
+    "registration/registrationwidget.cpp"
+)
+
+set(Source_Files__settings
+	settings/accuracyController.cpp
+	settings/accuracyLocation.cpp
+	settings/accuracySystem.cpp
+	settings/accuracyTestEMC.cpp
+	settings/accuracyTest_EMC.cpp
+	settings/armcontrolsettingswidget.cpp
+	settings/disablehotkey.cpp
+	settings/logsettingswidget.cpp
+	settings/parametersettingswidget.cpp
+	settings/probeParameterWidget.cpp
+	settings/romFileWidget.cpp
+	settings/romimportfilewidget.cpp
+	settings/sawParameterWidget.cpp
+	settings/setProbeParameter.cpp
+	settings/setRomVersion.cpp
+	settings/setSawParameter.cpp
+	settings/setingmainwidget.cpp
+	settings/setsysinfowidget.cpp
+	settings/settingsubwidget.cpp
+	settings/standByWidget.cpp
+	settings/systeminfosettingswidget.cpp
+	settings/systemsettingswidget.cpp
+	settings/armtorquetestdlg.cpp
+	settings/armanglerangewidget.cpp
+	settings/armmoving2fixedangledialog.cpp
+	settings/quickSawLoadTestDlg.cpp
+)
+
+# source files in Expert folders
+set(INNER_SRC_FILES
+	${Source_Files}
+	${Source_Files__common}
+	${Source_Files__cut}
+	${Source_Files__db}
+	${Source_Files__init}
+	${Source_Files__io}
+	${Source_Files__login}
+    ${Source_Files__manage}
+    ${Source_Files__mount}
+    ${Source_Files__plan}
+    ${Source_Files__plan__vtk}
+    ${Source_Files__prepare}
+#    ${Source_Files__prepare__algorithm}
+    ${Source_Files__reconstruction}
+    ${Source_Files__reconstruction__algorithm}
+    ${Source_Files__reconstruction__vtk}
+    ${Source_Files__registration}
+    ${Source_Files__settings}
+) 
+
+
+set(Source_Files__..__Robot__common
+    "../Robot/common/robotconfig.cpp"
+)
+
+set(Source_Files__..__Robot__coordinate
+    "../Robot/coordinate/coordinateTransformation.cpp"
+)
+
+set(Source_Files__..__Robot__io
+    "../Robot/io/robotio.cpp"
+)
+
+set(Source_Files__..__Robot__navigator
+    "../Robot/navigator/navigator.cpp"
+    "../Robot/navigator/navigatorController.cpp"
+)
+
+set(Source_Files__..__Robot__roboticArm
+    "../Robot/roboticArm/CommunicationModule.cpp"
+    "../Robot/roboticArm/MessagePack.cpp"
+    "../Robot/roboticArm/StringHelper.cpp"
+)
+
+# source files out of  Expert folders but in this project
+set(EXTERNAL_SRC_FILES
+    ${Source_Files__..__Robot__common}
+    ${Source_Files__..__Robot__coordinate}
+    ${Source_Files__..__Robot__io}
+    ${Source_Files__..__Robot__navigator}
+    ${Source_Files__..__Robot__roboticArm}
+)
