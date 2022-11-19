@@ -13,6 +13,10 @@
   - [else if](#else-if)
   - [数组引用和指针引用](#数组引用和指针引用)
   - [数组遍历十种方式](#数组遍历十种方式)
+  - [char 转换为字符串的 10 种方法](#char-转换为字符串的-10-种方法)
+  - [C++获取项目路径的两种方式](#c获取项目路径的两种方式)
+    - [一、Cmake传参：适用于简单场景](#一cmake传参适用于简单场景)
+    - [二、从环境变量读取：适合脚本场景](#二从环境变量读取适合脚本场景)
 
 完整版笔记见：[ChernoCPP](ChernoCPP.md)
 
@@ -365,5 +369,313 @@ for (auto &p : ia) {
 
 [![top] Goto Top](#table-of-contents)
 
+## char 转换为字符串的 10 种方法
+
+1. 使用 std::string 构造函数
+
+一个简单的解决方案是使用字符串类填充构造函数 string (size_t n, char c); 
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用字符串类填充构造函数
+ 
+    std::string s(1, c);
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+2. 使用 std::stringstream 功能
+
+另一个不错的选择是使用字符串流在字符串和其他数字类型之间进行转换。这个想法是将给定字符插入到流中，然后将其缓冲区的内容写入 `std::string`.
+```cpp
+#include <iostream>
+#include <string>
+#include <sstream>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用字符串流
+ 
+    std::string s;
+    std::stringstream ss;
+    ss << c;
+    ss >> s;                // 或者，使用 `s = ss.str()`
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+3. 使用 std::string::push_back 功能
+
+另一种常用的解决方案是使用 `push_back()` 函数，它为 `chars` 重载，并将一个字符附加到字符串的末尾。
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用 string::push_back
+ 
+    std::string s;
+    s.push_back(c);
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+4. 使用 std::string::operator+=
+
+`string& operator+= (char c);`
+
+字符串 `+=operator` 对字符重载。我们可以使用它在字符串末尾追加一个字符，如下所示：
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用 `std::string::operator+=`
+ 
+    std::string s;
+    s += c;
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+5. 使用 std::string::operator=
+`string& operator= (char c);`
+
+类似于 `+=operator`， 这 `=operator` 对于字符也是重载的。我们可以使用它用单个字符替换字符串的内容。
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用 `std::string::operator=`
+ 
+    std::string s;
+    s = c;
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+
+6.使用 std::string::append 功能
+
+`string& append (size_t n, char c);`
+
+`append()`函数将追加 `char c` 的 `n` 个拷贝到`string`的末尾
+
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用 `std::string::append`
+ 
+    std::string s;
+    s.append(1, c);
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+7.使用 std::string::assign 功能
+
+`string& assign (size_t n, char c);`
+
+`assgin()`函数将使用 `char c` 的 `n` 个拷贝来替换`string`当前的值
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用 `std::string::assign`
+ 
+    std::string s;
+    s.assign(1, c);
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+8. 使用 std::string::insert 功能
+`insert()`函数将 `char c` 的 `n` 个拷贝插在位置 `pos` 处
+
+`string& insert (size_t pos, size_t n, char c);`
+
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用 `std::string::insert`
+ 
+    std::string s;
+    s.insert(0, 1, c);
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+关于此方法的更普遍用途，见下例：
+```cpp
+    char c = 'A';
+    std::string s = "abc";
+    s.insert(1, 3, c);   // aAAAbc 
+```
+
+9.使用 std::string::replace 功能
+
+`string& replace (size_t pos, size_t len, size_t n, char c);`
+
+`replace()`函数将 `string s` 在位置 `pos` 处开始的 `len` 个字符替换为 `char c` 的` n` 个拷贝
+
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 使用`std::string::replace`
+ 
+    std::string s;
+    s.replace(0, 1, 1, c);
+    std::cout << s << std::endl;
+ 
+    return 0;
+}
+```
+关于此方法的更普遍用途，见下例：
+```cpp
+    char c = 'A';
+    std::string s = "abcdef";
+    s.replace(1, 2, 3, c);  // aAAAdef 
+```
+10. 将 char 转换为 C 字符串
+最后，我们还可以将 char 转换为 C 字符串，然后将 C 字符串转换为 `std::string` 使用填充构造函数或 `std::string::append` 或者 `std::string::assign`.
+```cpp
+#include <iostream>
+#include <string>
+ 
+int main()
+{
+    char c = 'A';
+ 
+    // 将 char 转换为 C 字符串
+    const char* str = &c;
+ 
+    // 使用 `std::string` 填充构造函数
+    std::string s(str, 1);
+    std::cout << s << std::endl;
+ 
+    // 使用 `std::string::append`
+    std::string S;
+    S.append(str, 1);
+    std::cout << S << std::endl;
+ 
+    // 使用 `std::string::assign`
+    S.assign(str, 1);
+    std::cout << S << std::endl;
+ 
+    return 0;
+}
+```
+
+[![top] Goto Top](#table-of-contents)
+
+
+
+
+
+## C++获取项目路径的两种方式
+在某些特定的条件运行时不能使用局部地址，例如ci流程等，这就要求读取文件时必需使用全局地址，但是在项目路径不定的情况下很难知道某个文件的全局地址，目前存在两种获取项目路径的方式，其中一种更适用于ci流程。
+ 
+### 一、Cmake传参：适用于简单场景
+在Cmake中，很容易知道项目的地址，例如
+
+`${PROJECT_SOURCE_DIR}`
+
+可以在cmakelists中，将该值赋值给变量，例如MAIN_PATH：
+
+`set(MAIN_PATH ${PROJECT_SOURCE_DIR})`
+
+然后新建xxx.h.in文件，仅需一行即可利用宏捕获MAIN_PATH:
+
+`#define PROJECT_PATH "@MAIN_PATH@"`
+
+在cmakelists中将xxx.h.in编译成xxx.h：
+
+`configure_file(src/param_deliver.h.in ../src/param_deliver.h)`
+
+编译完成后即可生成对应的xxx.h：
+
+`#define PROJECT_PATH "/home/type/mcamera/mcamera"`
+
+然后调用该宏即可获得项目地址。
+ 
+### 二、从环境变量读取：适合脚本场景
+C++中自带函数`getenv`，可以读取指定的环境变量，返回`char *`。详见`std::getenv - cppreference.com`。
+
+因此，可以在bash中将当前项目地址设置为指定的环境变量，例如
+
+`export resource_path=${PWD}`
+
+注意，是`${PWD}`而不是`${pwd}`。
+
+然后在c++代码直接读取即可：
+
+`char *path = getenv("resource_path");`
+
+不存在则为空。
+ 
+组合实例代码：
+
+首先读取环境变量，如果不存在则从Cmake里读取:
+```cpp
+std::string getResourcePath() {
+  char *path = getenv("RESOURCE_DIR");
+  if (path != nullptr) {
+      LOG("find path in ENV:%s", path);
+      return path;
+  }
+  // not find in ENV
+  std::string project_path = PROJECT_PATH;
+  std::string resource_path = project_path + "/test/resource/";
+  LOG("find path in CMake:%s", resource_path.c_str());
+  return resource_path;
+}
+```
+[![top] Goto Top](#table-of-contents)
+
 [top]: up.png
+
 [top]: https://upload.nhyilin.cn/2021-11-19-up.png
