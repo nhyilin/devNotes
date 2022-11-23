@@ -14,28 +14,28 @@ CONTENT = 6
 PUBLISHER = 7
 SOURCEURI = 8
 TEMPFILE = "情报要报.docx"
+CSV_PATH = "/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/data/"
+NEW_FILE_PATH = "/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/new/"
 
 
 def mkdir(path):
     path = path.strip()
-    path = path.rstrip("/")
+    # path = path.rstrip("/")
     isExists = os.path.exists(path)
     if not isExists:
         os.makedirs(path.encode('utf-8'))
-        print(path + ' 创建成功')
         return path
     else:
-        print(path + ' 目录已存在')
         return path
 
 
-def list_dir(path, list_name):
-    for file in os.listdir(path):
-        file_path = os.path.join(path, file)
-        if os.path.isdir(file_path):  # 判断是否目录
-            list_dir(file_path, list_name)
-        else:
-            list_name.append(file_path)
+# def list_dir(path, list_name):
+#     for file in os.listdir(path):
+#         file_path = os.path.join(path, file)
+#         if os.path.isdir(file_path):  # 判断是否目录
+#             list_dir(file_path, list_name)
+#         else:
+#             list_name.append(file_path)
 
 
 def list_csv(file_dir):
@@ -53,16 +53,51 @@ def list_csv(file_dir):
     return list
 
 
+def list_dir(file_dir):
+    list_csv = []
+    dir_list = os.listdir(file_dir)
+    for cur_file in dir_list:
+        path = os.path.join(file_dir, cur_file)
+        if os.path.isfile(path):
+            dir_files = os.path.join(file_dir, cur_file)
+        if os.path.splitext(path)[1] == '.csv':
+            csv_file = os.path.join(file_dir, cur_file)
+            list_csv.append(csv_file)
+        if os.path.isdir(path):
+            list_dir(path)
+    return list_csv
+
+
 def makeDic(key, value):
     dic = {key: value}
     return dic
 
 
+def ReFormatColumn(data, number, textContent, row, key):
+    """
+    data：字典中的值，将很多条目合并到一起的目标，入值最好为空字符串
+    number：csv文件中内容条数索引
+    content：csv文件中的内容，如biref和Content
+    row:csv文件行数，以供遍历
+    key:csv文件的键
+    """
+    for i in range(row):
+        data += str(number[i])
+        data += '. '
+        data += ' '
+        data += textContent[i]
+        data += '\n'
+    return makeDic(key, data)
+
+
+def Merge(dict1, dict2):
+    return (dict2.update(dict1))  # 词典合并
+
+
 def process_single_CSV_file(csvfile):
-    global NEW_FILE_PATH
-    NEW_FILE_PATH = mkdir(CURRENT_DIR + '/new')
-    global CSV_PATH
-    CSV_PATH = mkdir(CURRENT_DIR + '/data')
+    global DIC
+    DIC = dict()
+
     global time
     data = pd.read_csv(csvfile, encoding='gbk')
     time = data["Time"]
@@ -79,69 +114,32 @@ def process_single_CSV_file(csvfile):
 
     global Brief_dic
     Brief_data = str()
-    for i in range(num):
-        Brief_data += str(number[i])
-        Brief_data += ' '
-        Brief_data += Brief[i]
-        Brief_data += '\n'
-    Brief_dic = makeDic("Brief", Brief_data)
-    print("Brief_data: ", '\n', Brief_dic)
+    Brief_dic = ReFormatColumn(Brief_data, number, Brief, num, "Brief")
+    DIC.update(Brief_dic)
 
     global Content_dic
     Content_data = str()
-    for i in range(num):
-        Content_data += str(number[i])
-        Content_data += ' '
-        Content_data += Content[i]
-        Content_data += '\n'
-    Content_dic = makeDic("Content", Content_data)
-    print("Content_dic: ", '\n', Content_dic)
+    Content_dic = ReFormatColumn(Content_data, number, Content, num, "Content")
+    DIC.update(Content_dic)
+
+    Time_dic = {"Time": time[1]}
+    DIC.update(Time_dic)
+
+    Rerange_dic = {"期号": rerange[1]}
+    DIC.update(Rerange_dic)
+    # print("Final dictionary: ", '\n', DIC)
 
 
 def main():
-    process_single_CSV_file("/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/data/20221118-第XXX期.csv")
-    # tpl = DocxTemplate(CSV_PATH + TEMPFILE)
-    tpl = DocxTemplate("/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/data/情报要报.docx")
-    tpl.render(Content_dic)  # 渲染替换
-    # 保存文件，名字为： ** 的入学通知书。
-    # tpl.save(file_path + r"\{}1.docx".format(time[i]))
-    tpl.save(NEW_FILE_PATH + r"\{}.docx".format(time[0]))
+    csv_list = list_csv(CSV_PATH)
+    print("csv_fils: ", '\n', csv_list)
+    for index in csv_list:
+        process_single_CSV_file(index)
+        tpl = DocxTemplate(CSV_PATH + TEMPFILE)
+        tpl.render(DIC)  # 渲染替换
+        tpl.save(NEW_FILE_PATH + r"{}.docx".format(time[0]))
+        print("Newly generated files： ", NEW_FILE_PATH + r"{}.docx".format(time[0]))
 
-
-# # data = pd.read_csv(zpath + 'data.csv', encoding='gbk')  # 读取csv里的目标数据
-# data = pd.read_csv(CSV_PATH + '*.csv', encoding='gbk')
-#
-# time = data["Time"].str.rstrip()
-# rerange = data["期号"].str.rstrip()
-# number = data["条目编号"].str.rstrip()
-# Type = data["Type"].str.rstrip()
-# Importance = data["Importance"].str.rstrip()
-# Brief = data["Brief"].str.rstrip()
-# Content = data["Content"].str.rstrip()
-# Publisher = data["Publisher"].str.rstrip()
-# SourceUri = data["SourceUri"].str.rstrip()
-#
-# num = data.shape[0]  # 获取数据行数
-# for i in range(num):
-#     context = {
-#         "Time": time[i],
-#         "期号": rerange[i],
-#         "条目编号": number[i],
-#         "Type": Type[i],
-#         "Importance": Importance[i],
-#         "Brief": Brief[i] + "\n",
-#         "Content": Content[i],
-#         "Publisher": Publisher[i],
-#         "SourceUri": SourceUri[i]
-#     }
-#
-# # tpl = DocxTemplate(zpath + '生成文件.docx')
-# tpl = DocxTemplate(CSV_PATH + '*.docx')
-#
-# tpl.render(context)  # 渲染替换
-# # 保存文件，名字为： ** 的入学通知书。
-# # tpl.save(file_path + r"\{}1.docx".format(time[i]))
-# tpl.save(NEW_FILE_PATH + r"\{}.docx".format(time[i]))
 
 if __name__ == "__main__":
     main()
