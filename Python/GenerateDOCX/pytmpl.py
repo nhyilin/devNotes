@@ -1,6 +1,5 @@
 from docxtpl import DocxTemplate
 import pandas as pd
-import csv
 import os
 
 CURRENT_DIR = os.getcwd()  # 获取当前的路径
@@ -70,10 +69,6 @@ def ReFormatColumn(data, number, textContent, row, key):
         data += textContent[i]
         data += '\n'
     return makeDic(key, data)
-
-
-def Merge(dict1, dict2):
-    return (dict2.update(dict1))  # 词典合并
 
 
 def process_single_CSV_file(csvfile):
