@@ -4,15 +4,6 @@ import csv
 import os
 
 CURRENT_DIR = os.getcwd()  # 获取当前的路径
-TIME = 0
-RERANGER = 1
-NUMBER = 2
-TYPE = 3
-IMPORTANCE = 4
-BRIEF = 5
-CONTENT = 6
-PUBLISHER = 7
-SOURCEURI = 8
 TEMPFILE = "情报要报.docx"
 CSV_PATH = "/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/data/"
 NEW_FILE_PATH = "/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/new/"
@@ -27,15 +18,6 @@ def mkdir(path):
         return path
     else:
         return path
-
-
-# def list_dir(path, list_name):
-#     for file in os.listdir(path):
-#         file_path = os.path.join(path, file)
-#         if os.path.isdir(file_path):  # 判断是否目录
-#             list_dir(file_path, list_name)
-#         else:
-#             list_name.append(file_path)
 
 
 def list_csv(file_dir):
