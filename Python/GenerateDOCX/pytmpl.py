@@ -19,22 +19,6 @@ def mkdir(path):
         return path
 
 
-def list_csv(file_dir):
-    list = []
-    dir_list = os.listdir(file_dir)
-    for cur_file in dir_list:
-        path = os.path.join(file_dir, cur_file)
-        if os.path.isfile(path):
-            dir_files = os.path.join(file_dir, cur_file)
-        if os.path.splitext(path)[1] == '.csv':
-            csv_file = os.path.join(file_dir, cur_file)
-            list.append(csv_file)
-        if os.path.isdir(path):
-            list_dir(path)
-
-    return list
-
-
 def list_dir(file_dir):
     list_csv = []
     dir_list = os.listdir(file_dir)
@@ -139,7 +123,7 @@ def DeleteBlankPages(xxx):
 
 def main():
     EmptyDir(NEW_FILE_PATH)
-    csv_list = list_csv(CSV_PATH)
+    csv_list = list_dir(CSV_PATH)
     print("csv_fils: ", '\n', csv_list)
     for index in csv_list:
         FormatCSV(index)
