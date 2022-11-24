@@ -5,8 +5,8 @@ import os
 
 CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
 TEMPFILE = "情报要报.docx"
-CSV_PATH = "/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/data/"
-NEW_FILE_PATH = "/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/new/"
+CSV_PATH = os.getcwd() + "/data/"
+NEW_FILE_PATH = os.getcwd() + "/new/"
 
 
 def mkdir(path):
