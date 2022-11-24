@@ -1,7 +1,6 @@
 from docxtpl import DocxTemplate
 from docx import Document
 import pandas as pd
-import docx
 import os
 
 CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
