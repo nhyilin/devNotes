@@ -15,4 +15,4 @@ void MyThread::run() {
     }
 
 }
-void MyThread::stop() { stopped = false; }
+void MyThread::stop() { stopped = true; }

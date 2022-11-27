@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     // 设置完后自动调用其eventFilter函数
     ui->textEdit->installEventFilter(this);
     ui->textEdit_4->setPlainText("45");
+    this->setWindowIcon(QIcon(":./resource/favicon.ico"));
 }
 
 MainWindow::~MainWindow() { delete ui; }

@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -365,11 +365,11 @@ background-color: #1E90FF;
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_3">
+   <widget class="QWidget" name="thread_tab">
     <attribute name="title">
      <string>线程demo</string>
     </attribute>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>220</x>
@@ -430,6 +430,21 @@ background-color: #1E90FF;
        </layout>
       </item>
      </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="editor_tab">
+    <attribute name="title">
+     <string>编辑器</string>
+    </attribute>
+    <widget class="QPlainTextEdit" name="plainTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>50</y>
+       <width>411</width>
+       <height>171</height>
+      </rect>
+     </property>
     </widget>
    </widget>
   </widget>

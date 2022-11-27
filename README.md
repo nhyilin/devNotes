@@ -11,7 +11,7 @@
 # 文档维护清单
 ## 计算机基础知识
 
-数据结构与算法整理: [Data Structures and Algorithm](./cpp/DataStructure/README.md)
+数据结构与算法整理: [Data Structures and Algorithm](./DataStructure/README.md)
 
 ## c++部分
 
