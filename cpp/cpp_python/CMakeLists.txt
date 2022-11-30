@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.23)
+project(cpp_python)
+
+set(CMAKE_CXX_STANDARD 23)
+#set(Python_ADDITIONAL_VERSIONS 3.10)
+find_package(Python 3。10 REQUIRED)
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+target_link_libraries(<your exe or lib> ${PYTHON_LIBRARIES})
+add_executable(cpp_python main.cpp)
