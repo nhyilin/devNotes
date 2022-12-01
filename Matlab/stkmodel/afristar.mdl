@@ -1,0 +1,4219 @@
+################################################################################
+#            COPYRIGHT 1999 Analytical Graphics, Inc.                          #
+#            This data is intended for use with Satellite Tool Kit (TM)        #
+#            products only.  Any other use is expressly forbidden.             #
+################################################################################
+#Created 3/30/98 by JEP
+# Modification Date: 30/Apr/09
+# Modification Notes:afristar.mdl has a solar array length of 43m when it 
+# should be 26.2m Rescaled to correct size.
+#-----------------------------------------
+# This model has articulated pnls and ant
+#-----------------------------------------
+#=Dimensions in Feet
+#
+# updated May 1999 to add solar array functionality - RAHall
+#
+SolarPanelGroup afristar 14.0
+Component Platform
+    Extrusion
+    TxDef goldfoil.tga AA
+    TxGen
+    TxScale 1 4 1
+##    TxRotate 0 0 45
+	FaceColor %021078119
+#	BackfaceCullable Yes
+	SmoothShading No
+	FaceStyle Filled
+        Length 6.735
+        NumVerts 4
+        Data
+	0.0 3.35 -4.2
+	0.0 3.35 4.2
+	0.0 -3.35 4.2
+	0.0 -3.35 -4.2
+    EndExtrusion
+EndComponent
+Component Platform2
+    Extrusion
+    IsOpen
+	FaceColor %021078119
+	FaceStyle Filled
+        Length 21.305
+        NumVerts 13
+        Data
+	 	0.0 0.0 -8.5  
+	 	0.0 -1.7 -8.2 
+	 	0.0 -3.35 -7.35 
+	 	0.0 -4.6 -6.0 
+	 	0.0 -5.65 -4.25  
+	 	0.0 -6.3 -2.2  
+	 	0.0 -6.5 0.0
+	 	0.0 -6.3 2.2
+	 	0.0 -5.65 4.25
+	 	0.0 -4.6 6.0
+	 	0.0 -3.35 7.35
+	 	0.0 -1.7 8.2
+	 	0.0 0.0 8.5
+    EndExtrusion
+EndComponent
+Component Platform2a
+	Polygon
+	FaceColor %021078119
+	TxDef goldfoil.tga AA
+	TxScale 2 1 1
+    TxGen
+#    TxRotate 0 0 45
+	NumVerts 15
+	Data
+		0.0 0.0 -8.5 
+		0.0 -6.5 -8.5
+	 	0.0 -6.5 8.5
+	 	0.0 0.0 8.5
+	 	0.0 -1.7 8.2
+	 	0.0 -3.35 7.35
+	 	0.0 -4.6 6.0
+	 	0.0 -5.65 4.25
+	 	0.0 -6.3 2.2
+	 	0.0 -6.5 0.0
+	 	0.0 -6.3 -2.2
+	 	0.0 -5.65 -4.25
+	 	0.0 -4.6 -6.0
+	 	0.0 -3.35 -7.35
+	 	0.0 -1.7 -8.2
+	EndPolygon
+EndComponent
+Component Platform2b
+	Revolve
+	FaceColor %021078119
+	TxDef goldfoil.tga AA
+    TxGen
+    TxScale 2.5 1 1
+	FrontfaceCCW No
+	StartAngle 0
+	EndAngle 90
+	NumRevolve 32
+	NumVerts 13
+	Data
+		8.5 0.0 0.0   
+	 	8.2 -1.7 0.0 
+	 	7.35 -3.35 0.0
+	 	6.0 -4.6 0.0 
+	 	4.25 -5.65 0.0  
+	 	2.2 -6.3 0.0 
+	 	0.0 -6.5 0.0
+	 	-2.2 -6.3 0.0
+	 	-4.25 -5.65 0.0
+	 	-6.0 -4.6 0.0
+	 	-7.35 -3.35 0.0
+	 	-8.2 -1.7 0.0
+	 	-8.5 0.0 0.0  
+	EndRevolve
+EndComponent
+Component PlatformFt
+	Polygon
+	FaceColor gray30
+	TxDef goldfoil.tga AA
+    TxGen
+ #   TxRotate 0 0 45
+	FaceStyle Filled
+	NumVerts 4
+	Data
+	0.0 3.35 -4.2
+	0.0 3.35 4.2
+	0.0 -3.35 4.2
+	0.0 -3.35 -4.2
+	EndPolygon
+EndComponent
+Component PlatformMid
+	Extrusion
+	Translate 6.3 0.0 0.0
+	FaceColor %021078119
+	FaceStyle Filled
+	Length 3
+	NumVerts 4
+	Data
+	0.0 3.35 -1.64
+	0.0 3.35 1.64
+	0.0 -3.35 1.64
+	0.0 -3.35 -1.64
+	EndExtrusion
+EndComponent
+Component PlatformMidTop
+	Polygon
+	Translate 9.3 0.0 0.0
+	FaceColor %021078119
+	TxDef goldfoil.tga AA
+    TxGen
+    TxScale 1 1.5 1
+#    TxRotate 0 0 45
+	FaceStyle Filled
+	NumVerts 4
+	Data
+	0.0 3.35 -1.64
+	0.0 3.35 1.64
+	0.0 -3.35 1.64
+	0.0 -3.35 -1.64
+	EndPolygon
+EndComponent
+Component PlatformStr
+    Refer
+        Component Platform
+    EndRefer
+    Refer
+        Component Platform2
+        UniformScale .3943
+        Rotate 90 90 0
+        Translate 9.3 0 4.2
+    EndRefer
+    Refer
+    	Component Platform2a
+    	UniformScale .3943
+        Rotate 90 90 0
+        Translate 9.3 0 4.2
+    EndRefer
+    Refer
+    	Component Platform2a
+    	UniformScale .3943
+        Rotate 90 90 0
+        Translate 9.3 0 -4.2
+    EndRefer
+    Refer
+    	Component Platform2b
+    	UniformScale .3943
+        Rotate 180 0 90
+        Translate 9.3 0 -4.2
+    EndRefer
+    Refer
+    	Component Platform2a
+    	UniformScale .3943
+        Rotate 90 0 0
+        Translate 9.3 0 4.2
+    EndRefer
+    Refer
+    	Component Platform2a
+    	UniformScale .3943
+        Rotate -90 0 0
+        Translate 9.3 0 -4.2
+    EndRefer
+    Refer
+    	Component Platform2b
+    	UniformScale .3943
+        Rotate 90 0 90
+        Translate 9.3 0 4.2
+    EndRefer
+    Refer
+        Component PlatformFt
+    EndRefer
+    Refer
+    	Component PlatformMid
+    EndRefer
+    Refer
+    	Component PlatformMidTop
+    EndRefer
+EndComponent
+Component CenterAntSprtTube
+    Revolve
+	FaceColor gray40
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 8
+        NumVerts 6
+        Data
+        -4.3 0.25 0.0
+		0.0 0.25 0.0
+		7.5 0.2 0.0
+		7.5 0.1 0.0
+		9.0 0.1 0.0
+		9.0 0.005 0.0
+    EndRevolve
+EndComponent
+
+Component 50InchKUAntBck
+    Revolve
+	FaceColor gray10
+	Shininess 128
+	Specularity .5
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 8
+        NumVerts 5
+        Data
+	0.0 0.005 0.0
+	0.05 1.0 0.0
+	0.1 1.5 0.0
+	0.16 2.08 0.0
+	0.24 2.08 0.0
+    EndRevolve
+EndComponent
+
+Component 50InchKUAnt
+    Revolve
+	FaceColor %128128148
+	Shininess 128
+	Specularity .5
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 8
+        NumVerts 5
+        Data
+	0.0 0.005 0.0
+	0.05 1.0 0.0
+	0.1 1.5 0.0
+	0.16 2.08 0.0
+	0.24 2.08 0.0
+    EndRevolve
+EndComponent
+
+Component 40InchKUAntBck
+    Refer
+    	Component NineFtAntBack
+    	UniformScale .3
+    EndRefer
+EndComponent
+
+Component 40InchKUAnt
+    Refer
+    	Component NineFtAntFace
+    	UniformScale .3
+    EndRefer
+EndComponent
+
+Component 40InchKUAnt2Bck
+    Revolve
+	FaceColor gray10
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 8
+        NumVerts 5
+        Data
+	0.0 0.005 0.0
+	0.05 1.0 0.0
+	0.1 1.5 0.0
+	0.12 1.67 0.0
+	0.25 1.67 0.0
+    EndRevolve
+EndComponent
+
+Component 40InchKUAnt2
+    Revolve
+	FaceColor %128128148
+	Shininess 128
+	Specularity .5
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 8
+        NumVerts 5
+        Data
+	0.0 0.005 0.0
+	0.05 1.0 0.0
+	0.1 1.5 0.0
+	0.12 1.67 0.0
+	0.25 1.67 0.0
+    EndRevolve
+EndComponent
+Component SprtTube1
+    Revolve
+	FaceColor gray10
+	Shininess 128
+	Specularity .5
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 8
+        NumVerts 2
+        Data
+	0.0 0.15 0.0
+	2.8 0.10 0.0
+    EndRevolve
+EndComponent
+Component 40InchKUnatSubAssm
+	Refer
+	Rotate 0.0 220.0 0.0
+	Translate 1.6 0.0 2
+        Component 40InchKUAntBck
+    EndRefer
+	Refer
+	Rotate 0.0 220.0 0.0
+	Translate 1.54 0.0 2.05
+        Component 40InchKUAnt
+    EndRefer
+    Refer
+	Rotate 0.0 -50.0 0.0
+	Translate 0.2 0.0 0.2
+        Component SprtTube1
+    EndRefer
+    Articulation 40InchKUAntAssm
+    yRotate Y -90 0 0
+    EndArticulation
+EndComponent
+Component 40InchKUnatAssm 
+    Refer
+    	 Component 40InchKUnatSubAssm
+    EndRefer
+    Refer
+    	 Component 40InchKUnatSubAssm
+    	 Rotate 180 0 0
+    EndRefer    
+EndComponent
+
+Component 50InchKUAntPltfrmAssm_a
+	Extrusion
+		FaceColor gray10
+		SharpEdges
+		Length 4
+		NumVerts 5
+			Data 
+				0 0 -10
+				0 -7 -7
+				0 -10 0
+				0 -7 7
+				0 0 10
+	EndExtrusion
+EndComponent
+Component 50InchKUAntPltfrmAssm_c
+	Revolve
+		FaceColor gray10
+		NumRevolve 16
+		StartAngle 90 
+		EndAngle 104.5
+		NumVerts 5
+			Data 
+				 10 10 0
+				 7 3 0
+				 0 0 0
+				 -7 3 0
+				 -10 10 0
+	EndRevolve
+EndComponent
+Component 50InchKUAntPltfrmAssm_d
+	Revolve
+		FaceColor gray10
+		NumRevolve 16
+		StartAngle 90 
+		EndAngle 100.5
+		NumVerts 2
+			Data 
+				 10 10 0				 
+				 -10 10 0
+	EndRevolve	
+EndComponent
+Component 50InchKUAntPltfrmAssm_e
+	Polygon
+		FaceColor gray10
+		NumVerts 9
+			Data
+				0 0 0
+				0 20 0
+				.78 20 0
+				.5 17.5 0
+				.26 15 0
+				.01 10 0
+				.26 5 0
+				.5 2.5 0
+				.78 0 0
+	EndPolygon
+EndComponent
+
+Component 50InchKUAntPltfrm
+	Translate 4 16.5 0
+	Refer
+		Component 50InchKUAntPltfrmAssm_a
+	EndRefer
+	Refer
+		Component 50InchKUAntPltfrmAssm_c
+		Rotate -90 90 0
+		Translate 4 -10 0
+	EndRefer
+	Refer
+		Component 50InchKUAntPltfrmAssm_d
+		Rotate -90 90 0
+		Translate 4 -10 0
+	EndRefer
+	Refer
+		Component 50InchKUAntPltfrmAssm_e
+		Rotate 90 0 -12
+		Translate 5.81 -.169 -10
+	EndRefer	
+EndComponent	
+Component SprtSubAssm
+	Cylinder
+		Face1Normal -1 0 0
+		Face2Normal 1 0 0
+		Face1Radius .05
+		Face2Radius .05
+		Length 3
+	EndCylinder
+EndComponent
+Component SprtAssm
+	Refer
+		Component SprtSubAssm
+		Rotate 0 20 20
+	EndRefer
+	Refer
+		Component SprtSubAssm
+		Rotate 0 -20 20
+	EndRefer
+	Refer
+		Component SprtSubAssm
+		Rotate 0 0 -20
+	EndRefer
+EndComponent
+Component CtrAntStr
+	Refer
+		Component SprtAssm
+		Rotate 0 180 0
+		Translate 3 0 0
+	EndRefer
+    Refer
+        Component CenterAntSprtTube
+		UniformScale .25
+		Translate 4 0 0
+    EndRefer
+    Refer
+NoDraw
+	Rotate 0.0 0.0 -15.0
+	Translate 1.9 3.367 0.0
+        Component 50InchKUAntBck
+    EndRefer
+    Refer
+NoDraw
+	Rotate 0.0 0.0 -15.0
+	Translate 1.985 3.35 0.0
+        Component 50InchKUAnt
+    EndRefer
+    Refer
+NoDraw
+	Rotate 0.0 0.0 15.0
+	Translate 1.87 -3.53 0.0
+        Component 40InchKUAnt2Bck
+    EndRefer
+    Refer
+NoDraw
+	Rotate 0.0 0.0 15.0
+	Translate 2.0 -3.5 0.0
+        Component 40InchKUAnt2
+    EndRefer
+    Refer
+NoDraw
+    UniformScale .7
+	Rotate -90.0 0.0 -80.0
+	Translate 6.5 -0.6 0.0
+        Component AntHornAssm
+    EndRefer
+    Refer
+NoDraw
+    UniformScale .7
+	Rotate 90.0 0.0 80.0
+	Translate 7.0 0.6 0.0
+        Component AntHornAssm
+    EndRefer       
+	Refer
+NoDraw
+		Component 50InchKUAntPltfrm
+		UniformScale .2
+	EndRefer
+    Refer
+NoDraw
+	Rotate 0.0 0.0 -80.0
+	Translate 1.3 0.0 0.0
+        Component SprtTube1
+    EndRefer
+EndComponent
+Component AntHornSprt
+    Extrusion
+	FaceColor gray20
+	FaceStyle Filled
+        Length 0.3
+        NumVerts 10
+        Data
+	0.0 0.8 0.8
+	0.0 0.6 1.0
+	0.0 0.2 1.0
+	0.0 0.0 0.8
+	0.0 0.0 0.0
+	0.0 0.3 0.0
+	0.0 0.3 0.6
+	0.0 0.35 0.7
+	0.0 0.55 0.7
+	0.0 0.6 0.6
+    EndExtrusion
+EndComponent
+Component AntHornSprtFt
+	Polygon
+	FaceColor gray20
+	FaceStyle Filled
+	NumVerts 10
+	Data
+	0.0 0.8 0.8
+	0.0 0.6 1.0
+	0.0 0.2 1.0
+	0.0 0.0 0.8
+	0.0 0.0 0.0
+	0.0 0.3 0.0
+	0.0 0.3 0.6
+	0.0 0.35 0.7
+	0.0 0.55 0.7
+	0.0 0.6 0.6
+	EndPolygon
+EndComponent
+Component AntHornSprtBk
+	Polygon
+	Translate 0.3 0.0 0.0
+	FaceColor gray20
+	FaceStyle Filled
+	NumVerts 10
+	Data
+	0.0 0.8 0.8
+	0.0 0.6 1.0
+	0.0 0.2 1.0
+	0.0 0.0 0.8
+	0.0 0.0 0.0
+	0.0 0.3 0.0
+	0.0 0.3 0.6
+	0.0 0.35 0.7
+	0.0 0.55 0.7
+	0.0 0.6 0.6
+	EndPolygon
+EndComponent
+Component AntHornSprtStr
+    Refer
+        Component AntHornSprt
+    EndRefer
+    Refer
+        Component AntHornSprtFt
+    EndRefer
+    Refer
+        Component AntHornSprtBk
+    EndRefer
+EndComponent
+
+Component LargeAntHorn
+    Revolve
+	Rotate 45.0 0.0 0.0
+	Scale 1.0 1.0 2.0
+	FaceColor gray20
+	Shininess 128
+	Specularity .5
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 4
+        NumVerts 2
+        Data
+	0.0 0.11 0.0
+	1.4 0.4 0.0
+    EndRevolve
+EndComponent
+Component AntHornAssm
+    Refer
+	Rotate 0.0 0.0 -90.0
+	Translate -0.6 0.15 -0.8
+        Component AntHornSprtStr
+    EndRefer
+    Refer
+	Rotate 0.0 60.0 0.0
+        Component LargeAntHorn
+    EndRefer
+EndComponent
+Component PlatformTop
+    Extrusion
+	FaceColor gold4
+	FaceStyle Filled
+        Length 1.0
+        NumVerts 16
+        Data
+	0.0 0.6 -2.75
+	0.0 1.25 -3.15
+	0.0 1.5 -3.835
+	0.0 3.5 -3.835
+	0.0 3.5 3.835
+	0.0 1.5 3.835
+	0.0 1.25 3.15
+	0.0 0.6 2.75
+	0.0 -0.6 2.75
+	0.0 -1.25 3.15
+	0.0 -1.5 3.835
+	0.0 -3.5 3.835
+	0.0 -3.5 -3.835
+	0.0 -1.5 -3.835
+	0.0 -1.25 -3.15
+	0.0 -0.6 -2.75
+    EndExtrusion
+EndComponent
+Component PlatformTopFt
+	Polygon
+	FaceColor gold4
+	FaceStyle Filled
+	NumVerts 16
+	Data
+	0.0 0.6 -2.75
+	0.0 1.25 -3.15
+	0.0 1.5 -3.835
+	0.0 3.5 -3.835
+	0.0 3.5 3.835
+	0.0 1.5 3.835
+	0.0 1.25 3.15
+	0.0 0.6 2.75
+	0.0 -0.6 2.75
+	0.0 -1.25 3.15
+	0.0 -1.5 3.835
+	0.0 -3.5 3.835
+	0.0 -3.5 -3.835
+	0.0 -1.5 -3.835
+	0.0 -1.25 -3.15
+	0.0 -0.6 -2.75
+	EndPolygon
+EndComponent
+Component PlatformTopBk
+	Polygon
+	Translate 1.0 0.0 0.0
+	FaceColor gold4
+	FaceStyle Filled
+	NumVerts 16
+	Data
+	0.0 0.6 -2.75
+	0.0 1.25 -3.15
+	0.0 1.5 -3.835
+	0.0 3.5 -3.835
+	0.0 3.5 3.835
+	0.0 1.5 3.835
+	0.0 1.25 3.15
+	0.0 0.6 2.75
+	0.0 -0.6 2.75
+	0.0 -1.25 3.15
+	0.0 -1.5 3.835
+	0.0 -3.5 3.835
+	0.0 -3.5 -3.835
+	0.0 -1.5 -3.835
+	0.0 -1.25 -3.15
+	0.0 -0.6 -2.75
+	EndPolygon
+EndComponent
+Component PlatformTopStr
+    Refer
+        Component PlatformTop
+    EndRefer
+    Refer
+        Component PlatformTopFt
+    EndRefer
+    Refer
+        Component PlatformTopBk
+    EndRefer
+EndComponent
+Component SidePnl
+    Extrusion
+	FaceColor gold4
+	FaceStyle Filled
+        Length .2
+        NumVerts 12
+        Data
+			0.0 4.0 -4.46	
+			0.0 4.0 4.46
+			0.0 -4.0 4.46
+			0.0 -4.0 -4.46
+ 			0.0 -3.0 -4.6
+ 			0.0 -3.0 -6.0
+ 			0.0 -1.5 -6.0
+ 			0.0 -1.5 -4.6
+ 			0.0 1.5 -4.6
+ 			0.0 1.5 -6.0
+ 			0.0 3.0 -6.0
+ 			0.0 3.0 -4.6
+    EndExtrusion
+EndComponent
+
+Component GridPoly
+	Polygon
+	TxDef grid.tga TranspAA
+	TxGen
+	Translucency .1
+	FaceColor white
+	FaceStyle Filled
+	NumVerts 12
+	Data
+		0.0 4.0 -4.46	
+		0.0 4.0 4.46
+		0.0 -4.0 4.46
+		0.0 -4.0 -4.46
+ 		0.0 -3.0 -4.6
+ 		0.0 -3.0 -6.0
+ 		0.0 -1.5 -6.0
+ 		0.0 -1.5 -4.6
+ 		0.0 1.5 -4.6
+ 		0.0 1.5 -6.0
+ 		0.0 3.0 -6.0
+ 		0.0 3.0 -4.6
+	EndPolygon
+EndComponent
+
+Component SidePnlFt
+	Polygon
+	FaceColor white
+#	Shininess 128
+#	Specularity .5
+	FaceStyle Filled
+	NumVerts 12
+	Data
+		0.0 4.0 -4.46	
+		0.0 4.0 4.46
+		0.0 -4.0 4.46
+		0.0 -4.0 -4.46
+ 		0.0 -3.0 -4.6
+ 		0.0 -3.0 -6.0
+ 		0.0 -1.5 -6.0
+ 		0.0 -1.5 -4.6
+ 		0.0 1.5 -4.6
+ 		0.0 1.5 -6.0
+ 		0.0 3.0 -6.0
+ 		0.0 3.0 -4.6
+	EndPolygon
+EndComponent
+
+	
+Component SidePnlBk
+	Polygon
+	FaceColor white
+#	Shininess 128
+#	Specularity .5
+	FaceStyle Filled
+	NumVerts 12
+	Data
+	0.0 4.0 -4.46	
+	0.0 4.0 4.46
+	0.0 -4.0 4.46
+	0.0 -4.0 -4.46
+ 	0.0 -3.0 -4.6
+ 	0.0 -3.0 -6.0
+ 	0.0 -1.5 -6.0
+ 	0.0 -1.5 -4.6
+ 	0.0 1.5 -4.6
+ 	0.0 1.5 -6.0
+ 	0.0 3.0 -6.0
+ 	0.0 3.0 -4.6
+	EndPolygon
+EndComponent
+Component SidePnlStr
+    Refer
+        Component SidePnl
+    EndRefer
+    Refer
+        Component SidePnlFt
+    EndRefer
+    Refer
+        Component SidePnlBk
+        Translate 0.2 0.0 0.0
+    EndRefer
+    Refer
+    	Component GridPoly
+    	Translate .21 0 0
+    EndRefer
+    Refer
+    	Component GridPoly
+    	Translate -.01 0 0
+    EndRefer
+EndComponent
+Component Nozzle
+	Revolve
+	Scale 1.8 1.8 1.8
+	Rotate 0.0 180.0 0.0
+	FaceColor gray20
+	FaceStyle Filled
+	StartAngle 0.0
+	EndAngle 360
+	NumRevolve 16
+	NumVerts 10
+	Data
+	-.5 .1 0
+	0.0 0.1 0.0
+	0.10 0.08 0.0
+	0.2 0.075 0.0
+	0.4 0.2 0.0
+	0.6 0.28 0.0
+	0.8 0.35 0.0
+	1.0 0.42 0.0
+	1.2 0.44 0.0
+	1.4 0.45 0.0
+	EndRevolve
+EndComponent
+
+
+
+
+Component NineFtAntBack
+       Revolve
+	FaceColor %128128148
+	FaceStyle Filled
+	StartAngle 0.0
+	EndAngle 360
+	NumRevolve 32
+	NumVerts 7
+	Data
+	0.0 0.005 0.0
+	0.05 1.0 0.0
+	0.1 1.5 0.0
+	0.25 2.6 0.0
+	0.44 3.5 0.0
+	0.7 4.46 0.0
+	0.9 4.46 0.0
+       EndRevolve
+EndComponent
+Component NineFtAntFace
+       Revolve
+	FaceColor %128128148
+	Shininess 128
+	Specularity .5
+	FaceStyle Filled
+	StartAngle 0.0
+	EndAngle 360
+	NumRevolve 32
+	NumVerts 6
+	Data
+	0.0 0.005 0.0
+	0.05 1.0 0.0
+	0.1 1.5 0.0
+	0.25 2.6 0.0
+	0.44 3.5 0.0
+	0.7 4.46 0.0
+       EndRevolve
+EndComponent
+Component NineFtAntStr
+	UniformScale .85
+	Refer
+	Translate 0.2 0.0 4.0
+	 Component NineFtAntFace
+	EndRefer
+ 	Refer
+	 Component NineFtAntBack
+	 Translate 0.0 0.0 4.0
+	EndRefer
+EndComponent
+Component AntSprtArm_1
+    Revolve
+		FaceColor gray10
+		FaceStyle Filled
+		StartAngle 0.0
+		EndAngle 360
+		NumRevolve 8
+		NumVerts 2
+		Data
+			0.0 0.2 0.0
+			4.0 0.4 0.0
+    EndRevolve
+EndComponent
+Component AntSprtArm_2
+    Revolve
+		FaceColor gray10
+		FaceStyle Filled
+		StartAngle 0.0
+		EndAngle 360
+		NumRevolve 8
+		NumVerts 3
+		Data
+			0.0 0.005 0.0
+			0.0 0.2 0.0
+			4.0 0.2 0.0
+    EndRevolve
+EndComponent
+Component AntSprtRod_1
+       Revolve
+	FaceColor gray10
+	FaceStyle Filled
+	StartAngle 0.0
+	EndAngle 360
+	NumRevolve 8
+	NumVerts 4
+	Data
+	0.0 0.005 0.0
+	0.0 0.4 0.0
+	0.8 0.4 0.0
+	0.8 0.005 0.0
+       EndRevolve
+EndComponent
+
+Component AntSprtStr_2
+	Refer
+		Component AntSprtRod_1
+		UniformScale .5
+		Rotate 0 0 90
+		Translate 0 -.2 0
+	EndRefer
+	Refer
+		Component AntSprtArm_2
+		Translate -4 0 0
+		Rotate 0.0 90.0 0.0
+	EndRefer
+	Refer
+	 Component NineFtAntStr
+	 Rotate 0.0 4.0 0.0
+	 Translate -0.1 0.0 0.0
+    EndRefer
+EndComponent
+Component AntSubAssm_2
+	Refer
+		Component AntSprtStr_2
+			Articulation Ant_2
+       			yRotate ArmY 0.0 27 27
+    		EndArticulation
+	EndRefer
+EndComponent
+
+
+
+Component AntSprtStr_1
+   Refer
+	 Component AntSprtArm_1
+	 Translate 4 0 0
+   EndRefer
+   Refer
+	Rotate 0.0 0.0 90.0
+	Translate 8.0 -0.4 0.0
+	 Component AntSprtRod_1
+   EndRefer
+EndComponent
+
+Component AntSubAssm_1
+   Refer
+	Rotate 0.0 90.0 0.0
+	 Component AntSprtStr_1
+	 Translate 0 0 4
+   EndRefer
+EndComponent
+
+
+Component AntAssm
+    Articulation Ant
+       yRotate ArmY -21.8 -21.8 68.20
+    EndArticulation
+   Refer
+	 Component AntSubAssm_1
+	 Translate 0 0 4
+   EndRefer
+   Refer
+	 Component AntSubAssm_2
+	 Translate 0 0 4
+   EndRefer  
+EndComponent
+
+Component BackPlateSubAssm
+	Polygon
+	FaceColor gray20
+	TxDef goldfoil.tga AA
+	TxGen
+        NumVerts 3
+        Data
+			0 4 0
+			0 12 0
+			0 0 12						
+    EndPolygon
+EndComponent
+
+Component BackPlateAssm
+	Refer
+		Component BackPlateSubAssm
+	EndRefer
+	Refer
+		Component BackPlateSubAssm
+		Rotate 0 0 180
+	EndRefer
+EndComponent
+
+Component BackPlateAssm_a
+	Refer
+		Component BackPlateAssm
+	EndRefer
+	Refer
+		Component BackPlateAssm
+		Rotate 0 180 0
+	EndRefer
+EndComponent
+
+Component BackPlate
+	Refer
+		Component BackPlateAssm_a
+	EndRefer
+EndComponent
+
+Component PlumeShieldSubAssm
+	Polygon
+	FaceColor gray30
+        NumVerts 3
+        Data
+			0 0 0
+			2 4 0
+			2 0 12						
+    EndPolygon
+EndComponent
+Component PlumeShieldAssm
+	Refer
+		Component PlumeShieldSubAssm
+	EndRefer
+	Refer
+		Component PlumeShieldSubAssm
+		Scale 1 -1 1
+	EndRefer
+EndComponent
+Component PlumeShieldAssm_a
+	Refer
+		Component PlumeShieldAssm
+		Rotate 0 0 180
+	EndRefer
+	Refer	
+		Component PlumeShieldAssm
+		Rotate 0 180 0
+	EndRefer
+EndComponent
+Component PlumeShield
+	Refer
+		Component PlumeShieldAssm_a
+	EndRefer
+EndComponent
+	
+
+Component InterfaceRing
+    Revolve
+	FaceColor gray10
+		BackfaceCullable Yes
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 10
+        NumVerts 4
+        Data
+			0 6 6
+			-3 10 10
+			-3 12 12			
+			0 14 14			
+    EndRevolve
+EndComponent
+
+#######################################ThrusterAssm##############
+Component Thruster
+	Cylinder
+	FaceColor grey25
+	NumSides 16
+	Face1Radius .25
+	Face1Normal 1 0 0 
+	Face2Radius .001
+	Face2Normal -1 0 0
+	Length 1
+	EndCylinder
+EndComponent
+Component Plume
+	Scale 5 1 1 
+	Translate -.75 0 0
+	Sphere
+	FaceColor %200200214
+	Translucency .5
+	Slices 16
+	Stacks 16
+	Radius .24
+	EndSphere
+EndComponent
+	
+Component ThrusterSubAssm_E1		#All Rotations Must be placed here#						
+	Rotate 0 0 -35
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_E1
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_E2
+	Rotate 0 0 35
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_E2
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_W1
+	Rotate 0 0 -35
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_W1
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_W2
+	Rotate 0 0 35
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_W2
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_A1
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_A1
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_A2
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_A2
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_A3
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_A3
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_A4
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_A4
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_N1
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_N1
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_N2
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_N2
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_N3
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_N3
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+Component ThrusterSubAssm_N4
+	Refer
+		Component Thruster
+	EndRefer
+	Refer
+		Component Plume
+		Translate .01 0 0
+		Articulation Thr_N4
+		xScale On/Off 0 0 10
+		EndArticulation
+	EndRefer
+EndComponent
+
+
+
+Component ThrusterAssm
+#All thrusters go here
+#North is facing viewer
+######Translations
+#X=up/dn
+#Y=Frnt/Bck
+#ZLft/right
+
+	Refer
+		Component ThrusterSubAssm_E1
+		Rotate 0 90 0
+		Translate 3.5 3.33 4.34
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_E2
+		Rotate 0 90 0
+		Translate 3.5 -3.33 4.34
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_W1
+		Rotate 0 -90 0
+		Translate 3.5 3.33 -4.34
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_W2
+		Rotate 0 -90 0
+		Translate 3.5 -3.33 -4.34
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_A1
+		Translate -1 3.35 -4.199
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_A2
+		Translate -1 -3.35 -4.199
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_A3
+		Translate -1 3.35 4.199
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_A4
+		Translate -1 -3.35 4.199
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_N1
+		Rotate 0 0 -90
+		Translate 0 4.35 -4.199
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_N2
+		Rotate 0 0 -90
+		Translate 0 4.35 4.199
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_N3
+		Rotate 0 0 -90
+		Translate 7 3.63 -3.95
+	EndRefer
+	Refer
+		Component ThrusterSubAssm_N4
+		Rotate 0 0 -90
+		Translate 7 3.63 3.95
+	EndRefer	
+EndComponent
+################################End of ThrusterAssm #####################
+
+Component OrgFlame
+	Revolve
+	Translucency 0.8
+	FaceColor orange
+	FaceStyle Filled
+	StartAngle 0.0
+	EndAngle 359.99
+	NumRevolve 16
+	NumVerts 4
+	Data
+	0.0 1.3 0.0
+	0.0 1.6 0.0
+	1.4 1.6 0.0
+	0.05 1.3 0.0	
+	EndRevolve
+EndComponent
+Component WhtFlame
+	Revolve
+	Translucency 0.6
+	FaceColor linen
+	FaceStyle Filled
+	StartAngle 0.0
+	EndAngle 359.99
+	NumRevolve 16
+	NumVerts 2
+	Data
+	0.0 1.6 0.0
+	0.4 1.5 0.0	
+	EndRevolve
+EndComponent
+Component BlueFlame
+	Revolve
+	Translucency 0.5
+	TxDef flamerad.tga AA
+	TxGen
+	TxRotate 0 180 0 
+	FaceStyle Filled
+	StartAngle 0.0
+	EndAngle 360
+	NumRevolve 16
+	NumVerts 11
+	Data
+		0 3 0
+		2 4.4 0
+		4 6 0
+		6 7 0
+		8 7.6 0
+		10 8 0
+		12 7.8 0
+		14 7.2 0
+		16 6 0
+		17 2 0
+		17.2 0 0	
+	EndRevolve
+EndComponent
+Component FlameAssm
+	Refer
+	 Component OrgFlame
+	EndRefer
+	Refer
+	 Component WhtFlame
+	EndRefer
+	Refer
+	Scale 3 3 3
+	 Translate -51.0 0.0 0.0
+	 Component BlueFlame
+	EndRefer
+EndComponent
+###################################End of Engine ######################
+Component PlatformAssm
+	Refer
+		Component ThrusterAssm 
+	EndRefer
+    Refer
+    	UniformScale .24
+    	Translate -1.3 0 0
+    	Component FlameAssm
+			Articulation Engine
+			uniformScale  uscale 0 0 1
+			xScale scaleLength 1 1 3
+			EndArticulation
+    EndRefer
+    Refer
+        Component PlatformStr
+    EndRefer
+    Refer
+    	Component PlumeShield
+    	UniformScale .23
+        Rotate 90 0 0
+#        Translate .05 0 0
+    EndRefer
+    Refer
+        Component BackPlate
+        UniformScale .23
+        Rotate 90 0 0
+        Translate -.46 0 0
+    EndRefer
+    
+    Refer
+        Component InterfaceRing
+        UniformScale .23
+    EndRefer
+    Refer
+    	Scale 1 1.0501 1	
+    	Rotate 90.0 0.0 90.0
+        Translate 5.0 3.34 0.0
+        Component SidePnlStr
+    EndRefer
+  	Refer
+  		Scale 1 1.0501 1
+		Rotate 90.0 0.0 90.0
+        Translate 5.0 -3.55 0.0
+        Component SidePnlStr
+    EndRefer
+    Refer
+        Component Nozzle
+        UniformScale .5
+    EndRefer
+    Refer
+	Rotate 0.0 20.0 0.0
+        Translate 4.0 0.0 5.5
+        Component AntAssm
+    EndRefer
+    Refer
+	Rotate 180.0 -20.0 00.0
+        Translate 4.0 0.0 -5.5
+        Component AntAssm
+    EndRefer 
+    Refer
+NoDraw
+   		Component 40InchKUnatAssm
+   		Translate 12.4 0 0
+   	EndRefer
+   Refer
+        Translate 8.4 -0.0 -0.0	
+        Component CtrAntStr
+    EndRefer
+    Refer
+	Rotate 0.0 0.0 90.0
+        Translate 4.8 3.5 -0.0	
+        Component Rod
+    EndRefer
+    Refer
+        Rotate 0 90 0
+        Translate 4 0 3.5
+        Scale 1 1 1.5
+        Component AntSprtRod_1
+    EndRefer
+    Refer
+        Rotate 0 90 0
+        Translate 4 0 -2.8
+        Scale 1 1 1.5
+        Component AntSprtRod_1
+    EndRefer    
+   Refer
+	Rotate 0.0 0.0 90.0
+        Translate 4.8 -3.7 -0.0	
+        Component Rod
+    EndRefer 
+EndComponent
+Component SlrPnlShell
+    Extrusion
+	FaceColor gray30
+	FaceStyle Filled
+        Length 8.4
+        NumVerts 4
+        Data
+	0.0 3.78 -0.02
+	0.0 3.78 0.02
+	0.0 -3.78 0.02
+	0.0 -3.78 -0.02
+    EndExtrusion
+EndComponent
+Component SlrPnlFt
+	Polygon
+	FaceColor gray9
+	FaceStyle Filled
+	NumVerts 4
+	Data
+	0.0 3.78 -0.02
+	0.0 3.78 0.02
+	0.0 -3.78 0.02
+	0.0 -3.78 -0.02
+	EndPolygon
+EndComponent
+Component SlrPnlBk
+	Polygon
+	Translate 8.4 0.0 0.0
+	FaceColor gray9
+	FaceStyle Filled
+	NumVerts 4
+	Data
+	0.0 3.78 -0.02
+	0.0 3.78 0.02
+	0.0 -3.78 0.02
+	0.0 -3.78 -0.02
+	EndPolygon
+EndComponent
+Component SlrPnl
+	SolarPanel afristar
+    Extrusion
+	Translate 0.1 0.0 0.1
+	FaceColor %002004040
+	Shininess 64
+	Specularity 0.4
+	FaceStyle Filled
+        Length 8.2
+        NumVerts 4
+        Data
+	0.0 3.58 -0.02
+	0.0 3.58 0.02
+	0.0 -3.58 0.02
+	0.0 -3.58 -0.02
+    EndExtrusion
+EndComponent
+Component SlrPnlStr
+    Refer
+        Component SlrPnlShell
+    EndRefer
+    Refer
+        Component SlrPnlFt
+    EndRefer
+    Refer
+        Component SlrPnlBk
+    EndRefer
+EndComponent
+Component SlrPnlJnt
+    Revolve
+	Translate 0.0 0.0 -4.0
+	FaceColor gray
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 4
+        NumVerts 2
+        Data
+	0.0 0.1 0.0
+	0.4 0.1 0.0
+    EndRevolve
+EndComponent
+Component SlrPnlSubStr
+	Rotate 0.0 0.0 90.0 
+    Refer
+        Component SlrPnlStr
+    EndRefer
+    Refer
+        Component SlrPnl
+    EndRefer
+EndComponent
+	
+Component SlrPnl1Assm
+    Articulation SlrPnl1
+       xRotate ArmX 0.0 0 180.0
+    EndArticulation
+   Refer
+	Translate 0.0 -8.4 0.0
+        Component SlrPnlSubStr
+    EndRefer
+EndComponent
+Component SlrPnl2SubStr
+    Refer
+	Translate 0.0 -8.6 0.0
+        Component SlrPnl1Assm
+    EndRefer
+    Refer
+	Translate 0.0 -8.4 0.0
+        Component SlrPnlSubStr
+    EndRefer
+    Refer
+        Translate 3.0 -8.4 4.0
+        Component SlrPnlJnt
+    EndRefer
+    Refer
+        Translate -3.0 -8.4 4.0
+        Component SlrPnlJnt
+    EndRefer
+EndComponent
+Component SlrPnl2Assm
+    Articulation SlrPnl2
+       xRotate ArmX -180.0 0 0.0
+    EndArticulation
+   Refer
+	Translate 0.0 0.0 0.0
+        Component SlrPnl2SubStr
+    EndRefer
+EndComponent
+Component SlrPnl3SubStr
+    Refer
+	Translate 0.0 -8.6 0.0
+        Component SlrPnl2Assm
+    EndRefer
+    Refer
+	Translate 0.0 -8.4 0.0
+        Component SlrPnlSubStr
+    EndRefer
+    Refer
+        Translate 3.0 -8.4 4.0
+        Component SlrPnlJnt
+    EndRefer
+    Refer
+        Translate -3.0 -8.4 4.0
+        Component SlrPnlJnt
+    EndRefer
+EndComponent
+Component SlrPnl3Assm
+    Articulation SlrPnl3
+       xRotate ArmX 0.0 0 180.0
+    EndArticulation
+   Refer
+	Translate 0.0 0.0 0.0
+        Component SlrPnl3SubStr
+    EndRefer
+EndComponent
+Component SlrPnl4SubStr
+    Refer
+	Translate 0.0 -8.6 0.0
+        Component SlrPnl3Assm
+    EndRefer
+    Refer
+	Translate 0.0 -8.4 0.0
+        Component SlrPnlSubStr
+    EndRefer
+    Refer
+        Translate 3.0 -8.4 4.0
+        Component SlrPnlJnt
+    EndRefer
+    Refer
+        Translate -3.0 -8.4 4.0
+        Component SlrPnlJnt
+    EndRefer
+EndComponent
+Component SlrPnl4Str
+    Articulation SlrPnl4
+       xRotate ArmX -180.0 0 0.0
+    EndArticulation
+   Refer
+        Component SlrPnl4SubStr
+    EndRefer
+EndComponent
+#Component SlrPnl4Str
+#    Articulation SlrPnl4X
+#       xRotate ArmX 0.0 0.0 90.0
+#    EndArticulation
+#   Refer
+#        Component SlrPnl4SubAssm
+#    EndRefer
+#EndComponent     
+Component Strut1
+    Revolve
+	Rotate 0.0 -90.0 0.0
+	Translate 0.0 0.0 -4.0
+	FaceColor gold4
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 4
+        NumVerts 2
+        Data
+	0.0 0.1 0.0
+	8.0 0.1 0.0
+    EndRevolve
+EndComponent
+Component Strut2
+    Revolve
+	FaceColor gold4
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 4
+        NumVerts 2
+        Data
+	0.0 0.1 0.0
+	1.4 0.1 0.0
+    EndRevolve
+EndComponent
+Component Strut3
+    Revolve
+	FaceColor gold4
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 4
+        NumVerts 2
+        Data
+	0.0 0.1 0.0
+	5.5 0.1 0.0
+    EndRevolve
+EndComponent
+Component Rod
+    Revolve
+	Translate -0.2 0.0 0.0
+	FaceColor gold4
+	FaceStyle Filled
+        StartAngle 0.0
+        EndAngle 360
+        NumRevolve 10
+        NumVerts 4
+        Data
+	0.0 0.005 0.0
+	0.0 0.6 0.0
+	0.6 0.6 0.0
+	0.6 0.005 0.0
+    EndRevolve
+EndComponent
+Component SlrSprtStr
+    Refer
+	Translate 4.0 0.0 0.0
+        Component Strut1
+    EndRefer
+    Refer
+	Translate 5.0 0.0 0.0
+        Component Strut1
+    EndRefer
+    Refer
+	Translate 4.0 0.0 4.0
+        Component Strut2
+    EndRefer
+    Refer
+	Translate 4.0 0.0 -4.0
+        Component Strut2
+    EndRefer
+    Refer
+	Rotate 0.0 45.0 0.0
+        Component Strut3
+    EndRefer
+    Refer
+	Rotate 0.0 -45.0 0.0
+        Component Strut3
+    EndRefer  
+EndComponent
+Component SlrPnl4TopAssm
+    Refer
+	Translate 2.0 -1.0 0.0
+        Component SlrPnl4Str
+    EndRefer
+    Refer
+	Rotate 90.0 0.0 -90.0
+	Translate 2.0 4.0 0.0
+        Component SlrSprtStr
+    EndRefer
+EndComponent
+Component SlrPnl4TopDisp
+    Refer
+	Translate -1.9 -4.0 0.0
+        Component SlrPnl4TopAssm
+    EndRefer
+EndComponent	
+Component SlrPnl4DispAssm
+    Articulation Yoke
+       xRotate ArmX 0.0 0 90.0
+#       yRotate ArmY -90.0 0.0 90.0
+    EndArticulation
+   Refer
+        Component SlrPnl4TopDisp
+    EndRefer
+EndComponent
+######################################### Horn Assm ########################################
+Component HornAssm-1
+# Surface: dksilver
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			4.53413105011 2.32430744171 -0.02715687826
+			4.47546911240 2.26140046120 0.18050022423
+			4.38215208054 2.16132998466 0.35881894827
+			4.26053857803 2.03091573715 0.49564784765
+			4.11891698837 1.87904524803 0.58166211843
+			3.96693825722 1.71606802940 0.61100000143
+			3.81495952606 1.55309081078 0.58166211843
+			3.67333793640 1.40122032166 0.49564784765
+			3.55172491074 1.27080607414 0.35881894827
+			3.45840764046 1.17073571682 0.18050022423
+			3.39974617958 1.10782885551 -0.02715687826
+			3.37973761559 1.08637249470 -0.25000005960
+			3.39974617958 1.10782885551 -0.47284322977
+			3.45840764046 1.17073571682 -0.68049985170
+			3.55172491074 1.27080607414 -0.85881882906
+			3.67333793640 1.40122032166 -0.99564772844
+			3.81495952606 1.55309081078 -1.08166241646
+			3.96693825722 1.71606802940 -1.11100029945
+			4.11891698837 1.87904524803 -1.08166241646
+			4.26053857803 2.03091573715 -0.99564772844
+			4.38215208054 2.16132998466 -0.85881882906
+			4.47546911240 2.26140046120 -0.68049985170
+			4.53413105011 2.32430744171 -0.47284322977
+			4.55413913727 2.34576368332 -0.25000005960
+	EndPolygon
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			4.06239366531 2.55157065392 -0.43117338419
+			4.01470136642 2.50042676926 -0.59999996424
+			3.93883347511 2.41906881332 -0.74497467279
+			3.83996081352 2.31304097176 -0.85621768236
+			3.72482132912 2.18956899643 -0.92614823580
+			3.60126137733 2.05706715584 -0.95000010729
+			3.47770166397 1.92456543446 -0.92614823580
+			3.36256194115 1.80109345913 -0.85621768236
+			3.26368951797 1.69506561756 -0.74497467279
+			3.18782186508 1.61370766163 -0.59999996424
+			3.14012956619 1.56256389618 -0.43117338419
+			3.12386274338 1.54511964321 -0.25000005960
+			3.14012956619 1.56256389618 -0.06882672012
+			3.18782186508 1.61370766163 0.10000009835
+			3.26368951797 1.69506561756 0.24497480690
+			3.36256194115 1.80109345913 0.35621780157
+			3.47770166397 1.92456543446 0.42614811659
+			3.60126137733 2.05706715584 0.44999998808
+			3.72482132912 2.18956899643 0.42614811659
+			3.83996081352 2.31304097176 0.35621780157
+			3.93883347511 2.41906881332 0.24497480690
+			4.01470136642 2.50042676926 0.10000009835
+			4.06239366531 2.55157065392 -0.06882672012
+			4.07866048813 2.56901478767 -0.25000005960
+	EndPolygon
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.73044991493 2.88576507568 -0.44117322564
+			3.68187236786 2.83546113968 -0.61000007391
+			3.60459637642 2.75543975830 -0.75497478247
+			3.50388836861 2.65115356445 -0.86621779203
+			3.38661170006 2.52970981598 -0.93614810705
+			3.26075816154 2.39938473701 -0.95999997854
+			3.13490438461 2.26905965805 -0.93614810705
+			3.01762771606 2.14761590958 -0.86621779203
+			2.91691970825 2.04332971573 -0.75497478247
+			2.83964371681 1.96330809593 -0.61000007391
+			2.79106616974 1.91300451756 -0.44117322564
+			2.77449727058 1.89584684372 -0.25999990106
+			2.79106616974 1.91300451756 -0.07882657647
+			2.83964371681 1.96330809593 0.09000000358
+			2.91691970825 2.04332971573 0.23497471213
+			3.01762771606 2.14761590958 0.34621796012
+			3.13490438461 2.26905965805 0.41614803672
+			3.26075816154 2.39938473701 0.43999990821
+			3.38661170006 2.52970981598 0.41614803672
+			3.50388836861 2.65115356445 0.34621796012
+			3.60459637642 2.75543975830 0.23497471213
+			3.68187236786 2.83546113968 0.09000000358
+			3.73044991493 2.88576507568 -0.07882657647
+			3.74701881409 2.90292263031 -0.25999990106
+	EndPolygon
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			4.09011983871 2.53843569756 -0.07882657647
+			4.04154205322 2.48813199997 0.09000000358
+			3.96426630020 2.40811061859 0.23497471213
+			3.86355829239 2.30382442474 0.34621796012
+			3.74628162384 2.18238067627 0.41614803672
+			3.62042784691 2.05205559731 0.43999990821
+			3.49457430840 1.92173027992 0.41614803672
+			3.37729763985 1.80028653145 0.34621796012
+			3.27658963203 1.69600057602 0.23497471213
+			3.19931364059 1.61597895622 0.09000000358
+			3.15073609352 1.56567537785 -0.07882657647
+			3.13416719437 1.54851770401 -0.25999990106
+			3.15073609352 1.56567537785 -0.44117322564
+			3.19931364059 1.61597895622 -0.61000007391
+			3.27658963203 1.69600057602 -0.75497478247
+			3.37729763985 1.80028653145 -0.86621779203
+			3.49457430840 1.92173027992 -0.93614810705
+			3.62042784691 2.05205559731 -0.95999997854
+			3.74628162384 2.18238067627 -0.93614810705
+			3.86355829239 2.30382442474 -0.86621779203
+			3.96426630020 2.40811061859 -0.75497478247
+			4.04154205322 2.48813199997 -0.61000007391
+			4.09011983871 2.53843569756 -0.44117322564
+			4.10668897629 2.55559349060 -0.25999990106
+	EndPolygon
+# Surface: dksilver-sm
+	PolygonMesh
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 96
+		Data
+			3.74701881409 2.90292263031 -0.25999990106
+			3.73044991493 2.88576507568 -0.07882657647
+			3.68187236786 2.83546113968 0.09000000358
+			3.60459637642 2.75543975830 0.23497471213
+			3.50388836861 2.65115356445 0.34621796012
+			3.38661170006 2.52970981598 0.41614803672
+			3.26075816154 2.39938473701 0.43999990821
+			3.13490438461 2.26905965805 0.41614803672
+			3.01762771606 2.14761590958 0.34621796012
+			2.91691970825 2.04332971573 0.23497471213
+			2.83964371681 1.96330809593 0.09000000358
+			2.79106616974 1.91300451756 -0.07882657647
+			2.77449727058 1.89584684372 -0.25999990106
+			2.79106616974 1.91300451756 -0.44117322564
+			2.83964371681 1.96330809593 -0.61000007391
+			2.91691970825 2.04332971573 -0.75497478247
+			3.01762771606 2.14761590958 -0.86621779203
+			3.13490438461 2.26905965805 -0.93614810705
+			3.26075816154 2.39938473701 -0.95999997854
+			3.38661170006 2.52970981598 -0.93614810705
+			3.50388836861 2.65115356445 -0.86621779203
+			3.60459637642 2.75543975830 -0.75497478247
+			3.68187236786 2.83546113968 -0.61000007391
+			3.73044991493 2.88576507568 -0.44117322564
+			4.10668897629 2.55559349060 -0.25999990106
+			4.09011983871 2.53843569756 -0.07882657647
+			4.04154205322 2.48813199997 0.09000000358
+			3.96426630020 2.40811061859 0.23497471213
+			3.86355829239 2.30382442474 0.34621796012
+			3.74628162384 2.18238067627 0.41614803672
+			3.62042784691 2.05205559731 0.43999990821
+			3.49457430840 1.92173027992 0.41614803672
+			3.37729763985 1.80028653145 0.34621796012
+			3.27658963203 1.69600057602 0.23497471213
+			3.19931364059 1.61597895622 0.09000000358
+			3.15073609352 1.56567537785 -0.07882657647
+			3.13416719437 1.54851770401 -0.25999990106
+			3.15073609352 1.56567537785 -0.44117322564
+			3.19931364059 1.61597895622 -0.61000007391
+			3.27658963203 1.69600057602 -0.75497478247
+			3.37729763985 1.80028653145 -0.86621779203
+			3.49457430840 1.92173027992 -0.93614810705
+			3.62042784691 2.05205559731 -0.95999997854
+			3.74628162384 2.18238067627 -0.93614810705
+			3.86355829239 2.30382442474 -0.86621779203
+			3.96426630020 2.40811061859 -0.75497478247
+			4.04154205322 2.48813199997 -0.61000007391
+			4.09011983871 2.53843569756 -0.44117322564
+			4.55413913727 2.34576368332 -0.25000005960
+			4.53413105011 2.32430744171 -0.47284322977
+			4.47546911240 2.26140046120 -0.68049985170
+			4.38215208054 2.16132998466 -0.85881882906
+			4.26053857803 2.03091573715 -0.99564772844
+			4.11891698837 1.87904524803 -1.08166241646
+			3.96693825722 1.71606802940 -1.11100029945
+			3.81495952606 1.55309081078 -1.08166241646
+			3.67333793640 1.40122032166 -0.99564772844
+			3.55172491074 1.27080607414 -0.85881882906
+			3.45840764046 1.17073571682 -0.68049985170
+			3.39974617958 1.10782885551 -0.47284322977
+			3.37973761559 1.08637249470 -0.25000005960
+			3.39974617958 1.10782885551 -0.02715687826
+			3.45840764046 1.17073571682 0.18050022423
+			3.55172491074 1.27080607414 0.35881894827
+			3.67333793640 1.40122032166 0.49564784765
+			3.81495952606 1.55309081078 0.58166211843
+			3.96693825722 1.71606802940 0.61100000143
+			4.11891698837 1.87904524803 0.58166211843
+			4.26053857803 2.03091573715 0.49564784765
+			4.38215208054 2.16132998466 0.35881894827
+			4.47546911240 2.26140046120 0.18050022423
+			4.53413105011 2.32430744171 -0.02715687826
+			4.07866048813 2.56901478767 -0.25000005960
+			4.06239366531 2.55157065392 -0.43117338419
+			4.01470136642 2.50042676926 -0.59999996424
+			3.93883347511 2.41906881332 -0.74497467279
+			3.83996081352 2.31304097176 -0.85621768236
+			3.72482132912 2.18956899643 -0.92614823580
+			3.60126137733 2.05706715584 -0.95000010729
+			3.47770166397 1.92456543446 -0.92614823580
+			3.36256194115 1.80109345913 -0.85621768236
+			3.26368951797 1.69506561756 -0.74497467279
+			3.18782186508 1.61370766163 -0.59999996424
+			3.14012956619 1.56256389618 -0.43117338419
+			3.12386274338 1.54511964321 -0.25000005960
+			3.14012956619 1.56256389618 -0.06882672012
+			3.18782186508 1.61370766163 0.10000009835
+			3.26368951797 1.69506561756 0.24497480690
+			3.36256194115 1.80109345913 0.35621780157
+			3.47770166397 1.92456543446 0.42614811659
+			3.60126137733 2.05706715584 0.44999998808
+			3.72482132912 2.18956899643 0.42614811659
+			3.83996081352 2.31304097176 0.35621780157
+			3.93883347511 2.41906881332 0.24497480690
+			4.01470136642 2.50042676926 0.10000009835
+			4.06239366531 2.55157065392 -0.06882672012
+		NumPolys 48
+		Polys
+			4 48 49 73 72
+			4 49 50 74 73
+			4 50 51 75 74
+			4 51 52 76 75
+			4 52 53 77 76
+			4 53 54 78 77
+			4 54 55 79 78
+			4 55 56 80 79
+			4 56 57 81 80
+			4 57 58 82 81
+			4 58 59 83 82
+			4 59 60 84 83
+			4 60 61 85 84
+			4 61 62 86 85
+			4 62 63 87 86
+			4 63 64 88 87
+			4 64 65 89 88
+			4 65 66 90 89
+			4 66 67 91 90
+			4 67 68 92 91
+			4 68 69 93 92
+			4 69 70 94 93
+			4 70 71 95 94
+			4 71 48 72 95
+			4 0 1 25 24
+			4 1 2 26 25
+			4 2 3 27 26
+			4 3 4 28 27
+			4 4 5 29 28
+			4 5 6 30 29
+			4 6 7 31 30
+			4 7 8 32 31
+			4 8 9 33 32
+			4 9 10 34 33
+			4 10 11 35 34
+			4 11 12 36 35
+			4 12 13 37 36
+			4 13 14 38 37
+			4 14 15 39 38
+			4 15 16 40 39
+			4 16 17 41 40
+			4 17 18 42 41
+			4 18 19 43 42
+			4 19 20 44 43
+			4 20 21 45 44
+			4 21 22 46 45
+			4 22 23 47 46
+			4 23 0 24 47
+	EndPolygonMesh
+# Surface: black
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.58147859573 2.73233175278 -0.12824259698
+			3.54859495163 2.69827985764 -0.02274999954
+			3.49628472328 2.64411115646 0.06783845276
+			3.42811250687 2.57351684570 0.13734950125
+			3.34872460365 2.49130797386 0.18104599416
+			3.26353073120 2.40308713913 0.19594995677
+			3.17833685875 2.31486630440 0.18104599416
+			3.09894895554 2.23265767097 0.13734950125
+			3.03077673912 2.16206336021 0.06783845276
+			2.97846627235 2.10789442062 -0.02274999954
+			2.94558286667 2.07384252548 -0.12824259698
+			2.93436694145 2.06222796440 -0.24144996703
+			2.94558286667 2.07384252548 -0.35465750098
+			2.97846627235 2.10789442062 -0.46014994383
+			3.03077673912 2.16206336021 -0.55073857307
+			3.09894895554 2.23265767097 -0.62024939060
+			3.17833685875 2.31486630440 -0.66394591331
+			3.26353073120 2.40308713913 -0.67885005474
+			3.34872460365 2.49130797386 -0.66394591331
+			3.42811250687 2.57351684570 -0.62024939060
+			3.49628472328 2.64411115646 -0.55073857307
+			3.54859495163 2.69827985764 -0.46014994383
+			3.58147859573 2.73233175278 -0.35465750098
+			3.59269452095 2.74394631386 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.59269452095 2.74394631386 -0.24144996703
+			3.58147859573 2.73233175278 -0.35465750098
+			3.50281882286 2.80829262733 -0.35465750098
+			3.51403498650 2.81990718842 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.58147859573 2.73233175278 -0.35465750098
+			3.54859495163 2.69827985764 -0.46014994383
+			3.46993517876 2.77424073219 -0.46014994383
+			3.50281882286 2.80829262733 -0.35465750098
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.54859495163 2.69827985764 -0.46014994383
+			3.49628472328 2.64411115646 -0.55073857307
+			3.41762495041 2.72007179260 -0.55073857307
+			3.46993517876 2.77424073219 -0.46014994383
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.49628472328 2.64411115646 -0.55073857307
+			3.42811250687 2.57351684570 -0.62024939060
+			3.34945297241 2.64947748184 -0.62024939060
+			3.41762495041 2.72007179260 -0.55073857307
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.42811250687 2.57351684570 -0.62024939060
+			3.34872460365 2.49130797386 -0.66394591331
+			3.27006483078 2.56726884842 -0.66394591331
+			3.34945297241 2.64947748184 -0.62024939060
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.34872460365 2.49130797386 -0.66394591331
+			3.26353073120 2.40308713913 -0.67885005474
+			3.18487095833 2.47904801369 -0.67885005474
+			3.27006483078 2.56726884842 -0.66394591331
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.26353073120 2.40308713913 -0.67885005474
+			3.17833685875 2.31486630440 -0.66394591331
+			3.09967708588 2.39082717896 -0.66394591331
+			3.18487095833 2.47904801369 -0.67885005474
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.17833685875 2.31486630440 -0.66394591331
+			3.09894895554 2.23265767097 -0.62024939060
+			3.02028918266 2.30861854553 -0.62024939060
+			3.09967708588 2.39082717896 -0.66394591331
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.09894895554 2.23265767097 -0.62024939060
+			3.03077673912 2.16206336021 -0.55073857307
+			2.95211696625 2.23802423477 -0.55073857307
+			3.02028918266 2.30861854553 -0.62024939060
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.03077673912 2.16206336021 -0.55073857307
+			2.97846627235 2.10789442062 -0.46014994383
+			2.89980673790 2.18385529518 -0.46014994383
+			2.95211696625 2.23802423477 -0.55073857307
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.97846627235 2.10789442062 -0.46014994383
+			2.94558286667 2.07384252548 -0.35465750098
+			2.86692309380 2.14980316162 -0.35465750098
+			2.89980673790 2.18385529518 -0.46014994383
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.94558286667 2.07384252548 -0.35465750098
+			2.93436694145 2.06222796440 -0.24144996703
+			2.85570716858 2.13818883896 -0.24144996703
+			2.86692309380 2.14980316162 -0.35465750098
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.93436694145 2.06222796440 -0.24144996703
+			2.94558286667 2.07384252548 -0.12824259698
+			2.86692309380 2.14980316162 -0.12824259698
+			2.85570716858 2.13818883896 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.94558286667 2.07384252548 -0.12824259698
+			2.97846627235 2.10789442062 -0.02274999954
+			2.89980673790 2.18385529518 -0.02274999954
+			2.86692309380 2.14980316162 -0.12824259698
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.97846627235 2.10789442062 -0.02274999954
+			3.03077673912 2.16206336021 0.06783845276
+			2.95211696625 2.23802423477 0.06783845276
+			2.89980673790 2.18385529518 -0.02274999954
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.03077673912 2.16206336021 0.06783845276
+			3.09894895554 2.23265767097 0.13734950125
+			3.02028918266 2.30861854553 0.13734950125
+			2.95211696625 2.23802423477 0.06783845276
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.09894895554 2.23265767097 0.13734950125
+			3.17833685875 2.31486630440 0.18104599416
+			3.09967708588 2.39082717896 0.18104599416
+			3.02028918266 2.30861854553 0.13734950125
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.17833685875 2.31486630440 0.18104599416
+			3.26353073120 2.40308713913 0.19594995677
+			3.18487095833 2.47904801369 0.19594995677
+			3.09967708588 2.39082717896 0.18104599416
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.26353073120 2.40308713913 0.19594995677
+			3.34872460365 2.49130797386 0.18104599416
+			3.27006483078 2.56726884842 0.18104599416
+			3.18487095833 2.47904801369 0.19594995677
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.34872460365 2.49130797386 0.18104599416
+			3.42811250687 2.57351684570 0.13734950125
+			3.34945297241 2.64947748184 0.13734950125
+			3.27006483078 2.56726884842 0.18104599416
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.42811250687 2.57351684570 0.13734950125
+			3.49628472328 2.64411115646 0.06783845276
+			3.41762495041 2.72007179260 0.06783845276
+			3.34945297241 2.64947748184 0.13734950125
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.49628472328 2.64411115646 0.06783845276
+			3.54859495163 2.69827985764 -0.02274999954
+			3.46993517876 2.77424073219 -0.02274999954
+			3.41762495041 2.72007179260 0.06783845276
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.54859495163 2.69827985764 -0.02274999954
+			3.58147859573 2.73233175278 -0.12824259698
+			3.50281882286 2.80829262733 -0.12824259698
+			3.46993517876 2.77424073219 -0.02274999954
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.58147859573 2.73233175278 -0.12824259698
+			3.59269452095 2.74394631386 -0.24144996703
+			3.51403498650 2.81990718842 -0.24144996703
+			3.50281882286 2.80829262733 -0.12824259698
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.50281882286 2.80829262733 -0.35465750098
+			3.46993517876 2.77424073219 -0.46014994383
+			3.41762495041 2.72007179260 -0.55073857307
+			3.34945297241 2.64947748184 -0.62024939060
+			3.27006483078 2.56726884842 -0.66394591331
+			3.18487095833 2.47904801369 -0.67885005474
+			3.09967708588 2.39082717896 -0.66394591331
+			3.02028918266 2.30861854553 -0.62024939060
+			2.95211696625 2.23802423477 -0.55073857307
+			2.89980673790 2.18385529518 -0.46014994383
+			2.86692309380 2.14980316162 -0.35465750098
+			2.85570716858 2.13818883896 -0.24144996703
+			2.86692309380 2.14980316162 -0.12824259698
+			2.89980673790 2.18385529518 -0.02274999954
+			2.95211696625 2.23802423477 0.06783845276
+			3.02028918266 2.30861854553 0.13734950125
+			3.09967708588 2.39082717896 0.18104599416
+			3.18487095833 2.47904801369 0.19594995677
+			3.27006483078 2.56726884842 0.18104599416
+			3.34945297241 2.64947748184 0.13734950125
+			3.41762495041 2.72007179260 0.06783845276
+			3.46993517876 2.77424073219 -0.02274999954
+			3.50281882286 2.80829262733 -0.12824259698
+			3.51403498650 2.81990718842 -0.24144996703
+	EndPolygon
+# Surface: white
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.50147867203 2.81233191490 -0.12824259698
+			3.46859502792 2.77827978134 -0.02274999954
+			3.41628479958 2.72411108017 0.06783845276
+			3.34811258316 2.65351676941 0.13734950125
+			3.26872467995 2.57130813599 0.18104599416
+			3.18353080750 2.48308706284 0.19594995677
+			3.09833693504 2.39486646652 0.18104599416
+			3.01894903183 2.31265759468 0.13734950125
+			2.95077681541 2.24206328392 0.06783845276
+			2.89846634865 2.18789434433 -0.02274999954
+			2.86558294296 2.15384244919 -0.12824259698
+			2.85436701775 2.14222788811 -0.24144996703
+			2.86558294296 2.15384244919 -0.35465750098
+			2.89846634865 2.18789434433 -0.46014994383
+			2.95077681541 2.24206328392 -0.55073857307
+			3.01894903183 2.31265759468 -0.62024939060
+			3.09833693504 2.39486646652 -0.66394591331
+			3.18353080750 2.48308706284 -0.67885005474
+			3.26872467995 2.57130813599 -0.66394591331
+			3.34811258316 2.65351676941 -0.62024939060
+			3.41628479958 2.72411108017 -0.55073857307
+			3.46859502792 2.77827978134 -0.46014994383
+			3.50147867203 2.81233191490 -0.35465750098
+			3.51269459724 2.82394623756 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.51269459724 2.82394623756 -0.24144996703
+			3.50147867203 2.81233191490 -0.35465750098
+			3.42281889915 2.88829255104 -0.35465750098
+			3.43403506279 2.89990711212 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.50147867203 2.81233191490 -0.35465750098
+			3.46859502792 2.77827978134 -0.46014994383
+			3.38993525505 2.85424065590 -0.46014994383
+			3.42281889915 2.88829255104 -0.35465750098
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.46859502792 2.77827978134 -0.46014994383
+			3.41628479958 2.72411108017 -0.55073857307
+			3.33762502670 2.80007195473 -0.55073857307
+			3.38993525505 2.85424065590 -0.46014994383
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.41628479958 2.72411108017 -0.55073857307
+			3.34811258316 2.65351676941 -0.62024939060
+			3.26945304871 2.72947740555 -0.62024939060
+			3.33762502670 2.80007195473 -0.55073857307
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.34811258316 2.65351676941 -0.62024939060
+			3.26872467995 2.57130813599 -0.66394591331
+			3.19006490707 2.64726877213 -0.66394591331
+			3.26945304871 2.72947740555 -0.62024939060
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.26872467995 2.57130813599 -0.66394591331
+			3.18353080750 2.48308706284 -0.67885005474
+			3.10487103462 2.55904817581 -0.67885005474
+			3.19006490707 2.64726877213 -0.66394591331
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.18353080750 2.48308706284 -0.67885005474
+			3.09833693504 2.39486646652 -0.66394591331
+			3.01967716217 2.47082710266 -0.66394591331
+			3.10487103462 2.55904817581 -0.67885005474
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.09833693504 2.39486646652 -0.66394591331
+			3.01894903183 2.31265759468 -0.62024939060
+			2.94028925896 2.38861846924 -0.62024939060
+			3.01967716217 2.47082710266 -0.66394591331
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.01894903183 2.31265759468 -0.62024939060
+			2.95077681541 2.24206328392 -0.55073857307
+			2.87211704254 2.31802415848 -0.55073857307
+			2.94028925896 2.38861846924 -0.62024939060
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.95077681541 2.24206328392 -0.55073857307
+			2.89846634865 2.18789434433 -0.46014994383
+			2.81980681419 2.26385521889 -0.46014994383
+			2.87211704254 2.31802415848 -0.55073857307
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.89846634865 2.18789434433 -0.46014994383
+			2.86558294296 2.15384244919 -0.35465750098
+			2.78692317009 2.22980332375 -0.35465750098
+			2.81980681419 2.26385521889 -0.46014994383
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.86558294296 2.15384244919 -0.35465750098
+			2.85436701775 2.14222788811 -0.24144996703
+			2.77570724487 2.21818876266 -0.24144996703
+			2.78692317009 2.22980332375 -0.35465750098
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.85436701775 2.14222788811 -0.24144996703
+			2.86558294296 2.15384244919 -0.12824259698
+			2.78692317009 2.22980332375 -0.12824259698
+			2.77570724487 2.21818876266 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.86558294296 2.15384244919 -0.12824259698
+			2.89846634865 2.18789434433 -0.02274999954
+			2.81980681419 2.26385521889 -0.02274999954
+			2.78692317009 2.22980332375 -0.12824259698
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.89846634865 2.18789434433 -0.02274999954
+			2.95077681541 2.24206328392 0.06783845276
+			2.87211704254 2.31802415848 0.06783845276
+			2.81980681419 2.26385521889 -0.02274999954
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.95077681541 2.24206328392 0.06783845276
+			3.01894903183 2.31265759468 0.13734950125
+			2.94028925896 2.38861846924 0.13734950125
+			2.87211704254 2.31802415848 0.06783845276
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.01894903183 2.31265759468 0.13734950125
+			3.09833693504 2.39486646652 0.18104599416
+			3.01967716217 2.47082710266 0.18104599416
+			2.94028925896 2.38861846924 0.13734950125
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.09833693504 2.39486646652 0.18104599416
+			3.18353080750 2.48308706284 0.19594995677
+			3.10487103462 2.55904817581 0.19594995677
+			3.01967716217 2.47082710266 0.18104599416
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.18353080750 2.48308706284 0.19594995677
+			3.26872467995 2.57130813599 0.18104599416
+			3.19006490707 2.64726877213 0.18104599416
+			3.10487103462 2.55904817581 0.19594995677
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.26872467995 2.57130813599 0.18104599416
+			3.34811258316 2.65351676941 0.13734950125
+			3.26945304871 2.72947740555 0.13734950125
+			3.19006490707 2.64726877213 0.18104599416
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.34811258316 2.65351676941 0.13734950125
+			3.41628479958 2.72411108017 0.06783845276
+			3.33762502670 2.80007195473 0.06783845276
+			3.26945304871 2.72947740555 0.13734950125
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.41628479958 2.72411108017 0.06783845276
+			3.46859502792 2.77827978134 -0.02274999954
+			3.38993525505 2.85424065590 -0.02274999954
+			3.33762502670 2.80007195473 0.06783845276
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.46859502792 2.77827978134 -0.02274999954
+			3.50147867203 2.81233191490 -0.12824259698
+			3.42281889915 2.88829255104 -0.12824259698
+			3.38993525505 2.85424065590 -0.02274999954
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.50147867203 2.81233191490 -0.12824259698
+			3.51269459724 2.82394623756 -0.24144996703
+			3.43403506279 2.89990711212 -0.24144996703
+			3.42281889915 2.88829255104 -0.12824259698
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.42281889915 2.88829255104 -0.35465750098
+			3.38993525505 2.85424065590 -0.46014994383
+			3.33762502670 2.80007195473 -0.55073857307
+			3.26945304871 2.72947740555 -0.62024939060
+			3.19006490707 2.64726877213 -0.66394591331
+			3.10487103462 2.55904817581 -0.67885005474
+			3.01967716217 2.47082710266 -0.66394591331
+			2.94028925896 2.38861846924 -0.62024939060
+			2.87211704254 2.31802415848 -0.55073857307
+			2.81980681419 2.26385521889 -0.46014994383
+			2.78692317009 2.22980332375 -0.35465750098
+			2.77570724487 2.21818876266 -0.24144996703
+			2.78692317009 2.22980332375 -0.12824259698
+			2.81980681419 2.26385521889 -0.02274999954
+			2.87211704254 2.31802415848 0.06783845276
+			2.94028925896 2.38861846924 0.13734950125
+			3.01967716217 2.47082710266 0.18104599416
+			3.10487103462 2.55904817581 0.19594995677
+			3.19006490707 2.64726877213 0.18104599416
+			3.26945304871 2.72947740555 0.13734950125
+			3.33762502670 2.80007195473 0.06783845276
+			3.38993525505 2.85424065590 -0.02274999954
+			3.42281889915 2.88829255104 -0.12824259698
+			3.43403506279 2.89990711212 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.42147874832 2.89233183861 -0.12824259698
+			3.38859510422 2.85827994347 -0.02274999954
+			3.33628487587 2.80411100388 0.06783845276
+			3.26811265945 2.73351669312 0.13734950125
+			3.18872475624 2.65130805969 0.18104599416
+			3.10353088379 2.56308722496 0.19594995677
+			3.01833701134 2.47486639023 0.18104599416
+			2.93894910812 2.39265751839 0.13734950125
+			2.87077689171 2.32206344604 0.06783845276
+			2.81846642494 2.26789450645 -0.02274999954
+			2.78558301926 2.23384237289 -0.12824259698
+			2.77436709404 2.22222805023 -0.24144996703
+			2.78558301926 2.23384237289 -0.35465750098
+			2.81846642494 2.26789450645 -0.46014994383
+			2.87077689171 2.32206344604 -0.55073857307
+			2.93894910812 2.39265751839 -0.62024939060
+			3.01833701134 2.47486639023 -0.66394591331
+			3.10353088379 2.56308722496 -0.67885005474
+			3.18872475624 2.65130805969 -0.66394591331
+			3.26811265945 2.73351669312 -0.62024939060
+			3.33628487587 2.80411100388 -0.55073857307
+			3.38859510422 2.85827994347 -0.46014994383
+			3.42147874832 2.89233183861 -0.35465750098
+			3.43269467354 2.90394639969 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.43269467354 2.90394639969 -0.24144996703
+			3.42147874832 2.89233183861 -0.35465750098
+			3.34281897545 2.96829271317 -0.35465750098
+			3.35403513908 2.97990703583 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.42147874832 2.89233183861 -0.35465750098
+			3.38859510422 2.85827994347 -0.46014994383
+			3.30993533134 2.93424081802 -0.46014994383
+			3.34281897545 2.96829271317 -0.35465750098
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.38859510422 2.85827994347 -0.46014994383
+			3.33628487587 2.80411100388 -0.55073857307
+			3.25762510300 2.88007187843 -0.55073857307
+			3.30993533134 2.93424081802 -0.46014994383
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.33628487587 2.80411100388 -0.55073857307
+			3.26811265945 2.73351669312 -0.62024939060
+			3.18945312500 2.80947756767 -0.62024939060
+			3.25762510300 2.88007187843 -0.55073857307
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.26811265945 2.73351669312 -0.62024939060
+			3.18872475624 2.65130805969 -0.66394591331
+			3.11006498337 2.72726893425 -0.66394591331
+			3.18945312500 2.80947756767 -0.62024939060
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.18872475624 2.65130805969 -0.66394591331
+			3.10353088379 2.56308722496 -0.67885005474
+			3.02487111092 2.63904809952 -0.67885005474
+			3.11006498337 2.72726893425 -0.66394591331
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.10353088379 2.56308722496 -0.67885005474
+			3.01833701134 2.47486639023 -0.66394591331
+			2.93967723846 2.55082702637 -0.66394591331
+			3.02487111092 2.63904809952 -0.67885005474
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.01833701134 2.47486639023 -0.66394591331
+			2.93894910812 2.39265751839 -0.62024939060
+			2.86028933525 2.46861839294 -0.62024939060
+			2.93967723846 2.55082702637 -0.66394591331
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.93894910812 2.39265751839 -0.62024939060
+			2.87077689171 2.32206344604 -0.55073857307
+			2.79211711884 2.39802408218 -0.55073857307
+			2.86028933525 2.46861839294 -0.62024939060
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.87077689171 2.32206344604 -0.55073857307
+			2.81846642494 2.26789450645 -0.46014994383
+			2.73980689049 2.34385538101 -0.46014994383
+			2.79211711884 2.39802408218 -0.55073857307
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.81846642494 2.26789450645 -0.46014994383
+			2.78558301926 2.23384237289 -0.35465750098
+			2.70692324638 2.30980324745 -0.35465750098
+			2.73980689049 2.34385538101 -0.46014994383
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.78558301926 2.23384237289 -0.35465750098
+			2.77436709404 2.22222805023 -0.24144996703
+			2.69570732117 2.29818868637 -0.24144996703
+			2.70692324638 2.30980324745 -0.35465750098
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.77436709404 2.22222805023 -0.24144996703
+			2.78558301926 2.23384237289 -0.12824259698
+			2.70692324638 2.30980324745 -0.12824259698
+			2.69570732117 2.29818868637 -0.24144996703
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.78558301926 2.23384237289 -0.12824259698
+			2.81846642494 2.26789450645 -0.02274999954
+			2.73980689049 2.34385538101 -0.02274999954
+			2.70692324638 2.30980324745 -0.12824259698
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.81846642494 2.26789450645 -0.02274999954
+			2.87077689171 2.32206344604 0.06783845276
+			2.79211711884 2.39802408218 0.06783845276
+			2.73980689049 2.34385538101 -0.02274999954
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.87077689171 2.32206344604 0.06783845276
+			2.93894910812 2.39265751839 0.13734950125
+			2.86028933525 2.46861839294 0.13734950125
+			2.79211711884 2.39802408218 0.06783845276
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.93894910812 2.39265751839 0.13734950125
+			3.01833701134 2.47486639023 0.18104599416
+			2.93967723846 2.55082702637 0.18104599416
+			2.86028933525 2.46861839294 0.13734950125
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.01833701134 2.47486639023 0.18104599416
+			3.10353088379 2.56308722496 0.19594995677
+			3.02487111092 2.63904809952 0.19594995677
+			2.93967723846 2.55082702637 0.18104599416
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.10353088379 2.56308722496 0.19594995677
+			3.18872475624 2.65130805969 0.18104599416
+			3.11006498337 2.72726893425 0.18104599416
+			3.02487111092 2.63904809952 0.19594995677
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.18872475624 2.65130805969 0.18104599416
+			3.26811265945 2.73351669312 0.13734950125
+			3.18945312500 2.80947756767 0.13734950125
+			3.11006498337 2.72726893425 0.18104599416
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.26811265945 2.73351669312 0.13734950125
+			3.33628487587 2.80411100388 0.06783845276
+			3.25762510300 2.88007187843 0.06783845276
+			3.18945312500 2.80947756767 0.13734950125
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.33628487587 2.80411100388 0.06783845276
+			3.38859510422 2.85827994347 -0.02274999954
+			3.30993533134 2.93424081802 -0.02274999954
+			3.25762510300 2.88007187843 0.06783845276
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.38859510422 2.85827994347 -0.02274999954
+			3.42147874832 2.89233183861 -0.12824259698
+			3.34281897545 2.96829271317 -0.12824259698
+			3.30993533134 2.93424081802 -0.02274999954
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.42147874832 2.89233183861 -0.12824259698
+			3.43269467354 2.90394639969 -0.24144996703
+			3.35403513908 2.97990703583 -0.24144996703
+			3.34281897545 2.96829271317 -0.12824259698
+	EndPolygon
+	Polygon
+		FaceColor %255255255
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.34281897545 2.96829271317 -0.35465750098
+			3.30993533134 2.93424081802 -0.46014994383
+			3.25762510300 2.88007187843 -0.55073857307
+			3.18945312500 2.80947756767 -0.62024939060
+			3.11006498337 2.72726893425 -0.66394591331
+			3.02487111092 2.63904809952 -0.67885005474
+			2.93967723846 2.55082702637 -0.66394591331
+			2.86028933525 2.46861839294 -0.62024939060
+			2.79211711884 2.39802408218 -0.55073857307
+			2.73980689049 2.34385538101 -0.46014994383
+			2.70692324638 2.30980324745 -0.35465750098
+			2.69570732117 2.29818868637 -0.24144996703
+			2.70692324638 2.30980324745 -0.12824259698
+			2.73980689049 2.34385538101 -0.02274999954
+			2.79211711884 2.39802408218 0.06783845276
+			2.86028933525 2.46861839294 0.13734950125
+			2.93967723846 2.55082702637 0.18104599416
+			3.02487111092 2.63904809952 0.19594995677
+			3.11006498337 2.72726893425 0.18104599416
+			3.18945312500 2.80947756767 0.13734950125
+			3.25762510300 2.88007187843 0.06783845276
+			3.30993533134 2.93424081802 -0.02274999954
+			3.34281897545 2.96829271317 -0.12824259698
+			3.35403513908 2.97990703583 -0.24144996703
+	EndPolygon
+# Surface: Default
+	Polygon
+		FaceColor grey78
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			3.35078048706 2.94106817245 0.20000000298
+			3.35078048706 2.94106817245 -0.69999998808
+			2.57654356956 3.85774350166 -0.79604995251
+			2.57654356956 3.85774350166 0.34605002403
+	EndPolygon
+	Polygon
+		FaceColor grey78
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.72558784485 2.29366230965 0.20000000298
+			3.35078048706 2.94106817245 0.20000000298
+			2.57654356956 3.85774350166 0.34605002403
+			1.77524030209 3.03618574142 0.34605002403
+	EndPolygon
+	Polygon
+		FaceColor grey78
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.72558784485 2.29366230965 -0.69999998808
+			3.35078048706 2.94106817245 -0.69999998808
+			3.35078048706 2.94106817245 0.20000000298
+			2.72558784485 2.29366230965 0.20000000298
+	EndPolygon
+	Polygon
+		FaceColor grey78
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.77524030209 3.03618574142 -0.79604995251
+			2.57654356956 3.85774350166 -0.79604995251
+			3.35078048706 2.94106817245 -0.69999998808
+			2.72558784485 2.29366230965 -0.69999998808
+	EndPolygon
+	Polygon
+		FaceColor grey78
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.77524030209 3.03618574142 0.34605002403
+			2.57654356956 3.85774350166 0.34605002403
+			2.57654356956 3.85774350166 -0.79604995251
+			1.77524030209 3.03618574142 -0.79604995251
+	EndPolygon
+	Polygon
+		FaceColor grey78
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.77524030209 3.03618574142 -0.79604995251
+			2.72558784485 2.29366230965 -0.69999998808
+			2.72558784485 2.29366230965 0.20000000298
+			1.77524030209 3.03618574142 0.34605002403
+	EndPolygon
+# Surface: Default2
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			0.00000000000 0.00000000000 -0.50000000000
+			0.00000000000 0.00000000000 0.00000000000
+			0.00000000000 2.15000009537 0.00000000000
+			0.00000000000 2.15000009537 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			0.30000001192 0.00000000000 -0.50000000000
+			0.30000001192 0.00000000000 0.00000000000
+			0.00000000000 0.00000000000 0.00000000000
+			0.00000000000 0.00000000000 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			0.50000000000 2.00000000000 -0.50000000000
+			0.50000000000 2.00000000000 0.00000000000
+			0.30000001192 0.00000000000 0.00000000000
+			0.30000001192 0.00000000000 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.94999992847 3.50000000000 -0.50000000000
+			1.94999992847 3.50000000000 0.00000000000
+			0.50000000000 2.00000000000 0.00000000000
+			0.50000000000 2.00000000000 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.15000009537 3.20000004768 -0.50000000000
+			2.15000009537 3.20000004768 0.00000000000
+			1.94999992847 3.50000000000 0.00000000000
+			1.94999992847 3.50000000000 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			2.45000004768 3.55000019073 -0.50000000000
+			2.45000004768 3.55000019073 0.00000000000
+			2.15000009537 3.20000004768 0.00000000000
+			2.15000009537 3.20000004768 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.89999997616 4.25000000000 -0.50000000000
+			1.89999997616 4.25000000000 0.00000000000
+			2.45000004768 3.55000019073 0.00000000000
+			2.45000004768 3.55000019073 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			0.00000000000 2.15000009537 -0.50000000000
+			0.00000000000 2.15000009537 0.00000000000
+			1.54999995232 4.15000009537 0.00000000000
+			1.54999995232 4.15000009537 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 10
+		Data
+			0.30000001192 0.00000000000 0.00000000000
+			0.50000000000 2.00000000000 0.00000000000
+			1.94999992847 3.50000000000 0.00000000000
+			2.15000009537 3.20000004768 0.00000000000
+			2.45000004768 3.55000019073 0.00000000000
+			1.89999997616 4.25000000000 0.00000000000
+			1.70000004768 4.25000000000 0.00000000000
+			1.54999995232 4.15000009537 0.00000000000
+			0.00000000000 2.15000009537 0.00000000000
+			0.00000000000 0.00000000000 0.00000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 10
+		Data
+			0.00000000000 2.15000009537 -0.50000000000
+			1.54999995232 4.15000009537 -0.50000000000
+			1.70000004768 4.25000000000 -0.50000000000
+			1.89999997616 4.25000000000 -0.50000000000
+			2.45000004768 3.55000019073 -0.50000000000
+			2.15000009537 3.20000004768 -0.50000000000
+			1.94999992847 3.50000000000 -0.50000000000
+			0.50000000000 2.00000000000 -0.50000000000
+			0.30000001192 0.00000000000 -0.50000000000
+			0.00000000000 0.00000000000 -0.50000000000
+	EndPolygon
+# Surface: Default2-sm
+	PolygonMesh
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 6
+		Data
+			1.54999995232 4.15000009537 0.00000000000
+			1.70000004768 4.25000000000 0.00000000000
+			1.89999997616 4.25000000000 0.00000000000
+			1.54999995232 4.15000009537 -0.50000000000
+			1.70000004768 4.25000000000 -0.50000000000
+			1.89999997616 4.25000000000 -0.50000000000
+		NumPolys 2
+		Polys
+			4 4 1 2 5
+			4 3 0 1 4
+	EndPolygonMesh
+EndComponent
+#
+# End of HornAssm-1.mdl
+Component HornSubAssm
+	Refer
+		Component HornAssm-1
+		Rotate 90 0 180
+		Translate -2 1.25 8
+	EndRefer
+	Refer
+		Component HornAssm-1
+		Rotate 90 0 180
+		Translate -2 -.75 8
+	EndRefer
+	Refer
+		Component HornAssm-1
+		Rotate 90 0 0
+		Translate 2 -0.25 8
+	EndRefer
+EndComponent
+###########################################################
+Component SmTower
+# Surface: dkgray-ft
+	Polygon
+		FaceColor %144144144
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			1.03999996185 -0.16117332876 -0.62785178423
+			1.03999996185 -0.32999998331 -0.56291651726
+			1.03999996185 -0.47497472167 -0.45961940289
+			1.03999996185 -0.58621782064 -0.32499998808
+			1.03999996185 -0.65614807606 -0.16823238134
+			1.03999996185 -0.68000000715 0.00000000009
+			1.03999996185 -0.65614807606 0.16823238134
+			1.03999996185 -0.58621782064 0.32499998808
+			1.03999996185 -0.47497472167 0.45961940289
+			1.03999996185 -0.32999998331 0.56291651726
+			1.03999996185 -0.16117332876 0.62785178423
+			1.03999996185 0.01999999955 0.64999997616
+			1.03999996185 0.20117332041 0.62785178423
+			1.03999996185 0.37000000477 0.56291651726
+			1.03999996185 0.51497471333 0.45961940289
+			1.03999996185 0.62621778250 0.32499998808
+			1.03999996185 0.69614803791 0.16823238134
+			1.03999996185 0.71999996901 -0.00000000003
+			1.03999996185 0.69614803791 -0.16823238134
+			1.03999996185 0.62621778250 -0.32499998808
+			1.03999996185 0.51497471333 -0.45961940289
+			1.03999996185 0.37000000477 -0.56291651726
+			1.03999996185 0.20117332041 -0.62785178423
+			1.03999996185 0.01999999955 -0.64999997616
+	EndPolygon
+	Polygon
+		FaceColor %144144144
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			2.99000000954 0.20117332041 -0.62785178423
+			2.99000000954 0.37000000477 -0.56291651726
+			2.99000000954 0.51497471333 -0.45961940289
+			2.99000000954 0.62621778250 -0.32499998808
+			2.99000000954 0.69614803791 -0.16823238134
+			2.99000000954 0.71999996901 -0.00000000003
+			2.99000000954 0.69614803791 0.16823238134
+			2.99000000954 0.62621778250 0.32499998808
+			2.99000000954 0.51497471333 0.45961940289
+			2.99000000954 0.37000000477 0.56291651726
+			2.99000000954 0.20117332041 0.62785178423
+			2.99000000954 0.01999999955 0.64999997616
+			2.99000000954 -0.16117332876 0.62785178423
+			2.99000000954 -0.32999998331 0.56291651726
+			2.99000000954 -0.47497472167 0.45961940289
+			2.99000000954 -0.58621782064 0.32499998808
+			2.99000000954 -0.65614807606 0.16823238134
+			2.99000000954 -0.68000000715 0.00000000009
+			2.99000000954 -0.65614807606 -0.16823238134
+			2.99000000954 -0.58621782064 -0.32499998808
+			2.99000000954 -0.47497472167 -0.45961940289
+			2.99000000954 -0.32999998331 -0.56291651726
+			2.99000000954 -0.16117332876 -0.62785178423
+			2.99000000954 0.01999999955 -0.64999997616
+	EndPolygon
+# Surface: dkgray
+	PolygonMesh
+		FaceColor %144144144
+		BackfaceCullable Yes
+		NumVerts 72
+		Data
+			1.03999996185 0.01999999955 -0.64999997616
+			1.03999996185 0.20117332041 -0.62785178423
+			1.03999996185 0.37000000477 -0.56291651726
+			1.03999996185 0.51497471333 -0.45961940289
+			1.03999996185 0.62621778250 -0.32499998808
+			1.03999996185 0.69614803791 -0.16823238134
+			1.03999996185 0.71999996901 -0.00000000003
+			1.03999996185 0.69614803791 0.16823238134
+			1.03999996185 0.62621778250 0.32499998808
+			1.03999996185 0.51497471333 0.45961940289
+			1.03999996185 0.37000000477 0.56291651726
+			1.03999996185 0.20117332041 0.62785178423
+			1.03999996185 0.01999999955 0.64999997616
+			1.03999996185 -0.16117332876 0.62785178423
+			1.03999996185 -0.32999998331 0.56291651726
+			1.03999996185 -0.47497472167 0.45961940289
+			1.03999996185 -0.58621782064 0.32499998808
+			1.03999996185 -0.65614807606 0.16823238134
+			1.03999996185 -0.68000000715 0.00000000009
+			1.03999996185 -0.65614807606 -0.16823238134
+			1.03999996185 -0.58621782064 -0.32499998808
+			1.03999996185 -0.47497472167 -0.45961940289
+			1.03999996185 -0.32999998331 -0.56291651726
+			1.03999996185 -0.16117332876 -0.62785178423
+			2.03725004196 0.01999999955 -0.59149998426
+			2.03725004196 0.18486772478 -0.57134515047
+			2.03725004196 0.33849999309 -0.51225405931
+			2.03725004196 0.47042700648 -0.41825366020
+			2.03725004196 0.57165819407 -0.29574999213
+			2.03725004196 0.63529473543 -0.15309146047
+			2.03725004196 0.65699994564 -0.00000000003
+			2.03725004196 0.63529473543 0.15309146047
+			2.03725004196 0.57165819407 0.29574999213
+			2.03725004196 0.47042700648 0.41825366020
+			2.03725004196 0.33849999309 0.51225405931
+			2.03725004196 0.18486772478 0.57134515047
+			2.03725004196 0.01999999955 0.59149998426
+			2.03725004196 -0.14486773312 0.57134515047
+			2.03725004196 -0.29849997163 0.51225405931
+			2.03725004196 -0.43042698503 0.41825366020
+			2.03725004196 -0.53165823221 0.29574999213
+			2.03725004196 -0.59529477358 0.15309146047
+			2.03725004196 -0.61699998379 0.00000000008
+			2.03725004196 -0.59529477358 -0.15309146047
+			2.03725004196 -0.53165823221 -0.29574999213
+			2.03725004196 -0.43042698503 -0.41825366020
+			2.03725004196 -0.29849997163 -0.51225405931
+			2.03725004196 -0.14486773312 -0.57134515047
+			2.99000000954 0.01999999955 -0.64999997616
+			2.99000000954 0.20117332041 -0.62785178423
+			2.99000000954 0.37000000477 -0.56291651726
+			2.99000000954 0.51497471333 -0.45961940289
+			2.99000000954 0.62621778250 -0.32499998808
+			2.99000000954 0.69614803791 -0.16823238134
+			2.99000000954 0.71999996901 -0.00000000003
+			2.99000000954 0.69614803791 0.16823238134
+			2.99000000954 0.62621778250 0.32499998808
+			2.99000000954 0.51497471333 0.45961940289
+			2.99000000954 0.37000000477 0.56291651726
+			2.99000000954 0.20117332041 0.62785178423
+			2.99000000954 0.01999999955 0.64999997616
+			2.99000000954 -0.16117332876 0.62785178423
+			2.99000000954 -0.32999998331 0.56291651726
+			2.99000000954 -0.47497472167 0.45961940289
+			2.99000000954 -0.58621782064 0.32499998808
+			2.99000000954 -0.65614807606 0.16823238134
+			2.99000000954 -0.68000000715 0.00000000009
+			2.99000000954 -0.65614807606 -0.16823238134
+			2.99000000954 -0.58621782064 -0.32499998808
+			2.99000000954 -0.47497472167 -0.45961940289
+			2.99000000954 -0.32999998331 -0.56291651726
+			2.99000000954 -0.16117332876 -0.62785178423
+		NumPolys 48
+		Polys
+			4 0 1 25 24
+			4 1 2 26 25
+			4 2 3 27 26
+			4 3 4 28 27
+			4 4 5 29 28
+			4 5 6 30 29
+			4 6 7 31 30
+			4 7 8 32 31
+			4 8 9 33 32
+			4 9 10 34 33
+			4 10 11 35 34
+			4 11 12 36 35
+			4 12 13 37 36
+			4 13 14 38 37
+			4 14 15 39 38
+			4 15 16 40 39
+			4 16 17 41 40
+			4 17 18 42 41
+			4 18 19 43 42
+			4 19 20 44 43
+			4 20 21 45 44
+			4 21 22 46 45
+			4 22 23 47 46
+			4 23 0 24 47
+			4 24 25 49 48
+			4 25 26 50 49
+			4 26 27 51 50
+			4 27 28 52 51
+			4 28 29 53 52
+			4 29 30 54 53
+			4 30 31 55 54
+			4 31 32 56 55
+			4 32 33 57 56
+			4 33 34 58 57
+			4 34 35 59 58
+			4 35 36 60 59
+			4 36 37 61 60
+			4 37 38 62 61
+			4 38 39 63 62
+			4 39 40 64 63
+			4 40 41 65 64
+			4 41 42 66 65
+			4 42 43 67 66
+			4 43 44 68 67
+			4 44 45 69 68
+			4 45 46 70 69
+			4 46 47 71 70
+			4 47 24 48 71
+	EndPolygonMesh
+# Surface: dksilver
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.95210742950 0.84498822689 0.22284312546
+			3.95360851288 0.75898659229 0.43050023913
+			3.95599651337 0.62217843533 0.60881894827
+			3.95910835266 0.44388642907 0.74564784765
+			3.96273279190 0.23626151681 0.83166211843
+			3.96662187576 0.01345219743 0.86100000143
+			3.97051095963 -0.20935724676 0.83166211843
+			3.97413492203 -0.41698226333 0.74564784765
+			3.97724723816 -0.59527397156 0.60881894827
+			3.97963523865 -0.73208224773 0.43050023913
+			3.98113632202 -0.81808328629 0.22284312546
+			3.98164844513 -0.84741687775 -0.00000005960
+			3.98113632202 -0.81808328629 -0.22284322977
+			3.97963523865 -0.73208224773 -0.43049985170
+			3.97724723816 -0.59527397156 -0.60881882906
+			3.97413492203 -0.41698226333 -0.74564772844
+			3.97051095963 -0.20935724676 -0.83166241646
+			3.96662187576 0.01345219743 -0.86100029945
+			3.96273279190 0.23626151681 -0.83166241646
+			3.95910835266 0.44388642907 -0.74564772844
+			3.95599651337 0.62217843533 -0.60881882906
+			3.95360851288 0.75898659229 -0.43049985170
+			3.95210742950 0.84498822689 -0.22284322977
+			3.95159530640 0.87432134151 -0.00000005960
+	EndPolygon
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.45489764214 0.68077123165 -0.18117338419
+			3.45611834526 0.61085164547 -0.34999996424
+			3.45805954933 0.49962535501 -0.49497467279
+			3.46058964729 0.35467258096 -0.60621768236
+			3.46353602409 0.18587175012 -0.67614823580
+			3.46669793129 0.00472583901 -0.70000010729
+			3.46985983849 -0.17641970515 -0.67614823580
+			3.47280621529 -0.34522077441 -0.60621768236
+			3.47533655167 -0.49017339945 -0.49497467279
+			3.47727775574 -0.60139954090 -0.34999996424
+			3.47849822044 -0.67131912708 -0.18117338419
+			3.47891473770 -0.69516730309 -0.00000005960
+			3.47849822044 -0.67131912708 0.18117327988
+			3.47727775574 -0.60139954090 0.35000011325
+			3.47533655167 -0.49017339945 0.49497482181
+			3.47280621529 -0.34522077441 0.60621780157
+			3.46985983849 -0.17641970515 0.67614811659
+			3.46669793129 0.00472583901 0.69999998808
+			3.46353602409 0.18587175012 0.67614811659
+			3.46058964729 0.35467258096 0.60621780157
+			3.45805954933 0.49962535501 0.49497482181
+			3.45611834526 0.61085164547 0.35000011325
+			3.45489764214 0.68077123165 0.18117327988
+			3.45448136330 0.70461952686 -0.00000005960
+	EndPolygon
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			2.98396635056 0.69058310986 -0.19117322564
+			2.98396682739 0.62065279484 -0.36000007391
+			2.98396658897 0.50940978527 -0.50497478247
+			2.98396658897 0.36443486810 -0.61621779203
+			2.98396658897 0.19560828805 -0.68614810705
+			2.98396658897 0.01443519723 -0.70999997854
+			2.98396635056 -0.16673824191 -0.68614810705
+			2.98396658897 -0.33556482196 -0.61621779203
+			2.98396658897 -0.48053961992 -0.50497478247
+			2.98396658897 -0.59178292751 -0.36000007391
+			2.98396658897 -0.66171300411 -0.19117322564
+			2.98396658897 -0.68556499481 -0.00999990106
+			2.98396658897 -0.66171300411 0.17117342353
+			2.98396658897 -0.59178292751 0.34000000358
+			2.98396658897 -0.48053961992 0.48497471213
+			2.98396658897 -0.33556482196 0.59621798992
+			2.98396635056 -0.16673824191 0.66614806652
+			2.98396658897 0.01443519723 0.68999993801
+			2.98396658897 0.19560828805 0.66614806652
+			2.98396658897 0.36443486810 0.59621798992
+			2.98396658897 0.50940978527 0.48497471213
+			2.98396682739 0.62065279484 0.34000000358
+			2.98396635056 0.69058310986 0.17117342353
+			2.98396635056 0.71443498135 -0.00999990106
+	EndPolygon
+	Polygon
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			3.48396658897 0.69058287144 0.17117342353
+			3.48396658897 0.62065255642 0.34000000358
+			3.48396658897 0.50940978527 0.48497471213
+			3.48396658897 0.36443486810 0.59621798992
+			3.48396658897 0.19560828805 0.66614806652
+			3.48396635056 0.01443495881 0.68999993801
+			3.48396658897 -0.16673836112 0.66614806652
+			3.48396658897 -0.33556494117 0.59621798992
+			3.48396658897 -0.48053961992 0.48497471213
+			3.48396658897 -0.59178280830 0.34000000358
+			3.48396658897 -0.66171300411 0.17117342353
+			3.48396658897 -0.68556487560 -0.00999990106
+			3.48396658897 -0.66171300411 -0.19117322564
+			3.48396658897 -0.59178280830 -0.36000007391
+			3.48396658897 -0.48053961992 -0.50497478247
+			3.48396658897 -0.33556494117 -0.61621779203
+			3.48396658897 -0.16673836112 -0.68614810705
+			3.48396635056 0.01443495881 -0.70999997854
+			3.48396658897 0.19560828805 -0.68614810705
+			3.48396658897 0.36443486810 -0.61621779203
+			3.48396658897 0.50940978527 -0.50497478247
+			3.48396658897 0.62065255642 -0.36000007391
+			3.48396658897 0.69058287144 -0.19117322564
+			3.48396658897 0.71443521976 -0.00999990106
+	EndPolygon
+# Surface: dksilver-sm
+	PolygonMesh
+		FaceColor %122121134
+		BackfaceCullable Yes
+		NumVerts 96
+		Data
+			2.98396635056 0.71443498135 -0.00999990106
+			2.98396635056 0.69058310986 0.17117342353
+			2.98396682739 0.62065279484 0.34000000358
+			2.98396658897 0.50940978527 0.48497471213
+			2.98396658897 0.36443486810 0.59621798992
+			2.98396658897 0.19560828805 0.66614806652
+			2.98396658897 0.01443519723 0.68999993801
+			2.98396635056 -0.16673824191 0.66614806652
+			2.98396658897 -0.33556482196 0.59621798992
+			2.98396658897 -0.48053961992 0.48497471213
+			2.98396658897 -0.59178292751 0.34000000358
+			2.98396658897 -0.66171300411 0.17117342353
+			2.98396658897 -0.68556499481 -0.00999990106
+			2.98396658897 -0.66171300411 -0.19117322564
+			2.98396658897 -0.59178292751 -0.36000007391
+			2.98396658897 -0.48053961992 -0.50497478247
+			2.98396658897 -0.33556482196 -0.61621779203
+			2.98396635056 -0.16673824191 -0.68614810705
+			2.98396658897 0.01443519723 -0.70999997854
+			2.98396658897 0.19560828805 -0.68614810705
+			2.98396658897 0.36443486810 -0.61621779203
+			2.98396658897 0.50940978527 -0.50497478247
+			2.98396682739 0.62065279484 -0.36000007391
+			2.98396635056 0.69058310986 -0.19117322564
+			3.48396658897 0.71443521976 -0.00999990106
+			3.48396658897 0.69058287144 0.17117342353
+			3.48396658897 0.62065255642 0.34000000358
+			3.48396658897 0.50940978527 0.48497471213
+			3.48396658897 0.36443486810 0.59621798992
+			3.48396658897 0.19560828805 0.66614806652
+			3.48396635056 0.01443495881 0.68999993801
+			3.48396658897 -0.16673836112 0.66614806652
+			3.48396658897 -0.33556494117 0.59621798992
+			3.48396658897 -0.48053961992 0.48497471213
+			3.48396658897 -0.59178280830 0.34000000358
+			3.48396658897 -0.66171300411 0.17117342353
+			3.48396658897 -0.68556487560 -0.00999990106
+			3.48396658897 -0.66171300411 -0.19117322564
+			3.48396658897 -0.59178280830 -0.36000007391
+			3.48396658897 -0.48053961992 -0.50497478247
+			3.48396658897 -0.33556494117 -0.61621779203
+			3.48396658897 -0.16673836112 -0.68614810705
+			3.48396635056 0.01443495881 -0.70999997854
+			3.48396658897 0.19560828805 -0.68614810705
+			3.48396658897 0.36443486810 -0.61621779203
+			3.48396658897 0.50940978527 -0.50497478247
+			3.48396658897 0.62065255642 -0.36000007391
+			3.48396658897 0.69058287144 -0.19117322564
+			3.95159530640 0.87432134151 -0.00000005960
+			3.95210742950 0.84498822689 -0.22284322977
+			3.95360851288 0.75898659229 -0.43049985170
+			3.95599651337 0.62217843533 -0.60881882906
+			3.95910835266 0.44388642907 -0.74564772844
+			3.96273279190 0.23626151681 -0.83166241646
+			3.96662187576 0.01345219743 -0.86100029945
+			3.97051095963 -0.20935724676 -0.83166241646
+			3.97413492203 -0.41698226333 -0.74564772844
+			3.97724723816 -0.59527397156 -0.60881882906
+			3.97963523865 -0.73208224773 -0.43049985170
+			3.98113632202 -0.81808328629 -0.22284322977
+			3.98164844513 -0.84741687775 -0.00000005960
+			3.98113632202 -0.81808328629 0.22284312546
+			3.97963523865 -0.73208224773 0.43050023913
+			3.97724723816 -0.59527397156 0.60881894827
+			3.97413492203 -0.41698226333 0.74564784765
+			3.97051095963 -0.20935724676 0.83166211843
+			3.96662187576 0.01345219743 0.86100000143
+			3.96273279190 0.23626151681 0.83166211843
+			3.95910835266 0.44388642907 0.74564784765
+			3.95599651337 0.62217843533 0.60881894827
+			3.95360851288 0.75898659229 0.43050023913
+			3.95210742950 0.84498822689 0.22284312546
+			3.45448136330 0.70461952686 -0.00000005960
+			3.45489764214 0.68077123165 -0.18117338419
+			3.45611834526 0.61085164547 -0.34999996424
+			3.45805954933 0.49962535501 -0.49497467279
+			3.46058964729 0.35467258096 -0.60621768236
+			3.46353602409 0.18587175012 -0.67614823580
+			3.46669793129 0.00472583901 -0.70000010729
+			3.46985983849 -0.17641970515 -0.67614823580
+			3.47280621529 -0.34522077441 -0.60621768236
+			3.47533655167 -0.49017339945 -0.49497467279
+			3.47727775574 -0.60139954090 -0.34999996424
+			3.47849822044 -0.67131912708 -0.18117338419
+			3.47891473770 -0.69516730309 -0.00000005960
+			3.47849822044 -0.67131912708 0.18117327988
+			3.47727775574 -0.60139954090 0.35000011325
+			3.47533655167 -0.49017339945 0.49497482181
+			3.47280621529 -0.34522077441 0.60621780157
+			3.46985983849 -0.17641970515 0.67614811659
+			3.46669793129 0.00472583901 0.69999998808
+			3.46353602409 0.18587175012 0.67614811659
+			3.46058964729 0.35467258096 0.60621780157
+			3.45805954933 0.49962535501 0.49497482181
+			3.45611834526 0.61085164547 0.35000011325
+			3.45489764214 0.68077123165 0.18117327988
+		NumPolys 48
+		Polys
+			4 48 49 73 72
+			4 49 50 74 73
+			4 50 51 75 74
+			4 51 52 76 75
+			4 52 53 77 76
+			4 53 54 78 77
+			4 54 55 79 78
+			4 55 56 80 79
+			4 56 57 81 80
+			4 57 58 82 81
+			4 58 59 83 82
+			4 59 60 84 83
+			4 60 61 85 84
+			4 61 62 86 85
+			4 62 63 87 86
+			4 63 64 88 87
+			4 64 65 89 88
+			4 65 66 90 89
+			4 66 67 91 90
+			4 67 68 92 91
+			4 68 69 93 92
+			4 69 70 94 93
+			4 70 71 95 94
+			4 71 48 72 95
+			4 0 1 25 24
+			4 1 2 26 25
+			4 2 3 27 26
+			4 3 4 28 27
+			4 4 5 29 28
+			4 5 6 30 29
+			4 6 7 31 30
+			4 7 8 32 31
+			4 8 9 33 32
+			4 9 10 34 33
+			4 10 11 35 34
+			4 11 12 36 35
+			4 12 13 37 36
+			4 13 14 38 37
+			4 14 15 39 38
+			4 15 16 40 39
+			4 16 17 41 40
+			4 17 18 42 41
+			4 18 19 43 42
+			4 19 20 44 43
+			4 20 21 45 44
+			4 21 22 46 45
+			4 22 23 47 46
+			4 23 0 24 47
+	EndPolygonMesh
+# Surface: black
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable Yes
+		NumVerts 24
+		Data
+			2.98338913918 0.47672834992 0.12175740302
+			2.98338913918 0.42939057946 0.22724999487
+			2.98338890076 0.35408702493 0.31783846021
+			2.98338890076 0.25594940782 0.38734951615
+			2.98338913918 0.14166584611 0.43104600906
+			2.98338913918 0.01902427711 0.44594997168
+			2.98338913918 -0.10361705720 0.43104600906
+			2.98338913918 -0.21790049970 0.38734951615
+			2.98338913918 -0.31603810191 0.31783846021
+			2.98338913918 -0.39134189487 0.22724999487
+			2.98338913918 -0.43867954612 0.12175740302
+			2.98338913918 -0.45482558012 0.00855003297
+			2.98338913918 -0.43867954612 -0.10465750098
+			2.98338913918 -0.39134189487 -0.21014994383
+			2.98338913918 -0.31603810191 -0.30073857307
+			2.98338913918 -0.21790049970 -0.37024939060
+			2.98338913918 -0.10361705720 -0.41394591331
+			2.98338913918 0.01902427711 -0.42885005474
+			2.98338913918 0.14166584611 -0.41394591331
+			2.98338890076 0.25594940782 -0.37024939060
+			2.98338890076 0.35408702493 -0.30073857307
+			2.98338913918 0.42939057946 -0.21014994383
+			2.98338913918 0.47672834992 -0.10465750098
+			2.98338913918 0.49287429452 0.00855003297
+	EndPolygon
+EndComponent
+#
+# End of SmTower.mdl
+###########################################################
+Component Button
+# Surface: black
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 24
+		Data
+			0.88637030125 0.25000000000 -0.39647239447
+			0.84641015530 0.25000000000 -0.30000001192
+			0.78284269571 0.25000000000 -0.21715728939
+			0.69999998808 0.25000000000 -0.15358984470
+			0.60352760553 0.25000000000 -0.11362966895
+			0.50000000000 0.25000000000 -0.10000000149
+			0.39647239447 0.25000000000 -0.11362966895
+			0.30000001192 0.25000000000 -0.15358984470
+			0.21715728939 0.25000000000 -0.21715728939
+			0.15358984470 0.25000000000 -0.30000001192
+			0.11362966895 0.25000000000 -0.39647239447
+			0.10000000149 0.25000000000 -0.50000000000
+			0.11362966895 0.25000000000 -0.60352760553
+			0.15358984470 0.25000000000 -0.69999998808
+			0.21715728939 0.25000000000 -0.78284269571
+			0.30000001192 0.25000000000 -0.84641015530
+			0.39647239447 0.25000000000 -0.88637030125
+			0.50000000000 0.25000000000 -0.89999997616
+			0.60352760553 0.25000000000 -0.88637030125
+			0.69999998808 0.25000000000 -0.84641015530
+			0.78284269571 0.25000000000 -0.78284269571
+			0.84641015530 0.25000000000 -0.69999998808
+			0.88637030125 0.25000000000 -0.60352760553
+			0.89999997616 0.25000000000 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.89999997616 0.25000000000 -0.50000000000
+			0.88637030125 0.25000000000 -0.60352760553
+			0.88637030125 0.40000000596 -0.60352760553
+			0.89999997616 0.40000000596 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.88637030125 0.25000000000 -0.60352760553
+			0.84641015530 0.25000000000 -0.69999998808
+			0.84641015530 0.40000000596 -0.69999998808
+			0.88637030125 0.40000000596 -0.60352760553
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.84641015530 0.25000000000 -0.69999998808
+			0.78284269571 0.25000000000 -0.78284269571
+			0.78284269571 0.40000000596 -0.78284269571
+			0.84641015530 0.40000000596 -0.69999998808
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.78284269571 0.25000000000 -0.78284269571
+			0.69999998808 0.25000000000 -0.84641015530
+			0.69999998808 0.40000000596 -0.84641015530
+			0.78284269571 0.40000000596 -0.78284269571
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.69999998808 0.25000000000 -0.84641015530
+			0.60352760553 0.25000000000 -0.88637030125
+			0.60352760553 0.40000000596 -0.88637030125
+			0.69999998808 0.40000000596 -0.84641015530
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.60352760553 0.25000000000 -0.88637030125
+			0.50000000000 0.25000000000 -0.89999997616
+			0.50000000000 0.40000000596 -0.89999997616
+			0.60352760553 0.40000000596 -0.88637030125
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.50000000000 0.25000000000 -0.89999997616
+			0.39647239447 0.25000000000 -0.88637030125
+			0.39647239447 0.40000000596 -0.88637030125
+			0.50000000000 0.40000000596 -0.89999997616
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.39647239447 0.25000000000 -0.88637030125
+			0.30000001192 0.25000000000 -0.84641015530
+			0.30000001192 0.40000000596 -0.84641015530
+			0.39647239447 0.40000000596 -0.88637030125
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.30000001192 0.25000000000 -0.84641015530
+			0.21715728939 0.25000000000 -0.78284269571
+			0.21715728939 0.40000000596 -0.78284269571
+			0.30000001192 0.40000000596 -0.84641015530
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.21715728939 0.25000000000 -0.78284269571
+			0.15358984470 0.25000000000 -0.69999998808
+			0.15358984470 0.40000000596 -0.69999998808
+			0.21715728939 0.40000000596 -0.78284269571
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.15358984470 0.25000000000 -0.69999998808
+			0.11362966895 0.25000000000 -0.60352760553
+			0.11362966895 0.40000000596 -0.60352760553
+			0.15358984470 0.40000000596 -0.69999998808
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.11362966895 0.25000000000 -0.60352760553
+			0.10000000149 0.25000000000 -0.50000000000
+			0.10000000149 0.40000000596 -0.50000000000
+			0.11362966895 0.40000000596 -0.60352760553
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.10000000149 0.25000000000 -0.50000000000
+			0.11362966895 0.25000000000 -0.39647239447
+			0.11362966895 0.40000000596 -0.39647239447
+			0.10000000149 0.40000000596 -0.50000000000
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.11362966895 0.25000000000 -0.39647239447
+			0.15358984470 0.25000000000 -0.30000001192
+			0.15358984470 0.40000000596 -0.30000001192
+			0.11362966895 0.40000000596 -0.39647239447
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.15358984470 0.25000000000 -0.30000001192
+			0.21715728939 0.25000000000 -0.21715728939
+			0.21715728939 0.40000000596 -0.21715728939
+			0.15358984470 0.40000000596 -0.30000001192
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.21715728939 0.25000000000 -0.21715728939
+			0.30000001192 0.25000000000 -0.15358984470
+			0.30000001192 0.40000000596 -0.15358984470
+			0.21715728939 0.40000000596 -0.21715728939
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.30000001192 0.25000000000 -0.15358984470
+			0.39647239447 0.25000000000 -0.11362966895
+			0.39647239447 0.40000000596 -0.11362966895
+			0.30000001192 0.40000000596 -0.15358984470
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.39647239447 0.25000000000 -0.11362966895
+			0.50000000000 0.25000000000 -0.10000000149
+			0.50000000000 0.40000000596 -0.10000000149
+			0.39647239447 0.40000000596 -0.11362966895
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.50000000000 0.25000000000 -0.10000000149
+			0.60352760553 0.25000000000 -0.11362966895
+			0.60352760553 0.40000000596 -0.11362966895
+			0.50000000000 0.40000000596 -0.10000000149
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.60352760553 0.25000000000 -0.11362966895
+			0.69999998808 0.25000000000 -0.15358984470
+			0.69999998808 0.40000000596 -0.15358984470
+			0.60352760553 0.40000000596 -0.11362966895
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.69999998808 0.25000000000 -0.15358984470
+			0.78284269571 0.25000000000 -0.21715728939
+			0.78284269571 0.40000000596 -0.21715728939
+			0.69999998808 0.40000000596 -0.15358984470
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.78284269571 0.25000000000 -0.21715728939
+			0.84641015530 0.25000000000 -0.30000001192
+			0.84641015530 0.40000000596 -0.30000001192
+			0.78284269571 0.40000000596 -0.21715728939
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.84641015530 0.25000000000 -0.30000001192
+			0.88637030125 0.25000000000 -0.39647239447
+			0.88637030125 0.40000000596 -0.39647239447
+			0.84641015530 0.40000000596 -0.30000001192
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 4
+		Data
+			0.88637030125 0.25000000000 -0.39647239447
+			0.89999997616 0.25000000000 -0.50000000000
+			0.89999997616 0.40000000596 -0.50000000000
+			0.88637030125 0.40000000596 -0.39647239447
+	EndPolygon
+	Polygon
+		FaceColor %000000000
+		BackfaceCullable No
+		NumVerts 24
+		Data
+			0.88637030125 0.40000000596 -0.60352760553
+			0.84641015530 0.40000000596 -0.69999998808
+			0.78284269571 0.40000000596 -0.78284269571
+			0.69999998808 0.40000000596 -0.84641015530
+			0.60352760553 0.40000000596 -0.88637030125
+			0.50000000000 0.40000000596 -0.89999997616
+			0.39647239447 0.40000000596 -0.88637030125
+			0.30000001192 0.40000000596 -0.84641015530
+			0.21715728939 0.40000000596 -0.78284269571
+			0.15358984470 0.40000000596 -0.69999998808
+			0.11362966895 0.40000000596 -0.60352760553
+			0.10000000149 0.40000000596 -0.50000000000
+			0.11362966895 0.40000000596 -0.39647239447
+			0.15358984470 0.40000000596 -0.30000001192
+			0.21715728939 0.40000000596 -0.21715728939
+			0.30000001192 0.40000000596 -0.15358984470
+			0.39647239447 0.40000000596 -0.11362966895
+			0.50000000000 0.40000000596 -0.10000000149
+			0.60352760553 0.40000000596 -0.11362966895
+			0.69999998808 0.40000000596 -0.15358984470
+			0.78284269571 0.40000000596 -0.21715728939
+			0.84641015530 0.40000000596 -0.30000001192
+			0.88637030125 0.40000000596 -0.39647239447
+			0.89999997616 0.40000000596 -0.50000000000
+	EndPolygon
+# Surface: Default2
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			0.00000000000 0.25000000000 0.00000000000
+			0.00000000000 0.25000000000 -1.00000000000
+			0.00000000000 0.00000000000 -1.00000000000
+			0.00000000000 0.00000000000 0.00000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.00000000000 0.25000000000 0.00000000000
+			0.00000000000 0.25000000000 0.00000000000
+			0.00000000000 0.00000000000 0.00000000000
+			1.00000000000 0.00000000000 0.00000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.00000000000 0.25000000000 -1.00000000000
+			0.00000000000 0.25000000000 -1.00000000000
+			0.00000000000 0.25000000000 0.00000000000
+			1.00000000000 0.25000000000 0.00000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.00000000000 0.00000000000 -1.00000000000
+			0.00000000000 0.00000000000 -1.00000000000
+			0.00000000000 0.25000000000 -1.00000000000
+			1.00000000000 0.25000000000 -1.00000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.00000000000 0.00000000000 0.00000000000
+			0.00000000000 0.00000000000 0.00000000000
+			0.00000000000 0.00000000000 -1.00000000000
+			1.00000000000 0.00000000000 -1.00000000000
+	EndPolygon
+	Polygon
+		FaceColor %232232232
+		BackfaceCullable Yes
+		NumVerts 4
+		Data
+			1.00000000000 0.00000000000 -1.00000000000
+			1.00000000000 0.25000000000 -1.00000000000
+			1.00000000000 0.25000000000 0.00000000000
+			1.00000000000 0.00000000000 0.00000000000
+	EndPolygon
+EndComponent
+#
+# End of Button.mdl
+Component ButtonAssm
+	Refer
+		Component Button
+		Rotate 90 0 0
+		Translate -4 -6 9.2
+	EndRefer
+	Refer
+		Component Button
+		Rotate 90 0 0
+		Translate -2 -6 9.2
+	EndRefer
+EndComponent
+###########################################################
+Component Horn
+# Surface: dkgray-ft
+	Polygon
+		FaceColor %144144144
+		BackfaceCullable No
+		NumVerts 24
+		Data
+			0.38637033105 1.50000000000 -0.10352762043
+			0.34641015530 1.50000000000 -0.20000000298
+			0.28284272552 1.50000000000 -0.28284272552
+			0.20000000298 1.50000000000 -0.34641015530
+			0.10352762043 1.50000000000 -0.38637033105
+			0.00000000002 1.50000000000 -0.40000000596
+			-0.10352762043 1.50000000000 -0.38637033105
+			-0.20000000298 1.50000000000 -0.34641015530
+			-0.28284272552 1.50000000000 -0.28284272552
+			-0.34641015530 1.50000000000 -0.20000000298
+			-0.38637033105 1.50000000000 -0.10352762043
+			-0.40000000596 1.50000000000 -0.00000000004
+			-0.38637033105 1.50000000000 0.10352762043
+			-0.34641015530 1.50000000000 0.20000000298
+			-0.28284272552 1.50000000000 0.28284272552
+			-0.20000000298 1.50000000000 0.34641015530
+			-0.10352762043 1.50000000000 0.38637033105
+			-0.00000000005 1.50000000000 0.40000000596
+			0.10352762043 1.50000000000 0.38637033105
+			0.20000000298 1.50000000000 0.34641015530
+			0.28284272552 1.50000000000 0.28284272552
+			0.34641015530 1.50000000000 0.20000000298
+			0.38637033105 1.50000000000 0.10352762043
+			0.40000000596 1.50000000000 0.00000000000
+	EndPolygon
+# Surface: dkgray
+	PolygonMesh
+		FaceColor %144144144
+		BackfaceCullable No
+		NumVerts 25
+		Data
+			0.40000000596 1.50000000000 0.00000000000
+			0.38637033105 1.50000000000 -0.10352762043
+			0.34641015530 1.50000000000 -0.20000000298
+			0.28284272552 1.50000000000 -0.28284272552
+			0.20000000298 1.50000000000 -0.34641015530
+			0.10352762043 1.50000000000 -0.38637033105
+			0.00000000002 1.50000000000 -0.40000000596
+			-0.10352762043 1.50000000000 -0.38637033105
+			-0.20000000298 1.50000000000 -0.34641015530
+			-0.28284272552 1.50000000000 -0.28284272552
+			-0.34641015530 1.50000000000 -0.20000000298
+			-0.38637033105 1.50000000000 -0.10352762043
+			-0.40000000596 1.50000000000 -0.00000000004
+			-0.38637033105 1.50000000000 0.10352762043
+			-0.34641015530 1.50000000000 0.20000000298
+			-0.28284272552 1.50000000000 0.28284272552
+			-0.20000000298 1.50000000000 0.34641015530
+			-0.10352762043 1.50000000000 0.38637033105
+			-0.00000000005 1.50000000000 0.40000000596
+			0.10352762043 1.50000000000 0.38637033105
+			0.20000000298 1.50000000000 0.34641015530
+			0.28284272552 1.50000000000 0.28284272552
+			0.34641015530 1.50000000000 0.20000000298
+			0.38637033105 1.50000000000 0.10352762043
+			0.00000000000 0.12500000000 0.00000000000
+		NumPolys 24
+		Polys
+			3 1 0 24
+			3 2 1 24
+			3 3 2 24
+			3 4 3 24
+			3 5 4 24
+			3 6 5 24
+			3 7 6 24
+			3 8 7 24
+			3 9 8 24
+			3 10 9 24
+			3 11 10 24
+			3 12 11 24
+			3 13 12 24
+			3 14 13 24
+			3 15 14 24
+			3 16 15 24
+			3 17 16 24
+			3 18 17 24
+			3 19 18 24
+			3 20 19 24
+			3 21 20 24
+			3 22 21 24
+			3 23 22 24
+			3 0 23 24
+	EndPolygonMesh
+EndComponent
+#
+# End of Horn.mdl
+###########################################################
+Component Body
+	UniformScale 0.6
+	Refer
+		Component Horn
+		UniformScale .5
+		Translate 0 4.5 2.75
+		Rotate 90 0 0
+	EndRefer
+	Refer
+		Component ButtonAssm
+		UniformScale .5
+	EndRefer
+	Refer
+		Component SmTower
+		UniformScale .5
+		Rotate 0 -90 0
+		Translate 1.5 -2.75 3.5
+	EndRefer
+	Refer
+		Component HornSubAssm
+		UniformScale .5
+	EndRefer
+    Refer
+	Rotate 0.0 -90.0 0.0
+	Translate 0 0.0 -4.7	
+        Component PlatformAssm
+    EndRefer
+	Refer
+		Component SolarArrays
+	EndRefer
+EndComponent
+Component SolarArrays
+	Pointing SolarArrays 0 0 1
+    Refer
+		Translate -.08 -3.9 0.0
+        Component SlrPnl4DispAssm
+    EndRefer
+    Refer
+		Scale 1.0 1.0 -1.0
+		FrontfaceCCW No
+		Rotate 0.0 180.0 -180.0
+		Translate -.08 3.9 0.0
+        Component SlrPnl4DispAssm
+    EndRefer
+	Articulation SolarArrays
+		yRotate Rotate -360 0 360
+	EndArticulation
+EndComponent
+Component AsiaSat3
+	Root
+	Rotate 0 0 180
+	Refer
+	Component Body
+	EndRefer
+	Articulation asiasat3
+	xRotate Pitch -360 0 360
+	yRotate Yaw -720 0 720
+	zRotate Roll -360 0 360
+	EndArticulation
+EndComponent
+################################################################################
+#            COPYRIGHT 1995 Analytical Graphics, Inc.                          #
+#            This data is intended for use with Satellite Tool Kit (TM)        #
+#            products only.  Any other use is expressly forbidden.             #
+################################################################################
