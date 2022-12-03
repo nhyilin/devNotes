@@ -249,7 +249,7 @@ Find in Files: `Ctrl+Shift+F`
 - [mermaid画markdown流程图插件](https://www.cnblogs.com/dao0/p/4489837.html)
 - tree终端指令列出当前文件夹下文件，然后写入到md文件中，格式按代码块处理
 - [鼠标滚轮翻页速度](https://blog.csdn.net/bk_baokang/article/details/124219216)，<kbd>mouseWheelScrollSensitivity</kbd>自己显示器上设置第一个参数为0.25个人体验比较舒服
-- 选择多列快捷键： <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>鼠标中键</kbd>
+- 选择多列快捷键： <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>鼠标左键</kbd>
 
 [![top] Goto Top](#table-of-contents)
 
