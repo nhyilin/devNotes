@@ -41,7 +41,7 @@ void polyfit(const std::vector<double> &t, const std::vector<double> &v,
 
 int main() {
   // time value
-  std::vector<double> time; = {001.250012,
+  std::vector<double> time = {001.250012,
                               001.583345,
                               001.916678,
                               002.833345,
