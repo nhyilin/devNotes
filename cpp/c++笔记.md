@@ -618,7 +618,7 @@ int main()
 
 ## C++获取项目路径的两种方式
 在某些特定的条件运行时不能使用局部地址，例如ci流程等，这就要求读取文件时必需使用全局地址，但是在项目路径不定的情况下很难知道某个文件的全局地址，目前存在两种获取项目路径的方式，其中一种更适用于ci流程。
- 
+
 ### 一、Cmake传参：适用于简单场景
 在Cmake中，很容易知道项目的地址，例如
 
@@ -641,7 +641,7 @@ int main()
 `#define PROJECT_PATH "/home/type/mcamera/mcamera"`
 
 然后调用该宏即可获得项目地址。
- 
+
 ### 二、从环境变量读取：适合脚本场景
 C++中自带函数`getenv`，可以读取指定的环境变量，返回`char *`。详见`std::getenv - cppreference.com`。
 
@@ -656,7 +656,7 @@ C++中自带函数`getenv`，可以读取指定的环境变量，返回`char *`�
 `char *path = getenv("resource_path");`
 
 不存在则为空。
- 
+
 组合实例代码：
 
 首先读取环境变量，如果不存在则从Cmake里读取:
@@ -674,6 +674,45 @@ std::string getResourcePath() {
   return resource_path;
 }
 ```
+## 空指针异常
+
+[微软给出的异常](https://learn.microsoft.com/en-us/visualstudio/debugger/how-can-i-debug-an-access-violation-q?view=vs-2022)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class ClassC {
+   public:
+    void printHello() {
+        cout << "hello world";
+    }
+};
+
+class ClassB {
+   public:
+    ClassC* C;
+    ClassB() {
+        C = new ClassC();
+    }
+};
+
+class ClassA {
+   public:
+    ClassB* B;
+    ClassA() {
+        // Uncomment to fix
+        // B = new ClassB();
+    }
+};
+
+int main() {
+    ClassA* A = new ClassA();
+    A->B->C->printHello();
+
+}
+```
+
 [![top] Goto Top](#table-of-contents)
 
 [top]: up.png
