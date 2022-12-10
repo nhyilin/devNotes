@@ -54,6 +54,7 @@ Xcode快捷键：[Xcode快捷键](./others/Xcode快捷键.md)
 [![top] Goto Top](#table-of-contents)
 
 ## python部分
+Python日常笔记：[Python日常笔记](./Python/Python日常笔记.md)
 
 gbk2utf-8_文件编码批处理：[gbk2utf-8.py](./Python/gbk2utf-8/main.py)
 
