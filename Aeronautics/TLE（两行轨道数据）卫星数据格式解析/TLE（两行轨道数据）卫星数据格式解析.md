@@ -1,3 +1,13 @@
+# Table of Contents
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Table of Contents](#table-of-contents-1)
+  - [两行根数格式](#两行根数格式)
+  - [首行，标题行（卫星名称）](#首行标题行卫星名称)
+  - [第一行](#第一行)
+  - [第二行](#第二行)
+  - [TLE（两行轨道数据）卫星星历中时间转换方法](#tle两行轨道数据卫星星历中时间转换方法)
+## 两行根数格式
 卫星星历的结构为三行，首行数据为卫星名称；后面两行则存储了卫星相关数据，每行69个字符，包括0～9、A～Z(大写)、空格、点和正负号。下面的示例及相关介绍参考[维基百科](https://en.wikipedia.org/wiki/Two-line_element_set)。
 
 示例：
@@ -41,3 +51,33 @@ ISS (ZARYA)
 | **8**  | 53–63 | 每天环绕地球的圈数                                                                            | 15.72125391 |
 | **9**  | 64–68 | 发射以来飞行的圈数                                                                            | 56353       |
 
+
+## TLE（两行轨道数据）卫星星历中时间转换方法
+
+对星历第一行中08264.51782528与时间格式的转换：此处用19231.87932542举例
+
+19231.87932542-->2019/8/19 21:06:13
+```c#
+DateTime datetime=Convert.ToDateTime("2000-01-01");
+double days=double.Parse(“231.87932542”);
+dateTime=datetime.Addyears(19);
+datetime=datetime.AddDays(days).AddDays(-1);
+```
+2019/8/19 21:06:13-->19231.87932542
+
+首先计算此日期是一年中的第几天：
+```c#
+DateTime  t1=Convert.ToDateTime("2019-08-19");
+int year=t1.year;
+DateTime   tbase=Convert.ToDateTime(string.Format("{0}-1-1"),year);
+TimeSpan ts=t1-tbase;
+int d=ts.Days+1;//-------------------d=231
+```
+其次计算该时刻占一天的份额：
+```c#
+int second=21*60*60+6*60+13;
+double ratio=second/24*60*60=0.87931713--计算出来有所误差
+```
+最后组合：
+
+年份+第多少天+一天的占比=19231.87931713
