@@ -20,7 +20,9 @@
 
 [Matplotlib加注释](https://blog.csdn.net/LOVEmy134611/article/details/117442614)，（其实[这个系列](https://blog.csdn.net/lovemy134611/category_10197377.html)内容都可供查询）
 
-## [python 调用其他文件函数或类及类中变量](https://blog.csdn.net/mao_hui_fei/article/details/104271763)
+## python 调用其他文件函数或类及类中变量
+
+[参考](https://blog.csdn.net/mao_hui_fei/article/details/104271763))
 
 ### B.py调用A.py的函数或类（B.py和A.py在同一个文件夹下）
 #### 调用函数：
