@@ -1,65 +1,4 @@
 
-<style type="text/css">
-    h1 { counter-reset: h2counter; }
-    h2 { counter-reset: h3counter; }
-    h3 { counter-reset: h4counter; }
-    h4 { counter-reset: h5counter; }
-    h5 { counter-reset: h6counter; }
-    h6 { }
-    h2:before {
-      counter-increment: h2counter;
-      content: counter(h2counter) ".\0000a0\0000a0";
-    }
-    h3:before {
-      counter-increment: h3counter;
-      content: counter(h2counter) "."
-                counter(h3counter) ".\0000a0\0000a0";
-    }
-    h4:before {
-      counter-increment: h4counter;
-      content: counter(h2counter) "."
-                counter(h3counter) "."
-                counter(h4counter) ".\0000a0\0000a0";
-    }
-    h5:before {
-      counter-increment: h5counter;
-      content: counter(h2counter) "."
-                counter(h3counter) "."
-                counter(h4counter) "."
-                counter(h5counter) ".\0000a0\0000a0";
-    }
-    h6:before {
-      counter-increment: h6counter;
-      content: counter(h2counter) "."
-                counter(h3counter) "."
-                counter(h4counter) "."
-                counter(h5counter) "."
-                counter(h6counter) ".\0000a0\0000a0";
-    }
-</style>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="github-markdown.css">
-<style>
-	.markdown-body {
-		box-sizing: border-box;
-		min-width: 200px;
-		max-width: 980px;
-		margin: 0 auto;
-		padding: 45px;
-	}
-
-	@media (max-width: 767px) {
-		.markdown-body {
-			padding: 15px;
-		}
-	}
-</style>
-<article class="markdown-body">
-	<h1>Unicorns</h1>
-	<p>All the things</p>
-</article>
-
 # Table of Contents
 - [Table of Contents](#table-of-contents)
   - [matplotlib](#matplotlib)
@@ -76,6 +15,9 @@
 
 [matplotlib设置散点图点的大小(pyplot散点图标记大小)](https://blog.csdn.net/weixin_39531229/article/details/110040394)
 
+[如何在 Matplotlib 中以高分辨率绘制和保存图形](https://www.delftstack.com/zh/howto/matplotlib/how-to-plot-and-save-a-graph-in-high-resolution/)
+
+[Matplotlib加注释](https://blog.csdn.net/LOVEmy134611/article/details/117442614)，（其实[这个系列](https://blog.csdn.net/lovemy134611/category_10197377.html)内容都可供查询）
 
 [python 调用其他文件函数或类及类中变量](https://blog.csdn.net/mao_hui_fei/article/details/104271763)：
 
