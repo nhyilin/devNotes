@@ -22,7 +22,7 @@
 
 ## python 调用其他文件函数或类及类中变量
 
-[参考](https://blog.csdn.net/mao_hui_fei/article/details/104271763))
+[参考](https://blog.csdn.net/mao_hui_fei/article/details/104271763)
 
 ### B.py调用A.py的函数或类（B.py和A.py在同一个文件夹下）
 #### 调用函数：
