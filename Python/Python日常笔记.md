@@ -2,9 +2,10 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
   - [matplotlib](#matplotlib)
-  - [B.py调用A.py的函数或类（B.py和A.py在同一个文件夹下）](#bpy调用apy的函数或类bpy和apy在同一个文件夹下)
-    - [调用函数：](#调用函数)
-    - [调用类：](#调用类)
+  - [python 调用其他文件函数或类及类中变量：](#python-调用其他文件函数或类及类中变量)
+    - [B.py调用A.py的函数或类（B.py和A.py在同一个文件夹下）](#bpy调用apy的函数或类bpy和apy在同一个文件夹下)
+      - [调用函数：](#调用函数)
+      - [调用类：](#调用类)
     - [B.py调用A.py类中的变量（B.py和A.py在同一个文件夹下）](#bpy调用apy类中的变量bpy和apy在同一个文件夹下)
 
 <!--more-->
@@ -19,10 +20,10 @@
 
 [Matplotlib加注释](https://blog.csdn.net/LOVEmy134611/article/details/117442614)，（其实[这个系列](https://blog.csdn.net/lovemy134611/category_10197377.html)内容都可供查询）
 
-[python 调用其他文件函数或类及类中变量](https://blog.csdn.net/mao_hui_fei/article/details/104271763)：
+## [python 调用其他文件函数或类及类中变量](https://blog.csdn.net/mao_hui_fei/article/details/104271763)：
 
-## B.py调用A.py的函数或类（B.py和A.py在同一个文件夹下）
-### 调用函数：
+### B.py调用A.py的函数或类（B.py和A.py在同一个文件夹下）
+#### 调用函数：
 A.py文件：
 ```python
 def add(x,y):  
@@ -39,7 +40,7 @@ from A import add
 add(1,2)
 ```
 
-### 调用类：
+#### 调用类：
 
 A.py文件:
 ```python
@@ -95,7 +96,7 @@ sys.path是一个列表，里面以字符串的形式存储了许多路径。
 '''  
  
 import A
- 
+
 a=A.A(2,3)
 a.add()
 ```
