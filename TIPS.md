@@ -85,8 +85,8 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
   copy /Y $(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).pdb D:\myDev\TZSatelliteSimTool\release
   ```
   `/Y`是禁止提示yes/no
-
-
+- vs中调试DLL的源码文件，在使用dll的工程中<kbd>工具</kbd>-><kbd>选项</kbd>-><kbd>调试</kbd>-><kbd>常规</kbd>->取消选择<kbd>要求源文件与原始版本完全匹配</kbd>，然后从文件夹将DLL工程的源码文件拖入vs的DLL调用软件调试页面，就可以断点调试了
+- vs全屏显示：<kbd>shift</kbd>+<kbd>alt</kbd>+<kbd>enter</kbd>，返回正常状态相同按键
 
 [![top] Goto Top](#table-of-contents)
 
@@ -237,7 +237,7 @@ Find in Files: `Ctrl+Shift+F`
 "editor.renderWhitespace": "all", //空格显示...
 "editor.tabSize": 4,//tab为四个空格
 "editor.insertSpaces": true //转为空格
-``` 
+```
 - [vscode关闭受限模式（工作区信任），启用调试等功能](https://blog.csdn.net/weixin_45755666/article/details/117877321)：`security.workspace.trust`改为`false`即可
 - 光标处的代码折叠：
   - 折叠 Ctrl+Shift+[
@@ -333,7 +333,7 @@ Find in Files: `Ctrl+Shift+F`
   export QTDIR=/home/yilin/Qt5.12.12/5.12.12
   export PATH=$QTDIR/gcc_64/bin:$PATH
   export LD_LIBRARY_PATH=$QTDIR/gcc_64/lib
-
+  
   export PATH=${PATH}:/home/yilin/env/osg_oe/bin
   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/yilin/env/osg_oe/lib
   export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/home/yilin/env/osg_oe/lib64
