@@ -19,3 +19,5 @@ macos使用C++-connector连接mysql环境配置
 
 - /usr/local/mysql-connector-c++-8.0.27/libssl.1.1.dylib
 - /usr/local/mysql-connector-c++-8.0.27/libcrypto.1.1.dylib
+
+windows版本参考[这里](https://blog.csdn.net/zxng_work/article/details/78926413)即可
