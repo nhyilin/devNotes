@@ -1,4 +1,5 @@
 from docxtpl import DocxTemplate
+import docx
 from docx import Document
 import pandas as pd
 import os
@@ -27,6 +28,21 @@ def list_dir(file_dir):
         if os.path.isfile(path):
             dir_files = os.path.join(file_dir, cur_file)
         if os.path.splitext(path)[1] == '.csv':
+            csv_file = os.path.join(file_dir, cur_file)
+            list_csv.append(csv_file)
+        if os.path.isdir(path):
+            list_dir(path)
+    return list_csv
+
+
+def list_word_dir(file_dir):
+    list_csv = []
+    dir_list = os.listdir(file_dir)
+    for cur_file in dir_list:
+        path = os.path.join(file_dir, cur_file)
+        if os.path.isfile(path):
+            dir_files = os.path.join(file_dir, cur_file)
+        if os.path.splitext(path)[1] == '.docx':
             csv_file = os.path.join(file_dir, cur_file)
             list_csv.append(csv_file)
         if os.path.isdir(path):
@@ -120,11 +136,21 @@ def DeleteBlankPages(xxx):
             paragraphs.clear()  # 清除文字，并不删除段落，run也可以,
             delete_paragraph(paragraphs)
 
+def PrintWord():
+    file = docx.Document(NEW_FILE_PATH)
+    print("段落数:" + str(len(file.paragraphs)))  # 段落数为13，每个回车隔离一段
+
+    # 输出段落编号及段落内容
+    for i in range(len(file.paragraphs)):
+        if len(file.paragraphs[i].text.replace(' ', '')) > 4:
+            print("第" + str(i) + "段的内容是：" + file.paragraphs[i].text)
+
 
 def main():
     EmptyDir(NEW_FILE_PATH)
     csv_list = list_dir(CSV_PATH)
     print("csv_fils: ", '\n', csv_list)
+
     for index in csv_list:
         FormatCSV(index)
         tpl = DocxTemplate(CURRENT_DIR + TEMPFILE)
