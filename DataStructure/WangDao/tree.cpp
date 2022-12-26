@@ -3,7 +3,7 @@
 //
 #include "tree.h"
 
-#include "StdAfx.h"
+#include "../StdAfx.h"
 namespace tree {
 #define Elemtype int
 #define MaxSize 10

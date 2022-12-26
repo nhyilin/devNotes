@@ -6,6 +6,6 @@
 #define DATASTRUCTURE_STRUCTS_H
 
 //*************所有数据类型*************//
-#include "StdAfx.h"
+#include "../StdAfx.h"
 
 #endif //DATASTRUCTURE_STRUCTS_H

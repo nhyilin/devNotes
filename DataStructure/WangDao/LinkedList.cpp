@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../StdAfx.h"
 #include "Structs.h"
 namespace list {
 namespace ordered_list {
