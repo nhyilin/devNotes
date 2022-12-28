@@ -1,13 +1,25 @@
+# -*- coding : utf-8-*-
 from docxtpl import DocxTemplate
 import docx
-from docx import Document
 import pandas as pd
 import os
+import csv
+import numpy as np
+from docx.oxml.ns import nsdecls
+from docx.oxml import parse_xml
+from docx import Document
+from docx.shared import Pt
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
 CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
 TEMPFILE = "情报要报.docx"
 CSV_PATH = os.getcwd() + "/data/"
 NEW_FILE_PATH = os.getcwd() + "/new/"
+
+
+def move_table_after(table, paragraph):
+    tbl, p = table._tbl, paragraph._p
+    p.addnext(tbl)
 
 
 def mkdir(path):
@@ -76,8 +88,8 @@ def ReFormatColumn(data, number, textContent, row, key):
         data += str(number[i])
         data += '. '
         data += ' '
-        data += textContent[i]
-        data += '\n'
+        data += textContent[i].replace("xAyBzC01", "\n    ")
+        data += '\n    '
     return makeDic(key, data)
 
 
@@ -86,10 +98,11 @@ def FormatCSV(csvfile):
     DIC = dict()
 
     global time
-    data = pd.read_csv(csvfile, encoding='gbk')
+    data = pd.read_csv(csvfile)
+    # encoding = 'gbk'
     time = data["Time"]
-    rerange = data["期号"]
-    number = data["条目编号"]
+    rerange = data["Issue"]
+    number = data["Item"]
     Type = data["Type"]
     Importance = data["Importance"]
     Brief = data["Brief"]
@@ -136,6 +149,7 @@ def DeleteBlankPages(xxx):
             paragraphs.clear()  # 清除文字，并不删除段落，run也可以,
             delete_paragraph(paragraphs)
 
+
 def PrintWord():
     file = docx.Document(NEW_FILE_PATH)
     print("段落数:" + str(len(file.paragraphs)))  # 段落数为13，每个回车隔离一段
@@ -144,6 +158,104 @@ def PrintWord():
     for i in range(len(file.paragraphs)):
         if len(file.paragraphs[i].text.replace(' ', '')) > 4:
             print("第" + str(i) + "段的内容是：" + file.paragraphs[i].text)
+
+
+def translate(str, old, new):
+    str.replace(old, new)
+
+
+def AddTable(wordFile, csvFile, latestFileName):
+    """
+    wordFile：要添加表格的word
+    csvFile：要添加的表格
+    latestFileName：最终生成的word文件的名称
+    """
+
+    index = 0
+    for csvFile in csvFile:
+        if not csvFile:
+            continue
+        if len(csvFile) == 0:
+            continue
+        if csvFile[1] == "t":
+            continue
+
+        doc = docx.Document(wordFile)
+        csvFile = csvFile[1:]
+
+        with open(csvFile) as f:
+            f_csv = csv.DictReader(f)
+            ROWS = 0
+            csvKeyInotList = []
+            csvValueInotList = []
+            for row in f_csv:
+                # csv行数，此系数极为重要
+                ROWS = ROWS + 1
+                for key, value in row.items():
+                    csvKeyInotList.append(key)
+                    csvValueInotList.append(value)
+        del csvKeyInotList[11:]
+        csvKeyInotList = np.array(csvKeyInotList)
+        csvValueInotList = np.array(csvValueInotList).reshape(ROWS, 11)
+
+        table = doc.add_table(rows=ROWS + 1, cols=11, style='Table Grid')
+        table.autofit = True
+        table_header = table.rows[0].cells
+
+        for col_x in range(0, 11):
+            table_header[col_x].text = csvKeyInotList[col_x]
+        for row in range(1, ROWS + 1):
+            for col_y in range(0, 11):
+                table_x = table.rows[row].cells
+                table_x[col_y].text = csvValueInotList[row - 1][col_y]
+
+        # 首行灰色
+        rows = table.rows[0]
+        for cell in rows.cells:
+            shading_elm = parse_xml(r'<w:shd {} w:fill="D9D9D9"/>'.format(nsdecls('w')))
+            cell._tc.get_or_add_tcPr().append(shading_elm)
+
+        # print("段落数:" + str(len(doc.paragraphs)))
+        # print(doc.paragraphs[0])
+        # 此处doc.paragraphs[]为经验值，试出来的
+
+        # move_table_after函数极为重要，提供将新建的table移动到哪里的功能
+        move_table_after(table, doc.paragraphs[11 + index])
+
+        table_headers = doc.add_table(1, cols=1)
+        cell = table_headers.cell(0, 0)
+        cell.line_spacing = 0.5
+
+        table_name = ""
+        if csvFile[29] == "1":
+            table_name = "卫星轨道降低幅度较大的统计"
+        elif csvFile[29] == "2":
+            table_name = "卫星轨道降低幅度较小的统计"
+        elif csvFile[29] == "3":
+            table_name = "卫星轨道升高幅度较小的统计"
+        else:
+            "卫星轨道升高幅度较大的统计"
+
+        cell.paragraphs[0].add_run("附表 " + str(index + 1) + table_name).bold = True
+        cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER  # 水平居中
+
+        move_table_after(table_headers, doc.paragraphs[11 + index])
+
+        index = index + 1
+        DeleteBlankPages(latestFileName)
+
+        doc.save(latestFileName)
+
+
+def getTargetFile(file):
+    # 获取要添加的csv文件
+    csvList = []
+    with open(file) as f:
+        csvList = []
+        f_csv = csv.DictReader(f)
+        for key in f_csv:
+            csvList.append(key["SourceUri"])
+        return csvList
 
 
 def main():
@@ -156,6 +268,12 @@ def main():
         tpl = DocxTemplate(CURRENT_DIR + TEMPFILE)
         tpl.render(DIC)  # 渲染替换
         tpl.save(NEW_FILE_PATH + r"{}.docx".format(time[0]))
+
+        # 添加table，第一个参数为word文档，第二个参数为对应解析出来的csv文件
+        print(index)
+        AddTable(NEW_FILE_PATH + r"{}.docx".format(time[0]), getTargetFile(index),
+                 NEW_FILE_PATH + r"{}.docx".format(time[0]))
+
         print("Newly generated files： ", NEW_FILE_PATH + r"{}.docx".format(time[0]))
         DeleteBlankPages(NEW_FILE_PATH + r"{}.docx".format(time[0]))
 
