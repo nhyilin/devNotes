@@ -31,7 +31,19 @@ int main() {
     std::cout << "// 4\n";
     double list01[] = {1.2, 2.1, 3.4, 5.4};
     double list02[] = {9.2, 2.7, 1.4, 0.4};
-    std::cout << "sum: " << inner_prodcut(list01, list02, 4)<<std::endl;
+    std::cout << "sum: " << inner_prodcut(list01, list02, 4) << std::endl;
     std::cout << "**************\n";
 
+    // 6
+    std::cout << "// 6\n";
+    std::cout << "is_sorted: " << is_sorted(list01, 4) << std::endl;
+    std::cout << "is_sorted: " << is_sorted(list02, 4) << std::endl;
+    std::cout << "**************\n";
+
+    //7
+    std::cout << "// 7\n";
+    double list01_7[] = {1.2, 2.1, 3.4, 5.4};
+    double list02_7[] = {1.2, 2.12, 3.4, 5.5};
+    std::cout << "first mismatch element: " << mismatch(list01_7,list02_7, 4) << std::endl;
+    std::cout << "**************\n";
 }

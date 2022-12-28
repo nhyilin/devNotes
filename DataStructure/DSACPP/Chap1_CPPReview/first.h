@@ -44,6 +44,26 @@ void iota(T* a, int n,
     for (int i = 0; i < n; i++) a[i] += value;
 }
 
-//6
-is_sorted
+// 6
+template <class T>
+bool is_sorted(const T& list, int max) {
+    for (int i = 0; i < max - 1; i++) {
+        if (list[i] < list[i + 1])
+            continue;
+        else
+            return false;
+    }
+    return true;
+}
+
+// 7
+template <class T>
+int mismatch(const T& list_a, const T& list_b, int max) {
+    for (int i = 0; i < max; ++i) {
+        if (list_a[i] == list_b[i]) {
+            continue;
+        } else
+            return i + 1;
+    }
+}
 #endif  // DATASTRUCTURE_DSACPP_CHAP1_CPPREVIEW_FIRST_H_
