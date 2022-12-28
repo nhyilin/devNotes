@@ -1,15 +1,11 @@
 # Import docx NOT python-docx
 import docx
 
-
 def move_table_after(table, paragraph):
     tbl, p = table._tbl, paragraph._p
     p.addnext(tbl)
 
-
-# paragraph = paragraph_to_precede_new_table  # however you get this paragraph
-# table = document.add_table(...)
-# move_table_after(table, paragraph)
+dict = {'name': 'Zara', 'age': 7, 'class': 'First'}
 
 def main():
     # /Users/peiyilin/dev/devNotes/Python/GenerateDOCX/test/表格生成测试.docx
@@ -50,12 +46,12 @@ def main():
     doc.add_paragraph('')
     # Now save the document to a location
 
-
     print("段落数:" + str(len(doc.paragraphs)))
     print(doc.paragraphs[0])
-    move_table_after(table, doc.paragraphs[5])
+    move_table_after(table, doc.paragraphs[20])
 
     doc.save('gfg.docx')
+
 
 if __name__ == "__main__":
     main()
