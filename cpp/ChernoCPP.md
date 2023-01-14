@@ -1,148 +1,148 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
 - [Cherno c++](#cherno-c)
-  - [07. How the C++ Linker Works](#07-how-the-c-linker-works)
-  - [08. Variables in C++](#08-variables-in-c)
-  - [10. C++ Header Files](#10-c-header-files)
-  - [11. How to DEBUG C++ in VISUAL STUDIO.mp4](#11-how-to-debug-c-in-visual-studiomp4)
-  - [12. CONDITIONS and BRANCHES in C++ (if statements)](#12-conditions-and-branches-in-c-if-statements)
-  - [13. BEST Visual Studio Setup for C++ Projects!](#13-best-visual-studio-setup-for-c-projects)
-  - [14. Loops in C++ (for loops, while loops)](#14-loops-in-c-for-loops-while-loops)
-  - [15. Control Flow in C++ (continue, break, return)](#15-control-flow-in-c-continue-break-return)
-  - [16. POINTERS in C++](#16-pointers-in-c)
-  - [17. REFERENCES in C++](#17-references-in-c)
-  - [18. CLASSES in C++](#18-classes-in-c)
-  - [19. CLASSES vs STRUCTS in C++](#19-classes-vs-structs-in-c)
-  - [20. How to Write a C++ Class](#20-how-to-write-a-c-class)
-  - [21. Static in C++](#21-static-in-c)
-  - [22. Static for Classes and Structs in C++](#22-static-for-classes-and-structs-in-c)
-  - [23. Local Static in C++](#23-local-static-in-c)
-  - [24. ENUMS in C++](#24-enums-in-c)
-  - [25. Constructors in C++](#25-constructors-in-c)
-  - [26. Destructors in C++](#26-destructors-in-c)
-  - [27. Inheritance in C++](#27-inheritance-in-c)
-  - [28. Virtual Functions in C++](#28-virtual-functions-in-c)
-  - [29. Interfaces in C++ (Pure Virtual Functions)](#29-interfaces-in-c-pure-virtual-functions)
-  - [30. Visibility in C++](#30-visibility-in-c)
-  - [31. Arrays in C++](#31-arrays-in-c)
-  - [32. How Strings Work in C++ (and how to use them)](#32-how-strings-work-in-c-and-how-to-use-them)
-  - [33. String Literals in C++](#33-string-literals-in-c)
-  - [34. CONST in C++](#34-const-in-c)
-  - [35. The Mutable Keyword in C++](#35-the-mutable-keyword-in-c)
-  - [36. Member Initializer Lists in C++ (Constructor Initializer List)](#36-member-initializer-lists-in-c-constructor-initializer-list)
-  - [37. Ternary Operators in C++ (Conditional Assignment)](#37-ternary-operators-in-c-conditional-assignment)
-  - [38. How to CREATE INSTANTIATE OBJECTS in C++](#38-how-to-create-instantiate-objects-in-c)
-  - [39. The NEW Keyword in C++](#39-the-new-keyword-in-c)
-  - [40. Implicit Conversion and the Explicit Keyword in C++](#40-implicit-conversion-and-the-explicit-keyword-in-c)
-  - [41. OPERATORS and OPERATOR OVERLOADING in C++](#41-operators-and-operator-overloading-in-c)
-  - [42. The 'this' keyword in C++](#42-the-this-keyword-in-c)
-  - [43. Object Lifetime in C++ (Stack Scope Lifetimes)](#43-object-lifetime-in-c-stack-scope-lifetimes)
-  - [44. SMART POINTERS in C++ (std  unique_ptr, std  shared_ptr, std  weak_ptr)](#44-smart-pointers-in-c-std--unique_ptr-std--shared_ptr-std--weak_ptr)
-  - [45. Copying and Copy Constructors in C++](#45-copying-and-copy-constructors-in-c)
-  - [46. The Arrow Operator in C++](#46-the-arrow-operator-in-c)
-  - [47. Dynamic Arrays in C++ (std  vector)](#47-dynamic-arrays-in-c-std--vector)
-  - [48. Optimizing the usage of std  vector in C++](#48-optimizing-the-usage-of-std--vector-in-c)
-  - [49. Using Libraries in C++ (Static Linking)](#49-using-libraries-in-c-static-linking)
-  - [50. Using Dynamic Libraries in C++](#50-using-dynamic-libraries-in-c)
-  - [51. Making and Working with Libraries in C++ (Multiple Projects in Visual Studio](#51-making-and-working-with-libraries-in-c-multiple-projects-in-visual-studio)
-  - [52. How to Deal with Multiple Return Values in C++](#52-how-to-deal-with-multiple-return-values-in-c)
-  - [53. Templates in C++](#53-templates-in-c)
-  - [54. Stack vs Heap Memory in C++](#54-stack-vs-heap-memory-in-c)
-  - [55. Macros in C++](#55-macros-in-c)
-  - [56. The 'auto' keyword in C++](#56-the-auto-keyword-in-c)
-  - [57. Static Arrays in C++ (std  array)](#57-static-arrays-in-c-std--array)
-  - [58. Function Pointers in C++](#58-function-pointers-in-c)
-  - [59. Lambdas in C++](#59-lambdas-in-c)
-  - [60. Why I don't 'using namespace std'](#60-why-i-dont-using-namespace-std)
-  - [61. Namespaces in C++](#61-namespaces-in-c)
-  - [62. Threads in C++](#62-threads-in-c)
-  - [63. Timing in C++.](#63-timing-in-c)
-  - [64. Multidimensional Arrays in C++ (2D arrays)](#64-multidimensional-arrays-in-c-2d-arrays)
-  - [65. Sorting in C++](#65-sorting-in-c)
-  - [66. Type Punning in C++](#66-type-punning-in-c)
-  - [67. Unions in C++](#67-unions-in-c)
-  - [68. Virtual Destructors in C++](#68-virtual-destructors-in-c)
-  - [69. Casting in C++](#69-casting-in-c)
-  - [70. Conditional and Action Breakpoints in C++](#70-conditional-and-action-breakpoints-in-c)
-  - [71. Safety in modern C++ and how to teach it](#71-safety-in-modern-c-and-how-to-teach-it)
-  - [72. Precompiled Headers in C++](#72-precompiled-headers-in-c)
-  - [73. Dynamic Casting in C++](#73-dynamic-casting-in-c)
-  - [74. BENCHMARKING in C++ (how to measure performance)](#74-benchmarking-in-c-how-to-measure-performance)
-  - [75. STRUCTURED BINDINGS in C++](#75-structured-bindings-in-c)
-  - [76. How to Deal with OPTIONAL Data in C++](#76-how-to-deal-with-optional-data-in-c)
-  - [77. Multiple TYPES of Data in a SINGLE VARIABLE in C++](#77-multiple-types-of-data-in-a-single-variable-in-c)
-  - [78. How to store ANY data in C++.mp4](#78-how-to-store-any-data-in-cmp4)
-  - [79. How to make C++ run FASTER (with std  async)](#79-how-to-make-c-run-faster-with-std--async)
-  - [80. How to make your STRINGS FASTER in C++!](#80-how-to-make-your-strings-faster-in-c)
-  - [81. VISUAL BENCHMARKING in C++ (how to measure performance visually)](#81-visual-benchmarking-in-c-how-to-measure-performance-visually)
-  - [82. SINGLETONS in C++](#82-singletons-in-c)
-  - [83. Small String Optimization in C++](#83-small-string-optimization-in-c)
-  - [84. Track MEMORY ALLOCATIONS the Easy Way in C++](#84-track-memory-allocations-the-easy-way-in-c)
-  - [85. lvalues and rvalues in C++](#85-lvalues-and-rvalues-in-c)
-  - [86. Continuous Integration in C++](#86-continuous-integration-in-c)
-  - [87. Static Analysis in C++](#87-static-analysis-in-c)
-  - [88. Argument Evaluation Order in C++](#88-argument-evaluation-order-in-c)
-  - [89. Move Semantics in C++](#89-move-semantics-in-c)
-  - [90. std  move and the Move Assignment Operator in C++](#90-std--move-and-the-move-assignment-operator-in-c)
+  - [【7】C++链接器是如何工作的](#7c链接器是如何工作的)
+  - [【8】C++变量](#8c变量)
+  - [【10】C++头文件](#10c头文件)
+  - [【11】如何在Visual Studio中调试代码](#11如何在visual-studio中调试代码)
+  - [【12】C++条件与分支（if语句）](#12c条件与分支if语句)
+  - [【13】Visual Studio的最佳设置](#13visual-studio的最佳设置)
+  - [【14】C++循环（for 、while）](#14c循环for-while)
+  - [【15】C++控制流语句（continue, break, return）](#15c控制流语句continue-break-return)
+  - [【16】C++指针](#16c指针)
+  - [【17】C++引用](#17c引用)
+  - [【18】C++类](#18c类)
+  - [【19】C++类与结构体对比](#19c类与结构体对比)
+  - [【20】如何写一个C++类](#20如何写一个c类)
+  - [【21】C++中的静态（static）](#21c中的静态static)
+  - [【22】C++类和结构体中的静态（static）](#22c类和结构体中的静态static)
+  - [【23】C++中的局部静态（Local Static）](#23c中的局部静态local-static)
+  - [【24】C++枚举](#24c枚举)
+  - [【25】C++构造函数](#25c构造函数)
+  - [【26】C++析构函数](#26c析构函数)
+  - [【27】C++继承](#27c继承)
+  - [【28】C++虚函数](#28c虚函数)
+  - [【29】C++接口（纯虚函数）](#29c接口纯虚函数)
+  - [【30】C++可见性](#30c可见性)
+  - [【31】C++数组](#31c数组)
+  - [【32】C++字符串](#32c字符串)
+  - [【33】C++字符串字面量](#33c字符串字面量)
+  - [【34】C++中的CONST](#34c中的const)
+  - [【35】C++的mutable关键字](#35c的mutable关键字)
+  - [【36】C++的成员初始化列表](#36c的成员初始化列表)
+  - [【37】C++的三元操作符](#37c的三元操作符)
+  - [【38】 创建并初始化C++对象](#38-创建并初始化c对象)
+  - [【39】 C++ new关键字](#39-c-new关键字)
+  - [【40】 C++隐式转换与explicit关键字](#40-c隐式转换与explicit关键字)
+  - [【41】C++运算符及其重载](#41c运算符及其重载)
+  - [【42】C++的this关键字](#42c的this关键字)
+  - [【43】C++的对象生存期（栈作用域生存期）](#43c的对象生存期栈作用域生存期)
+  - [【44】C++的智能指针](#44c的智能指针)
+  - [【45】C++的复制与拷贝构造函数](#45c的复制与拷贝构造函数)
+  - [【46】C++的箭头操作符](#46c的箭头操作符)
+  - [【47】C++的动态数组（std--vector）](#47c的动态数组std--vector)
+  - [【48】C++的stdvector使用优化](#48c的stdvector使用优化)
+  - [【49】C++中使用库（静态链接）](#49c中使用库静态链接)
+  - [【50】C++中使用动态库](#50c中使用动态库)
+  - [【51】C++中创建与使用库（VisualStudio多项目）](#51c中创建与使用库visualstudio多项目)
+  - [【52】C++中如何处理多返回值](#52c中如何处理多返回值)
+  - [【53】C++的模板](#53c的模板)
+  - [【54】C++的堆与栈内存的比较](#54c的堆与栈内存的比较)
+  - [【55】C++的宏](#55c的宏)
+  - [【56】C++的auto关键字](#56c的auto关键字)
+  - [【57】C++的静态数组（std array)](#57c的静态数组std-array)
+  - [【58】C++的函数指针](#58c的函数指针)
+  - [【59】C++的lambda](#59c的lambda)
+  - [【60】为什么我不使用using namespace std](#60为什么我不使用using-namespace-std)
+  - [【61】C++的名称空间](#61c的名称空间)
+  - [【62】C++的线程](#62c的线程)
+  - [【63】C++的计时](#63c的计时)
+  - [【64】C++多维数组](#64c多维数组)
+  - [【65】C++的排序](#65c的排序)
+  - [【66】C++的类型双关](#66c的类型双关)
+  - [【67】C++的联合体](#67c的联合体)
+  - [【68】C++的虚析构函数](#68c的虚析构函数)
+  - [【69】C++的类型转换](#69c的类型转换)
+  - [【70】条件与操作断点](#70条件与操作断点)
+  - [【71】现代C++中的安全以及如何教授](#71现代c中的安全以及如何教授)
+  - [【72】C++的预编译头文件](#72c的预编译头文件)
+  - [【73】C++的dynamic\_cast](#73c的dynamic_cast)
+  - [【74】C++的基准测试](#74c的基准测试)
+  - [【75】C++的结构化绑定](#75c的结构化绑定)
+  - [【76】如何处理OPTIONAL数据](#76如何处理optional数据)
+  - [【77】单一变量存放多类型的数据](#77单一变量存放多类型的数据)
+  - [【78】如何存储任意类型的数据](#78如何存储任意类型的数据)
+  - [【79】如何让C++运行得更快](#79如何让c运行得更快)
+  - [【80】如何让C++字符串更快](#80如何让c字符串更快)
+  - [【81】C++的可视化基准测试](#81c的可视化基准测试)
+  - [【82】C++的单例模式](#82c的单例模式)
+  - [【83】C++的小字符串优化](#83c的小字符串优化)
+  - [【84】跟踪内存分配的简单方法](#84跟踪内存分配的简单方法)
+  - [【85】C++的左值与右值](#85c的左值与右值)
+  - [【86】C++持续集成](#86c持续集成)
+  - [【87】C++静态分析](#87c静态分析)
+  - [【88】C++的参数计算顺序](#88c的参数计算顺序)
+  - [【89】C++移动语义](#89c移动语义)
+  - [【90】stdmove与移动赋值操作符](#90stdmove与移动赋值操作符)
   - [91. ARRAY - Making DATA STRUCTURES in C++](#91-array---making-data-structures-in-c)
   - [92. VECTOR DYNAMIC ARRAY -  Making DATA STRUCTURES in C++](#92-vector-dynamic-array----making-data-structures-in-c)
   - [93. ITERATORS in C++](#93-iterators-in-c)
   - [94. Writing an ITERATOR in C++](#94-writing-an-iterator-in-c)
   - [95. How to REALLY learn C++](#95-how-to-really-learn-c)
 - [清华郑莉](#清华郑莉)
-  - [46_constexpr函数](#46_constexpr函数)
-  - [47_带默认参数值的函数](#47_带默认参数值的函数)
-  - [49_函数重载](#49_函数重载)
-  - [50_c++系统函数](#50_c系统函数)
-  - [55_面向对象程序设计的基本特点](#55_面向对象程序设计的基本特点)
-  - [58_构造函数基本概念](#58_构造函数基本概念)
-  - [61_委托构造函数](#61_委托构造函数)
-  - [62_复制构造函数](#62_复制构造函数)
-  - [65_类的组合](#65_类的组合)
-  - [70_联合体](#70_联合体)
-  - [71_枚举类](#71_枚举类)
-  - [76_标识符的作用域与可见性](#76_标识符的作用域与可见性)
-  - [77_对象的生存期](#77_对象的生存期)
-  - [80_类的友元](#80_类的友元)
-  - [81_共享数据的保护](#81_共享数据的保护)
-  - [91_基于范围的for循环](#91_基于范围的for循环)
-  - [93_指针变量的初始化和赋值](#93_指针变量的初始化和赋值)
-  - [97_指针数组](#97_指针数组)
-  - [98_以指针作为函数参数](#98_以指针作为函数参数)
-  - [99_指针类型的函数](#99_指针类型的函数)
-  - [100_指向函数的指针](#100_指向函数的指针)
-  - [101_对象指针](#101_对象指针)
-  - [102_动态分配与释放内存](#102_动态分配与释放内存)
-  - [103_申请和释放动态数组01](#103_申请和释放动态数组01)
-  - [104_申请和释放动态数组02](#104_申请和释放动态数组02)
-  - [105_智能指针](#105_智能指针)
-  - [106_vector对象](#106_vector对象)
-  - [108_移动构造](#108_移动构造)
-  - [109_c风格字符串](#109_c风格字符串)
-  - [110_string类](#110_string类)
-  - [116_继承的基本概念和语法](#116_继承的基本概念和语法)
-  - [117_继承方式简介及公有继承](#117_继承方式简介及公有继承)
-  - [118_私有继承和保护继承](#118_私有继承和保护继承)
-  - [119_基类与派生类类型转换](#119_基类与派生类类型转换)
-  - [120_派生类的构造函数](#120_派生类的构造函数)
-  - [122_派生类的复制构造函数](#122_派生类的复制构造函数)
-  - [123_派生类的析构函数](#123_派生类的析构函数)
-  - [124_访问从基类继承的成员](#124_访问从基类继承的成员)
-  - [125_虚基类](#125_虚基类)
-  - [130_运算符重载的规则](#130_运算符重载的规则)
-  - [131_双目运算符重载为成员函数](#131_双目运算符重载为成员函数)
-  - [134_虚函数](#134_虚函数)
-  - [136_虚函数与动态绑定](#136_虚函数与动态绑定)
-  - [137_抽象类](#137_抽象类)
-  - [138_override与final](#138_override与final)
-  - [161_范性程序设计的基本概念](#161_范性程序设计的基本概念)
-  - [162_STL简介](#162_stl简介)
-  - [163_迭代器](#163_迭代器)
+  - [46\_constexpr函数](#46_constexpr函数)
+  - [47\_带默认参数值的函数](#47_带默认参数值的函数)
+  - [49\_函数重载](#49_函数重载)
+  - [50\_c++系统函数](#50_c系统函数)
+  - [55\_面向对象程序设计的基本特点](#55_面向对象程序设计的基本特点)
+  - [58\_构造函数基本概念](#58_构造函数基本概念)
+  - [61\_委托构造函数](#61_委托构造函数)
+  - [62\_复制构造函数](#62_复制构造函数)
+  - [65\_类的组合](#65_类的组合)
+  - [70\_联合体](#70_联合体)
+  - [71\_枚举类](#71_枚举类)
+  - [76\_标识符的作用域与可见性](#76_标识符的作用域与可见性)
+  - [77\_对象的生存期](#77_对象的生存期)
+  - [80\_类的友元](#80_类的友元)
+  - [81\_共享数据的保护](#81_共享数据的保护)
+  - [91\_基于范围的for循环](#91_基于范围的for循环)
+  - [93\_指针变量的初始化和赋值](#93_指针变量的初始化和赋值)
+  - [97\_指针数组](#97_指针数组)
+  - [98\_以指针作为函数参数](#98_以指针作为函数参数)
+  - [99\_指针类型的函数](#99_指针类型的函数)
+  - [100\_指向函数的指针](#100_指向函数的指针)
+  - [101\_对象指针](#101_对象指针)
+  - [102\_动态分配与释放内存](#102_动态分配与释放内存)
+  - [103\_申请和释放动态数组01](#103_申请和释放动态数组01)
+  - [104\_申请和释放动态数组02](#104_申请和释放动态数组02)
+  - [105\_智能指针](#105_智能指针)
+  - [106\_vector对象](#106_vector对象)
+  - [108\_移动构造](#108_移动构造)
+  - [109\_c风格字符串](#109_c风格字符串)
+  - [110\_string类](#110_string类)
+  - [116\_继承的基本概念和语法](#116_继承的基本概念和语法)
+  - [117\_继承方式简介及公有继承](#117_继承方式简介及公有继承)
+  - [118\_私有继承和保护继承](#118_私有继承和保护继承)
+  - [119\_基类与派生类类型转换](#119_基类与派生类类型转换)
+  - [120\_派生类的构造函数](#120_派生类的构造函数)
+  - [122\_派生类的复制构造函数](#122_派生类的复制构造函数)
+  - [123\_派生类的析构函数](#123_派生类的析构函数)
+  - [124\_访问从基类继承的成员](#124_访问从基类继承的成员)
+  - [125\_虚基类](#125_虚基类)
+  - [130\_运算符重载的规则](#130_运算符重载的规则)
+  - [131\_双目运算符重载为成员函数](#131_双目运算符重载为成员函数)
+  - [134\_虚函数](#134_虚函数)
+  - [136\_虚函数与动态绑定](#136_虚函数与动态绑定)
+  - [137\_抽象类](#137_抽象类)
+  - [138\_override与final](#138_override与final)
+  - [161\_范性程序设计的基本概念](#161_范性程序设计的基本概念)
+  - [162\_STL简介](#162_stl简介)
+  - [163\_迭代器](#163_迭代器)
   - [STL库另作篇章，在此部分不再详谈。](#stl库另作篇章在此部分不再详谈)
-  - [179_I/O流的概念及流类库结构](#179_io流的概念及流类库结构)
-  - [192_异常处理的思想与程序实现](#192_异常处理的思想与程序实现)
-  - [193_异常处理中的构造与析构](#193_异常处理中的构造与析构)
-  - [194_标准程序库异常处理](#194_标准程序库异常处理)
+  - [179\_I/O流的概念及流类库结构](#179_io流的概念及流类库结构)
+  - [192\_异常处理的思想与程序实现](#192_异常处理的思想与程序实现)
+  - [193\_异常处理中的构造与析构](#193_异常处理中的构造与析构)
+  - [194\_标准程序库异常处理](#194_标准程序库异常处理)
 
 省略部分：
 01. Welcome to C++
@@ -154,7 +154,7 @@
 
 # Cherno c++
 
-## 07. How the C++ Linker Works
+## 【7】C++链接器是如何工作的
 
 链接可以简单这样理解：
 1. build阶段编译器选择相信代码全部正确，所有声明的函数都在某处可找到
@@ -236,7 +236,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 08. Variables in C++
+## 【8】C++变量
 
 一个字节存储8位无符号数，储存的数值范围为0-255。
 数据存储是以“字节”（Byte）为单位，数据传输大多是以“位”（bit，又名“比特”）为单位，一个位就代表一个0或1（即二进制），每8个位（bit，简写为b）组成一个字节（Byte，简写为B），是最小一级的信息单位
@@ -264,7 +264,7 @@ int main() {
 [![top] Goto Top](#table-of-contents)
 
 
-## 10. C++ Header Files
+## 【10】C++头文件
 
 头文件：公共位置，用来存储只是声明而不是定义，因为，请记住：我们智能在一个通用的地方来存储函数的声明。只是声明，没有实际定义，没有函数体。
 
@@ -274,7 +274,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 11. How to DEBUG C++ in VISUAL STUDIO.mp4
+## 【11】如何在Visual Studio中调试代码
 
 调试是为了读取内存，最终你要记住，电脑永远是对的。
 
@@ -284,13 +284,13 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 12. CONDITIONS and BRANCHES in C++ (if statements)
+## 【12】C++条件与分支（if语句）
 
 优化过的代码一般没有if语句，因为这样会拖慢程序
 
 [![top] Goto Top](#table-of-contents)
 
-## 13. BEST Visual Studio Setup for C++ Projects!
+## 【13】Visual Studio的最佳设置
 
 
 
@@ -305,7 +305,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 14. Loops in C++ (for loops, while loops)
+## 【14】C++循环（for 、while）
 
 for循环和while循环完全相同，选择哪个取决于是否需要变量:
 ```cpp
@@ -335,7 +335,7 @@ for循环和while循环完全相同，选择哪个取决于是否需要变量:
 
 [![top] Goto Top](#table-of-contents)
 
-## 15. Control Flow in C++ (continue, break, return)
+## 【15】C++控制流语句（continue, break, return）
 
 
 `return`效果和`break`很像，直接结束。区别是，break只会打断当前循环或函数体，但`return`则直接结束函数，例如:
@@ -356,7 +356,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 16. POINTERS in C++
+## 【16】C++指针
 
 内存在程序运行时是连续的（one big line），像是一条街道，访问内存相当于指定街道门牌号然后定点访问。
 ```cpp
@@ -374,7 +374,7 @@ btw，memory中的地址顺序为什么是相反的如：`b8 f1 02 00`实际数�
 
 [![top] Goto Top](#table-of-contents)
 
-## 17. REFERENCES in C++
+## 【17】C++引用
 
 ```cpp
 void Increment(int value) {
@@ -424,7 +424,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 18. CLASSES in C++
+## 【18】C++类
 ```cpp
 
 class Player {
@@ -457,7 +457,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 19. CLASSES vs STRUCTS in C++
+## 【19】C++类与结构体对比
 
 类和结构体唯一区别是，可见性。
 如果生硬地直接将一个`class`改为`struct`，那么这个类内私有成员直接变为共有，除非特地注明为`private`。
@@ -485,18 +485,17 @@ struct Vec2{
 
 [![top] Goto Top](#table-of-contents)
 
-## 20. How to Write a C++ Class
+## 【20】如何写一个C++类
 
 据Cherno说这个类写的很糟糕，那就不做记录了，只是比较值得学习的一点是：LogLevel，当指定某一Level时，要做筛选，不是所有Log都允许被打印出来，所谓的限制条件。
 
 [![top] Goto Top](#table-of-contents)
 
-## 21. Static in C++
+## 【21】C++中的静态（static）
 
 类外的Static，该符号的链接声明符号的链接为Internal（内部），只在定义的部分可见，类似07. How the C++ Linker Works讲的头文件。
 
-类内部的Static变量，则该变量将于该类的所有实例共享内存，在您所创建的该
-类或者是结构体中的所有实例中，只有一个实例，也就是静态变量，相同的是，仅有一个静态函数。
+类内部的Static变量，则该变量将于该类的所有实例共享内存，在您所创建的该类或者是结构体中的所有实例中，只有一个实例，也就是静态变量，相同的是，仅有一个静态函数。
 
 在这讲，指关注静态变量在类外部的含义。
 
@@ -510,7 +509,7 @@ struct Vec2{
 
 [![top] Goto Top](#table-of-contents)
 
-## 22. Static for Classes and Structs in C++
+## 【22】C++类和结构体中的静态（static）
 
 全局实例，且唯一。当修改某处的静态变量，则全局修改。
 
@@ -547,7 +546,7 @@ int main()
 ```
 注意准确写法应该是注释的两行，因为`e`和`e1`指向的实际上是同一块内存。
 
-这样使得跨类建立变量变得很容易，那么为什么不直接建立全局变量呢，区别就是将其放入实体是有意义的，如果有一条信息是需要共享的，横跨所有实体实例，或将其实际储存在实体类，因为他用于与组织目的的实体有关。此时最好建立静态变量而不是全局变量。
+这样使得跨类建立变量变得很容易，那么为什么不直接建立全局变量呢，区别就是将其放入实体是有意义的，如果有一条信息是需要共享的，横跨所有实体实例，或将其实际储存在实体类，**因为他用于与组织目的的实体有关。此时最好建立静态变量而不是全局变量。**
 
 静态函数用法类似，所以上述main函数中的`e.Print();`，实际上应该这么写`Entity::Print();`，值得注意的是，静态函数无法访问非静态变量。在类中，每个非静态函数总是获取当前实例作为参数，这是类在幕后的实际工作方式
 
@@ -557,7 +556,8 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 23. Local Static in C++
+## 【23】C++中的局部静态（Local Static）
+
 声明一个变量，要考虑两点，这就是变量的声明周期（lifetime）和变量的作用域（scope）。
 
 若静态变量不在类之内，那么这个静态变量生命周期和整个应用程序相同。
@@ -587,7 +587,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 24. ENUMS in C++
+## 【24】C++枚举
 
 当你想用整数来表示某种状态或某些数值时，它非常有用，他只是一种命名值的方法，以便代码易于阅读，不管怎么说，枚举就是整数值。
 
@@ -629,7 +629,7 @@ private:
 
 [![top] Goto Top](#table-of-contents)
 
-## 25. Constructors in C++
+## 【25】C++构造函数
 
 
 构造函数是特殊的函数，他在每次实例化对象时运行，他的作用是初始化该类，当创建一个新对象实例时，构造函数确保你初始化了所有内存，做了所有你需要的设置
@@ -638,13 +638,13 @@ private:
 
 [![top] Goto Top](#table-of-contents)
 
-## 26. Destructors in C++
+## 【26】C++析构函数
 
 如果在构造函数中调用了特定的初始化代码，你需要在析构函数中删除这些东西，否则会造成内存泄漏。一个很好的例子是在堆上分配的对象，如果您已经在堆上分配了任何类型的内存，那么需要手动清理。如果在类中使用或者构造分配了内存，你可能需要在析构函数中删除他们。
 
 [![top] Goto Top](#table-of-contents)
 
-## 27. Inheritance in C++
+## 【27】C++继承
 `class SubClass : public SperClass`
 
 他继承允许我们有一个相互关联的类的层次结构，换句话说就是允许我们有一个包含公共功能的基类，为的是防止我们写重复代码。
@@ -655,7 +655,7 @@ btw:`std::cout<<"size of a class"<< sizeof(SubClass)<<;`，意思是打印出某
 
 [![top] Goto Top](#table-of-contents)
 
-## 28. Virtual Functions in C++
+## 【28】C++虚函数
 
 虚函数允许我们在子类中重写函数，父类中的一个函数标记为`virtual`，我们可以选择在子类中重写函数，让他做其他事情。
 
@@ -765,7 +765,7 @@ void main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 29. Interfaces in C++ (Pure Virtual Functions)
+## 【29】C++接口（纯虚函数）
 
 接口只是c++的类罢了
 
@@ -851,7 +851,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 30. Visibility in C++
+## 【30】C++可见性
 
 我只想提一下，可见性是对程序实际运行方式完全没有影响的东西，对程序的性能或类似的东西没有影响，纯粹语言中的东西，只是为了写出更好看的代码。
 
@@ -867,7 +867,7 @@ public继承也不可访问私有成员变量，成员函数同理。
 
 [![top] Goto Top](#table-of-contents)
 
-## 31. Arrays in C++
+## 【31】C++数组
 
 c++数组就是表示一堆的变量组成的集合
 
@@ -913,7 +913,7 @@ c++11的array比自带的好一些，包括边界检查等优化，当然他会�
 
 [![top] Goto Top](#table-of-contents)
 
-## 32. How Strings Work in C++ (and how to use them)
+## 【32】C++字符串
 
 一个字符是一个字节，这就是Ascii，也就是c++默认的文档编码。`char`就是一个字节，字符串实际就是一个字符数组。
 
@@ -984,7 +984,7 @@ void PrintString(const std::string& string)
 
 [![top] Goto Top](#table-of-contents)
 
-## 33. String Literals in C++
+## 【33】C++字符串字面量
 
 字符串字面量，是在双引号之间的一串字符
 ```cpp
@@ -1013,7 +1013,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 34. CONST in C++
+## 【34】C++中的CONST
 ```cpp
 int main()
 {
@@ -1121,7 +1121,7 @@ public:
 ```
 [![top] Goto Top](#table-of-contents)
 
-## 35. The Mutable Keyword in C++
+## 【35】C++的mutable关键字
 
 mutable：易变的
 immutable：不可改变的
@@ -1195,7 +1195,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 36. Member Initializer Lists in C++ (Constructor Initializer List)
+## 【36】C++的成员初始化列表
 
 这是构造函数中初始化类成员变量的一种方式
 
@@ -1293,7 +1293,7 @@ define with 8
 
 [![top] Goto Top](#table-of-contents)
 
-## 37. Ternary Operators in C++ (Conditional Assignment)
+## 【37】C++的三元操作符
 
 三元运算符就是一个问号一个冒号。
 
@@ -1332,7 +1332,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 38. How to CREATE INSTANTIATE OBJECTS in C++
+## 【38】 创建并初始化C++对象
 
 今天讨论如何用c++创建对象。
 
@@ -1412,7 +1412,7 @@ int main() {
 shift + alt + 上下箭头，clion上下移动选中代码
 
 
-## 39. The NEW Keyword in C++
+## 【39】 C++ new关键字
 
 `new`的主要目的是在堆上分配内存。也有`new int`的写法，占据四个字节内存，一旦分派好后，它会返回一个指向这个内存的指针，这样你就可以开始使用你的数据，并在那里存储数据，并进行读写访问，做这些有趣的事情。
 
@@ -1437,7 +1437,7 @@ _VCRT_ALLOCATOR void* __CRTDECL operator new(
 
 [![top] Goto Top](#table-of-contents)
 
-## 40. Implicit Conversion and the Explicit Keyword in C++
+## 【40】 C++隐式转换与explicit关键字
 
 `explicit`关键字。
 
@@ -1495,7 +1495,7 @@ int main()
 [![top] Goto Top](#table-of-contents)
 
 
-## 41. OPERATORS and OPERATOR OVERLOADING in C++
+## 【41】C++运算符及其重载
 
 运算符以及运算符重载。
 
@@ -1676,7 +1676,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 42. The 'this' keyword in C++
+## 【42】C++的this关键字
 
 通过`this`，我们可以访问成员函数，在函数内部我们可以引用`this`，`this`是一个指向当前对象实例的指针，该方法属于这个对象实例。
 
@@ -1760,7 +1760,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 43. Object Lifetime in C++ (Stack Scope Lifetimes)
+## 【43】C++的对象生存期（栈作用域生存期）
 
 本届讲对象的生命周期，以及对象如何在栈上生存,就是关于生存周期对于栈的变量意味着什么。所以分为两部分，一部分是你必须理解栈上的东西是如何存在的，第二步是如何利用好他。
 
@@ -1870,7 +1870,7 @@ btw:
 
 [![top] Goto Top](#table-of-contents)
 
-## 44. SMART POINTERS in C++ (std  unique_ptr, std  shared_ptr, std  weak_ptr)
+## 【44】C++的智能指针
 
 智能指针是实现上一节自动删除`new`的内存，智能指针的意思就是当你调用`new`的时候，无需调用`delete`。在很多情况下调用智能指针，我们甚至不需要调用`new`，智能指针只不过是原始指针的封装。
 
@@ -1948,7 +1948,7 @@ int main(){
 总之，尽量多用智能指针，让你的代码变得更安全（以防遗忘delete导致内存泄漏），但并非完全取代。另外，`unique_ptr`开销小于`weak_ptr`，所以使用优先顺序也是如此。
 
 
-## 45. Copying and Copy Constructors in C++
+## 【45】C++的复制与拷贝构造函数
 
 拷贝以及拷贝构造函数。
 
@@ -2077,7 +2077,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 46. The Arrow Operator in C++
+## 【46】C++的箭头操作符
 
 箭头操作符
 
@@ -2159,7 +2159,7 @@ int main()
 
 [![top] Goto Top](#table-of-contents)
 
-## 47. Dynamic Arrays in C++ (std  vector)
+## 【47】C++的动态数组（std--vector）
 
 c++中的动态数组，特别是标准库的`vector`类（`std::vector`)。标准库，这种情况下应该叫标准模版库。标准模版库本质上是一个库，里面装满了容器，容器类型，这些容器包含特定的数据，之所以被称为标准模版库，是因为他可以模版化任何东西。整个库模版化这意味着容器的底层数据类型，换句话说，容器包含的数据类型，实际上由你决定，所有东西由模版组成，你只需要知道模版可以处理你提供的底层数据类型。这意味着你不需要编写自己的数据结构或类似的东西。
 
@@ -2234,7 +2234,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 48. Optimizing the usage of std  vector in C++
+## 【48】C++的stdvector使用优化
 
 整个系列中，我们会很多涉及到优化，这也是c++吸引人的地方。优化最重要的规则之一就是很好的了解你的环境，环境意思是你应该了解事情怎么运转的，我该怎么做，应该会发生什么，今天我们讲一些皮毛，看看我们能做些什么，特别是`vector`例子。
 
@@ -2305,7 +2305,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 49. Using Libraries in C++ (Static Linking)
+## 【49】C++中使用库（静态链接）
 
 今天讲c++库，特别是如何在项目中使用外部库。
 
@@ -2344,7 +2344,7 @@ glfw3.dll，你可以看到，静态链接库比其他的大很多，如果我�
 
 [![top] Goto Top](#table-of-contents)
 
-## 50. Using Dynamic Libraries in C++
+## 【50】C++中使用动态库
 
 今天我们将讨论如何动态链接，它是什么，如何使用它，什么时候应该使用它。还是拿GLFW举例
 
@@ -2366,7 +2366,7 @@ glfw3.dll，你可以看到，静态链接库比其他的大很多，如果我�
 
 [![top] Goto Top](#table-of-contents)
 
-## 51. Making and Working with Libraries in C++ (Multiple Projects in Visual Studio
+## 【51】C++中创建与使用库（VisualStudio多项目）
 
 c++中创建与使用库。今天主要讲如何在visual studio中建立多个项目，以及如何创建一个库让所有项目都能使用。这是非常重要的一点，如果你的项目很大的话，它不仅可以帮助您用代码创建模块或库，并多次重用这些代码，还允许你混和语言。
 
@@ -2384,7 +2384,7 @@ c++中创建与使用库。今天主要讲如何在visual studio中建立多个�
 
 [![top] Goto Top](#table-of-contents)
 
-## 52. How to Deal with Multiple Return Values in C++
+## 【52】C++中如何处理多返回值
 
 c++中如何处理多返回值。这一集我们讨论什么是元组tuple，什么是pair，如何在c++中处理多个返回类型。
 
@@ -2541,7 +2541,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 53. Templates in C++
+## 【53】C++的模板
 
 c++模版，其他语言里的“范型”，但是她比范型和那些托管语言牛逼的多，模版有点像宏，他可以让你做很多事，而范型却非常受制于类型系统。模版是一个巨大、复杂的话题，本次只是其中之一。
 
@@ -2666,7 +2666,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 54. Stack vs Heap Memory in C++
+## 【54】C++的堆与栈内存的比较
 
 堆和栈的内存比较。今天我们谈谈内存。
 
@@ -2788,7 +2788,7 @@ Complex c1(1,2);
 
 [![top] Goto Top](#table-of-contents)
 
-## 55. Macros in C++
+## 【55】C++的宏
 
 宏，但是今天只是概述。
 
@@ -2907,7 +2907,7 @@ MAIN
 
 [![top] Goto Top](#table-of-contents)
 
-## 56. The 'auto' keyword in C++
+## 【56】C++的auto关键字
 
 auto关键字。auto带来两面性，我们主要想这样：你可以这样使用它，但你不应该滥用它。
 
@@ -3015,7 +3015,7 @@ decltype关键词：定一个一个变量与某一表达式的类型相同，但
 
 [![top] Goto Top](#table-of-contents)
 
-## 57. Static Arrays in C++ (std  array)
+## 【57】C++的静态数组（std array)
 
 c++标准数组。今天我们要特别专注于一个实际的类，标准数组类，是c++标准模板库的一部分，c++库提供给你的用来处理静态数组，这里的静态数组我指的是不增长的数组，当你创建这个数组时，你来定义他有多大，也就是有多少元素，以及里面是什么类型的元素，但是不能改变大小，从这里开始，它的大小就是一个常数。
 
@@ -3056,7 +3056,7 @@ date.size();
 
 
 
-## 58. Function Pointers in C++
+## 【58】C++的函数指针
 
 函数指针，我们现在讨论的是原始风格的函数指针，来源c语言，我喜欢称之为原始函数指针（raw function pointer）。
 
@@ -3170,7 +3170,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 59. Lambdas in C++
+## 【59】C++的lambda
 
 Lambda本质上是我们定义一种叫做匿名函数的方式，我们用这种方式创建函数，不需要实际创建一个函数，就像一个快速的一次性函数，展示下需要运行的代码，我们更想将他视作一个变量，而不是像一个正式函数那样，在我们实际编译的代码中作为一个符号存在。
 
@@ -3254,7 +3254,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 60. Why I don't 'using namespace std'
+## 【60】为什么我不使用using namespace std
 
 为什么我不使用'using namespace std'。
 
@@ -3266,7 +3266,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 61. Namespaces in C++
+## 【61】C++的名称空间
 
 今天讨论c++中命名空间是什么，以及如何进一步拓展名称空间的使用，以及为什么要使用名称空间。
 
@@ -3303,7 +3303,7 @@ c语言是没有名称空间的，所以c语言的库，比如GLFW，没有名�
 
 [![top] Goto Top](#table-of-contents)
 
-## 62. Threads in C++
+## 【62】C++的线程
 
 c++线程以及如何优化。
 
@@ -3358,7 +3358,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 63. Timing in C++.
+## 【63】C++的计时
 
 今天我们将讨论计时(时间)
 
@@ -3438,7 +3438,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 64. Multidimensional Arrays in C++ (2D arrays)
+## 【64】C++多维数组
 
 进入讲c++多维数组，二维、三维、四维等等。在处理任意类型的数组时，指针非常重要。因为数组就是内存块，处理内存的简单方法就是使用指针。
 
@@ -3524,7 +3524,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 65. Sorting in C++
+## 【65】C++的排序
 
 c++中的排序。假设我有一个整数向量，或者一个整数数组，我想让他们按他们的值或者某种谓语排序。显然你可以自己写算法，冒泡排序，快速排序等，或者任何一种遍历列表并对元素排序的算法，但是有些情况下，当你想做一些比如你在处理c++的内置集合类型，如`std::vector`等，你就没必要自己写一套自己算法，你可以让c++库帮你排序，今日我们聚焦`std::sort`，他可以为你进行排序，或者为你提供给他任何类型的迭代器进行排序。
 
@@ -3577,7 +3577,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 66. Type Punning in C++
+## 【66】C++的类型双关
 
 c++的类型双关。类型双关知识一个花哨的术语，用来在c++中绕过类型系统。
 
@@ -3661,7 +3661,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 67. Unions in C++
+## 【67】C++的联合体
 
 c++的联合体，联合体像类类型或者结构体类型，只不过它一次智能占用一个成员内存。我的意思是，通常如果我们有一个结构体，比如四个浮点数，我们可以有四乘四个字节在结构体中，总共16字节，而且很明显，当你不断向类或结构体增添成员时，大小会不断增长。一个联合体只能有一个成员，比如我声明四个浮点数，比如a、b、c、d，联合体大小仍然是4字节，当我尝试处理他们，比如我改变a、b、c、d的值，他们的内存都是一样的，如果我改变a，将它设为5，d也会变为5，这就是联合体的工作方式，你可以像使用结构体或类一样使用他们，你也可以给他添加静态函数或者普通函数等，然而你不能使用虚函数，还有一些其他限制，蛋通常人民使用联合体来做的事情，是和类型双关紧密联系的，当你想给同一个变量取两个不同的名字时，他很有用。例如我有一个数学向量类，`vector3 {x, y, z}`，我可能还想把它当做一个rgb颜色，`XYZ rgb`，我怎么才能做到这一点？可以用时用来两种方式来使用它，x与r对齐，g与y对齐等，这些都可以通过union来实现。
 
@@ -3759,7 +3759,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 68. Virtual Destructors in C++
+## 【68】C++的虚析构函数
 
 c++中虚析构函数。首先你要学了析构函数和虚函数，因为虚析构函数，你可以想象，就是虚函数和析构函数的组合。
 
@@ -3912,7 +3912,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 69. Casting in C++
+## 【69】C++的类型转换
 
 c++的类型转换。
 
@@ -3986,7 +3986,7 @@ const_cast还没谈及，他是用来添加或者删除const修饰符的，挺�
 
 [![top] Goto Top](#table-of-contents)
 
-## 70. Conditional and Action Breakpoints in C++
+## 【70】条件与操作断点
 
 今天讲的是visual studio的技巧，开发和调试的一般技巧，是关于断点的，但是也不仅仅是断点，这不是一个普通的断点，而是关于条件与操作(conditions and actions)应用在断点上，通过条件或条件断点，我的意思是我们可以告诉编译器，我想在这里设置一个断点，但是只希望在特定条件下触发，内存中的某些东西符合了我的条件，那就触发这个断点，操作断点是允许我们采取某种动作，一般是在碰到断点时打印一些东西到控制台。有两种类型的操作断点，一是让你在打印你想要的东西时继续执行，举个例子，记录鼠标位置，我能做的是每次记录鼠标的位置，因为每次鼠标移动移动事件就会发生，我可以让那个断点打印一些东西到控制台，但保持程序运行，或者我让他打印些东西到控制台，但仍然中断程序，暂停程序执行，这样我们就可以检查内存中其他东西。断点可以手动添加，也可以类似宏，写在代码里，这种条件的，对于动作断点，显然向控制台打印一些东西同样可以在代码中完成。但是这个真正有用的地方是我们可以让程序进入某种状态，也许是一个bug，我们想检查某些属性，找出是什么导致了这个bug，或者为什么处于这个状态，这个状态是什么，比如我的东西设置成什么，为什么会发生这种事。很显然如果我们决定添加代码到代码库，我们必须终止程序然后重新编译，这是一个问题，因为我们也许无法再次进入那个状态，或者很难，我的意思是这通常会减缓工作流程，如果我们不得不停止代码运行、添加代码、重新编译等，然后回到调试状态。
 
@@ -3998,7 +3998,8 @@ const_cast还没谈及，他是用来添加或者删除const修饰符的，挺�
 
 [![top] Goto Top](#table-of-contents)
 
-## 71. Safety in modern C++ and how to teach it
+## 【71】现代C++中的安全以及如何教授
+
 c++中安全意味着什么，以及关于现代c++和安全的整个争论。
 
 c++里说的安全是什么意思，安全编程，或者说是在编程中，我们希望降低崩溃、内存泄漏、非法访问等问题，随着c++11的到来，我想说的是，我们应该转向智能指针这样的概念，而不是原始指针。特别是今天我想重点讲指针和内存，而不是异常或者其他安全编程有关的比如错误检查之类的，我不关心。
@@ -4014,7 +4015,7 @@ c++里说的安全是什么意思，安全编程，或者说是在编程中，�
 
 [![top] Goto Top](#table-of-contents)
 
-## 72. Precompiled Headers in C++
+## 【72】C++的预编译头文件
 
 预编译头文件，实际上是让你抓取一堆头文件，并将它们转换成编译器可以使用的格式，而不必一遍又一遍的读取这些头文件。
 
@@ -4033,7 +4034,7 @@ pch真正有用的是外部链接，本质上，它主要用于不是你写的�
 一般来说，每个软件项目都应该使用预编译的头文件，不存在我该不该用的问题，在你的预编译头文件中放入什么，那就是不同的故事了。
 
 
-## 73. Dynamic Casting in C++
+## 【73】C++的dynamic_cast
 
 动态转换类型。dynamic casting是作为一种安全机制提供给我们的，当我们想要做特定的类型转换时。
 
@@ -4123,7 +4124,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 74. BENCHMARKING in C++ (how to measure performance)
+## 【74】C++的基准测试
 
 基准测试，你刚编写了一些代码，你想看看它实际运行速度有多快，因为你正在处理一个对性能非常关键的会话，或者你正在测试你刚刚了解的新技术，和原来的技术相比哪个快，方法其实有很多，分享我的。
 
@@ -4181,7 +4182,7 @@ cherno还对智能指针进行了测试，回家敲代码
 
 [![top] Goto Top](#table-of-contents)
 
-## 75. STRUCTURED BINDINGS in C++
+## 【75】C++的结构化绑定
 
 结构化绑定，只针对c++17。这是一个新特性，让我们更好的处理多返回值。
 
@@ -4281,7 +4282,7 @@ std::tuple<std::string,std::string> Shade::Parese(const std::string& filePath) {
 
 [![top] Goto Top](#table-of-contents)
 
-## 76. How to Deal with OPTIONAL Data in C++
+## 【76】如何处理OPTIONAL数据
 
 如何处理optional数据。今天讲的是当我们的数据可能存在也可能不存在的时候会发生什么，很多时候，我们有一个返回数据的函数，比方说我们正在读取一个文件，但是如果这个文件不能被读取，会发生什么，他是否不存在，抑或是数据不是我们期望的格式，很多时候，我们仍然需要从函数中返回一些东西，在这个特定的情况下，你可能只返回一个空字符串，但这不是很好，因为这没有多大意义，我的意思是，如果文件是空的，我们应该有办法看到数据是否存在，这就是要用到std::optional的地方了，他是c++17的新东西。
 ```cpp
@@ -4401,7 +4402,7 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 77. Multiple TYPES of Data in a SINGLE VARIABLE in C++
+## 【77】单一变量存放多类型的数据
 
 今天要讲的是在一个变量中存储多种类型的数据，也是c++17的新特性，他并不是一个真正的特性，他更多的是在一个c++17中的新标准库中给我们的类。
 
@@ -4498,7 +4499,7 @@ std::variant<std::string, ErrorCode> ReadFilesAsString() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 78. How to store ANY data in C++.mp4
+## 【78】如何存储任意类型的数据
 
 今天讲如何在c++单个变量中存储任意类型的数据。很多人会想拿void指针，是的这是对的但是今天暂时不讲，然而今天讲的是一个更好的办法是一个安全的方式，他也是c++17全新处理方式，就是：`std::any`。
 
@@ -4545,58 +4546,322 @@ int main() {
 
 [![top] Goto Top](#table-of-contents)
 
-## 79. How to make C++ run FASTER (with std  async)
+## 【79】如何让C++运行得更快
 
 我们会深入到一个项目中讨论如何通过多线程来提高性能。
 
 std::asnyc以及std::futures。做并行最难的是找出彼此依赖关系，并想清楚在不同的线程中放什么。
 
-在程序中，有一些东西能被放倒不同线程中，叫做工作线程，他可以独立完成，什么时候开始什么时候结束并不重要，但是当他完成时，你可以得到一些反馈或者一些加载的新资源。当你处理大量数据时，你需要考虑策略或方法来减轻对CPU处理时间的影响
+在程序中，有一些东西能被放倒不同线程中，叫做工作线程，他可以独立完成，什么时候开始什么时候结束并不重要，但是当他完成时，你可以得到一些反馈或者一些加载的新资源。当你处理大量数据时，你需要考虑策略或方法来减轻对CPU处理时间的影响。
+
+这里cherno用的std::async函数以及std::launch::async工作状态。
+
+示例比较简单，且嵌在他的[Hazel](https://github.com/TheCherno/Hazel)引擎里，就不再贴代码（EditorLayer.cpp）
 
 
 [![top] Goto Top](#table-of-contents)
 
-## 80. How to make your STRINGS FASTER in C++!
+## 【80】如何让C++字符串更快
+
+我认为当人们处理字符串时，他们没有意识到字符串对程序性能的影响。用到字符串对地方很多，不要忽视。
+
+```cpp
+#include <iostream>
+static int s_AllocCount = 0;
+
+void *operator new(size_t size) {
+    // 一个检查分配内存大小的方法就是重载new操作符
+    s_AllocCount++;
+    std::cout << "Allocating " << size << "bytes\n";
+    return malloc(size);
+}
+void PrintName(const std::string &name) { std::cout << name << std::endl; }
+
+int main() {
+    std::string name = "Yan Chernikov";
+
+    PrintName(name);
+    std::cout << s_AllocCount << " allocations" << std::endl;
+}
+```
+Print函数中，我们虽然取了常量引用，但它仍然需要为我们构造一个`std::string`，构造仍需要分配内存。
+
+（其实在这里，cherno用的是 Visual Studio编译，我的是clang，cherno得到的结果是分配空间一次，我的分配了16次，可能是不同环境造成的，但是都发生了空间分配）
+
+```cpp
+#include <iostream>
+static int s_AllocCount = 0;
+
+void *operator new(size_t size) {
+    // 一个检查分配内存大小的方法就是重载new操作符
+    s_AllocCount++;
+    std::cout << "Allocating " << size << "bytes\n";
+    return malloc(size);
+}
+void PrintName(const std::string &name) { std::cout << name << std::endl; }
+
+int main() {
+    std::string name = "Yan Chernikov";
+    std::string firstname=name.substr(0,3);
+    std::string lastname=name.substr(4,9);
+    PrintName(firstname);
+
+//    PrintName(name);
+    std::cout << s_AllocCount << " allocations" << std::endl;
+}
+```
+clang的结果仍然为16次，Visual Studio下变为3次。
+
+你可以想象，这才几个操作，就已经这么多分配了，这一定会损伤帧率。
+
+当你在优化的时候，只要看看这个程序，你只需要看看你在做什么，因为在很多情况下，只要看看数据你就能找到优化它的方法。
+
+举个例子，我要怎么处理firstName呢？我想要的是前三个字符，得到这三个字符我真的需要创建一个字符串嘛？我的意思是，它创建了一个全新的字符串，是他自己的数据，他将那个数据复制到firstName字符串变量中，我的意思是，他创建了一个全新的字符串，是他自己的数据，他将那个数据复制到firstName字符串中，不仅如此，如果我只是这样做，他也会自己分配。你看到这里已经分配了好几次，因为他做的是，创建了一个全新的字符串，他可以变换且有自己的内存。但我们真正想要的是那个字符串的视图。
+
+这个视图就是`string_view`发挥作用的地方。`std::string_view`是c++17中的一个新类，但说实话，我在c++17之前就用这种方法了，他本质上就是一个指向现有内存的指针，就是一个`const char`指针，指向其他人拥有的现有字符串，再加上一个大小size。
+
+你可以这么做，我有一个指向第一个字符的指针，大小为3，这就是我的子字符串，然后我可以有一个指针，指向那个字符串的开头加上4个字节，把我带到firstName的开头，然后大小是9，这是我的子字符串，换句话说，我在创建一个窗口，一个进入现有内存的小视图，而不是分配一个新字符串（用`substr`），我不需要这样，因为我想要的只是一个窗口视图，到一个已有的、有自己内存的字符串。
+
+这个实现很简单，所以人们在c++17前就这么做了。这里最大的好处是，我不是在创建自己的字符串，我只是观察一个已有的字符串，没有内存分配，按值传递字符串视图是非常轻量的，因为只是一个指针和一个大小，
+
+```cpp
+#include <iostream>
+static int s_AllocCount = 0;
+
+void *operator new(size_t size) {
+    // 一个检查分配内存大小的方法就是重载new操作符
+    s_AllocCount++;
+    std::cout << "Allocating " << size << "bytes\n";
+    return malloc(size);
+}
+void PrintName(const std::string_view &name) { std::cout << name << std::endl; }
+
+int main() {
+    std::string name = "Yan Chernikov";
+#if 0
+        std::string firstname=name.substr(0,3);
+        std::string lastname=name.substr(4,9);
+        PrintName(firstname);
+#else
+    std::string_view firstName(name.c_str(), 3);
+    std::string_view lastName(name.c_str() + 4, 9);
+#endif
+    PrintName(firstName);
+    PrintName(lastName);
+    std::cout << s_AllocCount << " allocations" << std::endl;
+}
+```
+cherno在这里已经完成了优化，打印结果只是分配了一次，但是很不幸的是，clang还是分配了16次
+
+```cpp
+#include <iostream>
+static int s_AllocCount = 0;
+
+void *operator new(size_t size) {
+    // 一个检查分配内存大小的方法就是重载new操作符
+    s_AllocCount++;
+    std::cout << "Allocating " << size << "bytes\n";
+    return malloc(size);
+}
+void PrintName(const std::string_view &name) { std::cout << name << std::endl; }
+
+int main() {
+    //    std::string name = "Yan Chernikov";
+    const char *name = "Yan Chernikov";
+#if 0
+        std::string firstname=name.substr(0,3);
+        std::string lastname=name.substr(4,9);
+        PrintName(firstname);
+#else
+    std::string_view firstName(name, 3);
+    std::string_view lastName(name + 4, 9);
+#endif
+    PrintName(firstName);
+    PrintName(lastName);
+    std::cout << s_AllocCount << " allocations" << std::endl;
+}
+```
+很不幸，cherno这里已经变成了0次，我的clang还是16次。这里的改变主要是将`std::string`变为了c_str，即`std::string name = "Yan Chernikov";`改为`const char *name = "Yan Chernikov";`
+
+总结，从经验上来看，你会发现其中很大一部分是由字符串操作造成的性能差距。很多时候，你能做的不多，但是当然，总有一些你是可以避免的
 
 [![top] Goto Top](#table-of-contents)
 
-## 81. VISUAL BENCHMARKING in C++ (how to measure performance visually)
+## 【81】C++的可视化基准测试
+
+这段代码主要用的是`chrome://tracing/`，输出指定格式的文件，放入chrome进行分析，具体实现未成功，以后有需要再看。代码[在这里](https://gist.github.com/TheCherno/31f135eea6ee729ab5f26a6908eb3a5e)
+
 
 [![top] Goto Top](#table-of-contents)
 
-## 82. SINGLETONS in C++
+## 【82】C++的单例模式
+
+单例是一个类的单一实例，你只打算有那个类或者结构体的一个实例。
+
+面向对象编程，总的来说，拥有这些对象和类的好处在于，你可以多次实例化他们，而不是说我写完所有的代码，然后我要实例化对象了，但我不会实例化这个对象的多个实例，这就有点奇怪了。
+
+那为什么需要一个实例呢？
+
+如果你在使用单例，很容易看出，他不需要一个类。
+
+当我们想要拥有某种全局数据集的功能，且我们只是想要重复使用时，单例是非常有用的。从根本上说，单例的行为就像名称空间，单例类可以像名称空间一样工作，并没有要求单例类像普通类一样工作。我要非常清楚地说一次，c++中的单例只是一种组织一堆全局变量和静态函数的方式，这些静态函数有时可能对这些变量起作用，有时也不对这些变量起作用，最后把这些组织在一起，本质上是在一个单一的名称空间下，这就是单例的意义。
+
+一个经典的单例模式。
+
+```cpp
+#include <iostream>
+
+class Singleton {
+   public:
+    static Singleton& Get() { return s_Instance; };  // 提供静态访问该类的方法
+    void Function() { std::cout << "hello word" << std::endl; };
+
+   private:
+    // 不能有构造函数，因为有共有构造函数的话，他就会被允许实例化
+    Singleton(){};  // 私有化，意味着该类不能在外部被实例化
+    static Singleton s_Instance;
+};
+Singleton Singleton::s_Instance;
+int main() { Singleton::Get().Function(); }
+```
+
+但是这里有一定的语义缺陷，例如在main函数中,我们取出singleton，并赋值到完全独立的singleton中，
+
+```cpp
+int main() {
+    Singleton instance = Singleton::Get();
+}
+```
+也许我想写的是`Singleton& instance = Singleton::Get();`，因为我完全可以这么做，然后这样使用：
+```cpp
+```cpp
+int main() {
+    Singleton instance = Singleton::Get();
+    instance.Function();
+}
+```
+
+这样造成的是单例instance中的数据完全被复制，事实上，我创建了一个额外的Singleton实例，比如我有一个`static float m_Member = 0.0f`，这个数据当然会被复制到新的对象中，当然这就不是单例了。这就达不到单例的目的了，我只想要一个实例。
+
+通常来说，你需要做的是删除复制构造函数，所以我在这里标记复制构造函数为`delete`
+
+***
+
+这是一个很好的实践例子，因为你不可能需要一个随机数生成器的多个实例，当然你可以质疑，我是指这是一个很简单的随机数生成器，从一开始注入一个随机数种子，然后在整个程序中重用，就是这么简单。
+
+```cpp
+#include <iostream>
+
+class Random {
+   public:
+    Random(const Random&) = delete;
+    static Random& Get() { return s_Instance; };  // 提供静态访问该类的方法
+    float Float() {
+        // 假设他是一个生成随机数的一个函数
+        return m_RandomGenerator;
+    };
+
+   private:
+    float m_RandomGenerator;
+    // 不能有构造函数，因为有共有构造函数的话，他就会被允许实例化
+    Random() = default;  // 私有化，意味着该类不能在外部被实例化
+    static Random s_Instance;
+};
+Random Random::s_Instance;
+int main() {
+    float number =Random::Get().Float();
+}
+```
+
+为了使调用的时候无需先`Get()`，见代码：
+
+```cpp
+#include <iostream>
+
+class Random {
+   public:
+    Random(const Random&) = delete;
+    static Random& Get() { return s_Instance; };  // 提供静态访问该类的方法
+    static float Float() { return Get().IFloat(); };//注意这里是static函数
+
+   private:
+    //在前面放一个I，这让他看起来像一个接口，看起来就是内部(internal)float函数
+    float IFloat() { return m_RandomGenerator; }
+    float m_RandomGenerator;
+    Random() = default;
+    static Random s_Instance;
+};
+Random Random::s_Instance;
+int main() { float number = Random::Get().Float(); }
+```
+当然你可以直接在Float函数中直接返回m_RandomGenerator，这样就不需要内部接口函数IFloat了，但是还是建议保留，这里好处显然是，因为他不是一个静态函数，所以可以访问所有的类成员，而不需要通过实例之类的东西。
+
+最后说一下Get函数，这么写意味着我们在类成员中有一个静态实例，然后需要在某个翻译单元中来定义它。这有点麻烦，更好的办法是把这个静态声明移动到这个静态函数中，见代码：
+
+```cpp
+#include <iostream>
+
+class Random {
+   public:
+    Random(const Random&) = delete;
+    static Random& Get() {
+        // 把静态声明移动到这个静态函数中
+        // 去掉了static Random s_Instance;和Random Random::s_Instance;
+        // 这实际上是在函数内部有一个变量，这意味着他仍在静态内存中，一旦Get被调用，他将被实例化
+        // 在接下来的时间里，他只是在静态内存中被引用，和我们之前做的一样
+        static Random instance;
+        return instance;
+    };  // 提供静态访问该类的方法
+    static float Float() { return Get().IFloat(); };  // 注意这里是static函数
+
+   private:
+    // 在前面放一个I，这让他看起来像一个接口，看起来就是内部(internal)float函数
+    float IFloat() { return m_RandomGenerator; }
+    float m_RandomGenerator;
+    Random() = default;
+};
+
+int main() { float number = Random::Get().Float(); 
+```
+
+总结一下，单例的核心就是Get函数，这里我有一个单独的实例，我创建一次，在这种情况下，他只会在第一次使用时创建，这个单例的生命周期就是你的应用的生命周期。最后，class直接换成namespace也是可以的，只不过失去了public以及private的功能，但是通过将其放在h文件中，以及宏可以实现。
+
 
 [![top] Goto Top](#table-of-contents)
 
-## 83. Small String Optimization in C++
+## 【83】C++的小字符串优化
+
+小字符串优化，简称为sso。字符串在代码中通常会造成很多性能下降，减少字符串的使用可以显著提高速度，这取决于你是实际上如何使用他们。
+
+今天要关注的是c++标准库如何优化小字符串
 
 [![top] Goto Top](#table-of-contents)
 
-## 84. Track MEMORY ALLOCATIONS the Easy Way in C++
+## 【84】跟踪内存分配的简单方法
 
 [![top] Goto Top](#table-of-contents)
 
-## 85. lvalues and rvalues in C++
+## 【85】C++的左值与右值
 
 [![top] Goto Top](#table-of-contents)
 
-## 86. Continuous Integration in C++
+## 【86】C++持续集成
 
 [![top] Goto Top](#table-of-contents)
 
-## 87. Static Analysis in C++
+## 【87】C++静态分析
 
 [![top] Goto Top](#table-of-contents)
 
-## 88. Argument Evaluation Order in C++
+## 【88】C++的参数计算顺序
 
 [![top] Goto Top](#table-of-contents)
 
-## 89. Move Semantics in C++
+## 【89】C++移动语义
 
 [![top] Goto Top](#table-of-contents)
 
-## 90. std  move and the Move Assignment Operator in C++
+## 【90】stdmove与移动赋值操作符
 
 [![top] Goto Top](#table-of-contents)
 
