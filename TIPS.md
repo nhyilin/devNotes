@@ -203,6 +203,7 @@ Find in Files: `Ctrl+Shift+F`
 # python
 
 - [离线安装anaconda及第三方库](https://blog.csdn.net/SEU_LL/article/details/119385057)
+- [离线迁移conda环境](https://blog.csdn.net/maximejia/article/details/115385868)
 
 ## pycharm
 
