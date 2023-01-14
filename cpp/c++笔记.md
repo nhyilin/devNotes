@@ -18,6 +18,9 @@
     - [一、Cmake传参：适用于简单场景](#一cmake传参适用于简单场景)
     - [二、从环境变量读取：适合脚本场景](#二从环境变量读取适合脚本场景)
   - [空指针异常](#空指针异常)
+  - [new简单操作](#new简单操作)
+  - [try-catch](#try-catch)
+  - [使用this指针时需判空](#使用this指针时需判空)
 
 完整版笔记见：[ChernoCPP](ChernoCPP.md)
 
@@ -711,6 +714,94 @@ int main() {
     ClassA* A = new ClassA();
     A->B->C->printHello();
 
+}
+```
+
+[![top] Goto Top](#table-of-contents)
+
+## new简单操作
+
+```cpp
+    int *y1 = new int;
+    *y1 = 10;
+
+    int *y2 = new int(10);
+
+    int *y3;
+    y3 = new int(10);
+```
+
+##  try-catch
+
+Clang-Tidy: Catch handler catches by value; should catch by reference instead
+
+以by reference 方式捕捉exceptions：
+
+4个标准的异常：
+
+`bad_alloc`、`bad_cast`、`bad_typeid`、`bad_exception`
+
+抛出的都是对象，不是对象指针。
+
+catch by reference的好处。
+
+1. 避开对象的删除问题；
+2. 避开切割问题，即转换；
+3. 约束被复制的次数；
+
+```cpp
+//错误示例
+catch (std::bad_alloc) {
+        std::cout << "hello world\n";
+    }
+```
+应该改为：
+```cpp
+catch (const std::bad_alloc&) {
+        std::cout << "hello world\n";
+    }
+```
+
+More Effective C++---13th
+
+打开Clang-Tidy还是挺好的，多看看warring
+
+[![top] Goto Top](#table-of-contents)
+
+## 使用this指针时需判空
+
+如果用到this指针，需要加以判断保证代码的健壮性
+
+```cpp
+//空指针访问成员函数
+class Person {
+public:
+
+	void ShowClassName() {
+		cout << "我是Person类!" << endl;
+	}
+
+	void ShowPerson() {
+		if (this == NULL) {
+			return;
+		}
+		cout << mAge << endl;
+	}
+
+public:
+	int mAge;
+};
+
+void test01()
+{
+	Person * p = NULL;
+	p->ShowClassName(); //空指针，可以调用成员函数
+	p->ShowPerson();  //但是如果成员函数中用到了this指针，就不可以了
+}
+
+int main() {
+	test01();
+	return 0;
 }
 ```
 
