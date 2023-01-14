@@ -1,4 +1,6 @@
 # -*- coding : utf-8-*-
+import time as t
+from docx.shared import Inches, Pt
 from docxtpl import DocxTemplate
 import docx
 import pandas as pd
@@ -8,11 +10,10 @@ import numpy as np
 from docx.oxml.ns import nsdecls
 from docx.oxml import parse_xml
 from docx import Document
-from docx.shared import Pt
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+import cn2an
 
 CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
-TEMPFILE = "情报要报.docx"
+TEMPFILE = "新模版.docx"
 CSV_PATH = os.getcwd() + "/data/"
 NEW_FILE_PATH = os.getcwd() + "/new/"
 
@@ -76,6 +77,16 @@ def EmptyDir(filepath):
             os.remove(file_path)
 
 
+def numToChineseWord(str):
+    output = cn2an.an2cn(str) + "、"
+    return output
+
+
+def numToChineseWord2(str):
+    output = cn2an.an2cn(str)
+    return output
+
+
 def ReFormatColumn(data, number, textContent, row, key):
     """
     data：字典中的值，将很多条目合并到一起的目标，入值最好为空字符串
@@ -85,11 +96,29 @@ def ReFormatColumn(data, number, textContent, row, key):
     key:csv文件的键
     """
     for i in range(row):
-        data += str(number[i])
-        data += '. '
-        data += ' '
-        data += textContent[i].replace("xAyBzC01", "\n    ")
+        data += numToChineseWord(str(number[i]))
+        # data += str(textContent[i]).replace("xAyBzC01", "\n    ").replace("xAyBzC02",
+        #                                                                   "\n    " + "（" + numToChineseWord2(
+        #                                                                       str(numOfSecondHeader)) + "） ")
+        # data += str(textContent[i])
+        count = data.count("xAyBzC02")
+        numOfSecondHeader = 1
+        for j in range(count):
+            data += str(textContent[i]).replace("xAyBzC01", "\n    ").replace("xAyBzC02",
+                                                                              "\n    " + "（" + numToChineseWord2(
+                                                                                  str(numOfSecondHeader)) + "） ")
+            numOfSecondHeader = numOfSecondHeader + 1
+
+        # for j in range(count):
+
         data += '\n    '
+        # numOfSecondHeader = numOfSecondHeader + 1
+
+    # FirstHeader=1
+    # for i in range(row):
+    #     data+=numToChineseWord(str([i])).replace("xAyBzC01","\n    ")
+    # for
+
     return makeDic(key, data)
 
 
@@ -109,6 +138,10 @@ def FormatCSV(csvfile):
     Content = data["Content"]
     Publisher = data["Publisher"]
     SourceUri = data["SourceUri"]
+    # TABLE_PATH 是后文中贴的表单的路径列表
+    TABLE_PATH = []
+    for value in SourceUri:
+        TABLE_PATH.append(str(value))
 
     num = data.shape[0]  # 获取数据行数
 
@@ -131,6 +164,7 @@ def FormatCSV(csvfile):
     End_dic = {"此页无正文": "（此页无正文）"}
     DIC.update(End_dic)
     # print("Final dictionary: ", '\n', DIC)
+    return TABLE_PATH
 
 
 def delete_paragraph(paragraph):
@@ -150,6 +184,8 @@ def DeleteBlankPages(xxx):
             delete_paragraph(paragraphs)
 
 
+"""
+# 该函数提供打印word中内容的功能
 def PrintWord():
     file = docx.Document(NEW_FILE_PATH)
     print("段落数:" + str(len(file.paragraphs)))  # 段落数为13，每个回车隔离一段
@@ -159,9 +195,23 @@ def PrintWord():
         if len(file.paragraphs[i].text.replace(' ', '')) > 4:
             print("第" + str(i) + "段的内容是：" + file.paragraphs[i].text)
 
+"""
 
-def translate(str, old, new):
-    str.replace(old, new)
+
+def MultiTableInOneChart(csvFileChart):
+    """
+    检测csv中一个表单项中有多个表格地址，并添加所有列出项
+    csvFileChart：一个csv中表格列表，如：
+    ['nan', '../Z1_rptD_alert_lsj/20211115-1.csv', '../Z1_rptD_alert_lsj/20211115-4.csv']
+    """
+    newcsvFile = []
+    for urls in csvFileChart:
+        urls.replace(" ", "")
+        urls = urls.split("xAyBzC03")
+        for newUrls in urls:
+            newUrls = newUrls.replace(" ", "")
+            newcsvFile.append(newUrls)
+    return newcsvFile
 
 
 def AddTable(wordFile, csvFile, latestFileName):
@@ -170,20 +220,25 @@ def AddTable(wordFile, csvFile, latestFileName):
     csvFile：要添加的表格
     latestFileName：最终生成的word文件的名称
     """
-
+    doc = docx.Document(wordFile)
     index = 0
-    for csvFile in csvFile:
-        if not csvFile:
+    """
+    重构一下代码，这里性能太差
+    打算打开csv之后直接读取内容到list，然后直接将list内内容赋值到docx表格中
+    """
+    csvFile = MultiTableInOneChart(csvFile)
+    for csvIndex in csvFile:
+        if not csvIndex:
             continue
-        if len(csvFile) == 0:
+        if len(csvIndex) <= 21:
+            print("表格路径过短，已跳过，csv中标注路径为：" + csvIndex)
             continue
-        if csvFile[1] == "t":
+        if len(csvIndex) > 40:
+            print("表格路径过长，已跳过，csv中标注路径为：" + csvIndex)
             continue
-
-        doc = docx.Document(wordFile)
-        csvFile = csvFile[1:]
-
-        with open(csvFile) as f:
+        csvIndex = csvIndex[1:]
+        csvIndex = csvIndex.replace(" ", "")
+        with open(csvIndex, encoding="utf-8") as f:
             f_csv = csv.DictReader(f)
             ROWS = 0
             csvKeyInotList = []
@@ -195,19 +250,27 @@ def AddTable(wordFile, csvFile, latestFileName):
                     csvKeyInotList.append(key)
                     csvValueInotList.append(value)
         del csvKeyInotList[11:]
+
         csvKeyInotList = np.array(csvKeyInotList)
         csvValueInotList = np.array(csvValueInotList).reshape(ROWS, 11)
 
         table = doc.add_table(rows=ROWS + 1, cols=11, style='Table Grid')
         table.autofit = True
-        table_header = table.rows[0].cells
 
-        for col_x in range(0, 11):
-            table_header[col_x].text = csvKeyInotList[col_x]
-        for row in range(1, ROWS + 1):
-            for col_y in range(0, 11):
-                table_x = table.rows[row].cells
-                table_x[col_y].text = csvValueInotList[row - 1][col_y]
+        hdr_cells = table.rows[0].cells
+        hdr_cells[5].width = Inches(1.3)
+        hdr_cells[6].width = Inches(2.0)
+        hdr_cells[10].width = Inches(1.8)
+
+        for cell in table.columns[0].cells:
+            cell.width = Inches(0.2)
+
+        for table_col in range(0, 11):
+            table.rows[0].cells[table_col].text = csvKeyInotList[table_col]
+            table.rows[0].cells[table_col].paragraphs[0].runs[0].font.size = Pt(12)
+            for table_row in range(1, ROWS + 1):
+                table.rows[table_row].cells[table_col].text = csvValueInotList[table_row - 1][table_col]
+                table.rows[table_row].cells[table_col].paragraphs[0].runs[0].font.size = Pt(12)
 
         # 首行灰色
         rows = table.rows[0]
@@ -220,33 +283,33 @@ def AddTable(wordFile, csvFile, latestFileName):
         # 此处doc.paragraphs[]为经验值，试出来的
 
         # move_table_after函数极为重要，提供将新建的table移动到哪里的功能
-        move_table_after(table, doc.paragraphs[11 + index])
+        move_table_after(table, doc.paragraphs[7 + index])
 
         table_headers = doc.add_table(1, cols=1)
         cell = table_headers.cell(0, 0)
-        cell.line_spacing = 0.5
+        # cell.line_spacing = 1.5
 
         table_name = ""
-        if csvFile[29] == "1":
+        if csvIndex[29] == "1":
             table_name = "卫星轨道降低幅度较大的统计"
-        elif csvFile[29] == "2":
+        elif csvIndex[29] == "2":
             table_name = "卫星轨道降低幅度较小的统计"
-        elif csvFile[29] == "3":
+        elif csvIndex[29] == "3":
             table_name = "卫星轨道升高幅度较小的统计"
         else:
-            "卫星轨道升高幅度较大的统计"
+            table_name = "卫星轨道升高幅度较大的统计"
 
         cell.paragraphs[0].add_run("附表 " + str(index + 1) + table_name).bold = True
-        cell.paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER  # 水平居中
 
-        move_table_after(table_headers, doc.paragraphs[11 + index])
+        move_table_after(table_headers, doc.paragraphs[7 + index])
 
         index = index + 1
         DeleteBlankPages(latestFileName)
-
         doc.save(latestFileName)
 
 
+"""
+# 该函数提供从csv中解析出table路径的功能，但是由于功能重复，且IO重复占用，暂时取消使用
 def getTargetFile(file):
     # 获取要添加的csv文件
     csvList = []
@@ -256,26 +319,44 @@ def getTargetFile(file):
         for key in f_csv:
             csvList.append(key["SourceUri"])
         return csvList
+"""
 
 
-def main():
-    EmptyDir(NEW_FILE_PATH)
-    csv_list = list_dir(CSV_PATH)
-    print("csv_fils: ", '\n', csv_list)
-
+def ProcessingThread(csv_list, counter):
     for index in csv_list:
-        FormatCSV(index)
+        counter = counter + 1
+        TABLE_PATH = FormatCSV(index)
         tpl = DocxTemplate(CURRENT_DIR + TEMPFILE)
         tpl.render(DIC)  # 渲染替换
         tpl.save(NEW_FILE_PATH + r"{}.docx".format(time[0]))
 
-        # 添加table，第一个参数为word文档，第二个参数为对应解析出来的csv文件
-        print(index)
-        AddTable(NEW_FILE_PATH + r"{}.docx".format(time[0]), getTargetFile(index),
+        AddTable(NEW_FILE_PATH + r"{}.docx".format(time[0]), TABLE_PATH,
                  NEW_FILE_PATH + r"{}.docx".format(time[0]))
-
-        print("Newly generated files： ", NEW_FILE_PATH + r"{}.docx".format(time[0]))
         DeleteBlankPages(NEW_FILE_PATH + r"{}.docx".format(time[0]))
+        print("Newly generated files： ", NEW_FILE_PATH + r"{}.docx".format(time[0]))
+        print("Total number of documents: " + str(len(csv_list)) + "\t Generated: " + str(counter))
+
+
+def predictTime(counter, tic, toc):
+    seconds = ((toc - tic) / counter) * 1000
+    m, s = divmod(seconds, 60)
+    h, m = divmod(m, 60)
+    print("if total number was 1000, it will cost:" + "%02d:%02d:%02d" % (h, m, s))
+
+
+def main():
+    # tic = t.perf_counter()
+    global counter
+    counter = 0
+    EmptyDir(NEW_FILE_PATH)
+    global csv_list
+    csv_list = list_dir(CSV_PATH)
+    print("csv_fils: ", '\n', csv_list)
+    ProcessingThread(csv_list, counter)
+
+    toc = t.perf_counter()
+    # print(f"time cost: {toc - tic:0.4f} seconds", "\t each file cost:" + str((toc - tic) / counter)[:5])
+    # predictTime(counter, tic, toc)
 
 
 if __name__ == "__main__":

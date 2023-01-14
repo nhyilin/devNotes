@@ -1,6 +1,3 @@
-def translate(str, old, new):
-    return str.replace(old, new)
+import csv
 
-
-strx = ".\Z1_rptD_alert_lsj\20220503-1.csv"
-print(translate(strx, "\\", "/"))
+f_csv = csv.DictReader("/Users/peiyilin/dev/devNotes/Python/GenerateDOCX/data/20211117.csv")
