@@ -143,6 +143,53 @@
   - [192\_异常处理的思想与程序实现](#192_异常处理的思想与程序实现)
   - [193\_异常处理中的构造与析构](#193_异常处理中的构造与析构)
   - [194\_标准程序库异常处理](#194_标准程序库异常处理)
+- [侯捷C++之C++STL](#侯捷c之cstl)
+  - [1. 认识headers、版本、重要资源](#1-认识headers版本重要资源)
+  - [2. STL体系结构基础介绍](#2-stl体系结构基础介绍)
+  - [3. 容器之分类与各种测试（一）](#3-容器之分类与各种测试一)
+  - [4. 容器之分类与各种测试（二）](#4-容器之分类与各种测试二)
+  - [5. 容器之分类与各种测试（三）](#5-容器之分类与各种测试三)
+  - [6. 容器之分类与各种测试（四）](#6-容器之分类与各种测试四)
+  - [7. 分配器之测试](#7-分配器之测试)
+  - [8. 源代码之分布 (VC, GCC)](#8-源代码之分布-vc-gcc)
+  - [9. OOP (面向对象编程) vs. GP (泛型编程）](#9-oop-面向对象编程-vs-gp-泛型编程)
+  - [10. 技术基础：操作符重载and模板(泛化, 全特化, 偏特化)](#10-技术基础操作符重载and模板泛化-全特化-偏特化)
+  - [11. 分配器](#11-分配器)
+  - [12. 容器之间的实现关系与分类](#12-容器之间的实现关系与分类)
+  - [13. 深度探索list（上）](#13-深度探索list上)
+  - [14. 深度探索list（下）](#14-深度探索list下)
+  - [15. 迭代器的设计原则和Iterator Traits的作用与设计](#15-迭代器的设计原则和iterator-traits的作用与设计)
+  - [16. vector深度探索](#16-vector深度探索)
+  - [17. array、forward\_list深度探索](#17-arrayforward_list深度探索)
+  - [18. deque、queue和 stack深度探索（上）](#18-dequequeue和-stack深度探索上)
+  - [19. deque、queue和 stack深度探索（下）](#19-dequequeue和-stack深度探索下)
+  - [20. RB-tree 深度探索](#20-rb-tree-深度探索)
+  - [21. set、multiset深度探索](#21-setmultiset深度探索)
+  - [22. map、multimap深度探索](#22-mapmultimap深度探索)
+  - [23. hashtable深度探索（上）](#23-hashtable深度探索上)
+  - [24. hashtable深度探索（下）](#24-hashtable深度探索下)
+  - [25. hash\_set、hash\_multiset, hash\_map、hash\_multimap概念](#25-hash_sethash_multiset-hash_maphash_multimap概念)
+  - [26. unordered容器概念](#26-unordered容器概念)
+  - [27. 算法的形式](#27-算法的形式)
+  - [28. 迭代器的分类（category）](#28-迭代器的分类category)
+  - [29. 迭代器分类（category）对算法的影响](#29-迭代器分类category对算法的影响)
+  - [30. 算法源代码剖析（11个例子）](#30-算法源代码剖析11个例子)
+  - [31. 仿函数和函数对象](#31-仿函数和函数对象)
+  - [32. 存在多种Adapter](#32-存在多种adapter)
+  - [33. Binder2nd](#33-binder2nd)
+  - [34. not1](#34-not1)
+  - [35. bind](#35-bind)
+  - [36. reverse\_iterator](#36-reverse_iterator)
+  - [37. inserter](#37-inserter)
+  - [38. ostream\_iterator](#38-ostream_iterator)
+  - [39. istream\_iterator](#39-istream_iterator)
+  - [40. 一个万用的hash function](#40-一个万用的hash-function)
+  - [41. Tuple 用例](#41-tuple-用例)
+  - [42. type traits](#42-type-traits)
+  - [43. type traits 实现](#43-type-traits-实现)
+  - [44. cout](#44-cout)
+  - [45. movable元素对于deque速度效能的影响](#45-movable元素对于deque速度效能的影响)
+  - [46. 测试函数](#46-测试函数)
 
 省略部分：
 01. Welcome to C++
@@ -243,23 +290,23 @@ int main() {
 
 1字节(Byte)=8位(bit)
 
-1KB( Kilobyte，千字节)=1024B
+1KB(Kilobyte，千字节)=1024B
 
-1MB( Megabyte，兆字节)=1024KB
+1MB(Megabyte，兆字节)=1024KB
 
-1GB( Gigabyte，吉字节，千兆)=1024MB
+1GB(Gigabyte，吉字节，千兆)=1024MB
 
-1TB( Trillionbyte，万亿字节，太字节)=1024GB
+1TB(Trillionbyte，万亿字节，太字节)=1024GB
 
-1PB( Petabyte，千万亿字节，拍字节)=1024TB
+1PB(Petabyte，千万亿字节，拍字节)=1024TB
 
-1EB( Exabyte，百亿亿字节，艾字节)=1024PB
+1EB(Exabyte，百亿亿字节，艾字节)=1024PB
 
 1ZB(Zettabyte，十万亿亿字节，泽字节)=1024EB
 
-1YB( Yottabyte，一亿亿亿字节，尧字节)=1024ZB
+1YB(Yottabyte，一亿亿亿字节，尧字节)=1024ZB
 
-1BB( Brontobyte，千亿亿亿字节)=1024YB
+1BB(Brontobyte，千亿亿亿字节)=1024YB
 
 [![top] Goto Top](#table-of-contents)
 
@@ -4833,7 +4880,22 @@ int main() { float number = Random::Get().Float();
 
 小字符串优化，简称为sso。字符串在代码中通常会造成很多性能下降，减少字符串的使用可以显著提高速度，这取决于你是实际上如何使用他们。
 
-今天要关注的是c++标准库如何优化小字符串
+今天要关注的是c++标准库如何优化小字符串。
+
+我不喜欢字符串的原因之一是他们倾向于分配内存，我们知道创建一个字符串会导致内存分配，所以很多人会尽量避免。
+
+大家倾向于后者而不是前者：
+
+```cpp
+    std::string name = "Cherno";
+    const char* _name ="Cherno";
+```
+
+但标准库说，小字符串，也就是不是很长的字符串，他们不需要堆分配，我可以只分配一小块基于栈的缓冲区而不是堆分配的。现在定义一个小字符串的实际长度，可以根据你所使用的C++标准库而变化Visual Studio 2019长度好像是15个字符。
+
+这里存在一个问题，就是我用clion编译出来的结果，好像没有区分小字符串，但是Xcode是区分的，不知道怎么回事。编译器指定的明明就是Xcode所在路径。
+
+总之，`std::string name = "Cherno";`不会导致内存分配，而`std::string name = "ChernoChernoChernoChernoCherno";`则会导致分配。
 
 [![top] Goto Top](#table-of-contents)
 
@@ -6393,6 +6455,217 @@ int main() {
 - logic_error 表示可以在程序中被预先检测到的异常
   - 如果小心地编写程序，这类异常能够避免。
 - runtime_error 表示难以被预先检测的异常。
+
+[![top] Goto Top](#table-of-contents)
+
+# 侯捷C++之C++STL
+
+## 1. 认识headers、版本、重要资源
+
+
+[![top] Goto Top](#table-of-contents)
+
+## 2. STL体系结构基础介绍
+
+STL提供了六大组件，彼此组合套用协同工作。 容器(containers)，算法(algorithm)，迭代器(iterator)， 仿函数(functors)，适配器(adapters)，配置器(allocators)
+
+迭代器(iterator)是前闭后开，也就是`c.end()`解引用，得到内容，得到的其实是容器最后一位的下一位，这样是非法的。
+
+遍历容器的方式：
+
+1. 老式
+
+```cpp
+  Container<T> c;
+  ...
+  Container<T>::iterator ite = c.begin();
+  for (; ite != c.end(); iter++)
+      ...
+```
+
+2. c++11
+
+
+
+[![top] Goto Top](#table-of-contents)
+
+## 3. 容器之分类与各种测试（一）
+
+[![top] Goto Top](#table-of-contents)
+
+## 4. 容器之分类与各种测试（二）
+
+[![top] Goto Top](#table-of-contents)
+
+## 5. 容器之分类与各种测试（三）
+
+[![top] Goto Top](#table-of-contents)
+
+## 6. 容器之分类与各种测试（四）
+
+[![top] Goto Top](#table-of-contents)
+
+## 7. 分配器之测试
+
+[![top] Goto Top](#table-of-contents)
+
+## 8. 源代码之分布 (VC, GCC)
+
+[![top] Goto Top](#table-of-contents)
+
+## 9. OOP (面向对象编程) vs. GP (泛型编程）
+
+[![top] Goto Top](#table-of-contents)
+
+## 10. 技术基础：操作符重载and模板(泛化, 全特化, 偏特化)
+
+[![top] Goto Top](#table-of-contents)
+
+## 11. 分配器
+
+[![top] Goto Top](#table-of-contents)
+
+## 12. 容器之间的实现关系与分类
+
+[![top] Goto Top](#table-of-contents)
+
+## 13. 深度探索list（上）
+
+[![top] Goto Top](#table-of-contents)
+
+## 14. 深度探索list（下）
+
+[![top] Goto Top](#table-of-contents)
+
+## 15. 迭代器的设计原则和Iterator Traits的作用与设计
+
+[![top] Goto Top](#table-of-contents)
+
+## 16. vector深度探索
+
+[![top] Goto Top](#table-of-contents)
+
+## 17. array、forward_list深度探索
+
+[![top] Goto Top](#table-of-contents)
+
+## 18. deque、queue和 stack深度探索（上）
+
+[![top] Goto Top](#table-of-contents)
+
+## 19. deque、queue和 stack深度探索（下）
+
+[![top] Goto Top](#table-of-contents)
+ 
+## 20. RB-tree 深度探索
+
+[![top] Goto Top](#table-of-contents)
+
+## 21. set、multiset深度探索
+
+[![top] Goto Top](#table-of-contents)
+
+## 22. map、multimap深度探索
+
+[![top] Goto Top](#table-of-contents)
+
+## 23. hashtable深度探索（上）
+
+[![top] Goto Top](#table-of-contents)
+
+## 24. hashtable深度探索（下）
+
+[![top] Goto Top](#table-of-contents)
+
+## 25. hash_set、hash_multiset, hash_map、hash_multimap概念
+
+[![top] Goto Top](#table-of-contents)
+
+## 26. unordered容器概念
+
+[![top] Goto Top](#table-of-contents)
+
+## 27. 算法的形式
+
+[![top] Goto Top](#table-of-contents)
+
+## 28. 迭代器的分类（category）
+
+[![top] Goto Top](#table-of-contents)
+
+## 29. 迭代器分类（category）对算法的影响
+
+[![top] Goto Top](#table-of-contents)
+
+## 30. 算法源代码剖析（11个例子）
+
+[![top] Goto Top](#table-of-contents)
+
+## 31. 仿函数和函数对象
+
+[![top] Goto Top](#table-of-contents)
+
+## 32. 存在多种Adapter
+
+[![top] Goto Top](#table-of-contents)
+
+## 33. Binder2nd
+
+[![top] Goto Top](#table-of-contents)
+
+## 34. not1
+
+[![top] Goto Top](#table-of-contents)
+
+## 35. bind
+
+[![top] Goto Top](#table-of-contents)
+
+## 36. reverse_iterator
+
+[![top] Goto Top](#table-of-contents)
+
+## 37. inserter
+
+[![top] Goto Top](#table-of-contents)
+
+## 38. ostream_iterator
+
+[![top] Goto Top](#table-of-contents)
+
+## 39. istream_iterator
+
+[![top] Goto Top](#table-of-contents)
+
+
+## 40. 一个万用的hash function
+
+[![top] Goto Top](#table-of-contents)
+
+## 41. Tuple 用例
+
+[![top] Goto Top](#table-of-contents)
+
+## 42. type traits
+
+[![top] Goto Top](#table-of-contents)
+
+## 43. type traits 实现
+
+[![top] Goto Top](#table-of-contents)
+
+## 44. cout
+
+[![top] Goto Top](#table-of-contents)
+
+## 45. movable元素对于deque速度效能的影响
+
+[![top] Goto Top](#table-of-contents)
+
+## 46. 测试函数
+
+[![top] Goto Top](#table-of-contents)
+
 
 
 

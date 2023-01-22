@@ -311,11 +311,11 @@ def main():
     #     tpl.render(DIC)  # 渲染替换
     #     tpl.save(NEW_FILE_PATH + r"{}.docx".format(time[0]))
     #
-    #     AddTable(NEW_FILE_PATH + r"{}.docx".format(time[0]), TABLE_PATH,
+    #     add_table(NEW_FILE_PATH + r"{}.docx".format(time[0]), TABLE_PATH,
     #              NEW_FILE_PATH + r"{}.docx".format(time[0]))
     #
     #     print("Newly generated files： ", NEW_FILE_PATH + r"{}.docx".format(time[0]))
-    #     DeleteBlankPages(NEW_FILE_PATH + r"{}.docx".format(time[0]))
+    #     delete_blank_pages(NEW_FILE_PATH + r"{}.docx".format(time[0]))
     #     print("Total number of documents: " + str(len(csv_list)) + "\t Generated: " + str(counter))
 
     toc = t.perf_counter()
