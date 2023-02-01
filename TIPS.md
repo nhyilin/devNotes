@@ -204,6 +204,7 @@ Find in Files: `Ctrl+Shift+F`
 
 - [离线安装anaconda及第三方库](https://blog.csdn.net/SEU_LL/article/details/119385057)
 - [离线迁移conda环境](https://blog.csdn.net/maximejia/article/details/115385868)
+- [conda和pip临时和永久换源的方法](https://blog.csdn.net/weixin_44089252/article/details/121053639)
 
 ## pycharm
 

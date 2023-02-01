@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "__debug": "cpp",
+        "__locale": "cpp",
+        "__node_handle": "cpp",
+        "__tree": "cpp",
+        "atomic": "cpp",
+        "bitset": "cpp",
+        "exception": "cpp",
+        "initializer_list": "cpp",
+        "ios": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "locale": "cpp",
+        "map": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "ostream": "cpp",
+        "streambuf": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "typeinfo": "cpp"
+    }
+}
