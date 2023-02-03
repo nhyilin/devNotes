@@ -11,11 +11,16 @@ from docx.oxml.ns import nsdecls
 from docx.oxml import parse_xml
 from docx import Document
 import cn2an
+from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.shared import Cm
+from docx.oxml.shared import OxmlElement, qn
+import word2pdf
 
-CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
-TEMPFILE = "新模版.docx"
-CSV_PATH = os.getcwd() + "/data/"
-NEW_FILE_PATH = os.getcwd() + "/new/"
+
+# CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
+# TEMPFILE = "新模版.docx"
+# CSV_PATH = os.getcwd() + "/rptD_ONE/"
+# NEW_FILE_PATH = os.getcwd() + "/output_doc/"
 
 
 def move_table_after(table, paragraph):
@@ -70,6 +75,8 @@ def makeDic(key, value):
 
 def EmptyDir(filepath):
     # 清空目标文件夹
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
     del_list = os.listdir(filepath)
     for f in del_list:
         file_path = os.path.join(filepath, f)
@@ -87,7 +94,7 @@ def numToChineseWord2(str):
     return output
 
 
-def ReFormatColumn(data, number, textContent, row, key):
+def re_format_column(data, number, textContent, row, key):
     """
     data：字典中的值，将很多条目合并到一起的目标，入值最好为空字符串
     number：csv文件中内容条数索引
@@ -97,27 +104,19 @@ def ReFormatColumn(data, number, textContent, row, key):
     """
     for i in range(row):
         data += numToChineseWord(str(number[i]))
-        # data += str(textContent[i]).replace("xAyBzC01", "\n    ").replace("xAyBzC02",
-        #                                                                   "\n    " + "（" + numToChineseWord2(
-        #                                                                       str(numOfSecondHeader)) + "） ")
-        # data += str(textContent[i])
-        count = data.count("xAyBzC02")
-        numOfSecondHeader = 1
-        for j in range(count):
-            data += str(textContent[i]).replace("xAyBzC01", "\n    ").replace("xAyBzC02",
-                                                                              "\n    " + "（" + numToChineseWord2(
-                                                                                  str(numOfSecondHeader)) + "） ")
-            numOfSecondHeader = numOfSecondHeader + 1
-
-        # for j in range(count):
-
+        # data += '. '
+        # data += ' '
+        data += str(textContent[i]).replace("xAyBzC01", "\n    ")
         data += '\n    '
-        # numOfSecondHeader = numOfSecondHeader + 1
-
-    # FirstHeader=1
-    # for i in range(row):
-    #     data+=numToChineseWord(str([i])).replace("xAyBzC01","\n    ")
-    # for
+    tmpD = data.find("xAyBzC02")
+    if tmpD > -1:
+        numofsecondheader = 1
+        for i in range(1, 5, 1):
+            data = data.replace("xAyBzC02", "\n    " + "（" + numToChineseWord2(str(numofsecondheader)) + "） ", 1)
+            tmpD = data.find("xAyBzC02")
+            if tmpD == -1:
+                break
+            numofsecondheader = numofsecondheader + 1
 
     return makeDic(key, data)
 
@@ -147,12 +146,12 @@ def FormatCSV(csvfile):
 
     global Brief_dic
     Brief_data = str()
-    Brief_dic = ReFormatColumn(Brief_data, number, Brief, num, "Brief")
+    Brief_dic = re_format_column(Brief_data, number, Brief, num, "Brief")
     DIC.update(Brief_dic)
 
     global Content_dic
     Content_data = str()
-    Content_dic = ReFormatColumn(Content_data, number, Content, num, "Content")
+    Content_dic = re_format_column(Content_data, number, Content, num, "Content")
     DIC.update(Content_dic)
 
     Time_dic = {"Time": time[0]}
@@ -174,7 +173,7 @@ def delete_paragraph(paragraph):
     p._p = p._element = None
 
 
-def DeleteBlankPages(xxx):
+def delete_blank_pages(xxx):
     # 清除word中空白页面
     myDoc = Document(xxx)
     for num, paragraphs in enumerate(myDoc.paragraphs):
@@ -198,7 +197,7 @@ def PrintWord():
 """
 
 
-def MultiTableInOneChart(csvFileChart):
+def multi_table_in_one_chart(csvFileChart):
     """
     检测csv中一个表单项中有多个表格地址，并添加所有列出项
     csvFileChart：一个csv中表格列表，如：
@@ -214,7 +213,20 @@ def MultiTableInOneChart(csvFileChart):
     return newcsvFile
 
 
-def AddTable(wordFile, csvFile, latestFileName):
+def set_cell_margins(cell, **kwargs):
+    tc = cell._tc
+    tcPr = tc.get_or_add_tcPr()
+    tcMar = OxmlElement('w:tcMar')
+    for m in ['top', 'start', 'bottom', 'end', 'left', 'right']:
+        if m in kwargs:
+            node = OxmlElement('w:{}'.format(m))
+            node.set(qn('w:w'), str(kwargs.get(m)))
+            node.set(qn('w:type'), 'dxa')
+            tcMar.append(node)
+    tcPr.append(tcMar)
+
+
+def add_table(wordFile, csvFile, latestFileName):
     """
     wordFile：要添加表格的word
     csvFile：要添加的表格
@@ -224,9 +236,8 @@ def AddTable(wordFile, csvFile, latestFileName):
     index = 0
     """
     重构一下代码，这里性能太差
-    打算打开csv之后直接读取内容到list，然后直接将list内内容赋值到docx表格中
     """
-    csvFile = MultiTableInOneChart(csvFile)
+    csvFile = multi_table_in_one_chart(csvFile)
     for csvIndex in csvFile:
         if not csvIndex:
             continue
@@ -236,43 +247,59 @@ def AddTable(wordFile, csvFile, latestFileName):
         if len(csvIndex) > 40:
             print("表格路径过长，已跳过，csv中标注路径为：" + csvIndex)
             continue
-        csvIndex = csvIndex[1:]
+        csvIndex = csvIndex[3:]
+        csvIndex = CURRENT_DIR + csvIndex
         csvIndex = csvIndex.replace(" ", "")
+
         with open(csvIndex, encoding="utf-8") as f:
             f_csv = csv.DictReader(f)
-            ROWS = 0
+            ROWS = 0  # csv表格文件的行数
             csvKeyInotList = []
             csvValueInotList = []
+            CSVColumn = 0  # csv表格的列，通过表格项总数/行数来计算得到，for循环之后更新
             for row in f_csv:
                 # csv行数，此系数极为重要
                 ROWS = ROWS + 1
                 for key, value in row.items():
                     csvKeyInotList.append(key)
                     csvValueInotList.append(value)
-        del csvKeyInotList[11:]
+                    CSVColumn = CSVColumn + 1
+            CSVColumn = int(CSVColumn / ROWS)
+
+        del csvKeyInotList[CSVColumn:]
 
         csvKeyInotList = np.array(csvKeyInotList)
-        csvValueInotList = np.array(csvValueInotList).reshape(ROWS, 11)
+        csvValueInotList = np.array(csvValueInotList).reshape(ROWS, CSVColumn)
 
-        table = doc.add_table(rows=ROWS + 1, cols=11, style='Table Grid')
+        table = doc.add_table(rows=ROWS + 1, cols=CSVColumn, style='Table Grid')
         table.autofit = True
+        table.alignment = WD_TABLE_ALIGNMENT.CENTER  # 表格居中对齐
 
-        hdr_cells = table.rows[0].cells
-        hdr_cells[5].width = Inches(1.3)
-        hdr_cells[6].width = Inches(2.0)
-        hdr_cells[10].width = Inches(1.8)
+        # 下面的代码是根据表格的列数控制每个表格的列的宽度
+        if CSVColumn == 3:
+            for i in range(0, CSVColumn - 1):
+                for cell in table.columns[i].cells:
+                    cell.width = Inches(1.4)
+        elif CSVColumn == 6:
+            for i in range(0, CSVColumn - 1):
+                for cell in table.columns[i].cells:
+                    cell.width = Inches(1.0)
+                for cell in table.columns[5].cells:
+                    cell.width = Inches(2.0)
+        elif CSVColumn == 7:
+            for i in range(0, CSVColumn - 1):
+                for cell in table.columns[0].cells:
+                    cell.width = Inches(2.4)
 
-        for cell in table.columns[0].cells:
-            cell.width = Inches(0.2)
-
-        for table_col in range(0, 11):
+        for table_col in range(0, CSVColumn):
             table.rows[0].cells[table_col].text = csvKeyInotList[table_col]
             table.rows[0].cells[table_col].paragraphs[0].runs[0].font.size = Pt(12)
             for table_row in range(1, ROWS + 1):
                 table.rows[table_row].cells[table_col].text = csvValueInotList[table_row - 1][table_col]
                 table.rows[table_row].cells[table_col].paragraphs[0].runs[0].font.size = Pt(12)
+                # set_cell_margins(table.rows[table_row].cells[table_col], right=0)  # 控制左右上下边距，但是唯独右好像不管用，故先注释
 
-        # 首行灰色
+                # 首行灰色
         rows = table.rows[0]
         for cell in rows.cells:
             shading_elm = parse_xml(r'<w:shd {} w:fill="D9D9D9"/>'.format(nsdecls('w')))
@@ -290,12 +317,12 @@ def AddTable(wordFile, csvFile, latestFileName):
         # cell.line_spacing = 1.5
 
         table_name = ""
-        if csvIndex[29] == "1":
-            table_name = "卫星轨道降低幅度较大的统计"
-        elif csvIndex[29] == "2":
-            table_name = "卫星轨道降低幅度较小的统计"
-        elif csvIndex[29] == "3":
-            table_name = "卫星轨道升高幅度较小的统计"
+        if csvIndex[19] == "1":
+            table_name = "各壳层星链卫星在轨总体情况"
+        elif csvIndex[19] == "2":
+            table_name = "各壳层星链卫星TLE数据情况"
+        elif csvIndex[19] == "3":
+            table_name = "星链卫星接近我国空间站情况"
         else:
             table_name = "卫星轨道升高幅度较大的统计"
 
@@ -304,7 +331,7 @@ def AddTable(wordFile, csvFile, latestFileName):
         move_table_after(table_headers, doc.paragraphs[7 + index])
 
         index = index + 1
-        DeleteBlankPages(latestFileName)
+        delete_blank_pages(latestFileName)
         doc.save(latestFileName)
 
 
@@ -326,14 +353,14 @@ def ProcessingThread(csv_list, counter):
     for index in csv_list:
         counter = counter + 1
         TABLE_PATH = FormatCSV(index)
-        tpl = DocxTemplate(CURRENT_DIR + TEMPFILE)
+        tpl = DocxTemplate(TEMPFILE)
         tpl.render(DIC)  # 渲染替换
         tpl.save(NEW_FILE_PATH + r"{}.docx".format(time[0]))
 
-        AddTable(NEW_FILE_PATH + r"{}.docx".format(time[0]), TABLE_PATH,
-                 NEW_FILE_PATH + r"{}.docx".format(time[0]))
-        DeleteBlankPages(NEW_FILE_PATH + r"{}.docx".format(time[0]))
-        print("Newly generated files： ", NEW_FILE_PATH + r"{}.docx".format(time[0]))
+        add_table(NEW_FILE_PATH + r"{}.docx".format(time[0]), TABLE_PATH,
+                  NEW_FILE_PATH + r"{}.docx".format(time[0]))
+        delete_blank_pages(NEW_FILE_PATH + r"{}.docx".format(time[0]))
+        print("Newly generated file： ", NEW_FILE_PATH + r"{}.docx".format(time[0]))
         print("Total number of documents: " + str(len(csv_list)) + "\t Generated: " + str(counter))
 
 
@@ -344,19 +371,42 @@ def predictTime(counter, tic, toc):
     print("if total number was 1000, it will cost:" + "%02d:%02d:%02d" % (h, m, s))
 
 
+def get_parames_from_txt(params_file):
+    with open(params_file, encoding='gbk') as f:
+        data = f.read().split("\n")
+        data_path = data[2].split("&&")[1] + '/rptdaily/'
+        data_path = data_path.replace('\\', '/')
+        print("data path: " + data_path)
+
+    global CURRENT_DIR
+    global TEMPFILE
+    global CSV_PATH
+    global NEW_FILE_PATH
+
+    CURRENT_DIR = data_path
+    TEMPFILE = os.getcwd() + '/新模版.docx'
+    CSV_PATH = data_path + 'rptD_ONE/'
+    NEW_FILE_PATH = data_path + 'output_doc/'
+
+
 def main():
-    # tic = t.perf_counter()
+    get_parames_from_txt("PARAMS.txt")
+    # return
+    tic = t.perf_counter()
     global counter
     counter = 0
     EmptyDir(NEW_FILE_PATH)
     global csv_list
     csv_list = list_dir(CSV_PATH)
-    print("csv_fils: ", '\n', csv_list)
     ProcessingThread(csv_list, counter)
+    print("----------------------------finish generating words!! ")
+
+    # 这里不建议一起处理，会造成word软件进程冲突
+    # word2pdf.doJob(NEW_FILE_PATH)
 
     toc = t.perf_counter()
-    # print(f"time cost: {toc - tic:0.4f} seconds", "\t each file cost:" + str((toc - tic) / counter)[:5])
-    # predictTime(counter, tic, toc)
+    print(
+        "----------------------------finish generating pdfs!! \n" + "well done " + f"time cost: {toc - tic:0.4f} seconds")
 
 
 if __name__ == "__main__":

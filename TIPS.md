@@ -209,6 +209,7 @@ Find in Files: `Ctrl+Shift+F`
 ## pycharm
 
 - pycharm向左、右缩进快捷键：shift+tab、tab（win）
+- pycharm编辑快捷键时，搜索debug，`debug context configuration`为调试当前页面内容，run同理：`run context configuration`
 
 - [pycharm每次运行的时候都会开一个新窗口，怎么关闭？关闭“控制台运行”模式](https://blog.csdn.net/kwinawyeth/article/details/106452463)
 

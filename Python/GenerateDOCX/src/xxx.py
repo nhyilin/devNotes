@@ -3,7 +3,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 # 读取数据
-data = pd.read_csv("data.csv",encoding="utf8")
+data = pd.read_csv("../data.csv", encoding="utf8")
 
 # 将日期列转化为整数
 data["date"] = pd.to_datetime(data["date"], format='%Y%m%d')
