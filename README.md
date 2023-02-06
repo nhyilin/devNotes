@@ -6,6 +6,7 @@
   - [python部分](#python部分)
   - [其他](#其他)
 - [c++ 学习资料](#c-学习资料)
+- [LaTex](#latex)
 - [待整理](#待整理)
 
 # 文档维护清单
@@ -136,6 +137,10 @@ pku的paper模板：[PKUpaper](./LaTex/PKUpaper/)
 [C and C++ Users Group](https://www.hal9k.com/cug/) − C 和 C++ 的用户团体提供了免费的涵盖各种编程领域 C++ 项目的源代码，包括 AI、动画、编译器、数据库、调试、加密、游戏、图形、GUI、语言工具、系统编程等。
 
 [c语言中文网](http://c.biancheng.net/)
+
+# LaTex
+
+[常用指令](./LaTex/latex常用指令.md)
 
 # 待整理
 
