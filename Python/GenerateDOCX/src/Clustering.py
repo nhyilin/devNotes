@@ -2,9 +2,11 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
-from datetime import datetime
+from datetime import datetime, timedelta
 import matplotlib.dates as mdates
 import os
+import julian
+from collections import Counter
 
 CURRENT_DIR = os.getcwd()
 RESULT_FILE = CURRENT_DIR + "/result.csv"
@@ -40,6 +42,33 @@ def yyyymmdd_to_jd(date, anchor):
         return anchor
 
 
+def yyyymmdd_to_date_time(date, anchor):
+    if date != '':
+        return datetime.strptime(date, '%Y%m%d')
+    else:
+        return str(anchor)
+
+
+def jd_to_xtime(jd_list):
+    result = []
+    for i in jd_list:
+        i = int(i)
+    result.append([datetime.strptime(str(int(jd)), "%j") for jd in jd_list])
+
+    # 绘制图表
+    # fig, ax = plt.subplots()
+    # ax.plot(dates, [1, 2, 3, 4, 5])
+    #
+    # # 设置 X 轴的标签格式
+    # ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y%m%d"))
+    # fig.autofmt_xdate()
+    #
+    # # 显示图表
+    # plt.show()
+
+    return result
+
+
 def zip_data(data1, data2):
     # 将[1, 2, 3]、[6, 7, 8]转换为[[1, 6], [2, 7], [3, 8]]
     merged_list = list(zip(data1, data2))
@@ -47,7 +76,30 @@ def zip_data(data1, data2):
     return result
 
 
-def one_degree(isSavePic):
+def count_points_in_label(labels):
+    return Counter(labels)
+
+
+def remove_problematic_values(data_list):
+    # 计算数据的平均数
+    mean = np.mean(data_list)
+
+    # 计算数据的标准差
+    std = np.std(data_list)
+
+    # 设置阈值
+    threshold = 2
+
+    # 计算每个数据点的 Z-Score
+    z_scores = [(x - mean) / std for x in data_list]
+
+    # 对超过阈值的数据点赋值为平均值
+    for i, z_score in enumerate(z_scores):
+        if abs(z_score) > threshold:
+            data_list[i] = mean
+
+
+def one_degree(isSavePic, needDrawPic, logCenter):
     data_list = []
 
     with open(RESULT_FILE, encoding='gbk') as f:
@@ -59,7 +111,7 @@ def one_degree(isSavePic):
                 continue
             else:
                 data_list.append(float(line[9]))
-    # print(data_list)
+
     # 样本数据（单列）
     data = np.array(data_list).reshape(-1, 1)
 
@@ -78,91 +130,107 @@ def one_degree(isSavePic):
     count_dict = dict(zip(unique, counts))
     print(count_dict)
 
-    print("质心：\n", centroids)
-    print("标签：\n", labels)
+    if logCenter:
+        print("质心：\n", centroids)
+        print("标签：\n", labels)
 
-    # Plot the data points and centroids
-    # plt.figure(dpi=600)
-    # # 绘制结果图
-    # now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # plt.title("Plot generated at " + now)
-    # plt.scatter(data[:, 0], np.random.rand(len(data)), c=labels)
-    # # plt.scatter(centroids[:, 0], np.mean(data), marker="x", s=200, linewidths=3, color='r')
-    # plt.show()
-    # plt.savefig("single_dim.pdf", format='pdf')
-
-    fig, ax = plt.subplots(dpi=600)
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    plt.title("Plot generated at " + now)
-    ax.scatter(data[:, 0], np.random.rand(len(data)), c=labels)
-    ax.scatter(centroids[:, 0], np.mean(data), marker="x", s=200, linewidths=3, color='r')
-    plt.show()
-    if isSavePic:
-        fig.savefig("single_dim.pdf", format='pdf')
+    if needDrawPic:
+        fig, ax = plt.subplots(dpi=600)
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        plt.title("Plot generated at " + now)
+        ax.scatter(data[:, 0], np.random.rand(len(data)), c=labels)
+        # ax.scatter(centroids[:, 0], np.mean(data), marker="x", s=200, linewidths=3, color='r')
+        plt.show()
+        if isSavePic:
+            fig.savefig("single_dim.pdf", format='pdf')
 
 
-def double_degree(isSavePic):
-    start_list = get_data_from_result(RESULT_FILE, 6)
+def double_degree(isSavePic, needDrawPic, logCenter):
+    start_list = get_data_from_result(RESULT_FILE, 5)
+    x_time = []
     temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
     for index, value in enumerate(start_list):
-        temp = yyyymmdd_to_jd(value, temp_anchor)
+        temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
         temp_anchor = temp
         start_list[index] = float(temp)
         height_list = get_data_from_result(RESULT_FILE, 9)
+        if value != '':
+            x_time.append(str(int(value)))
+        else:
+            x_time.append(str(start_list[index - 1]))
+
+    # 根据Z-Score算法排除噪音,其中噪音点另起为均值
+    remove_problematic_values(height_list)
+    remove_problematic_values(start_list)
 
     # 将日期和start_time拼接为[[,],[,],[,]]形式，为聚类准备
-    data = np.array(zip_data(start_list, height_list))
+    zippd_data = np.array(zip_data(start_list, height_list))
 
     # 创建 KMeans 模型并训练
-    kmeans = KMeans(n_clusters=5, random_state=0).fit(data)
+    kmeans = KMeans(n_clusters=5, random_state=0).fit(zippd_data)
 
     # 获取分类结果与中心质心
     labels = kmeans.labels_
+
+    print(count_points_in_label(labels))
+
     cluster_centers = kmeans.cluster_centers_
 
     # 统计某一类的数据个数
     unique, counts = np.unique(labels, return_counts=True)
     count_dict = dict(zip(unique, counts))
 
-    print(count_dict)
-
     cluster_centers = np.around(cluster_centers, decimals=2)
-    print("质心：\n", cluster_centers)
-    print("标签：\n", labels)
 
-    # 绘制结果图
-    # 控制横轴为时间格式
-    min_start_time = min(start_list)
-    max_start_time = max(start_list)
+    if logCenter:
+        print("质心：\n", cluster_centers)
+        print("标签：\n", labels)
 
-    # date1 = datetime(int(min_start_time[0:3]), int(min_start_time[4:5]), int(min_start_time[5:6]))
-    # date2 = datetime(max_start_time[0:3], max_start_time[4:5], max_start_time[5:6])
-    # delta = datetime.timedelta(days=1)
-    # dates = mdates.drange(date1, date2, delta)
+    if needDrawPic:
+        # 绘制结果图
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        fig, ax = plt.subplots(dpi=600)
 
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    fig, ax = plt.subplots(dpi=600)
+        # x_normal_time = [datetime.strptime(d, '%Y%m%d') for d in x_time]
+        x_normal_time = []
+        for d in x_time:
+            d = datetime.strptime(d, '%Y%m%d')
+            x_normal_time.append(d)
 
-    ax.scatter(data[:, 0], data[:, 1], c=labels)
-    print(data[:, 0])
-    print('\n')
-    print(data[:, 1])
-    ax.scatter(cluster_centers[:, 0], cluster_centers[:, 1], marker='D', s=100, linewidths=3, color='r')
-    plt.title("Plot generated at " + now)
-    ax.set_xlabel("Time")
-    ax.set_ylabel("Height")
-    # ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-    # plt.gcf().autofmt_xdate()
-    if isSavePic:
-        fig.savefig("double_dim.pdf", format='pdf')
+        ax.scatter(x_normal_time, zippd_data[:, 1], c=labels)
 
-    plt.show()
+        # print(x_normal_time)
+
+        x_cluster_centers = []
+        # 将datetime对象格式化为yyyymmdd字符串
+        for d in cluster_centers[:, 0]:
+            timestamp = (d - 2451545) * 86400
+            dt = datetime.fromtimestamp(timestamp)
+
+            # yyyymmdd_str = dt.strftime( "%Y%m%d")
+            x_cluster_centers.append(dt)
+
+        # print(x_cluster_centers)
+
+        # ax.scatter(x_cluster_centers, cluster_centers[:, 1], marker='D', s=100, linewidths=3, color='r')
+        plt.title("Plot generated at " + now)
+        ax.set_xlabel("Time")
+        ax.set_ylabel("Height")
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        plt.gcf().autofmt_xdate()
+        if isSavePic:
+            fig.savefig("double_dim.pdf", format='pdf')
+
+        plt.show()
 
 
 def main():
     isSavePic = False  # 设置是否将图片保存到本地
-    # one_degree(isSavePic)
-    double_degree(isSavePic)
+    needDrawPic = False  # 测试过程中是否需要绘图
+    logCenter = True  # 测试过程中是否需要打印中心点
+
+    # one_degree(isSavePic, needDrawPic, logCenter)
+    double_degree(isSavePic, needDrawPic, logCenter)
 
 
 if __name__ == "__main__":
