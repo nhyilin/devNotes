@@ -7,9 +7,13 @@ import matplotlib.dates as mdates
 import os
 import julian
 from collections import Counter
+from astropy.time import Time
+from sklearn.mixture import GaussianMixture
+import pandas as pd
+import matplotlib
 
 CURRENT_DIR = os.getcwd()
-RESULT_FILE = CURRENT_DIR + "/result.csv"
+RESULT_FILE = CURRENT_DIR + "/data/result.csv"
 
 
 def get_data_from_result(file, col):
@@ -50,22 +54,12 @@ def yyyymmdd_to_date_time(date, anchor):
 
 
 def jd_to_xtime(jd_list):
+    # 将包含儒略日的列表对象格式化为yyyymmdd字符串的列表
     result = []
-    for i in jd_list:
-        i = int(i)
-    result.append([datetime.strptime(str(int(jd)), "%j") for jd in jd_list])
-
-    # 绘制图表
-    # fig, ax = plt.subplots()
-    # ax.plot(dates, [1, 2, 3, 4, 5])
-    #
-    # # 设置 X 轴的标签格式
-    # ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y%m%d"))
-    # fig.autofmt_xdate()
-    #
-    # # 显示图表
-    # plt.show()
-
+    for jd in jd_list:
+        t = Time(jd, format='jd')
+        t = t.strftime("%Y-%m-%d")
+        result.append(t)
     return result
 
 
@@ -97,11 +91,80 @@ def remove_problematic_values(data_list):
     for i, z_score in enumerate(z_scores):
         if abs(z_score) > threshold:
             data_list[i] = mean
+    return data_list
+
+
+def alg_kmeans(data_list1, data_list2):
+    # 对传入数据进行Z-Score去除噪声
+    remove_problematic_values(data_list1)
+    remove_problematic_values(data_list2)
+
+    # 将日期和start_time拼接为[[,],[,],[,]]形式，为聚类准备
+    zippd_data_with_jd_time = np.array(zip_data(data_list1, data_list2))
+    # 创建 KMeans 模型并训练
+    kmeans = KMeans(n_clusters=5, random_state=0).fit(zippd_data_with_jd_time)
+    # 获取分类结果与中心质心
+    labels = kmeans.labels_
+    print(count_points_in_label(labels))
+    cluster_centers = kmeans.cluster_centers_
+    # 统计某一类的数据个数
+    unique, counts = np.unique(labels, return_counts=True)
+    count_dict = dict(zip(unique, counts))
+    cluster_centers = np.around(cluster_centers, decimals=2)
+    return cluster_centers, labels, zippd_data_with_jd_time
+
+
+def alg_gaussianMixture(data):
+    gmm = GaussianMixture(n_components=4)
+    gmm.fit(data)
+
+    # predictions from gmm
+    labels = gmm.predict(data)
+    frame = pd.DataFrame(data)
+    frame['cluster'] = labels
+    frame.columns = ['Time', 'Height', 'cluster']
+
+    color = ['blue', 'green', 'cyan', 'black']
+    plt.figure()
+    for k in range(0, 4):
+        data = frame[frame["cluster"] == k]
+        plt.scatter(data["Time"], data["Height"], c=color[k])
+
+    center = []
+    for i in range(gmm.n_components):
+        center.append(gmm.means_[i])
+
+    return data["Time"], data["Height"], center
+
+
+def kmeans_scatter_data(ax, data_x, data_y, marker_type, marker_size, _linewidth, _color, whether_hold_on, isSavePic):
+    """
+    ax：绘图
+    data_x：x轴数据
+    data_y：y轴数据
+    marker_type：绘图marker样式参数
+    marker_size：绘图marker大小参数
+    _linewidth：绘图线宽参数
+    _color：绘图颜色参数
+    whether_hold_on：若在某个图形或某坐标轴上重复调用此函数，多次绘制，则前几次需要该参数为False，最后一次绘制需要另其为True，起到Hold on的效果
+    isSavePic：是否需要保存图片
+    """
+
+    data_x = [datetime.strptime(item, "%Y-%m-%d") for item in data_x]
+    ax.scatter(data_x, data_y, marker=marker_type, s=marker_size, linewidths=_linewidth, c=_color)
+    ax.set_xlabel("Time")
+    ax.set_ylabel("Height")
+    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.gcf().autofmt_xdate()
+    if whether_hold_on:
+        plt.show()
+        if isSavePic:
+            fig.savefig("double_dim.pdf", format='pdf')
 
 
 def one_degree(isSavePic, needDrawPic, logCenter):
     data_list = []
-
     with open(RESULT_FILE, encoding='gbk') as f:
         render = csv.reader(f)  # reader(迭代器对象)--> 迭代器对象
         for line in render:
@@ -112,17 +175,10 @@ def one_degree(isSavePic, needDrawPic, logCenter):
             else:
                 data_list.append(float(line[9]))
 
-    # 样本数据（单列）
-    data = np.array(data_list).reshape(-1, 1)
-
-    # 聚类数量
-    kmeans = KMeans(n_clusters=7)
-
-    # 输入数据拟合
-    kmeans = kmeans.fit(data)
-
-    # 基于数据获取质心和标签的值
-    centroids = kmeans.cluster_centers_
+    data = np.array(data_list).reshape(-1, 1)  # 样本数据（单列）
+    kmeans = KMeans(n_clusters=7)  # 聚类数量
+    kmeans = kmeans.fit(data)  # 输入数据拟合
+    centroids = kmeans.cluster_centers_  # 基于数据获取质心和标签的值
     labels = kmeans.labels_
 
     # 统计某一类的数据个数
@@ -146,8 +202,11 @@ def one_degree(isSavePic, needDrawPic, logCenter):
 
 
 def double_degree(isSavePic, needDrawPic, logCenter):
+    # -------------------------------------------取数据
+    global fig
     start_list = get_data_from_result(RESULT_FILE, 5)
     x_time = []
+    height_list = []
     temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
     for index, value in enumerate(start_list):
         temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
@@ -159,74 +218,73 @@ def double_degree(isSavePic, needDrawPic, logCenter):
         else:
             x_time.append(str(start_list[index - 1]))
 
-    # 根据Z-Score算法排除噪音,其中噪音点另起为均值
-    remove_problematic_values(height_list)
-    remove_problematic_values(start_list)
-
-    # 将日期和start_time拼接为[[,],[,],[,]]形式，为聚类准备
-    zippd_data = np.array(zip_data(start_list, height_list))
-
-    # 创建 KMeans 模型并训练
-    kmeans = KMeans(n_clusters=5, random_state=0).fit(zippd_data)
-
-    # 获取分类结果与中心质心
-    labels = kmeans.labels_
-
-    print(count_points_in_label(labels))
-
-    cluster_centers = kmeans.cluster_centers_
-
-    # 统计某一类的数据个数
-    unique, counts = np.unique(labels, return_counts=True)
-    count_dict = dict(zip(unique, counts))
-
-    cluster_centers = np.around(cluster_centers, decimals=2)
-
+    # -------------------------------------------kmeans聚类
+    cluster_centers, labels, zippd_data_with_jd_time = alg_kmeans(start_list, height_list)
+    fig, (ax_kmeans, ax_gaussian) = plt.subplots(1, 2)
     if logCenter:
-        print("质心：\n", cluster_centers)
-        print("标签：\n", labels)
+        print("kmeans质心：\n", cluster_centers)
+        # print("kmeans标签：\n", labels)
 
     if needDrawPic:
         # 绘制结果图
-        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        fig, ax = plt.subplots(dpi=600)
+        x_data1 = jd_to_xtime(zippd_data_with_jd_time[:, 0])
+        # kmeans_scatter_data(ax_kmeans, x_data1, zippd_data_with_jd_time[:, 1], None, None, None, labels, False,
+        #                     isSavePic)
+        x_data2 = jd_to_xtime(cluster_centers[:, 0])
+        # kmeans_scatter_data(ax_kmeans, x_data2, cluster_centers[:, 1], 'x', None, None, 'r', True, isSavePic)
 
-        # x_normal_time = [datetime.strptime(d, '%Y%m%d') for d in x_time]
-        x_normal_time = []
-        for d in x_time:
-            d = datetime.strptime(d, '%Y%m%d')
-            x_normal_time.append(d)
+        # ---------修改到一半下班了～
 
-        ax.scatter(x_normal_time, zippd_data[:, 1], c=labels)
-
-        # print(x_normal_time)
-
-        x_cluster_centers = []
-        # 将datetime对象格式化为yyyymmdd字符串
-        for d in cluster_centers[:, 0]:
-            timestamp = (d - 2451545) * 86400
-            dt = datetime.fromtimestamp(timestamp)
-
-            # yyyymmdd_str = dt.strftime( "%Y%m%d")
-            x_cluster_centers.append(dt)
-
-        # print(x_cluster_centers)
-
-        # ax.scatter(x_cluster_centers, cluster_centers[:, 1], marker='D', s=100, linewidths=3, color='r')
-        plt.title("Plot generated at " + now)
-        ax.set_xlabel("Time")
-        ax.set_ylabel("Height")
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        data_x = [datetime.strptime(item, "%Y-%m-%d") for item in x_data1]
+        ax_kmeans.scatter(x_data1, zippd_data_with_jd_time[:, 1], marker=None, s=None, linewidths=None, c=labels)
+        ax_kmeans.set_xlabel("Time")
+        ax_kmeans.set_ylabel("Height")
+        ax_kmeans.xaxis.set_major_locator(mdates.AutoDateLocator())
+        ax_kmeans.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
         plt.gcf().autofmt_xdate()
+
+        data_center_x = [datetime.strptime(item, "%Y-%m-%d") for item in x_data2]
+        ax_kmeans.scatter(data_center_x, cluster_centers[:, 1], marker='x', s=None, linewidths=None, c='r')
+        ax_kmeans.set_xlabel("Time")
+        ax_kmeans.set_ylabel("Height")
+        ax_kmeans.xaxis.set_major_locator(mdates.AutoDateLocator())
+        ax_kmeans.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        plt.gcf().autofmt_xdate()
+        plt.show()
         if isSavePic:
             fig.savefig("double_dim.pdf", format='pdf')
 
-        plt.show()
+        # ---------修改到一半下班了～
+
+    # -------------------------------------------GaussianMixture
+    df = pd.DataFrame(zippd_data_with_jd_time, columns=['time', 'height'])
+    result_x, result_y, gaussian_center_arry = alg_gaussianMixture(df)
+
+    print(result_x)
+    gaussian_x = [temp[0] for temp in result_x]
+    gaussian_x = jd_to_xtime(gaussian_x)
+
+    gaussian_y = [temp[0] for temp in result_y]
+
+    gaussian_center_x = [temp[0] for temp in gaussian_center_arry]
+    gaussian_center_x = jd_to_xtime(gaussian_center_x)
+
+    gaussian_center_y = [temp[1] for temp in gaussian_center_arry]
+
+    if logCenter:
+        print("kmeans高斯质心：\n")
+        print(zip_data(gaussian_center_x, gaussian_y))
+        # print("kmeans标签：\n", labels)
+
+    if needDrawPic:
+        color = ['blue', 'green', 'cyan', 'black']
+        scatter_data(ax_gaussian, gaussian_x, gaussian_y, None, None, None, color, False, isSavePic)
+        scatter_data(ax_gaussian, gaussian_center_x, gaussian_center_y, None, None, None, color, True, isSavePic)
 
 
 def main():
     isSavePic = False  # 设置是否将图片保存到本地
-    needDrawPic = False  # 测试过程中是否需要绘图
+    needDrawPic = True  # 测试过程中是否需要绘图
     logCenter = True  # 测试过程中是否需要打印中心点
 
     # one_degree(isSavePic, needDrawPic, logCenter)

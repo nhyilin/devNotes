@@ -14,7 +14,6 @@ import cn2an
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.shared import Cm
 from docx.oxml.shared import OxmlElement, qn
-import word2pdf
 
 
 # CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
@@ -290,6 +289,20 @@ def add_table(wordFile, csvFile, latestFileName):
             for i in range(0, CSVColumn - 1):
                 for cell in table.columns[0].cells:
                     cell.width = Inches(2.4)
+        elif CSVColumn == 8:
+            for i in range(0, CSVColumn - 1):
+                for cell in table.columns[i].cells:
+                    cell.width = Inches(0.8)
+                for cell in table.columns[2].cells:
+                    cell.width = Inches(1.0)
+                for cell in table.columns[3].cells:
+                    cell.width = Inches(1.0)
+                for cell in table.columns[4].cells:
+                    cell.width = Inches(1.0)
+                for cell in table.columns[5].cells:
+                    cell.width = Inches(1.0)
+                for cell in table.columns[7].cells:
+                    cell.width = Inches(1.0)
 
         for table_col in range(0, CSVColumn):
             table.rows[0].cells[table_col].text = csvKeyInotList[table_col]
@@ -317,14 +330,18 @@ def add_table(wordFile, csvFile, latestFileName):
         # cell.line_spacing = 1.5
 
         table_name = ""
-        if csvIndex[19] == "1":
-            table_name = "各壳层星链卫星在轨总体情况"
-        elif csvIndex[19] == "2":
-            table_name = "各壳层星链卫星TLE数据情况"
-        elif csvIndex[19] == "3":
-            table_name = "星链卫星接近我国空间站情况"
+        if csvIndex[-5] == "1" and csvIndex[-16:-13] != "Var":
+            table_name = " 各壳层星链卫星在轨总体情况"
+        elif csvIndex[-5] == "2" and csvIndex[-16:-13] != "Var":
+            table_name = " 各壳层星链卫星TLE数据情况"
+        elif csvIndex[-5] == "3" and csvIndex[-16:-13] != "Var":
+            table_name = " 星链卫星接近我国空间站情况"
+        elif csvIndex[-5] == "4" and csvIndex[-16:-13] != "Var":
+            table_name = " 卫星轨道升高幅度较大的统计"
+        elif csvIndex[-16:-13] == "Var":
+            table_name = " 星链卫星轨位变动情况"
         else:
-            table_name = "卫星轨道升高幅度较大的统计"
+            continue
 
         cell.paragraphs[0].add_run("附表 " + str(index + 1) + table_name).bold = True
 
@@ -390,7 +407,7 @@ def get_parames_from_txt(params_file):
 
 
 def main():
-    get_parames_from_txt("PARAMS.txt")
+    get_parames_from_txt(os.getcwd() + "/PARAMS.txt")
     # return
     tic = t.perf_counter()
     global counter

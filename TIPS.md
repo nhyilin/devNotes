@@ -560,6 +560,17 @@ brew install graphviz
 ```
 17. [mac上文件夹树图](https://www.cnblogs.com/anywherego/p/11132670.html)：`brew install tree`，安装完毕后，有三种方式来生成：tree #打印所有目录层级，`tree -L 2 #遍历2层`，`tree > README.md #输出结果到Markdown文档`，其中，md文档形式，预览时只需用代码块包住即可
 
+18. Mac 跳到行尾、行首、Home和end快捷键（其中部分快捷键在终端terminal中也可使用）  
+Ctrl+A：到行首  
+Ctrl+E：到行尾  
+Ctrl+N：到下一行  
+Ctrl+P：到上一行  
+Ctrl+K：从光标处开始删除，直到行尾  
+fn键+左方向键是HOME  
+fn键+右方向键是END  
+fn+上方向键是page up  
+fn+下方向键是page down  
+
 [![top] Goto Top](#table-of-contents)
 
 # work experience

@@ -1,22 +1,23 @@
-import pandas as pd
-from sklearn.cluster import KMeans
+import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
-# 读取数据
-data = pd.read_csv("../data.csv", encoding="utf8")
+# Generate sample data
+np.random.seed(0)
+data = np.concatenate([np.random.normal(0, 1, (100, 2)),
+                      np.random.normal(5, 1, (100, 2))])
 
-# 将日期列转化为整数
-data["date"] = pd.to_datetime(data["date"], format='%Y%m%d')
-data["date"] = data["date"].astype(int) / 10**9
-print(data["date"])
-# 创建KMeans模型并训练
-kmeans = KMeans(n_clusters=3)
-kmeans.fit(data.iloc[:, :-1])
+# Fit k-means clustering model
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(data)
 
-# 获取中心质心
-centroids = kmeans.cluster_centers_
+# Plot the data and the k-means clustering model
+x = np.linspace(-5, 10, 500)
+y = np.linspace(-5, 10, 500)
+X, Y = np.meshgrid(x, y)
+Z = kmeans.predict(np.c_[X.ravel(), Y.ravel()])
+Z = Z.reshape(X.shape)
 
-# 绘制结果
-plt.scatter(data["date"], data["value"], c=kmeans.labels_)
-# plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', s=200, linewidths=3, color='r')
+plt.pcolormesh(X, Y, Z, cmap='viridis')
+plt.scatter(data[:, 0], data[:, 1], s=5, color='r')
 plt.show()
