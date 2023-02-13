@@ -1,23 +1,22 @@
 import numpy as np
+from sklearn.cluster import DBSCAN
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
 
-# Generate sample data
-np.random.seed(0)
-data = np.concatenate([np.random.normal(0, 1, (100, 2)),
-                      np.random.normal(5, 1, (100, 2))])
+# 创建数据
+data = np.array([[1, 2], [2, 2], [2, 3], [8, 7], [8, 8], [25, 80]])
 
-# Fit k-means clustering model
-kmeans = KMeans(n_clusters=2)
-kmeans.fit(data)
+# 运行 DBSCAN 聚类
+dbscan = DBSCAN(eps=3, min_samples=2)
+dbscan.fit(data)
 
-# Plot the data and the k-means clustering model
-x = np.linspace(-5, 10, 500)
-y = np.linspace(-5, 10, 500)
-X, Y = np.meshgrid(x, y)
-Z = kmeans.predict(np.c_[X.ravel(), Y.ravel()])
-Z = Z.reshape(X.shape)
+# 计算所有聚类的中心点
+cluster_centers = []
+for i in np.unique(dbscan.labels_):
+    cluster_center = np.mean(data[dbscan.labels_ == i], axis=0)
+    cluster_centers.append(cluster_center)
+cluster_centers = np.array(cluster_centers)
 
-plt.pcolormesh(X, Y, Z, cmap='viridis')
-plt.scatter(data[:, 0], data[:, 1], s=5, color='r')
+# 绘制 DBSCAN 聚类结果
+plt.scatter(data[:,0], data[:,1], c=dbscan.labels_, cmap='rainbow')
+plt.scatter(cluster_centers[:,0], cluster_centers[:,1], c='black', marker='x')
 plt.show()
