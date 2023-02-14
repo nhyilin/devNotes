@@ -308,14 +308,17 @@ def get_file_double_degree(pattern):
     if pattern == 'CLEAN':
         for index, value in enumerate(start_list_in_csv):
             if value != '':
-                start_list.append(start_list_in_csv[index])
+                if height_list_in_csv[index]!='':
+                    start_list.append(value)
+                    height_list.append(height_list_in_csv[index])
     elif pattern == 'MIX':
         temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
         for index, value in enumerate(start_list_in_csv):
             temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
             temp_anchor = temp
             start_list_in_csv[index] = float(temp)
-            height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+        height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+
     else:
         print("数据清洗模式参数输入错误")
 
