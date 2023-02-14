@@ -1,3 +1,4 @@
+# -*- coding : utf-8-*-
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,12 +14,14 @@ import pandas as pd
 import matplotlib
 import random
 from sklearn.cluster import DBSCAN
+from matplotlib.pyplot import MultipleLocator
 
 CURRENT_DIR = os.getcwd()
 RESULT_FILE = CURRENT_DIR + "/../data/result.csv"
 
 
 def get_data_from_result(file, col):
+    # 返回值为成员为float类型的list
     result = []
     with open(file, encoding='gbk') as f:
         render = csv.reader(f)  # reader(迭代器对象)--> 迭代器对象
@@ -36,6 +39,14 @@ def get_data_from_result(file, col):
     return result
 
 
+def screening_the_same_batch_of_satellites(input_list, sat_batch):
+    result = []
+    for ele in input_list:
+        if sat_batch == "ele":
+            result.append(ele)
+    return result
+
+
 def yyyymmdd_to_jd(date, anchor):
     if date != '':
         date = datetime.strptime(date, '%Y%m%d')
@@ -48,11 +59,11 @@ def yyyymmdd_to_jd(date, anchor):
         return anchor
 
 
-def yyyymmdd_to_date_time(date, anchor):
-    if date != '':
-        return datetime.strptime(date, '%Y%m%d')
-    else:
-        return str(anchor)
+# def yyyymmdd_to_date_time(date, anchor):
+#     if date != '':
+#         return datetime.strptime(date, '%Y%m%d')
+#     else:
+#         return str(anchor)
 
 
 def jd_to_xtime(jd_list):
@@ -104,7 +115,7 @@ def alg_kmeans(data_list1, data_list2):
     # 将日期和start_time拼接为[[,],[,],[,]]形式，为聚类准备
     zippd_data_with_jd_time = np.array(zip_data(data_list1, data_list2))
     # 创建 KMeans 模型并训练
-    kmeans = KMeans(n_clusters=5, random_state=0).fit(zippd_data_with_jd_time)
+    kmeans = KMeans(n_clusters=4, random_state=0, n_init=10).fit(zippd_data_with_jd_time)
     # 获取分类结果与中心质心
     labels = kmeans.labels_
     print(count_points_in_label(labels))
@@ -190,12 +201,46 @@ def kmeans_scatter_data(ax, data_x, data_y, marker_type, marker_size, _linewidth
     data_x = [datetime.strptime(item, "%Y-%m-%d") for item in data_x]
     data_y = re_handle_y_data(data_y)
     ax.scatter(data_x, data_y, marker=marker_type, s=marker_size, linewidths=_linewidth, c=_color)
+
+    # --------这里是突出显示某一时间
+    ax.axvline(datetime.strptime("2021-05-16", "%Y-%m-%d"), color='blue', linestyle='--')
+    ax.axvline(datetime.strptime("2021-06-24", "%Y-%m-%d"), color='blue', linestyle='--')
+    ax.axvline(datetime.strptime("2021-07-01", "%Y-%m-%d"), color='red', linestyle='--')
+
+    ax.axhline(382, color='purple', linestyle='--')
+    ax.annotate("382 km", xy=(0, 382), xytext=(0, 382), arrowprops=dict(facecolor='purple', shrink=0.05), )
+
+    ax.axvline(datetime.strptime("2021-10-21", "%Y-%m-%d"), color='red', linestyle='--')
+    # Annotate the line
+    ax.annotate("Starlink-1095 sustained orbital altitude 382 km",
+                xy=(datetime.strptime("2021-05-16", "%Y-%m-%d"), ax.get_ylim()[1]), xycoords='data',
+                xytext=(-250, 10), textcoords='offset points',
+                arrowprops=dict(facecolor='blue', arrowstyle="->",
+                                connectionstyle="arc3,rad=-0.2"),
+                color='blue', fontsize=12)
+
+    ax.annotate("Chinese space station adjusts orbit",
+                xy=(datetime.strptime("2021-07-01", "%Y-%m-%d"), ax.get_ylim()[1]), xycoords='data',
+                xytext=(100, 30), textcoords='offset points',
+                arrowprops=dict(facecolor='red', arrowstyle="->",
+                                connectionstyle="arc3,rad=-0.2"),
+                color='red', fontsize=12)
+
+    ax.annotate("Chinese space station adjusts orbit secondly",
+                xy=(datetime.strptime("2021-10-21", "%Y-%m-%d"), ax.get_ylim()[0]), xycoords='data',
+                xytext=(100, 30), textcoords='offset points',
+                arrowprops=dict(facecolor='red', arrowstyle="->",
+                                connectionstyle="arc3,rad=-0.2"),
+                color='red', fontsize=12)
+
     ax.set_xlabel("Time")
     ax.set_ylabel("Height")
-    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+    # ax.xaxis.set_major_locator(mdates.AutoDateLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
     plt.gcf().autofmt_xdate()
     if whether_show_plt:
+        plt.grid()
         plt.show()
 
     if isSavePic:
@@ -215,7 +260,7 @@ def one_degree(isSavePic, needDrawPic, logCenter):
                 data_list.append(float(line[9]))
 
     data = np.array(data_list).reshape(-1, 1)  # 样本数据（单列）
-    kmeans = KMeans(n_clusters=7)  # 聚类数量
+    kmeans = KMeans(n_clusters=7, n_init=10)  # 聚类数量
     kmeans = kmeans.fit(data)  # 输入数据拟合
     centroids = kmeans.cluster_centers_  # 基于数据获取质心和标签的值
     labels = kmeans.labels_
@@ -242,33 +287,48 @@ def one_degree(isSavePic, needDrawPic, logCenter):
 
 
 def handle_y_data(input_list):
-    output_list = [ele * 999999999 for ele in input_list]
+    output_list = [ele * 999999999999999999 for ele in input_list]
     return output_list
 
 
 def re_handle_y_data(input_list):
-    output_list = [ele * 1 / 999999999 for ele in input_list]
+    output_list = [ele * 1 / 999999999999999999 for ele in input_list]
     return output_list
 
 
-def double_degree(isSavePic, needDrawPic, logCenter):
-    # -------------------------------------------取数据
-    global fig
-    start_list = get_data_from_result(RESULT_FILE, 5)
-    x_time = []
-    height_list = []
-    temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
-    for index, value in enumerate(start_list):
-        temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
-        temp_anchor = temp
-        start_list[index] = float(temp)
-        height_list = get_data_from_result(RESULT_FILE, 9)
-        if value != '':
-            x_time.append(str(int(value)))
-        else:
-            x_time.append(str(start_list[index - 1]))
+def get_file_double_degree(pattern):
+    """
+    数据清洗，若采取清洗模式，则参数为CLEAN，若采取均值模式，则参数为MIX
+    """
+    start_list_in_csv = get_data_from_result(RESULT_FILE, 5)  # 此时还是float对象组成的list
+    height_list_in_csv = []
 
-    fig, (ax_kmeans, ax_gaussian) = plt.subplots(1, 2)
+    start_list = []
+    height_list = []
+    if pattern == 'CLEAN':
+        for index, value in enumerate(start_list_in_csv):
+            if value != '':
+                start_list.append(start_list_in_csv[index])
+    elif pattern == 'MIX':
+        temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
+        for index, value in enumerate(start_list_in_csv):
+            temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
+            temp_anchor = temp
+            start_list_in_csv[index] = float(temp)
+            height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+    else:
+        print("数据清洗模式参数输入错误")
+
+    return height_list_in_csv, start_list_in_csv
+
+
+def double_degree(isSavePic, needDrawPic, logCenter):
+    # 数据清洗，若采取清洗模式，则参数为CLEAN，若采取均值模式，则参数为MIX
+    height_list, start_list = get_file_double_degree('MIX')
+
+    global fig
+    # fig, (ax_kmeans, ax_gaussian) = plt.subplots(1, 2)
+    fig, ax_kmeans = plt.subplots()
 
     # -------------------------------------------DBSCAN聚类
     # 效果不好，不采用
@@ -290,6 +350,7 @@ def double_degree(isSavePic, needDrawPic, logCenter):
         kmeans_scatter_data(ax_kmeans, x_data2, cluster_centers[:, 1], 'x', None, None, 'r', True, isSavePic)
 
     # -------------------------------------------GaussianMixture
+    return
     COMPONENTS = 6
     df = pd.DataFrame(zippd_data_with_jd_time, columns=['time', 'height'])
     result_x, result_y, gaussian_center_arry = alg_gaussianMixture(df, COMPONENTS, ax_gaussian, needDrawPic)
