@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import matplotlib.dates as mdates
 import os
 import julian
+import sys
 from collections import Counter
 from astropy.time import Time
 from sklearn.mixture import GaussianMixture
@@ -306,28 +307,43 @@ def get_file_double_degree(pattern):
     start_list = []
     height_list = []
     if pattern == 'CLEAN':
+        height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
         for index, value in enumerate(start_list_in_csv):
             if value != '':
-                if height_list_in_csv[index]!='':
-                    start_list.append(value)
+                if height_list_in_csv[index] != '':
+                    start_list.append(yyyymmdd_to_jd(str(int(value)), value))
                     height_list.append(height_list_in_csv[index])
     elif pattern == 'MIX':
         temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
         for index, value in enumerate(start_list_in_csv):
             temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
             temp_anchor = temp
-            start_list_in_csv[index] = float(temp)
-        height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+            # start_list_in_csv[index] = float(temp)
+            start_list.append(float(temp))
+            height_list.append(height_list_in_csv[index])
+        # height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
 
     else:
         print("数据清洗模式参数输入错误")
 
-    return height_list_in_csv, start_list_in_csv
+    return start_list, height_list
 
 
 def double_degree(isSavePic, needDrawPic, logCenter):
     # 数据清洗，若采取清洗模式，则参数为CLEAN，若采取均值模式，则参数为MIX
-    height_list, start_list = get_file_double_degree('MIX')
+    # start_list, height_list = get_file_double_degree('MIX')
+    # print("=======================================")
+    # print("start_list: ")
+    # print(start_list)
+    # print("height_list: ")
+    # print(height_list)
+    # print("=======================================")
+    start_list, height_list = get_file_double_degree('CLEAN')
+
+    print("start_list: ")
+    print(start_list)
+    print("height_list: ")
+    print(height_list)
 
     global fig
     # fig, (ax_kmeans, ax_gaussian) = plt.subplots(1, 2)
