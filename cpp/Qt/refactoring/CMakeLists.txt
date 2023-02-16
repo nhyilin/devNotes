@@ -14,9 +14,9 @@ include(src/seven/CMakeLists.txt)
 include(src/Thread/CMakeLists.txt)
 include(src/BoostLog/CMakeLists.txt)
 
-set(BOOST_ROOT /Users/peiyilin/env/boost_1_80_0)
-set(Boost_NO_SYSTEM_PATHS ON)
-find_package(Boost COMPONENTS log thread date_time filesystem REQUIRED)
+#set(BOOST_ROOT /Users/peiyilin/env/boost_1_80_0)
+#set(Boost_NO_SYSTEM_PATHS ON)
+#find_package(Boost COMPONENTS log thread date_time filesystem REQUIRED)
 
 find_package(Qt5 COMPONENTS
         Core
