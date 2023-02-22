@@ -45,9 +45,11 @@ private:
     };
 
     DataTable generateRandomData(targetMode mode_name);
-    DataList txt_data_into_dataList();
 
-    void getElavatorDataIntoTable(targetMode mode_name);
+    DataList
+    txt_data_into_dataList(const std::vector<double> &time_data, const std::vector<double> &test_data, double &m_x_min,
+                           double &m_y_max, std::vector<QDateTime> &m_time);
+
 
     void populateThemeBox();
 
@@ -84,9 +86,14 @@ private:
     int m_valueMax;
     int m_valueMin;
     int m_valueCount;
-    double m_y_min;
-    double m_y_max;
-    std::vector<QDateTime> m_x_time;
+    double m_y_min_velocity;//速度y轴最小值
+    double m_y_max_velocity;//速度y轴最大值
+
+    double m_y_min_decibel;//分贝y轴最小值
+    double m_y_max_decibel;//分贝y轴最大值
+
+    std::vector<QDateTime> m_x_time_velocity;
+    std::vector<QDateTime> m_x_time_decibel;
     QList<QChartView *> m_charts;
     DataTable m_dataTable_velocity;
     DataTable m_dataTable_decibel;

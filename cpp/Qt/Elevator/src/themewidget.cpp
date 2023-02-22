@@ -118,7 +118,7 @@ DataTable ThemeWidget::generateRandomData(targetMode mode_name) {
         dataTable << dataList;
     }
 #endif
-    DataList dataList;
+//    DataList dataList;
     DataTable dataTable;
     std::vector<double> time_data, test_data, target_data;
     std::string train_data_path{};
@@ -138,34 +138,33 @@ DataTable ThemeWidget::generateRandomData(targetMode mode_name) {
     }
 
     this->read_test_data(time_data, test_data);
+    dataTable << txt_data_into_dataList(time_data, test_data, m_y_min_velocity, m_y_max_velocity,m_x_time_velocity);
 
+    return dataTable;
+}
+
+
+DataList
+ThemeWidget::txt_data_into_dataList(const std::vector<double> &time_data, const std::vector<double> &test_data,
+                                    double &y_min, double &y_max,std::vector<QDateTime>& m_time ) {
+    DataList dataList;
     std::vector<QPointF> points;
+
     for (int i = 0; i < time_data.size(); i++) {
         int temp = static_cast<int>(time_data[i]);
         QDateTime datetime = QDateTime::fromString(QString::number(temp), "yyyyMMdd");
-        m_x_time.push_back(datetime);
+        m_time.push_back(datetime);
         int x = static_cast<int>(datetime.toSecsSinceEpoch());
         QPointF point(x, test_data[i]);
         QString label = "Slice " + QString::number(1);
         dataList << Data(point, label);
         points.push_back(point);
     }
-
-
-    dataTable << dataList;
     this->set_x_axes_Range(points, m_valueMin, m_valueMax);
-    m_y_max = *max_element(test_data.begin(), test_data.end());
-    m_y_min = *min_element(test_data.begin(), test_data.end());
+    y_min = *min_element(test_data.begin(), test_data.end());
+    y_max = *max_element(test_data.begin(), test_data.end());
 
-    return dataTable;
-}
-
-DataList ThemeWidget::txt_data_into_dataList(){
-
-}
-
-void ThemeWidget::getElavatorDataIntoTable(targetMode mode_name) {
-
+    return dataList;
 }
 
 
@@ -354,7 +353,7 @@ QChart *ThemeWidget::createSplineChart_velocityData() const {
         axisX->setRange(QDateTime::fromSecsSinceEpoch(m_valueMin), QDateTime::fromSecsSinceEpoch(m_valueMax));
         chart->addAxis(axisX, Qt::AlignBottom);
 
-        axisY->setRange(m_y_min, m_y_max);
+        axisY->setRange(m_y_min_velocity, m_y_max_velocity);
         chart->addAxis(axisY, Qt::AlignRight);
         series->attachAxis(axisY);
     }
@@ -388,7 +387,7 @@ QChart *ThemeWidget::createSplineChart_decibelData() const {
         axisX->setRange(QDateTime::fromSecsSinceEpoch(m_valueMin), QDateTime::fromSecsSinceEpoch(m_valueMax));
         chart->addAxis(axisX, Qt::AlignBottom);
 
-        axisY->setRange(m_y_min, m_y_max);
+        axisY->setRange(m_y_min_decibel, m_y_max_decibel);
 
         chart->addAxis(axisY, Qt::AlignRight);
         series->attachAxis(axisY);
