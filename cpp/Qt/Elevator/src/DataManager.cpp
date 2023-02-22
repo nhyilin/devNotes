@@ -33,22 +33,29 @@ void DataManager::processData() {
     // 计算数据、存储结果
 }
 
-void DataManager::generateRandomPoints() {
-    std::ofstream outFile("random_numbers.txt ");
-    if (!outFile.is_open()) {
-        std::cerr << "Failed to open output file." << std::endl;
-    }
+void DataManager::getRandomPoints(std::string filename) {
+    std::vector<double> data;
+    std::ifstream file("/Users/peiyilin/dev/devNotes/cpp/Qt/chartthemes/bin/debug/Rador.txt");
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(999.9, 1000.0);
+    if (file.is_open()) {
+        std::string line;
+        while (getline(file, line)) {
+            double value = stod(line);
+            data.push_back(value);
+        }
 
-    for (int i = 0; i < 500; i++) {
-        double randomNum = dis(gen);
-        outFile << std::fixed << std::setprecision(1) << randomNum << std::endl;
-    }
+        file.close();
+        m_fake_data = data;
+//        for (int i = 0; i < data.size(); i++)
+//            std::cout << data[i] << std::endl;
 
-    outFile.close();
+    } else
+        std::cout << "无法打开文件" << std::endl;
+
+}
+
+const std::vector<double> &DataManager::getFakeData() const {
+    return m_fake_data;
 }
 
 const QVector<QPointF> &DataManager::getData() const {

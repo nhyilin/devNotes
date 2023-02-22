@@ -24,9 +24,11 @@ public:
 
     const QVector<QPointF> &getData() const;
 
+    const std::vector<double> &getFakeData() const;
+
     const QVector<QPointF> &getResult() const;
 
-    void generateRandomPoints();
+    void getRandomPoints(std::string filename);
 
 private:
     DataManager() {}
@@ -36,6 +38,7 @@ private:
     DataManager &operator=(const DataManager &) = delete;
 
     QVector<QPointF> m_data;
+    std::vector<double> m_fake_data;
     QVector<QPointF> m_result;
 };
 
