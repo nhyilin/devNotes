@@ -322,3 +322,35 @@ t6示例如何使用自定义的cmake模块(编写了自定义的FindHELLO.cmake
 参考SET和AUX\_SOURCE\_DIRECTORY用法
 
 **建议**：在Project根目录先建立build,然后在build文件夹内运行cmake ..，这样就不会污染源代码, 如果不想要这些自动生成的文件了，只要简单的删除build文件夹就可以
+
+
+# cmake生成Xcode、vs项目
+1. 生成Xcode项目：`cmake -G "Xcode" .`，`.`代表当前目录，即CMakeLists.txt所在的目录，建议最好新建Xcode文件夹，并在Xcode文件夹内执行`cmake -G "Xcode" ../`。如果报错找不到编译器，可以使用：`.sudo xcode-select --switch /Applications/Xcode.app/`
+2. 如果需要在vs中开发，则在cmd中执行如下指令，按自己对应路径进行修改
+   cmake.exe -G "Visual Studio 17 2022" -A x64 -DCMAKE_PREFIX_PATH=C:/Qt/Qt5.12.5/5.12.5/msvc2017_64/lib/cmake -S C:/devWin/refactoring -B C:/devWin/refactoring/
+3. CMake中配置获取当前路径，并生成头文件在编译过程中直接包含，内含一个宏，在本项目中设置为CMakeLists.txt中所在路径
+4. 见下：
+
+
+# Cmake传参：适用于简单场景  
+在Cmake中，很容易知道项目的地址，例如
+
+`${PROJECT_SOURCE_DIR}`
+
+可以在cmakelists中，将该值赋值给变量，例如MAIN_PATH：
+
+`set(MAIN_PATH ${PROJECT_SOURCE_DIR})`
+
+然后新建xxx.h.in文件，仅需一行即可利用宏捕获MAIN_PATH:
+
+`#define PROJECT_PATH "@MAIN_PATH@"`
+
+在cmakelists中将xxx.h.in编译成xxx.h：
+
+`configure_file(src/param_deliver.h.in ../src/param_deliver.h)`
+
+编译完成后即可生成对应的xxx.h：
+
+`#define PROJECT_PATH "/home/type/mcamera/mcamera"`
+
+然后调用该宏即可获得项目地址。
