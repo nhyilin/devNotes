@@ -18,7 +18,7 @@
   - [数组遍历十种方式](#数组遍历十种方式)
   - [char 转换为std::string的 10 种方法](#char-转换为stdstring的-10-种方法)
   - [C++获取项目路径的两种方式](#c获取项目路径的两种方式)
-    - [一、Cmake传参：适用于简单场景](#一cmake传参适用于简单场景)
+    - [cmake方式，见cmake笔记](#cmake方式见cmake笔记)
     - [二、从环境变量读取：适合脚本场景](#二从环境变量读取适合脚本场景)
   - [空指针异常](#空指针异常)
   - [new简单操作](#new简单操作)
@@ -645,29 +645,7 @@ int main()
 ## C++获取项目路径的两种方式
 在某些特定的条件运行时不能使用局部地址，例如ci流程等，这就要求读取文件时必需使用全局地址，但是在项目路径不定的情况下很难知道某个文件的全局地址，目前存在两种获取项目路径的方式，其中一种更适用于ci流程。
 
-### 一、Cmake传参：适用于简单场景
-在Cmake中，很容易知道项目的地址，例如
-
-`${PROJECT_SOURCE_DIR}`
-
-可以在cmakelists中，将该值赋值给变量，例如MAIN_PATH：
-
-`set(MAIN_PATH ${PROJECT_SOURCE_DIR})`
-
-然后新建xxx.h.in文件，仅需一行即可利用宏捕获MAIN_PATH:
-
-`#define PROJECT_PATH "@MAIN_PATH@"`
-
-在cmakelists中将xxx.h.in编译成xxx.h：
-
-`configure_file(src/param_deliver.h.in ../src/param_deliver.h)`
-
-编译完成后即可生成对应的xxx.h：
-
-`#define PROJECT_PATH "/home/type/mcamera/mcamera"`
-
-然后调用该宏即可获得项目地址。
-
+### cmake方式，见cmake笔记
 ### 二、从环境变量读取：适合脚本场景
 C++中自带函数`getenv`，可以读取指定的环境变量，返回`char *`。详见`std::getenv - cppreference.com`。
 
