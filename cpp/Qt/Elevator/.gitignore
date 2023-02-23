@@ -2,6 +2,7 @@
 ### C++ template
 # Prerequisites
 *.d
+Xcode
 
 # Compiled Object files
 *.slo
