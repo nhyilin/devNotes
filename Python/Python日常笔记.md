@@ -20,6 +20,8 @@
 
 [Matplotlib加注释](https://blog.csdn.net/LOVEmy134611/article/details/117442614)，（其实[这个系列](https://blog.csdn.net/lovemy134611/category_10197377.html)内容都可供查询）
 
+[Matplotlib绘图成熟示例](https://seaborn.pydata.org/examples/index.html)、[较全的例子集合](https://matplotlib.org/stable/gallery/index.html)
+
 ## python 调用其他文件函数或类及类中变量
 
 [参考](https://blog.csdn.net/mao_hui_fei/article/details/104271763)
