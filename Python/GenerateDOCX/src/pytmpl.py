@@ -14,6 +14,9 @@ import cn2an
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.shared import Cm
 from docx.oxml.shared import OxmlElement, qn
+from docx.oxml import ns
+import word2pdf
+from docx.enum.text import WD_BREAK
 
 
 # CURRENT_DIR = os.getcwd() + '/'  # 获取当前的路径
@@ -22,7 +25,7 @@ from docx.oxml.shared import OxmlElement, qn
 # NEW_FILE_PATH = os.getcwd() + "/output_doc/"
 
 
-def move_table_after(table, paragraph):
+def move_table_after( table, paragraph):
     tbl, p = table._tbl, paragraph._p
     p.addnext(tbl)
 
@@ -132,7 +135,7 @@ def FormatCSV(csvfile):
     number = data["Item"]
     Type = data["Type"]
     Importance = data["Importance"]
-    Brief = data["Brief"]
+    # Brief = data["Brief"]
     Content = data["Content"]
     Publisher = data["Publisher"]
     SourceUri = data["SourceUri"]
@@ -284,25 +287,11 @@ def add_table(wordFile, csvFile, latestFileName):
                 for cell in table.columns[i].cells:
                     cell.width = Inches(1.5)
                 for cell in table.columns[5].cells:
-                    cell.width = Inches(2.5)
+                    cell.width = Inches(2.3)
         elif CSVColumn == 7:
             for i in range(0, CSVColumn - 1):
                 for cell in table.columns[0].cells:
                     cell.width = Inches(2.4)
-        elif CSVColumn == 8:
-            for i in range(0, CSVColumn - 1):
-                for cell in table.columns[i].cells:
-                    cell.width = Inches(0.8)
-                for cell in table.columns[2].cells:
-                    cell.width = Inches(1.0)
-                for cell in table.columns[3].cells:
-                    cell.width = Inches(1.0)
-                for cell in table.columns[4].cells:
-                    cell.width = Inches(1.0)
-                for cell in table.columns[5].cells:
-                    cell.width = Inches(1.0)
-                for cell in table.columns[7].cells:
-                    cell.width = Inches(1.0)
 
         for table_col in range(0, CSVColumn):
             table.rows[0].cells[table_col].text = csvKeyInotList[table_col]
@@ -323,29 +312,27 @@ def add_table(wordFile, csvFile, latestFileName):
         # 此处doc.paragraphs[]为经验值，试出来的
 
         # move_table_after函数极为重要，提供将新建的table移动到哪里的功能
-        move_table_after(table, doc.paragraphs[20 + index])
+        move_table_after(table, doc.paragraphs[22 + index])
 
         table_headers = doc.add_table(1, cols=1)
         cell = table_headers.cell(0, 0)
         # cell.line_spacing = 1.5
 
         table_name = ""
-        if csvIndex[-5] == "1" and csvIndex[-16:-13] != "Var":
-            table_name = " 各壳层星链卫星在轨总体情况"
-        elif csvIndex[-5] == "2" and csvIndex[-16:-13] != "Var":
-            table_name = " 各壳层星链卫星TLE数据情况"
-        elif csvIndex[-5] == "3" and csvIndex[-16:-13] != "Var":
-            table_name = " 星链卫星接近我国空间站情况"
-        elif csvIndex[-5] == "4" and csvIndex[-16:-13] != "Var":
-            table_name = " 卫星轨道升高幅度较大的统计"
-        elif csvIndex[-16:-13] == "Var":
-            table_name = " 星链卫星轨位变动情况"
+        if csvIndex[-5] == "1":
+            table_name = "各壳层星链卫星在轨总体情况"
+        elif csvIndex[-5] == "2":
+            table_name = "各壳层星链卫星TLE数据情况"
+        elif csvIndex[-5] == "3":
+            table_name = "星链卫星接近我国空间站情况"
+        elif csvIndex[-5] == "4":
+            table_name = "星链卫星轨位变动情况"
         else:
-            continue
+            table_name = "卫星轨道升高幅度较大的统计"
 
         cell.paragraphs[0].add_run("附表 " + str(index + 1) + table_name).bold = True
 
-        move_table_after(table_headers, doc.paragraphs[20 + index])
+        move_table_after(table_headers, doc.paragraphs[22 + index])
 
         index = index + 1
         delete_blank_pages(latestFileName)
@@ -407,8 +394,7 @@ def get_parames_from_txt(params_file):
 
 
 def main():
-    get_parames_from_txt(os.getcwd() + "/../PARAMS.txt")
-    # return
+    get_parames_from_txt("PARAMS.txt")
     tic = t.perf_counter()
     global counter
     counter = 0

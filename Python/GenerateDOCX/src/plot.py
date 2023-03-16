@@ -1,49 +1,35 @@
-import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
+import numpy as np
+import xxx
 
-fig, ax = plt.subplots()
+from pylab import mpl
 
-"""生成数据"""
-beginDate = '2012-01-01'
-endDate = '2018-01-01'
+n10 = 144
+n30 = 48
+n60 = 24
 
-# 将日期字符串转化为数字（从1970-01-01算起的天数差）
-x = np.arange(mdates.datestr2num(beginDate), mdates.datestr2num(endDate), 15)
-y = np.random.randn(len(x)) * 3 + 2
-
-data = {}
-# 将数字（天数差）转为日期对象 numpy.datetime64
-data['date'] = [np.datetime64(int(c), 'D') for c in x]
-data['value'] = y
-ax.plot('date', 'value', data=data)
-# ax.plot(data['date'], data['value']) # 与前一行是等效的
+x10 = list(range(0, n10))
+x30 = list(range(0, n30))
+x60 = list(range(0, n60))
 
 
-"""设置坐标轴的格式"""
-# 设置主刻度, 每6个月一个刻度
-fmt_half_year = mdates.MonthLocator(interval=6)
-ax.xaxis.set_major_locator(fmt_half_year)
+def method_name(x, y, n, txt):
+    everage = round(sum(y) / n, 2)
+    # plt.subplot(2, 2, 1)
+    plt.plot(x, y, label='平均值: ' + str(everage))
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.title("时间间隔" + txt + "分钟")
+    plt.xlabel("时间段次数")
+    plt.ylabel("过境卫星个数")
+    plt.legend()
+    plt.show()
 
-# 设置次刻度，每个月一个刻度
-fmt_month = mdates.MonthLocator()  # 默认即可
-ax.xaxis.set_minor_locator(fmt_month)
 
-# 设置 x 坐标轴的刻度格式
-ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m"))
+def main():
+    x = x10
+    y = xxx.y10
+    method_name(x, y, n10, '10')
 
-# 设置横坐标轴的范围
-datemin = np.datetime64(data['date'][0], 'Y')
-datemax = np.datetime64(data['date'][-1], 'Y') + np.timedelta64(1, 'Y')
-ax.set_xlim(datemin, datemax)
 
-# 设置刻度的显示格式
-ax.format_xdata = mdates.DateFormatter('%Y-%m')
-ax.format_ydata = lambda x: f'$x:.2f$'
-ax.grid(True)
-
-"""自动调整刻度字符串"""
-# 自动调整 x 轴的刻度字符串（旋转）使得每个字符串有足够的空间而不重叠
-fig.autofmt_xdate()
-
-plt.show()
+if __name__ == main():
+    main()

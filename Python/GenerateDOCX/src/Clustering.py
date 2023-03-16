@@ -24,19 +24,48 @@ RESULT_FILE = CURRENT_DIR + "/../data/result.csv"
 def get_data_from_result(file, col):
     # 返回值为成员为float类型的list
     result = []
+
+    # 当取卫星id，也就是第二列时，返回值list里为int类型
     with open(file, encoding='gbk') as f:
         render = csv.reader(f)  # reader(迭代器对象)--> 迭代器对象
         for line in render:
             result.append(line[col])
         del result[0]  # 去掉表头项
+    # result = [int(ele) for ele in result]
 
-    if col != 6:
-        # 取数据时，忽略对时间的额外处理，对时间的格式化见yyyymmdd_to_jd函数
+    if col == 5 or col == 9:
+        # 这里有个很重要的问题就是如果数据为空，该怎么处理
+        # 由于本函数只负责取出某列，故将数据清洗部分丢给get_file_double_degree函数
         for index, value in enumerate(result):
-            if value == '':
-                result[index] = float(result[index - 1])
-            else:
+            if value != '':
                 result[index] = float(value)
+            else:
+                result[index] = float(0)
+        # for ele in result:
+        #     if ele != '':
+        #         result.append(ele)
+        #     else:
+        #         result.append(float(0))  # 如果高度为0，显然是脏数据
+        # result = [float(ele) for ele in result]
+
+    # if col == 1:
+    #     a=0
+    # elif col == 5 or col ==9:
+    #     # 取高度数据时，忽略对时间的额外处理，对时间的格式化见yyyymmdd_to_jd函数
+    #     for index, value in enumerate(result):
+    #         if value == '':
+    #             print("there`s empty data in height list")
+    #             # result[index] = float(result[index - 1])
+    #         else:
+    #             print(value)
+    #             result[index] = float(value)
+    # else:
+    #     with open(file, encoding='gbk') as f:
+    #         render = csv.reader(f)  # reader(迭代器对象)--> 迭代器对象
+    #         for line in render:
+    #             result.append(line[col])
+    #         del result[0]  # 去掉表头项
+
     return result
 
 
@@ -110,10 +139,10 @@ def remove_problematic_values(data_list):
 
 def alg_kmeans(data_list1, data_list2):
     # 对传入数据进行Z-Score去除噪声
-    remove_problematic_values(data_list1)
-    remove_problematic_values(data_list2)
+    # remove_problematic_values(data_list1)
+    # remove_problematic_values(data_list2)
 
-    # 将日期和start_time拼接为[[,],[,],[,]]形式，为聚类准备
+    # 将start_time和轨道高度拼接为[[,],[,],[,]]形式，为聚类准备
     zippd_data_with_jd_time = np.array(zip_data(data_list1, data_list2))
     # 创建 KMeans 模型并训练
     kmeans = KMeans(n_clusters=4, random_state=0, n_init=10).fit(zippd_data_with_jd_time)
@@ -297,34 +326,50 @@ def re_handle_y_data(input_list):
     return output_list
 
 
-def get_file_double_degree(pattern):
+def get_file_double_degree(pattern, satID):
     """
     数据清洗，若采取清洗模式，则参数为CLEAN，若采取均值模式，则参数为MIX
     """
-    start_list_in_csv = get_data_from_result(RESULT_FILE, 5)  # 此时还是float对象组成的list
-    height_list_in_csv = []
+    if satID == "ALL":
+        start_list_in_csv = get_data_from_result(RESULT_FILE, 5)  # 此时还是float对象组成的list
+        height_list_in_csv = []
 
-    start_list = []
-    height_list = []
-    if pattern == 'CLEAN':
-        height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
-        for index, value in enumerate(start_list_in_csv):
-            if value != '':
-                if height_list_in_csv[index] != '':
-                    start_list.append(yyyymmdd_to_jd(str(int(value)), value))
-                    height_list.append(height_list_in_csv[index])
-    elif pattern == 'MIX':
-        temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
-        for index, value in enumerate(start_list_in_csv):
-            temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
-            temp_anchor = temp
-            # start_list_in_csv[index] = float(temp)
-            start_list.append(float(temp))
-            height_list.append(height_list_in_csv[index])
-        # height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+        start_list = []
+        height_list = []
+        if pattern == 'CLEAN':
+            height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+            for index, value in enumerate(start_list_in_csv):
+                if value != '':
+                    if height_list_in_csv[index] != '':
+                        start_list.append(yyyymmdd_to_jd(str(int(value)), value))
+                        height_list.append(height_list_in_csv[index])
+        elif pattern == 'MIX':
+            temp_anchor = 0  # 此变量是为防止数据list里有空值，空值本身无意义，故将其赋值为上一个点的值
+            for index, value in enumerate(start_list_in_csv):
+                temp = yyyymmdd_to_jd(str(int(value)), temp_anchor)
+                temp_anchor = temp
+                # start_list_in_csv[index] = float(temp)
+                start_list.append(float(temp))
+                height_list.append(height_list_in_csv[index])
+            # height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+
+        else:
+            print("数据清洗模式参数输入错误")
 
     else:
-        print("数据清洗模式参数输入错误")
+        sat_id_list_in_csv = get_data_from_result(RESULT_FILE, 1)
+        start_list_in_csv = get_data_from_result(RESULT_FILE, 5)
+        height_list_in_csv = get_data_from_result(RESULT_FILE, 9)
+        index_list = []
+        start_list = []
+        height_list = []
+        for index, value in enumerate(sat_id_list_in_csv):
+            if value == satID:
+                index_list.append(index)
+
+        for i in index_list:
+            start_list.append(sat_id_list_in_csv[i])
+            height_list.append(height_list_in_csv[i])
 
     return start_list, height_list
 
@@ -332,13 +377,8 @@ def get_file_double_degree(pattern):
 def double_degree(isSavePic, needDrawPic, logCenter):
     # 数据清洗，若采取清洗模式，则参数为CLEAN，若采取均值模式，则参数为MIX
     # start_list, height_list = get_file_double_degree('MIX')
-    # print("=======================================")
-    # print("start_list: ")
-    # print(start_list)
-    # print("height_list: ")
-    # print(height_list)
-    # print("=======================================")
-    start_list, height_list = get_file_double_degree('CLEAN')
+    SELECT_SAT = '44236'
+    start_list, height_list = get_file_double_degree('CLEAN', SELECT_SAT)
 
     print("start_list: ")
     print(start_list)
