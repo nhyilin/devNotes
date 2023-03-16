@@ -87,6 +87,8 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
   `/Y`是禁止提示yes/no
 - vs中调试DLL的源码文件，在使用dll的工程中<kbd>工具</kbd>-><kbd>选项</kbd>-><kbd>调试</kbd>-><kbd>常规</kbd>->取消选择<kbd>要求源文件与原始版本完全匹配</kbd>，然后从文件夹将DLL工程的源码文件拖入vs的DLL调用软件调试页面，就可以断点调试了
 - vs全屏显示：<kbd>shift</kbd>+<kbd>alt</kbd>+<kbd>enter</kbd>，返回正常状态相同按键
+- 剪切整行：<kbd>ctrl</kbd>+<kbd>l</kbd>
+- 删除整行：<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>l</kbd>
 
 [![top] Goto Top](#table-of-contents)
 
@@ -205,6 +207,13 @@ Find in Files: `Ctrl+Shift+F`
 - [离线安装anaconda及第三方库](https://blog.csdn.net/SEU_LL/article/details/119385057)
 - [离线迁移conda环境](https://blog.csdn.net/maximejia/article/details/115385868)
 - [conda和pip临时和永久换源的方法](https://blog.csdn.net/weixin_44089252/article/details/121053639)
+- [mac、Windows上matplotlib绘图中文乱码](https://blog.csdn.net/weixin_46474921/article/details/123783987)
+  是字体问题，Mac版修改见下：
+  ```python
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.title("中文标题")
+    plt.show()
+  ```
 
 ## pycharm
 
@@ -492,6 +501,9 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 3. git的pull操作会导致本地未提交修改消失，[Git 少用 Pull 多用 Fetch 和 Merge](https://www.oschina.net/translate/git-fetch-and-merge?print)
 4. [Git更新合并代码后，本地修改丢失](https://blog.csdn.net/wjw_de_java/article/details/110224170)
 5. git清除本地所有修改`git checkout . && git clean -xdf`前半段是丢弃所有git追踪的修改，`git clean`是删除文件夹内git没有跟踪的文件
+6. [GitHub执行git clone项目下载不全不完整](https://blog.csdn.net/zhuiqiuzhuoyue583/article/details/108115638):
+  主要原因是因为所下载的项目仓库的一些子模块是通过链接的方式链接到主项目目录上的。而这些子模块的仓库是单独建立在另外的目录下
+  在clone目录中执行即可：`git submodule update --init --recursive`
 
 [![top] Goto Top](#table-of-contents)
 
