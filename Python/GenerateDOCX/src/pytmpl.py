@@ -25,7 +25,7 @@ from docx.enum.text import WD_BREAK
 # NEW_FILE_PATH = os.getcwd() + "/output_doc/"
 
 
-def move_table_after( table, paragraph):
+def move_table_after(table, paragraph):
     tbl, p = table._tbl, paragraph._p
     p.addnext(tbl)
 
@@ -292,6 +292,21 @@ def add_table(wordFile, csvFile, latestFileName):
             for i in range(0, CSVColumn - 1):
                 for cell in table.columns[0].cells:
                     cell.width = Inches(2.4)
+        elif CSVColumn == 10:
+            for i in range(0, CSVColumn - 1):
+                for cell in table.columns[0].cells:
+                    cell.width = Inches(0.3)
+                for cell in table.columns[4].cells:
+                    cell.width = Inches(0.3)
+                for cell in table.columns[5].cells:
+                    cell.width = Inches(1.4)
+                for cell in table.columns[6].cells:
+                    cell.width = Inches(0.8)
+                for cell in table.columns[6].cells:
+                    cell.width = Inches(0.3)
+                for cell in table.columns[8].cells:
+                    cell.width = Inches(1.0)
+
 
         for table_col in range(0, CSVColumn):
             table.rows[0].cells[table_col].text = csvKeyInotList[table_col]
@@ -299,9 +314,10 @@ def add_table(wordFile, csvFile, latestFileName):
             for table_row in range(1, ROWS + 1):
                 table.rows[table_row].cells[table_col].text = csvValueInotList[table_row - 1][table_col]
                 table.rows[table_row].cells[table_col].paragraphs[0].runs[0].font.size = Pt(12)
+                print("csvFile:"+str(csvFile)+"row: "+str(table.rows[table_row].cells[table_col].text))
                 # set_cell_margins(table.rows[table_row].cells[table_col], right=0)  # 控制左右上下边距，但是唯独右好像不管用，故先注释
-
-                # 首行灰色
+        print("*****_____*****")
+        # 首行灰色
         rows = table.rows[0]
         for cell in rows.cells:
             shading_elm = parse_xml(r'<w:shd {} w:fill="D9D9D9"/>'.format(nsdecls('w')))
@@ -324,16 +340,14 @@ def add_table(wordFile, csvFile, latestFileName):
         elif csvIndex[-5] == "2":
             table_name = "各壳层星链卫星TLE数据情况"
         elif csvIndex[-5] == "3":
-            table_name = "星链卫星接近我国空间站情况"
+            table_name = "过去24小时内无新增TLE数据情况"
         elif csvIndex[-5] == "4":
-            table_name = "星链卫星轨位变动情况"
+            table_name = "星链卫星接近我国空间站情况"
         else:
-            table_name = "卫星轨道升高幅度较大的统计"
+            table_name = "已入轨星链卫星轨位变动情况"
 
         cell.paragraphs[0].add_run("附表 " + str(index + 1) + table_name).bold = True
-
         move_table_after(table_headers, doc.paragraphs[22 + index])
-
         index = index + 1
         delete_blank_pages(latestFileName)
         doc.save(latestFileName)
@@ -360,7 +374,6 @@ def ProcessingThread(csv_list, counter):
         tpl = DocxTemplate(TEMPFILE)
         tpl.render(DIC)  # 渲染替换
         tpl.save(NEW_FILE_PATH + r"{}.docx".format(time[0]))
-
         add_table(NEW_FILE_PATH + r"{}.docx".format(time[0]), TABLE_PATH,
                   NEW_FILE_PATH + r"{}.docx".format(time[0]))
         delete_blank_pages(NEW_FILE_PATH + r"{}.docx".format(time[0]))
