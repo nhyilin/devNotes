@@ -4847,7 +4847,11 @@ int main() { float number = Random::Get().Float();
 
 [![top] Goto Top](#table-of-contents)
 ## BEST WAY to read and understand code
-多线程代码中，可以通过<kbd>Debug<\kbd>
+1. 看别人代码时，当某个对象调用一个函数，而这个函数有很多定义，你不知道具体是哪个函数时，可以利用可以<kbd>F11</kbd>进入函数；  
+   另外，若是F11进入了无关的函数（可能此时有很多函数被调用到，如:`(*i).get()->intersetObject(ray, tNear, uv) && tNear < intrInf ...`，F11可能导致你进入`get`函数）你想选择其中之一进入，你可以在这一行右键，选择<kbd>Step Into Specific</kbd>,这样就可以选择啦。
+
+2. 多线程代码中，可以通过<kbd>Debug</kbd>-><kbd>Windows</kbd>-><kbd>Parallel Stacks</kbd>来查看多线程。  
+也可以通过按下调试结束旁边的暂停键来查看软件此状态下内部调试信息。
 
 [![top] Goto Top](#table-of-contents)
 
