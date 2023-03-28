@@ -1,4 +1,4 @@
-#ifndef THEMEWIDGET_H
+﻿#ifndef THEMEWIDGET_H
 #define THEMEWIDGET_H
 
 #include <QtWidgets/QWidget>
@@ -25,46 +25,58 @@ typedef QList<DataList> DataTable;
 
 QT_CHARTS_USE_NAMESPACE
 
-class ThemeWidget : public QWidget {
-Q_OBJECT
+class ThemeWidget : public QWidget
+{
+    Q_OBJECT
 public:
-    explicit ThemeWidget(QWidget *parent = 0);
+    explicit ThemeWidget(QWidget* parent = 0);
 
     ~ThemeWidget();
 
 private Q_SLOTS:
-
     void updateUI();
 
     void on_pushButton_clicked();
 
 private:
-    enum targetMode {
+    enum targetMode
+    {
         none,
-        velocity,           //速度
-        decibel,             //分贝
-        vibration            //震动
+        velocity,
+        //速度
+        decibel,
+        //分贝
+        vibration //震动
     };
-    enum dataType {
+
+    enum dataType
+    {
         none_type,
-        test,             //描点
-        ideal,              //曲线
-        label               //准确率
+        test,
+        //描点
+        ideal,
+        //曲线
+        label //准确率
     };
-    enum drawType {
+
+    enum drawType
+    {
         none_draw,
-        decibel_draw,//分贝
-        velocity_draw,//速度
-        vibration_draw//震动
+        decibel_draw,
+        //分贝
+        velocity_draw,
+        //速度
+        vibration_draw //震动
     };
+
     int m_data_type = dataType::none_type;
 
     DataTable generateRandomData(targetMode mode_name);
 
     DataList
-    txt_data_into_dataList(const std::vector<double> &time_data, const std::vector<double> &test_data,
-                           int &x_min, int &x_max, double &y_min, double &y_max,
-                           std::vector<QDateTime> &m_time);
+    txt_data_into_dataList(const std::vector<double>& time_data, const std::vector<double>& test_data,
+                           int& x_min, int& x_max, double& y_min, double& y_max,
+                           std::vector<QDateTime>& m_time);
 
 
     void populateThemeBox();
@@ -75,74 +87,77 @@ private:
 
     void connectSignals();
 
-    void movePercentage2PicCenter(const std::vector<double> &test_data, std::vector<double> &label_data_velocity);
+    void logData(const std::string& vec_name, const std::vector<double>& vec1, const std::vector<double>& vec2,
+                 const std::vector<double>& vec3);
+
+    void movePercentage2PicCenter(const std::vector<double>& test_data, std::vector<double>& label_data_velocity);
 
     static void
-    read_testdata_data(std::vector<double> &col2, std::vector<double> &col3, const std::string &test_data_path,
-                       const dataType &data_type);
+    read_testdata_data(std::vector<double>& col2, std::vector<double>& col3, const std::string& test_data_path,
+                       const dataType& data_type);
 
-    void set_x_axes_Range(const std::vector<QPointF> &points, int &minX, int &maxX);
+    void set_x_axes_Range(const std::vector<QPointF>& points, int& minX, int& maxX);
 
-    static void using_net(std::vector<double> &input_list, std::vector<double> &target_list,
-                          std::vector<double> &label_list, const std::string &train_data_path,
-                          const std::string &test_data_path);
+    static void using_net(std::vector<double>& input_list, std::vector<double>& target_list,
+                          std::vector<double>& label_list, const std::string& train_data_path,
+                          const std::string& test_data_path);
 
-    QChart *createAreaChart() const;
+    QChart* createAreaChart() const;
 
-    QChart *createBarChart(int valueCount) const;
+    QChart* createBarChart(int valueCount) const;
 
-    QChart *createPieChart() const;
+    QChart* createPieChart() const;
 
-    QChart *createLineChart() const;
+    QChart* createLineChart() const;
 
-    QChart *createSplineChart(const drawType &draw_type) const;//画图
+    QChart* createSplineChart(const drawType& draw_type) const; //画图
 
-    QChart *createSplineChart_velocityData() const;         //速度
-    QChart *createSplineChart_decibelData() const;          //声音分贝值
+    QChart* createSplineChart_velocityData() const; //速度
+    QChart* createSplineChart_decibelData() const; //声音分贝值
 
-    QChart *createScatterChart() const;
+    QChart* createScatterChart() const;
 
 
 private:
     int m_listCount;
-    int m_valueMin_velocity = 0;                                //速度x轴最小值
-    int m_valueMax_velocity = 0;                                //速度x轴最大值
+    int m_valueMin_velocity = 0; //速度x轴最小值
+    int m_valueMax_velocity = 0; //速度x轴最大值
 
-    int m_valueMin_decibel = 0;                                 //分贝x轴最小值
-    int m_valueMax_decibel = 0;                                 //分贝x轴最大值
+    int m_valueMin_decibel = 0; //分贝x轴最小值
+    int m_valueMax_decibel = 0; //分贝x轴最大值
 
-    int m_valueMin_vibration = 0;                                 //分贝x轴最小值
-    int m_valueMax_vibration = 0;                                 //分贝x轴最大值
+    int m_valueMin_vibration = 0; //分贝x轴最小值
+    int m_valueMax_vibration = 0; //分贝x轴最大值
 
     int m_valueCount;
 
-    double m_y_min_velocity = 0;                                //速度y轴最小值
-    double m_y_max_velocity = 0;                                //速度y轴最大值
+    double m_y_min_velocity = 0; //速度y轴最小值
+    double m_y_max_velocity = 0; //速度y轴最大值
 
-    double m_y_min_decibel = 0;                                 //分贝y轴最小值
-    double m_y_max_decibel = 0;                                 //分贝y轴最大值
+    double m_y_min_decibel = 0; //分贝y轴最小值
+    double m_y_max_decibel = 0; //分贝y轴最大值
 
-    double m_y_min_vibration = 0;                                 //震动y轴最小值
-    double m_y_max_vibration = 0;                                 //震动y轴最大值
+    double m_y_min_vibration = 0; //震动y轴最小值
+    double m_y_max_vibration = 0; //震动y轴最大值
 
     std::vector<QDateTime> m_x_time_velocity;
     std::vector<QDateTime> m_x_time_decibel;
     std::vector<QDateTime> m_x_time_vibration;
 
-    QList<QChartView *> m_charts;
+    QList<QChartView*> m_charts;
 
     DataTable m_dataTable_velocity;
     DataTable m_dataTable_decibel;
     DataTable m_dataTable_vibration;
 
-    std::vector<double> time_data_velocity, target_data_velocity, test_data_velocity, label_data_velocity;  //从txt中读取的数据
+    std::vector<double> time_data_velocity, target_data_velocity, test_data_velocity, label_data_velocity; //从txt中读取的数据
     std::vector<double> time_data_decibel, target_data_decibel, test_data_decibel, label_data_decibel;
     std::vector<double> time_data_vibration, target_data_vibration, test_data_vibration, label_data_vibration;
 
     /*以下为训练完成的数据*/
-    std::vector<double> input_list_velocity;                //测试数据
-    std::vector<double> target_list_velocity;               //理想数据
-    std::vector<double> label_list_velocity;                //标签数据，判分系统
+    std::vector<double> input_list_velocity; //测试数据
+    std::vector<double> target_list_velocity; //理想数据
+    std::vector<double> label_list_velocity; //标签数据，判分系统
 
     std::vector<double> input_list_decibel;
     std::vector<double> target_list_decibel;
@@ -152,7 +167,7 @@ private:
     std::vector<double> target_list_vibration;
     std::vector<double> label_list_vibration;
 
-    Ui_ThemeWidgetForm *m_ui;
+    Ui_ThemeWidgetForm* m_ui;
 };
 
 #endif /* THEMEWIDGET_H */
