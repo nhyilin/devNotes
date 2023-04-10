@@ -76,7 +76,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
   - 项目属性 -> c/c++ -> 常规 -> 优化 -> 已禁用(/Od)
   - 项目属性 -> 链接器 -> 调试 -> 生成调试信息 -> 生成调试信息(/DEBUG)
 
-- 【以下文件中的行尾不一致。是否将行尾标准化?】原因分析可能是写代码的时候行尾的标识可能不一样造成的。默认情况下是坐对行尾进行检查。建议直接忽略检查即可：选项->环境->文档->"加载时检查一致的行尾"钩去掉就不会检查了
+- 【以下文件中的行尾不一致。是否将行尾标准化?】原因分析可能是写代码的时候行尾的标识可能不一样造成的。默认情况下是坐对行尾进行检查。建议直接忽略检查即可：选项->环境->文档->"加载时检查一致的行尾(Check for consistent line endings on load)"钩去掉就不会检查了
 - 查看dll导出函数接口：工具->命令行->开发者PowerShell，执行`dumpbin /exports ./release/cstkkernel.dll /out:D:/a.txt`，将cstkkernel.dll输出到D盘的`a.txt`
 - 在vs中设置目标生成路径，也可以设置生成后事件：项目属性->生成事件->后期生成事件->命令行中：
   ```bash
@@ -502,8 +502,101 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 4. [Git更新合并代码后，本地修改丢失](https://blog.csdn.net/wjw_de_java/article/details/110224170)
 5. git清除本地所有修改`git checkout . && git clean -xdf`前半段是丢弃所有git追踪的修改，`git clean`是删除文件夹内git没有跟踪的文件
 6. [GitHub执行git clone项目下载不全不完整](https://blog.csdn.net/zhuiqiuzhuoyue583/article/details/108115638):
-  主要原因是因为所下载的项目仓库的一些子模块是通过链接的方式链接到主项目目录上的。而这些子模块的仓库是单独建立在另外的目录下
-  在clone目录中执行即可：`git submodule update --init --recursive`
+    主要原因是因为所下载的项目仓库的一些子模块是通过链接的方式链接到主项目目录上的。而这些子模块的仓库是单独建立在另外的目录下
+    在clone目录中执行即可：`git submodule update --init --recursive`
+
+7. 禁止单击alt的功能，但是保留alt+tab的功能，防止写代码按到alt影响书写体验
+AutoHotkey软件：
+```bash
+; 禁用左alt键
+~LAlt::Send {Blind}{vkFF}
+; 禁用右alt键
+~RAlt::Send {Blind}{vkFF}
+```
+完整配置如下：
+```bash
+CapsLock::^+Space
+PrintScreen::CapsLock
+~LAlt::Send {Bind}{vkFF}
+~RAlt::Send {Bind}{vkFF}
+
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+; #Warn  ; Enable warnings to assist with detecting common errors.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
+; Docs:
+; https://autohotkey.com/docs/Hotkeys.htm
+; https://autohotkey.com/docs/KeyList.htm
+; Ref https://autohotkey.com/board/topic/60675-osx-style-command-keys-in-windows/
+
+; You need to disable "Between input languages" shotcut from Control Panel\Clock, Language, and Region\Language\Advanced settings > Change lanugage bar hot keys
+
+; Universal shotcuts
+
+$!x::Send ^x
+$!c::Send ^c
+$!v::Send ^v
+$!s::Send ^s
+$!a::Send ^a
+$!z::Send ^z
+$!+z::Send ^y
+$!w::Send ^w
+$!f::Send ^f
+$!n::Send ^n
+$!q::Send !{f4}
+$!r::Send ^{f5}
+$!m::Send {LWin Down}{Down}{LWin Up}
+$!`::Send {Alt Down}{Shift Down}{Tab}{Shift Up}
+
+; Quick Switch Tab shotcuts
+
+$!1::Send ^1
+$!2::Send ^2
+$!3::Send ^3
+$!4::Send ^4
+$!5::Send ^5
+$!6::Send ^6
+$!7::Send ^7
+$!8::Send ^8
+$!9::Send ^9
+$!0::Send ^0
+
+; Chrome shotcuts
+
+$!t::Send ^t
+$!+t::Send ^+t
+$!+]::Send {Ctrl Down}{Tab Down}{Tab Up}{Ctrl Up}
+$!+[::Send {Ctrl Down}{Shift Down}{Tab Down}{Tab Up}{Shift Up}{Ctrl Up}
+$!l::Send ^l
+
+; input methods
+
+; $+,::Send ^,
+; $+.::Send ^.
+
+; navigation, selection, delete a word/till end
+
+$!Left::Send {Home}
+$!Right::Send {End}
+$!Up::Send {Lctrl down}{Home}{Lctrl up}
+$!Down::Send {Lctrl down}{End}{Lctrl up}
+
+$#Left::Send {ctrl down}{Left}{ctrl up}
+$#Right::Send {ctrl down}{Right}{ctrl up}
+$#+Left::Send {ctrl down}{shift down}{Left}{shift up}{ctrl up}
+$#+Right::Send {ctrl down}{shift down}{Right}{shift up}{ctrl up}
+
+$!+Left::Send {shift down}{Home}{shift up}
+$!+Right::Send {shift down}{End}{shift up}
+$!+Up::Send {Ctrl Down}{shift down}{Home}{shift up}{Ctrl Up}
+$!+Down::Send {Ctrl Down}{shift down}{End}{shift up}{Ctrl Up}
+
+!BS::Send {LShift down}{Home}{LShift Up}{Del}
+#BS::Send {LCtrl down}{BS}{LCtrl up}
+
+$#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
+```
 
 [![top] Goto Top](#table-of-contents)
 
@@ -582,6 +675,8 @@ fn键+左方向键是HOME
 fn键+右方向键是END  
 fn+上方向键是page up  
 fn+下方向键是page down  
+
+19. [Open in vscode](https://stackoverflow.com/questions/64040393/open-a-folder-in-vscode-through-finder-in-macos)
 
 [![top] Goto Top](#table-of-contents)
 
