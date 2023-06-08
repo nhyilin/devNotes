@@ -13,6 +13,7 @@ cmake使用示例与整理总结
 - [cmake中如何指定生成文件的输出路径](#cmake中如何指定生成文件的输出路径)
 - [cmake中如何增加编译选项](#cmake中如何增加编译选项)
 - [有待整理部分](#有待整理部分)
+  - [cmake获取项目路径](#cmake获取项目路径)
 
 
 # `cmake`中一些预定义变量
@@ -352,6 +353,30 @@ t6示例如何使用自定义的`cmake`模块(编写了自定义的`FindHELLO.cm
     ```
 4. 生成Xcode项目：`cmake -G "Xcode" .`，`.`代表当前目录，即CMakeLists.txt所在的目录，建议最好新建Xcode文件夹，并在Xcode文件夹内执行`cmake -G "Xcode" ../`。如果报错找不到编译器，可以使用：`.sudo xcode-select --switch /Applications/Xcode.app/`
 
+
+## cmake获取项目路径
+
+在Cmake中，很容易知道项目的地址，例如
+
+`${PROJECT_SOURCE_DIR}`
+
+可以在cmakelists中，将该值赋值给变量，例如MAIN_PATH：
+
+`set(MAIN_PATH ${PROJECT_SOURCE_DIR})`
+
+然后新建xxx.h.in文件，仅需一行即可利用宏捕获MAIN_PATH:
+
+`#define PROJECT_PATH "@MAIN_PATH@"`
+
+在cmakelists中将xxx.h.in编译成xxx.h：(注意这里生成头文件的路径，指定在src代码文件夹)
+
+`configure_file(src/param_deliver.h.in ../src/param_deliver.h)`
+
+编译完成后即可生成对应的xxx.h：
+
+`#define PROJECT_PATH "/home/type/mcamera/mcamera"`
+
+然后调用`PROJECT_PATH`即可获得项目地址。
 
 [![top] Goto Top](#table-of-contents)
 
