@@ -426,12 +426,10 @@ QChart* ThemeWidget::createSplineChart(const drawType& draw_type) const
     else
         std::cerr << "please check draw type!\n";
 
-    // add axis
     QDateTimeAxis* axisX;
     axisX = new QDateTimeAxis;
     QValueAxis* axisY;
     axisY = new QValueAxis();
-
 
     if (draw_type == drawType::velocity_draw)
     {
