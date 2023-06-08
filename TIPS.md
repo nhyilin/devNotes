@@ -98,6 +98,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - 菜单栏-扩展-resharper-option-IntelliSense-Autopopup，将所有的菜单都选择Display and preselect，也就是预先选择，之后就可以用enter而不是用tab进行补全了。之后tab为replace，enter为insert
 - `ctrl + shift + F7`：在文件中突出被引用的地方，在右侧进度条也可看到相应的标记
 - `ctrl + shift + n`：打开文件（Go to file）
+- 代码分析下划线警告级别及样式：Code Inspection下的Inspection Severity
 
 
 [![top] Goto Top](#table-of-contents)
@@ -404,6 +405,7 @@ Find in Files: `Ctrl+Shift+F`
 - 开发纯离线机常时间戳对不上：`make: warning:  Clock skew detected.  Your build may be incomplete.`，意思就是检测到时钟偏差了，主要是两个设备系统之间的时间上存在差距。解决：`find . -exec touch {} \;`
 - `VMware: vmw_ioctl_command error Invalid argument.`：`echo "export SVGA_VGPU10=0" >> ~/.profile`
 - 在离线状态下，git可视化软件免费且较为好用的是GitAhead
+- 麒麟其实很多开发包在系统镜像中已经有打包：vmware操作栏->虚拟机->可移动设备->CD/DVD(SATA)，然后连接上系统镜像，在文件夹里的光盘镜像中，进入Package文件夹，即可看到所有自带的开发包
 
 
 [![top] Goto Top](#table-of-contents)
@@ -515,8 +517,9 @@ AutoHotkey软件：
 ```
 完整配置如下：
 ```bash
+; 在 Windows 11 中，您需要在启动 AutoHotkey 脚本时提升脚本的权限以保证其正常运行。可以通过右键单击 .ahk 文件，在菜单中选择“以管理员身份运行”来提升脚本的权限
 CapsLock::^+Space
-PrintScreen::CapsLock
+F12::CapsLock
 ~LAlt::Send {Bind}{vkFF}
 ~RAlt::Send {Bind}{vkFF}
 
@@ -677,6 +680,18 @@ fn+上方向键是page up
 fn+下方向键是page down  
 
 19. [Open in vscode](https://stackoverflow.com/questions/64040393/open-a-folder-in-vscode-through-finder-in-macos)
+20. 如何禁止生成u盘链接mac笔记本后的隐藏文件（` .DS_Store `文件和`._`开头的文件）
+```bash
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+```
+上述命令分别禁止了在网络卷和 U 盘中生成 .DS_Store 文件和其他隐藏文件，这两个命令运行后，系统不会再在 U 盘中产生这些隐藏文件，但是已经存在的隐藏文件还要手动删除。
+恢复：
+```bash
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool false
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool false
+```
+
 
 [![top] Goto Top](#table-of-contents)
 
