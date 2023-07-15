@@ -10,6 +10,7 @@
 - [待整理](#待整理)
 
 # 文档维护清单
+装修：[装修笔记](装修.md)
 ## 计算机基础知识
 
 数据结构与算法整理: [Data Structures and Algorithm](./DataStructure/README.md)
