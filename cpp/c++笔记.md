@@ -24,6 +24,7 @@
   - [new简单操作](#new简单操作)
   - [try-catch](#try-catch)
   - [使用this指针时需判空](#使用this指针时需判空)
+  - [编译报错：expected unqualified -id before ‘(’ token](#编译报错expected-unqualified--id-before--token)
 
 完整版笔记见：[ChernoCPP](ChernoCPP.md)
 
@@ -804,6 +805,26 @@ int main() {
 	return 0;
 }
 ```
+
+[![top] Goto Top](#table-of-contents)
+
+## 编译报错：expected unqualified -id before ‘(’ token
+在 C++ 编程中出现 "expected unqualified -id before ‘(’ token" 错误通常是由于定义变量或函数时出错所致。具体而言，可能的问题如下：
+
+- 变量或函数名称拼写错误  
+检查变量或函数名称是否有拼写错误，只要有一个字母拼写错误，编译器就无法识别该名称。
+
+- 缺少头文件  
+如果变量或函数的类型未定义，则可能是由于缺少必需的头文件导致的。请确保所需的头文件都已正确包含。
+
+- 使用 C++ 关键字  
+使用 C++ 关键字作为变量或函数名称可能会导致此错误。确保您的代码中不使用 C++ 关键字作为变量或函数名称。
+
+- 已定义的重复名称  
+如果存在另一个具有相同名称的变量或函数，则可能会导致此错误。请确保不要重复定义变量或函数。
+
+"expected unqualified -id before ‘(’ token” 错误是一个编译错误信息。它表明编译器无法识别你的代码中指定的一个标识符（identifier），通常是变量名、函数名、类名或结构名等等，而导致编译错误。在错误的标识符前面会有一对括号，指示编译器在遇到此错误时具体位置。根据错误信息，通常可以找到类似语法错误、拼写错误、缺少头文件、声明/定义顺序等问题。需要根据具体的代码和触发该错误的位置进行分析和排查。
+
 
 [![top] Goto Top](#table-of-contents)
 

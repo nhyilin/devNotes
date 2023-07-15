@@ -13,10 +13,11 @@ find_package(Qt5 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(LoanCalculator main.cpp)
+add_executable(LoanCalculator src/main.cpp)
 target_link_libraries(LoanCalculator
         Qt5::Core
         Qt5::Gui
         Qt5::Widgets
+        Qt5::Quick
         )
 

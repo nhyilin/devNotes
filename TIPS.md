@@ -302,10 +302,10 @@ Find in Files: `Ctrl+Shift+F`
     - `source ~/.bashrc`
 - lib库默认安装位置在`/usr/lib/`或者`/usr/local/lib`
 - `alt+F4`:关闭
-- `dynamic`：动态库，`static`：静态库
-- linux下，`.so`动态库;，`.a`静态库
-- win下，`.lib`：静态库，`.dll`动态库。
-- Mac下，`.a`静态库`.dylb`动态库，`.Framework`为打包方式，将库的二进制文件打包在一起。
+- `static`：静态库，`dynamic`：动态库。
+- linux下，`.a`静态库，`.so`动态库。
+- win下，`.lib`静态库，`.dll`动态库。
+- Mac下，`.a`静态库，`.dylb`动态库，`.Framework`为打包方式，将库的二进制文件打包在一起。
 - 文件以tree形式列出：`tree`(sudo apt  install tree)
 - Linux设置vi编辑器
     - 配置文件：`sudo vi /etc/vim/vimrc`
@@ -632,6 +632,7 @@ $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
     - 当需要索引图片时，【插入】功能栏中选择【交叉引用】，选取所需即可
     - 在撰写文档时：可将字体设置为Menlo等开发时使用的字体，显示word中有代码的效果
 2. [保存所有word里的图片](http://www.icanzc.com/word/186.html)："文件"，选择“另存为”或“另存为网页”，弹出对话框后，点击最下面的“保存类型”下拉菜单，选择“网页”，此时还可单击对话框中的“工具→Web选项
+3. 显示所有格式标记：Ctrl + *（星号）（Ctrl+ shift + 8）
 
 ### visio
 - visio对其所有连接线：在`设计`中点击连接线下面的小三角，`分隔：相关线条(有时候相关也可以，但是很少)`，`重叠：相关线条`。

@@ -338,6 +338,34 @@ t6示例如何使用自定义的`cmake`模块(编写了自定义的`FindHELLO.cm
 
 建议：在`Project`根目录先建立`build`,然后在`build`文件夹内运行`cmake ..`，这样就不会污染源代码, 如果不想要这些自动生成的文件了，只要简单的删除`build`文件夹就可以
 
+# cmake设置关闭编译警告
+
+虽然关闭编译警告（warning）并不是一个好习惯，但在某些情况下，关闭编译器警告可能是必须的。为了关闭编译器警告，您可以使用 CMake 中的 `add_compile_options()` 命令来添加编译选项。具体而言，您需要在 CMakeLists.txt 文件中添加以下行：
+
+```cmake
+add_compile_options(-w)
+```
+
+在上述代码中，`-w` 选项将关闭编译器的所有警告。如果您只想关闭特定类型的警告，可以使用以下选项：
+
+- `-Wno-unused-parameter`：关闭未使用的参数警告。
+- `-Wno-unused-variable`：关闭未使用的变量警告。
+- `-Wno-unused-result`：关闭未使用的函数或操作结果的警告。
+- `-Wno-deprecated-declarations`：关闭对已过时的函数或操作的警告。
+- `-Wno-format-security`：关闭格式化字符串安全警告。
+
+您可以在 `add_compile_options()` 命令中添加这些选项来关闭特定类型的警告。例如：
+
+```cmake
+add_compile_options(-Wno-unused-variable)
+```
+
+上述代码将关闭未使用变量警告。
+
+需要注意的是，关闭编译警告可能会隐藏潜在的问题，因此我们建议仅在了解并确认相关警告无关紧要时再关闭它们。
+
+
+
 # 有待整理部分
 
 1. 生成可执行文件时，指令为`add_executable(pro_name library.cpp)`，若要生成静态库，则`add_library(pro_name library.cpp)`，动态库：`add_library(pro_name SHARED library.cpp)`
