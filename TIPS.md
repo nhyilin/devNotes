@@ -85,7 +85,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
   copy /Y $(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).pdb D:\myDev\TZSatelliteSimTool\release
   ```
   `/Y`是禁止提示yes/no
-- vs中调试DLL的源码文件，在使用dll的工程中<kbd>工具</kbd>-><kbd>选项</kbd>-><kbd>调试</kbd>-><kbd>常规</kbd>->取消选择<kbd>要求源文件与原始版本完全匹配</kbd>，然后从文件夹将DLL工程的源码文件拖入vs的DLL调用软件调试页面，就可以断点调试了
+- vs中调试DLL的源码文件，在使用dll的工程中<kbd>工具</kbd>-><kbd>选项</kbd>-><kbd>调试</kbd>-><kbd>常规</kbd>->取消选择<kbd>要求源文件与原始版本完全匹配(Require source files to exactly match the original version)</kbd>，然后从文件夹将DLL工程的源码文件拖入vs的DLL调用软件调试页面，就可以断点调试了
 - vs全屏显示：<kbd>shift</kbd>+<kbd>alt</kbd>+<kbd>enter</kbd>，返回正常状态相同按键
 - 剪切整行：<kbd>ctrl</kbd>+<kbd>l</kbd>
 - 删除整行：<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>l</kbd>
@@ -99,7 +99,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `ctrl + shift + F7`：在文件中突出被引用的地方，在右侧进度条也可看到相应的标记
 - `ctrl + shift + n`：打开文件（Go to file）
 - 代码分析下划线警告级别及样式：Code Inspection下的Inspection Severity
-
+- `ctrl + k , ctrl + G`：Show Structure，看代码结构，其实就是附近的for或者if以及函数参数等
 
 [![top] Goto Top](#table-of-contents)
 
@@ -251,7 +251,7 @@ Find in Files: `Ctrl+Shift+F`
 "editor.tabSize": 4,//tab为四个空格
 "editor.insertSpaces": true //转为空格
 ```
-- [vscode关闭受限模式（工作区信任），启用调试等功能](https://blog.csdn.net/weixin_45755666/article/details/117877321)：`security.workspace.trust`改为`false`即可
+- [vscode关闭受限模式（工作区信任），启用调试等功能](https://blog.csdn.net/weixin_45755666/article/details/117877321)：`security.workspace.Trust:Enabled`改为`false`即可
 - 光标处的代码折叠：
   - 折叠 Ctrl+Shift+[
   - 展开 Ctrl+Shift+]
@@ -633,6 +633,7 @@ $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
     - 在撰写文档时：可将字体设置为Menlo等开发时使用的字体，显示word中有代码的效果
 2. [保存所有word里的图片](http://www.icanzc.com/word/186.html)："文件"，选择“另存为”或“另存为网页”，弹出对话框后，点击最下面的“保存类型”下拉菜单，选择“网页”，此时还可单击对话框中的“工具→Web选项
 3. 显示所有格式标记：Ctrl + *（星号）（Ctrl+ shift + 8）
+4. ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
 
 ### visio
 - visio对其所有连接线：在`设计`中点击连接线下面的小三角，`分隔：相关线条(有时候相关也可以，但是很少)`，`重叠：相关线条`。
