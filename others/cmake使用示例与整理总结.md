@@ -12,8 +12,10 @@ cmake使用示例与整理总结
 - [cmake中如何使用动态库和静态库（查找库的路径）](#cmake中如何使用动态库和静态库查找库的路径)
 - [cmake中如何指定生成文件的输出路径](#cmake中如何指定生成文件的输出路径)
 - [cmake中如何增加编译选项](#cmake中如何增加编译选项)
+- [cmake设置关闭编译警告](#cmake设置关闭编译警告)
 - [有待整理部分](#有待整理部分)
   - [cmake获取项目路径](#cmake获取项目路径)
+  - [cmake网络资料](#cmake网络资料)
 
 
 # `cmake`中一些预定义变量
@@ -408,6 +410,10 @@ add_compile_options(-Wno-unused-variable)
 
 [![top] Goto Top](#table-of-contents)
 
+## cmake网络资料
 
+[How to Build a CMake-Based Project](https://preshing.com/20170511/how-to-build-a-cmake-based-project/)
+
+[![top] Goto Top](#table-of-contents)
 
 [top]: up.png
