@@ -662,7 +662,6 @@ $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
 14. 前往文件夹：`cmd + shift +g`
 15. 当文件夹显示为列表时，可以`cmd + ➕`，放大显示效果
 16. brew 安装文件报错：[Error: No such file or directory @ rb_sysopen](https://blog.csdn.net/yuchangyuan5237/article/details/126925843?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&utm_relevant_index=1)使用国内镜像而该镜像未完全同步问题。临时去除镜像即可。
-17. 启动微信：`nohup /Applications/WeChat.app/Contents/MacOS/WeChat > /dev/null 2>&1 &`
 
 ```bash
 export HOMEBREW_BOTTLE_DOMAIN=''
@@ -695,6 +694,7 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool false
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool false
 ```
 
+21. 启动微信：`nohup /Applications/WeChat.app/Contents/MacOS/WeChat > /dev/null 2>&1 &`
 
 [![top] Goto Top](#table-of-contents)
 
