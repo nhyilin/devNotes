@@ -33,3 +33,7 @@ VTK和OpenSceneGraph是两个用于处理和渲染3D数据的开源库，一些�
 (1) VTK（可视化工具包）与OSG（OpenSceneGraph），其他？ - 或代码. https://www.orcode.com/question/936383_k7d12a.html.  
 (2) 关于工业仿真软件中的图形显示引擎 - 知乎 - 知乎专栏. https://zhuanlan.zhihu.com/p/402782665.  
 (3) Home [www.openscenegraph.com]. https://www.openscenegraph.com/.
+
+
+假如你是c++工程师，你要用c++绘制3D图形，你会选择使用哪个库？
+假如你要绘制地球、卫星及姿态、飞机及姿态等，你会选择哪一个库？
