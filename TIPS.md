@@ -100,6 +100,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - `ctrl + shift + n`：打开文件（Go to file）
 - 代码分析下划线警告级别及样式：Code Inspection下的Inspection Severity
 - `ctrl + k , ctrl + G`：Show Structure，看代码结构，其实就是附近的for或者if以及函数参数等
+- win上，`Ctrl + Alt + F`：格式化选中代码，如果不起作用，那么检查Code Eiditing -> c++ Formatting Style -> General，选择如果是Clang-format有可能会失效，感觉是插件的bug
 
 [![top] Goto Top](#table-of-contents)
 
@@ -695,6 +696,10 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool false
 ```
 
 21. 启动微信：`nohup /Applications/WeChat.app/Contents/MacOS/WeChat > /dev/null 2>&1 &`
+
+22. 将Desktop所有文件名输出到一个叫做 files.txt 的文件中：`ls ~/Desktop > files.txt`
+23. 将Desktop所有所有 .cpp 文件输出到一个叫做 files.txt 的文件中：`find ./ -name "*.cpp" > files.txt`
+
 
 [![top] Goto Top](#table-of-contents)
 
