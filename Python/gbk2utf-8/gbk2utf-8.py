@@ -53,7 +53,7 @@ def file_code_conversion(file_name, tag_code_type):
 
 
 if __name__ == "__main__":
-    src_dir = "."
+    src_dir = "/Users/peiyilin/dev/classes/c++/2023C++多线程原理讲解到实战/资料"
     tag_type = "utf-8-bom"
     type_filter = [".cpp", ".h", ".hpp", ".cxx"]
 
