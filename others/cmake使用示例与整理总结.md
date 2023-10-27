@@ -381,6 +381,10 @@ add_compile_options(-Wno-unused-variable)
     ```bash
     cmake.exe -G "Visual Studio 17 2022" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\ThirdParty -DCMAKE_PREFIX_PATH=C:/Qt/Qt5.9.6/5.9.6/msvc2017_64/lib/cmake -S D:\myDevelop\project\kneev2021\src -B D:\myDevelop\build\kneeV2021
     ```
+    如需指定Qt路径(注意最后指定到cmake文件夹)：
+    ```bash
+    cmake.exe -D CMAKE_PREFIX_PATH=C:Qt/Qt5.10.1/5.10.1/msvc2015_64/lib/cmake -G "Visual Studio 17 2022" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\ThirdParty -DCMAKE_PREFIX_PATH=C:/Qt/Qt5.9.6/5.9.6/msvc2017_64/lib/cmake -S D:\myDevelop\project\kneev2021\src -B D:\myDevelop\build\kneeV2021
+    ```
 4. 生成Xcode项目：`cmake -G "Xcode" .`，`.`代表当前目录，即CMakeLists.txt所在的目录，建议最好新建Xcode文件夹，并在Xcode文件夹内执行`cmake -G "Xcode" ../`。如果报错找不到编译器，可以使用：`.sudo xcode-select --switch /Applications/Xcode.app/`
 
 
