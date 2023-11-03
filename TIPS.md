@@ -1,5 +1,11 @@
 # Table of Contents
 - [Table of Contents](#table-of-contents)
+- [MarkDown](#markdown)
+  - [代码删减样式](#代码删减样式)
+  - [按键样式](#按键样式)
+  - [自动生成toc](#自动生成toc)
+  - [高亮](#高亮)
+  - [不同颜色字体](#不同颜色字体)
 - [Xcode](#xcode)
 - [visual studio](#visual-studio)
   - [resharper插件](#resharper插件)
@@ -24,6 +30,33 @@
     - [visio](#visio)
 - [myMac](#mymac)
 - [work experience](#work-experience)
+
+# MarkDown
+## 代码删减样式
+```diff
+- var x = 1;
++ let x = 2;
+```
+## 按键样式
+<kbd>ctrl</kbd> +  <kbd>s</kbd>
+
+
+## 自动生成toc
+VS Code 中安装 `Markdown All in One` 插件，将鼠标光标放到要生成目录的位置，右键打开「命令面板」(`ctrl/cmd + shift + P`)，搜索“toc”，选中「创建目录」，即可自动生成目录。
+
+## 高亮
+<mark>高亮</mark> 
+
+## 不同颜色字体
+<font color=red>红色</font>
+<font color=blue>蓝色</font>
+<font color=orange>橙色</font>
+<font color=green>绿色</font>
+<font color=purple>紫色</font>
+
+另：  
+[Shields.io](https://sspai.com/post/59593)、[Substats](https://github.com/spencerwooo/Substats) 定制动态数据小牌子
+
 
 # Xcode
 
@@ -757,9 +790,6 @@ btw,已经将include指令添加快件进番茄助手，简直不要再香，快
 3. 总之多推理少无谓的试错。
 
 [![top] Goto Top](#table-of-contents)
-
-
-
 
 
 
