@@ -101,6 +101,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - 代码分析下划线警告级别及样式：Code Inspection下的Inspection Severity
 - `ctrl + k , ctrl + G`：Show Structure，看代码结构，其实就是附近的for或者if以及函数参数等
 - win上，`Ctrl + Alt + F`：格式化选中代码，如果不起作用，那么检查Code Eiditing -> c++ Formatting Style -> General，选择如果是Clang-format有可能会失效，感觉是插件的bug
+- 上下移动选中代码：`Ctrl + shift + Alt + 上&下`
 
 [![top] Goto Top](#table-of-contents)
 
