@@ -1423,8 +1423,9 @@ int main()
 ```cpp
 int main()
 {
-    PrintEntity(22);//c++认为22可以转换成一个Entity，因为你可以调用这个构造函数，22是你创建Entity的唯一参数
-    //PrintEntity("cherno");//不可行，因为这个cherno不是std::string，他是一个char类型数组，为了让其工作，c++需要两步工作，一个是从const char数组到string吗，一个是从string到Entity，但它只允许做一次隐式转换
+    PrintEntity(22);
+    //c++认为22可以转换成一个Entity，因为你可以调用这个构造函数，22是你创建Entity的唯一参数
+    //PrintEntity("cherno"); 不可行，因为这个cherno不是std::string，他是一个char类型数组，为了让其工作，c++需要两步工作，一个是从const char数组到string吗，一个是从string到Entity，但它只允许做一次隐式转换
     PrintEntity(String("cherno"));//这样才可以，把他包装在一个构造函数中
     //或者如下：
     PrintEntity(Entity("cherno"))//隐式的将字符串转换为std::string 标准字符串，然后被推进Entity构造函数
