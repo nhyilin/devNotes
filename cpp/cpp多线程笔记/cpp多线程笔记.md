@@ -15,6 +15,8 @@
   - [1.13. c++11RAII控制锁lock\_guard](#113-c11raii控制锁lock_guard)
   - [1.14. unique\_lock可临时解锁控制超时的互斥体包装器](#114-unique_lock可临时解锁控制超时的互斥体包装器)
   - [C++14shared\_lock共享锁包装器](#c14shared_lock共享锁包装器)
+  - [c++17scoped\_lock解决互锁造成的死锁问题](#c17scoped_lock解决互锁造成的死锁问题)
+  - [项目案例线程通信使用互斥锁和list实现线程通信](#项目案例线程通信使用互斥锁和list实现线程通信)
 
 
 借鉴Anthony Williams的《C++ Concurrency In Action》一书
@@ -944,6 +946,8 @@ void TestLockGuard(int i) {
 ```
 gmutex已经在lock_guard之外锁住了资源，上述代码会抛出异常，如果不想锁相关资源，那么利用重载，调用不同构造，传入一个常量参数即可。
 
+
+
 [![top] Goto Top](#table-of-contents)
 
 ## 1.14. unique_lock可临时解锁控制超时的互斥体包装器
@@ -1053,7 +1057,7 @@ int main(int argc, char* argv[]) {
   TestMutex(1);
   TestMutex(2);
 
-  getchar();
+  std::cin.get();
   return 0;
 }
 ```
@@ -1076,12 +1080,322 @@ unique_lock(mutex_type& __m, defer_lock_t) _NOEXCEPT
 
 ## C++14shared_lock共享锁包装器
 
+以下这段代码值得商榷，主要看main函数中前两个大括号内的使用方法。
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <string>
+#include <mutex>
+#include <shared_mutex>
+// Linux -lpthread
+
+// RAII
+class XMutex {
+ public:
+  XMutex(std::mutex& mux) : mux_(mux) {
+    std::cout << "Lock" << std::endl;
+    mux.lock();
+  }
+  ~XMutex() {
+    std::cout << "Unlock" << std::endl;
+    mux_.unlock();
+  }
+
+ private:
+  std::mutex& mux_;
+};
+static std::mutex mux;
+void TestMutex(int status) {
+  XMutex lock(mux);
+  if (status == 1) {
+    std::cout << "=1" << std::endl;
+    return;
+  } else {
+    std::cout << "!=1" << std::endl;
+    return;
+  }
+}
+
+static std::mutex gmutex;
+void TestLockGuard(int i) {
+  gmutex.lock();
+  {
+    // 已经拥有锁，不lock
+    std::lock_guard<std::mutex> lock(gmutex, std::adopt_lock);
+    // 结束释放锁
+  }
+  {
+    std::lock_guard<std::mutex> lock(gmutex);
+    std::cout << "begin thread " << i << std::endl;
+  }
+  for (;;) {
+    {
+      std::lock_guard<std::mutex> lock(gmutex);
+      std::cout << "In " << i << std::endl;
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  }
+}
+
+int main(int argc, char* argv[]) {
+  {
+    // 共享锁
+    static std::shared_timed_mutex tmux;
+    // 读取锁 共享锁
+    {
+      // 调用共享锁
+      std::shared_lock<std::shared_timed_mutex> lock(tmux);
+      std::cout << "read data" << std::endl;
+      // 退出栈区 释放共享锁
+    }
+    // 写入锁 互斥锁
+    {
+      // 这里不能先锁共享锁，然后锁互斥锁，死锁
+      std::unique_lock<std::shared_timed_mutex> lock(tmux);
+      std::cout << "write data" << std::endl;
+    }
+  }
+
+  {
+    static std::mutex mux;
+    {
+      std::unique_lock<std::mutex> lock(mux);
+      lock.unlock();
+      // 临时释放锁
+      lock.lock();
+    }
+
+    {
+      // 已经拥有锁 不锁定，退出栈区解锁
+      mux.lock();
+      std::unique_lock<std::mutex> lock(mux, std::adopt_lock);
+    }
+    {
+      // 延后加锁 不拥有 退出栈区不解锁
+      std::unique_lock<std::mutex> lock(mux, std::defer_lock);
+      // 加锁 退出栈区解锁
+      lock.lock();
+    }
+    {
+      // mux.lock();
+      // 尝试加锁 不阻塞 失败不拥有锁
+      // unique_lock<mutex> lock(mux, try_to_lock);
+      // 锁超时 阻塞指定时间 失败不拥有锁
+      std::unique_lock<std::mutex> lock(mux, std::chrono::milliseconds(500));
+
+      if (lock.owns_lock()) {
+        std::cout << "owns_lock" << std::endl;
+      } else {
+        std::cout << "not owns_lock" << std::endl;
+      }
+    }
+  }
+
+  for (int i = 0; i < 3; i++) {
+    std::thread th(TestLockGuard, i + 1);
+    th.detach();
+  }
+  TestMutex(1);
+  TestMutex(2);
+
+  std::cin.get();
+  return 0;
+}
+```
+[![top] Goto Top](#table-of-contents)
+
+## c++17scoped_lock解决互锁造成的死锁问题
+
+使用场景：在一个临界区代码中需要使用到两个锁，先用第一个锁lock，再用第二个锁lock。  
+会出现问题：第一个线程把第一个锁锁住，另外一个线程把第二个锁锁住。  
+紧接着要访问第二个锁，会造成阻塞。  
+因为业务代码的问题，很难将锁的顺序定死，在这里用到scoped_lock  
+测试很难复线，很难测
+
+示例代码：
+```cpp
+#include <thread>
+#include <iostream>
+#include <string>
+#include <mutex>
+#include <shared_mutex>
+// Linux -lpthread
+
+// RAII
+class XMutex {
+ public:
+  XMutex(std::mutex& mux) : mux_(mux) {
+    std::cout << "Lock" << std::endl;
+    mux.lock();
+  }
+  ~XMutex() {
+    std::cout << "Unlock" << std::endl;
+    mux_.unlock();
+  }
+
+ private:
+  std::mutex& mux_;
+};
+static std::mutex mux;
+void TestMutex(int status) {
+  XMutex lock(mux);
+  if (status == 1) {
+    std::cout << "=1" << std::endl;
+    return;
+  } else {
+    std::cout << "!=1" << std::endl;
+    return;
+  }
+}
+
+static std::mutex gmutex;
+void TestLockGuard(int i) {
+  gmutex.lock();
+  {
+    // 已经拥有锁，不lock
+    std::lock_guard<std::mutex> lock(gmutex, std::adopt_lock);
+    // 结束释放锁
+  }
+  {
+    std::lock_guard<std::mutex> lock(gmutex);
+    std::cout << "begin thread " << i << std::endl;
+  }
+  for (;;) {
+    {
+      std::lock_guard<std::mutex> lock(gmutex);
+      std::cout << "In " << i << std::endl;
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  }
+}
+
+static std::mutex mux1;
+static std::mutex mux2;
+
+void TestScope1() {
+  // 模拟死锁 停100ms等另一个线程锁mux2
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::cout << std::this_thread::get_id() << " begin mux1 lock" << std::endl;
+  // mux1.lock();
+  std::cout << std::this_thread::get_id() << " begin mux2 lock" << std::endl;
+  // mux2.lock(); //死锁
+  // c++11
+  //  lock(mux1, mux2);
+  // c++17
+  std::scoped_lock lock(mux1, mux2);  // 解决死锁
+
+  std::cout << "TestScope1" << std::endl;
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  // 实际中临界资源中不要sleep
+
+  // mux1.unlock();
+  // mux2.unlock();
+}
+void TestScope2() {
+  std::cout << std::this_thread::get_id() << " begin mux2 lock" << std::endl;
+  mux2.lock();
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  std::cout << std::this_thread::get_id() << " begin mux1 lock" << std::endl;
+  mux1.lock();  // 死锁
+  std::cout << "TestScope2" << std::endl;
+  std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+  mux1.unlock();
+  mux2.unlock();
+}
+
+int main(int argc, char* argv[]) {
+  {
+    // 演示死锁情况
+    {
+      std::thread th(TestScope1);
+      th.detach();
+    }
+    {
+      std::thread th(TestScope2);
+      th.detach();
+    }
+  }
+  std::cin.get();
+
+  {
+    // 共享锁
+    static std::shared_timed_mutex tmux;
+    // 读取锁 共享锁
+    {
+      // 调用共享锁
+      std::shared_lock<std::shared_timed_mutex> lock(tmux);
+      std::cout << "read data" << std::endl;
+      // 退出栈区 释放共享锁
+    }
+    // 写入锁 互斥锁
+    {
+      std::unique_lock<std::shared_timed_mutex> lock(tmux);
+      std::cout << "write data" << std::endl;
+    }
+  }
+
+  {
+    static std::mutex mux;
+    {
+      std::unique_lock<std::mutex> lock(mux);
+      lock.unlock();
+      // 临时释放锁
+      lock.lock();
+    }
+
+    {
+      // 已经拥有锁 不锁定，退出栈区解锁
+      mux.lock();
+      std::unique_lock<std::mutex> lock(mux, std::adopt_lock);
+    }
+    {
+      // 延后加锁 不拥有 退出栈区不解锁
+      std::unique_lock<std::mutex> lock(mux, std::defer_lock);
+      // 加锁 退出栈区解锁
+      lock.lock();
+    }
+    {
+      // mux.lock();
+      // 尝试加锁 不阻塞 失败不拥有锁
+      std::unique_lock<std::mutex> lock(mux, std::try_to_lock);
+
+      if (lock.owns_lock()) {
+        std::cout << "owns_lock" << std::endl;
+      } else {
+        std::cout << "not owns_lock" << std::endl;
+      }
+    }
+  }
+
+  for (int i = 0; i < 3; i++) {
+    std::thread th(TestLockGuard, i + 1);
+    th.detach();
+  }
+  TestMutex(1);
+  TestMutex(2);
+
+  getchar();
+  return 0;
+}
+```
+
+析构函数(__unlock_unpack)：
+```cpp
+    ~scoped_lock() {
+        typedef typename __make_tuple_indices<sizeof...(_MArgs)>::type _Indices;
+        __unlock_unpack(_Indices{}, __t_);
+    }
+```
+[![top] Goto Top](#table-of-contents)
+
+## 项目案例线程通信使用互斥锁和list实现线程通信
+
+
 
 
 [![top] Goto Top](#table-of-contents)
 <!-- 
-c++17scoped_lock解决互锁造成的死锁问题
-项目案例线程通信使用互斥锁和list实现线程通信
 条件变量应用场景_生产者消费者信号处理步骤
 condition_variable代码示例读写线程同步
 条件变量应用线程通信解决线程退出时的阻塞问题
