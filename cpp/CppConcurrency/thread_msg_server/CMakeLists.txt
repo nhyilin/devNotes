@@ -3,7 +3,15 @@ project(thread_msg_server)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(BOOST_ROOT /Users/peiyilin/env/boost_1_82_0)
+if (CMAKE_HOST_APPLE)
+    message ("set Macos environment path")
+    set(BOOST_ROOT /Users/peiyilin/env/boost_1_82_0)
+elseif (CMAKE_HOST_WIN32)
+    message ("set Windows environment path")
+elseif (UNIX AND NOT APPLE)
+    message ("set Linux environment path")
+endif ()
+
 set(Boost_NO_SYSTEM_PATHS ON)
 find_package(Boost COMPONENTS log thread date_time filesystem REQUIRED)
 
