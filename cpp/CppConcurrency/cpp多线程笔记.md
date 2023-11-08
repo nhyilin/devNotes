@@ -1391,6 +1391,13 @@ int main(int argc, char* argv[]) {
 
 ## 项目案例线程通信使用互斥锁和list实现线程通信
 
+[thread_msg_server.md](./thread_msg_server/thread_msg_server.cpp)   
+[xmsg_server.md](./thread_msg_server/xmsg_server.cpp)   
+[xthread.md](./thread_msg_server/xthread.cpp)   
+[xmsg_server.md](./thread_msg_server/xmsg_server.h)   
+[xthread.md](./thread_msg_server/xthread.h)   
+
+xthread为基类，
 
 
 

@@ -10,7 +10,7 @@ class XMsgServer : public XThread {
 
  private:
   // 处理消息的线程入口函数
-  void Main() override;
+  void Main() override;  // 子线程启动
 
   // 消息队列缓冲
   std::list<std::string> msgs_;

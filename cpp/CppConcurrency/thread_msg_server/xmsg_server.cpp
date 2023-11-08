@@ -3,13 +3,15 @@
 
 // 处理消息的线程入口函数
 void XMsgServer::Main() {
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
   while (!is_exit()) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(10));
-      std::unique_lock<std::mutex> lock(mux_);
+    // 最大消息处理时延
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    std::unique_lock<std::mutex> lock(mux_);
     if (msgs_.empty()) continue;
     while (!msgs_.empty()) {
       // 消息处理业务逻辑
-        std::cout << "recv : " << msgs_.front() << std::endl;
+      std::cout << "recv : " << msgs_.front() << std::endl;
       msgs_.pop_front();
     }
   }
