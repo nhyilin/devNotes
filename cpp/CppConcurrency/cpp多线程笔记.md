@@ -14,9 +14,15 @@
   - [1.12. 手动实现RAII管理mutex资源\_锁自动释放](#112-手动实现raii管理mutex资源_锁自动释放)
   - [1.13. c++11RAII控制锁lock\_guard](#113-c11raii控制锁lock_guard)
   - [1.14. unique\_lock可临时解锁控制超时的互斥体包装器](#114-unique_lock可临时解锁控制超时的互斥体包装器)
-  - [C++14shared\_lock共享锁包装器](#c14shared_lock共享锁包装器)
-  - [c++17scoped\_lock解决互锁造成的死锁问题](#c17scoped_lock解决互锁造成的死锁问题)
-  - [项目案例线程通信使用互斥锁和list实现线程通信](#项目案例线程通信使用互斥锁和list实现线程通信)
+  - [1.15. C++14shared\_lock共享锁包装器](#115-c14shared_lock共享锁包装器)
+  - [1.16. c++17scoped\_lock解决互锁造成的死锁问题](#116-c17scoped_lock解决互锁造成的死锁问题)
+  - [1.17. 项目案例线程通信使用互斥锁和list实现线程通信](#117-项目案例线程通信使用互斥锁和list实现线程通信)
+  - [1.18. 条件变量应用场景\_生产者消费者信号处理步骤](#118-条件变量应用场景_生产者消费者信号处理步骤)
+  - [1.19. condition\_variable代码示例读写线程同步](#119-condition_variable代码示例读写线程同步)
+  - [1.20. 条件变量应用线程通信解决线程退出时的阻塞问题](#120-条件变量应用线程通信解决线程退出时的阻塞问题)
+  - [1.21. promise和future多线程异步传值](#121-promise和future多线程异步传值)
+  - [1.22. packaged\_task 异步调用函数打包](#122-packaged_task-异步调用函数打包)
+  - [1.23. async创建异步线程替代thread](#123-async创建异步线程替代thread)
 
 
 借鉴Anthony Williams的《C++ Concurrency In Action》一书
@@ -394,7 +400,7 @@ int main(int argc, char* argv[]) {
     thread th(TestThread);
     th.detach();
   }
-  getchar();
+  std::cin.get();
   return 0;
 }
 
@@ -1078,7 +1084,7 @@ unique_lock(mutex_type& __m, defer_lock_t) _NOEXCEPT
 
 [![top] Goto Top](#table-of-contents)
 
-## C++14shared_lock共享锁包装器
+## 1.15. C++14shared_lock共享锁包装器
 
 以下这段代码值得商榷，主要看main函数中前两个大括号内的使用方法。
 
@@ -1205,7 +1211,7 @@ int main(int argc, char* argv[]) {
 ```
 [![top] Goto Top](#table-of-contents)
 
-## c++17scoped_lock解决互锁造成的死锁问题
+## 1.16. c++17scoped_lock解决互锁造成的死锁问题
 
 使用场景：在一个临界区代码中需要使用到两个锁，先用第一个锁lock，再用第二个锁lock。  
 会出现问题：第一个线程把第一个锁锁住，另外一个线程把第二个锁锁住。  
@@ -1237,7 +1243,9 @@ class XMutex {
  private:
   std::mutex& mux_;
 };
+
 static std::mutex mux;
+
 void TestMutex(int status) {
   XMutex lock(mux);
   if (status == 1) {
@@ -1250,6 +1258,7 @@ void TestMutex(int status) {
 }
 
 static std::mutex gmutex;
+
 void TestLockGuard(int i) {
   gmutex.lock();
   {
@@ -1292,6 +1301,7 @@ void TestScope1() {
   // mux1.unlock();
   // mux2.unlock();
 }
+
 void TestScope2() {
   std::cout << std::this_thread::get_id() << " begin mux2 lock" << std::endl;
   mux2.lock();
@@ -1375,9 +1385,10 @@ int main(int argc, char* argv[]) {
   TestMutex(1);
   TestMutex(2);
 
-  getchar();
+  std::cin.get();
   return 0;
 }
+
 ```
 
 析构函数(__unlock_unpack)：
@@ -1389,7 +1400,7 @@ int main(int argc, char* argv[]) {
 ```
 [![top] Goto Top](#table-of-contents)
 
-## 项目案例线程通信使用互斥锁和list实现线程通信
+## 1.17. 项目案例线程通信使用互斥锁和list实现线程通信
 
 [thread_msg_server.md](./thread_msg_server/thread_msg_server.cpp)   
 [xmsg_server.md](./thread_msg_server/xmsg_server.cpp)   
@@ -1397,18 +1408,432 @@ int main(int argc, char* argv[]) {
 [xmsg_server.md](./thread_msg_server/xmsg_server.h)   
 [xthread.md](./thread_msg_server/xthread.h)   
 
-xthread为基类，
+[![top] Goto Top](#table-of-contents)
 
+## 1.18. 条件变量应用场景_生产者消费者信号处理步骤
+
+（一）改变共享变量的线程步骤
+
+准备好信号量
+
+`std::condition_variable cv;`
+
+1. 获得 std::mutex （常通过 std::unique_lock ）
+
+`unique_lock lock(mux);`
+
+2. 在获取锁时进行修改
+
+`msgs_.push_back(data);`
+
+3. 释放锁并通知读取线程
+
+```cpp
+lock.unlock();
+cv.notify_one(); // 通知一个等待信号线程
+cv.notify_all(); // 通知所有等待信号线程 一般是程序或者业务结束时候通知所有
+```
+
+（二）等待信号读取共享变量的线程步骤
+
+1. 获得与改变共享变量线程共同的mutex
+
+`unique_lock lock(mux);`
+
+2. wait() 等待信号通知 
+   2.1 无lambada 表达式
+```cpp
+//解锁lock,并阻塞等待 notify_one notify_all 通知
+cv.wait(lock);
+
+//接收到通知会再次获取锁标注，也就是说如果此时mux资源被占用，wait函数会阻塞
+msgs_.front();
+
+//处理数据
+msgs_.pop_front();
+```
+
+  2.2 lambada 表 达 式 `cv.wait(lock, [] {return !msgs_.empty();});`
+
+只在 `std::unique_lock<std::mutex>` 上工作的 `std::condition_variable`
+```cpp
+void wait(unique_lock<mutex>& _Lck) {
+  // wait for signal // Nothing to do to comply with
+  // LWG‐2135 because std::mutex lock/unlock are nothrow
+  _Check_C_return(_Cnd_wait(_Mycnd(), _Lck.mutex()‐> _Mymtx()));
+}
+template <class _Predicate>
+void wait(unique_lock<mutex>& _Lck, _Predicate _Pred) {
+  // wait for signal and test predicate
+  while (!_Pred()) {
+    wait(_Lck);
+  }
+}
+```
+[![top] Goto Top](#table-of-contents)
+
+## 1.19. condition_variable代码示例读写线程同步
+
+一个生产者线程，写入，然后通知多个线程处理。重点是看wait函数，是否锁定的条件。
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <mutex>
+#include <list>
+#include <string>
+#include <sstream>
+
+std::list<std::string> msgs_;
+std::mutex mux;
+std::condition_variable cv;
+
+void ThreadWrite() {
+  for (int i = 0;; i++) {
+    std::stringstream ss;
+    ss << "Write msg " << i;
+    std::unique_lock<std::mutex> lock(mux);
+    msgs_.push_back(ss.str());
+    lock.unlock();  // 要先解锁，再发送信号，否则会造成死锁(在cv.wait时会对互斥量上锁)
+    cv.notify_one();  // 发送信号
+    // cv.notify_all();
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+  }
+}
+
+void ThreadRead(int i) {
+  for (;;) {
+    std::cout << "read msg" << std::endl;
+    std::unique_lock<std::mutex> lock(mux);
+    // cv.wait(lock);//解锁、阻塞等待信号
+    cv.wait(lock, [i] {
+      std::cout << i << " wait" << std::endl;
+      return !msgs_.empty();
+    });
+    // 获取信号后锁定
+    while (!msgs_.empty()) {
+      std::cout << i << " read " << msgs_.front() << std::endl;
+      msgs_.pop_front();
+    }
+  }
+}
+
+int main(int argc, char* argv[]) {
+  std::thread th(ThreadWrite);
+  th.detach();
+  for (int i = 0; i < 3; i++) {
+    std::thread th(ThreadRead, i + 1);
+    th.detach();
+  }
+  std::cin.get();
+  return 0;
+}
+```
+
+[![top] Goto Top](#table-of-contents)
+
+## 1.20. 条件变量应用线程通信解决线程退出时的阻塞问题
+
+[thread_msg_server_condition.cpp](./thread_msg_server_condition/thread_msg_server_condition.cpp)  
+[xmsg_server.cpp](./thread_msg_server_condition/xmsg_server.cpp)  
+[xthread.cpp](./thread_msg_server_condition/xthread.cpp)  
+[xmsg_server.h](./thread_msg_server_condition/xmsg_server.h)  
+[xthread.h](./thread_msg_server_condition/xthread.h)  
+
+[![top] Goto Top](#table-of-contents)
+
+
+
+## 1.21. promise和future多线程异步传值
+
+何时获取线程结果是不确定的，也就是启动线程和获取结果是在两个接口当中。
+
+`std::promise`和`std::future`在C++中是用于同步两个或更多并发任务的机制。试想一下，你有两个线程，这两个线程需要共享数据。在这种情况下，你可能会使用`std::promise`和`std::future`来进行同步。
+
+让我们先来看一下每一个的基本定义：
+
+- `std::promise`：在某个线程中储存一个值或异常，这个储存的值或异常可被另一个关联的`std::future`对象获取。
+
+- `std::future`：在某个线程中获取一个值或异常，这个值或异常是由之前关联的`std::promise`对象设置的。
+
+下面是一些具体的使用场景：
+
+1. **多线程数据交换**：你可以在一个线程内设置promise，然后在另一个线程中通过与此promise对应的future来获取这个promise设定的结果。
+
+2. **异步操作**：当你要在另一个线程中异步执行一些操作并获取结果时，可以使用promise和future机制。你先创建一个promise，然后将这个promise的future交给异步执行的函数。这个异步函数在完成计算后会设置promise的值。之后，主线程可以通过检查future的状态，或者直接调用future的get函数来获取异步操作的结果。
+
+3. **将任务分离为生产者和消费者**：这是一种经典的并发设计模式，生产者生产数据并设置promise的值，消费者通过future获取这些数据进行处理。这样可以有效地分离两种类型的任务，提高程序的结构化和并发性能。
+
+4. **线程间的同步**：Future对象的get()会阻塞主线程，直到promised的值被设置，这样就能保证在继续执行程序前，必要的数据或计算结果已经准备好。
+
+一个demo：
+```cpp
+
+// #define _DEBUG
+#ifdef _DEBUG
+
+#include <iostream>
+#include <cstddef>
+#include <utility>
+#include <iostream>
+#include <future>
+#include <thread>
+
+int main() {
+  // 来自 packaged_task 的 future
+  std::packaged_task<int()> task([]() { return 7; });  // 包装函数
+  std::future<int> f1 = task.get_future();             // 获取 future
+  std::thread(std::move(task)).detach();               // 在线程上运行
+
+  // 来自 async() 的 future
+  std::future<int> f2 = std::async(std::launch::async, []() { return 8; });
+
+  // 来自 promise 的 future
+  std::promise<int> p;
+  std::future<int> f3 = p.get_future();
+  std::thread([&p] { p.set_value_at_thread_exit(9); }).detach();
+
+  std::cout << "Waiting..." << std::flush;
+  f1.wait();
+  f2.wait();
+  f3.wait();
+  std::cout << "Done!\nResults are: " << f1.get() << ' ' << f2.get() << ' '
+            << f3.get() << '\n';
+}
+
+#endif
+
+#ifndef _DEBUG
+
+#include <thread>
+#include <iostream>
+#include <future>
+#include <string>
+
+void TestFuture(std::promise<std::string> p) {
+  std::cout << "begin TestFuture" << std::endl;
+  std::this_thread::sleep_for(std::chrono::seconds(3));
+  std::cout << "begin set value" << std::endl;
+  p.set_value("TestFuture value");
+  std::this_thread::sleep_for(std::chrono::seconds(3));
+  std::cout << "end TestFuture" << std::endl;
+}
+
+int main(int argc, char* argv[]) {
+  // 异步传输变量存储
+  std::promise<std::string> p;
+
+  // 用来获取线程异步值获取
+  auto future = p.get_future();
+
+  auto th = std::thread(TestFuture, std::move(p));
+
+  std::cout << "begin future.get()" << std::endl;
+  std::cout << "future get() = " << future.get() << std::endl;
+  std::cout << "end future.get()" << std::endl;
+  th.join();
+
+  std::cin.get();
+  return 0;
+}
+
+#endif
+```
+clang编译器：
+```cmd
+begin future.get()
+future get() = begin TestFuture
+begin set value
+TestFuture value
+end future.get()
+end TestFuture
+```
+
+MSVC编译器：
+```cmd
+begin future.get()
+begin TestFuture
+begin set value
+future get() = TestFuture value
+end future.get()
+end TestFuture
+```
+
+总之`end future.get()`和`end TestFuture`的顺序可以看出，get返回不受线程是否退出影响的，另外get是阻塞的，一旦set_value就会取消。
+
+[![top] Goto Top](#table-of-contents)
+
+## 1.22. packaged_task 异步调用函数打包
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <future>
+#include <string>
+
+std::string TestPack(int index) {
+  std::cout << "begin Test Pack " << index << std::endl;
+  std::this_thread::sleep_for(std::chrono::seconds(2));  // 模拟阻塞
+  return "Test Pack return";
+}
+
+int main(int argc, char *argv[]) {
+  std::packaged_task<std::string(int)> task(TestPack);
+  auto result = task.get_future();
+  std::thread th(std::move(task), 101);
+  //  std::move将task的所有权从当前线程移交给新创建的线程th，因为std::packaged_task对象不可以被复制，只能被移动
+
+  std::cout << "begin result get" << std::endl;
+
+  // 测试是否超时
+  for (int i = 0; i < 30; i++) {
+    if (result.wait_for(std::chrono::milliseconds(100)) !=
+        std::future_status::ready) {
+      continue;
+    }
+  }
+  if (result.wait_for(std::chrono::milliseconds(100)) ==
+      std::future_status::timeout) {
+    std::cout << "wait result timeout" << std::endl;
+  } else
+    std::cout << "result get " << result.get() << std::endl;
+  th.join();
+
+  std::cin.get();
+  return 0;
+}
+```
+
+这个代码演示了使用线程（特别是使用`std::packaged_task`）的几个理由和其优点：
+
+1. **并发执行任务**：这段代码中的`TestPack`函数需要耗费2秒（由于`std::this_thread::sleep_for(std::chrono::seconds(2))`）。如果不使用线程，`main()`函数会被阻塞，直到`TestPack`函数执行完成。但是，通过在新线程中运行`TestPack`，`main()`函数可以同时执行其它任务。这样，你就可以充分利用多核CPU，并且在等待一个耗时操作（比如I/O操作）完成的同时，运行其他任务。
+
+2. **获取异步任务的结果**： `std::packaged_task`将任务的结果存储在`std::future`对象中。`result.get()`允许你在任务完成后获得其结果。这意味着你可以在任何你想获取结果的地方获取到它，而不管它是在哪个线程中被计算出来的。
+
+3. **方便处理耗时操作**：`std::packaged_task`和`std::future`在处理耗时操作时非常有用。例如，你可以通过检查`std::future`的状态来查看操作是否已完成，而不是不断轮询或者阻塞直到操作完成。在上述代码中，我们通过不断检查`result`的状态来查看`TestPack`函数是否已完成。
+
+总的来说，使用线程和`std::packaged_task`，可以让代码并发执行任务，不阻塞主线程，同时便于获取异步任务的结果，处理耗时操作。  
+
+[cppreference](https://zh.cppreference.com/w/cpp/thread/packaged_task)
+
+类模板 std::packaged_task 包装任何可调用 (Callable) 目标（函数、 lambda 表达式、 bind 表达式或其他函数对象），使得能异步调用它。其返回值或所抛异常被存储于能通过 std::future 对象访问的共享状态中。
+
+正如 std::function ， std::packaged_task 是多态、具分配器的容器：可在堆上或以提供的分配器分配存储的可调用对象。
+
+```cpp
+#include <iostream>
+#include <cmath>
+#include <thread>
+#include <future>
+#include <functional>
+
+// 避免对 std::pow 重载集消歧义的独有函数
+int f(int x, int y) { return std::pow(x, y); }
+
+void task_lambda() {
+  std::packaged_task<int(int, int)> task(
+      [](int a, int b) { return std::pow(a, b); });
+  std::future<int> result = task.get_future();
+
+  task(2, 9);
+
+  std::cout << "task_lambda:\t" << result.get() << '\n';
+}
+
+void task_bind() {
+  std::packaged_task<int()> task(std::bind(f, 2, 11));
+  std::future<int> result = task.get_future();
+
+  task();
+
+  std::cout << "task_bind:\t" << result.get() << '\n';
+}
+
+void task_thread() {
+  std::packaged_task<int(int, int)> task(f);
+  std::future<int> result = task.get_future();
+
+  std::thread task_td(std::move(task), 2, 10);
+  task_td.join();
+
+  std::cout << "task_thread:\t" << result.get() << '\n';
+}
+
+int main() {
+  task_lambda();
+  task_bind();
+  task_thread();
+}
+```
 
 
 [![top] Goto Top](#table-of-contents)
+
+## 1.23. async创建异步线程替代thread
+
+这段代码让我们来看看 C++ 中的异步编程。"async" 和 "future" 使用来创建和同步异步操作。
+
+这里的 "async" 函数有两个主要作用：
+
+1. 创建一个异步任务。该任务将在单独的线程（可能是现有的线程）上执行。通过这种方式，代码可以同时在多个线程上运行，从而改善程序的性能。
+2. 返回一个 "future" 对象。这个对象代表了异步任务的结果。当异步任务完成时，可以使用 `get()` 函数从 "future" 对象中获取结果。如果调用 `get()` 时任务仍然在运行，那么调用 `get()` 的线程将阻塞，直到任务完成为止。
+
+现在，让我们来具体看看这段代码中的异步操作。在这段代码中，我们创建了两个异步任务。我们使用了两种不同的方式来使用 `std::async` 函数：
+
+1. 对于第一个异步任务，我们使用 `async(std::launch::deferred, TestAsync, 100)`。这里的 `std::launch::deferred` 参数意味着异步任务将会在 `future.get()` 被调用时才执行，而不是立即执行。这种方式下，并没有创建新的线程，而是复用了主线程。
+   
+2. 对于第二个异步任务，我们使用 `async(TestAsync, 101)`。在这个调用方式中， `std::async` 函数将立即创建一个新的线程（除非系统决定复用现有的线程）并开始执行 `TestAsync`。 `TestAsync` 任务的执行跟主线程是并行的，因此这是真正的异步调用。
+
+你可以通过 `std::this_thread::get_id()` 的不同输出来区分是否创建了新的线程。在不创建新线程的情况下，`std::this_thread::get_id()` 的输出将会和主线程的线程 ID 相同。若是创建了新线程，则线程 ID 将会不同。  
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <future>
+#include <string>
+
+std::string TestAsync(int index) {
+  std::cout << index << " begin in TestAsync " << std::this_thread::get_id()
+            << std::endl;
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+  return "TestAsync string return";
+}
+
+int main(int argc, char* argv[]) {
+  std::cout << "main thread id " << std::this_thread::get_id() << std::endl;
+  // 不创建线程启动异步任务
+  std::cout << "==不创建线程启动异步任务==" << std::endl;
+  auto future = async(std::launch::deferred, TestAsync, 100);
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::cout << "begin future get " << std::endl;
+  std::cout << "future.get() = " << future.get() << std::endl;
+  std::cout << "end future get" << std::endl;
+
+  // 创建异步线程
+  std::cout << "=====创建异步线程====" << std::endl;
+  auto future2 = async(TestAsync, 101);
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::cout << "begin future2 get " << std::endl;
+  std::cout << "future2.get() = " << future2.get() << std::endl;
+  std::cout << "end future2 get" << std::endl;
+
+  // 注意get只能调用一次，为了防止出错，用try catch包住
+
+  getchar();
+  return 0;
+}
+```
+`std::async` 和 `std::thread` 都是 C++11 中用于创建并发任务的方式。不过它们的使用方式和关注点有些不同。
+
+1. `std::thread`: 它是比较底层的线程创建和操作方式。创建一个 `std::thread` 会产生一个新的操作系统线程和对应的栈空间，并立即开始并发执行。`std::thread` 提供了更多的控制，你可以细粒度地管理和调度线程，包括线程优先级、线程间同步、线程局部存储等。但是，使用 `std::thread` 需要负责处理所有线程同步的问题，比如数据竞争、死锁等，并且还需要手动管理线程的生命周期，比如合适的调用 `join()` 或 `detach()`。`std::thread` 的使用场景通常是在性能优先，且你愿意并熟悉如何处理多线程编程中各种复杂问题的时候。
+
+2. `std::async`和`std::future`：这是一种更高层次的并发抽象，主要关注的是任务并发，而不是线程并发。`std::async` 在创建任务的同时，返回一个`std::future`，代表异步任务的结果。`std::future::get`将阻塞等待任务完成并返回结果。任务在何时何地运行，是由实现决定的，可以是新建的线程，也可以是任务队列中的现有线程，甚至可以是调用 `get()` 的线程（当启动策略是 `std::launch::deferred` 时）。`std::async` 自动处理线程的生命周期管理，并为你处理部分线程同步问题。同时，由于使用 `std::future` 获取结果，也帮你处理了结果的返回和异常处理等问题。`std::async` 通常适用于需要并发并希望简化多线程编程的场景。
+
+所以，你要根据实际的需求和上下文来选择使用 `std::async` 还是 `std::thread`，如果你需要对线程有更细的控制，或者需要优化到OS级别的并发，那么 `std::thread` 可能是一个更好的选择。如果你更关注任务结果，并愿意将具体的运行方式交给系统来决定，希望能简化并发编程，确保异常安全，那么 `std::async` 可能是更合适的选择。  
+
+[![top] Goto Top](#table-of-contents)
+
 <!-- 
-条件变量应用场景_生产者消费者信号处理步骤
-condition_variable代码示例读写线程同步
-条件变量应用线程通信解决线程退出时的阻塞问题
-promise和future多线程异步传值
-packaged_task 异步调用函数打包
-async创建异步线程替代thread
 c++多核计算分析并实现base16编码
 c++11实现多核base16编码并与单核性能测试对比
 c++17for_each多核运算示例编码base16
