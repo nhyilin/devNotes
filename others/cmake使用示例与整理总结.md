@@ -387,6 +387,38 @@ add_compile_options(-Wno-unused-variable)
     ```
 4. 生成Xcode项目：`cmake -G "Xcode" .`，`.`代表当前目录，即CMakeLists.txt所在的目录，建议最好新建Xcode文件夹，并在Xcode文件夹内执行`cmake -G "Xcode" ../`。如果报错找不到编译器，可以使用：`.sudo xcode-select --switch /Applications/Xcode.app/`
 
+5. add_subdirectory指令：
+
+如果在一个大的CMakeLists.txt中包含了两个项目的构建信息，那么这两个项目将会在同一个构建上下文中，这可能导致它们之间有一定的影响，比如共享一些编译选项、目标等。如果直接包含该文件夹，那么这两个项目将会在各自的构建上下文中，互不影响。
+
+项目文件夹内的CMakeLists.txt:
+```cmake
+add_subdirectory(thread)
+```
+
+thread文件夹内的CMakeLists.txt：
+```cmake
+add_subdirectory(thread/thread_msg_server)
+add_subdirectory(thread/thread_msg_server_condition)
+```
+
+上述方式会导致上述描述的结果，比如导航函数的定义，假如两个项目由同名函数，编译器会分不清到底是哪一个，改成如下书写方式可以解决：
+
+项目文件夹内的CMakeLists.txt:
+```cmake
+add_subdirectory(thread/thread_msg_server)
+add_subdirectory(thread/thread_msg_server_condition)
+```
+
+thread文件夹内的CMakeLists.txt：
+```cmake
+#add_subdirectory(thread_msg_server)
+#add_subdirectory(thread_msg_server_condition)
+```
+
+
+
+
 
 ## cmake获取项目路径
 
