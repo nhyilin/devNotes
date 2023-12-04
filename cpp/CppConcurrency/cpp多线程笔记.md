@@ -23,6 +23,7 @@
   - [1.21. promise和future多线程异步传值](#121-promise和future多线程异步传值)
   - [1.22. packaged\_task 异步调用函数打包](#122-packaged_task-异步调用函数打包)
   - [1.23. async创建异步线程替代thread](#123-async创建异步线程替代thread)
+  - [1.24. c++多核计算分析并实现base16编码](#124-c多核计算分析并实现base16编码)
 
 
 借鉴Anthony Williams的《C++ Concurrency In Action》一书
@@ -1833,8 +1834,13 @@ int main(int argc, char* argv[]) {
 
 [![top] Goto Top](#table-of-contents)
 
+## 1.24. c++多核计算分析并实现base16编码
+
+
+
+[![top] Goto Top](#table-of-contents)
 <!-- 
-c++多核计算分析并实现base16编码
+
 c++11实现多核base16编码并与单核性能测试对比
 c++17for_each多核运算示例编码base16
 线程池实现步骤说明
