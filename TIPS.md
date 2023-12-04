@@ -706,6 +706,32 @@ $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
 3. 显示所有格式标记：Ctrl + *（星号）（Ctrl+ shift + 8）
 4. ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
 
+5. 要在Word文档中同时选中所有的表格，您需要通过使用Visual Basic for Applications (VBA)编程语言来实现。以下是步骤：
+
+   1. 打开您的Word文档，点击“文件”或者"File"选项。  
+   2. 从下拉菜单中选择“选项”或者"Options"。  
+   3. 在新打开的窗口中，从左侧的菜单中选择“自定义功能区”或者"Customize Ribbon"。  
+   4. 在右侧的界面中，勾选“开发工具”或者"Developer"，然后点击“确定”或者"OK"。  
+   5. 现在您会在Word的功能区菜单顶端看到新出现的“开发工具”选项卡，点击它。  
+   6.  在新展开的菜单中，点击“Visual Basic”，这将打开VB Editor。  
+   7.  在VB Editor中，从左侧的"Project"菜单中找到您的文档，然后右键点击"Normal -> Microsoft Word Objects"。  
+   8.  选择“插入” -> "模块"来新建一个模块。  
+   9.  在新打开的代码窗口中，输入以下代码：  
+  ```Visual Basic
+  Sub SelectAllTable()
+      Dim tbl As Table
+      For Each tbl In ActiveDocument.Tables
+          tbl.Range.Editors.Add wdEditorEveryone
+      Next tbl
+      ActiveDocument.SelectAllEditableRanges wdEditorEveryone
+      ActiveDocument.DeleteAllEditableRanges wdEditorEveryone
+  End Sub
+  ```
+   10.  按下快捷键Ctrl+S来保存，然后关闭VB Editor。  
+   11.  再回到Word文档，再次点击“开发工具”，这次选择“宏”或者"Macros"。  
+   12.  在新打开的对话框中，从列表中选择“SelectAllTable”，然后点击“运行”或者"Run"。这将选中文档中的所有表格。  
+
+
 ### visio
 - visio对其所有连接线：在`设计`中点击连接线下面的小三角，`分隔：相关线条(有时候相关也可以，但是很少)`，`重叠：相关线条`。
 
