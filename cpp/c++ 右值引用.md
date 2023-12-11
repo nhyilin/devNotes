@@ -46,21 +46,21 @@ int&& rref = 1 + 2; // 此时1+2是一个临时值，rref是一个绑定到该�
    #include <string>
 
    int main() {
-   std::vector<std::string> words;
+    std::vector<std::string> words;
 
-   std::string word = "Hello";
-   words.push_back(word);  // 复制
-   std::cout << "After copy, word is: '"
-               << "'" << std::endl;
+    std::string word = "Hello";
+    words.push_back(word);  // 复制
+    std::cout << "After copy, word is: '"
+                << "'" << std::endl;
 
-   words.push_back(std::move(word));  // 移动而不复置，word 现在为空
-   std::cout << "After move, word is '" << word << "'" << std::endl;
+    words.push_back(std::move(word));  // 移动而不复置，word 现在为空
+    std::cout << "After move, word is '" << word << "'" << std::endl;
 
-   std::cout << "Words in vector: ";
-   for (const auto& w : words) std::cout << "'" << w << "'    ";
-   std::cout << std::endl;
+    std::cout << "Words in vector: ";
+    for (const auto& w : words) std::cout << "'" << w << "'    ";
+    std::cout << std::endl;
 
-   return 0;
+    return 0;
    }
    ```
 
