@@ -143,15 +143,15 @@ int&& rref = 1 + 2; // 此时1+2是一个临时值，rref是一个绑定到该�
    BigData calculateData() {}
 
    int main() {
-   std::promise<BigData> promise;
-   auto future = promise.get_future();
-   std::thread t(
-         [](std::promise<BigData>&& prm) {
-         BigData bd = calculateData();
-         prm.set_value(std::move(bd));
-         },
-         std::move(promise));  // 注意这里将 promise 作为参数传递进去
-   t.detach();
+    std::promise<BigData> promise;
+    auto future = promise.get_future();
+    std::thread t(
+          [](std::promise<BigData>&& prm) {
+          BigData bd = calculateData();
+          prm.set_value(std::move(bd));
+          },
+          std::move(promise));  // 注意这里将 promise 作为参数传递进去
+    t.detach();
    }
    ```
    
