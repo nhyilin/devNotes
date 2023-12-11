@@ -6,7 +6,7 @@
   - [完美转发机制](#完美转发机制)
 - [几个代码片段](#几个代码片段)
   - [std::function 代码片段](#stdfunction-代码片段)
-  - [std::forward 替换 std::bind 代码片段](#stdforward-替换-stdbind-代码片段)
+  - [std::forward 替换 std::bind](#stdforward-替换-stdbind)
 # c++ 右值引用
 
 **左值 (lvalue):**
@@ -204,7 +204,7 @@ int main() {
 # 几个代码片段
 ## std::function 代码片段
 
-code refactor 见 [std::forward 替换 std::bind 代码片段](#stdforward-替换-stdbind-代码片段)
+code refactor 见 [std::forward 替换 std::bind 代码片段](#stdforward-替换-stdbind)
 
 ```cpp
 #include <functional>
@@ -275,7 +275,7 @@ int main() {
 }
 ```
 
-## std::forward 替换 std::bind 代码片段
+## std::forward 替换 std::bind
 
 ```cpp
   //  std::function<void(int)> f_add_display2 = std::bind(&Foo::print_add, foo, _1);
