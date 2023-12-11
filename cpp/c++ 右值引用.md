@@ -113,7 +113,7 @@ int&& rref = 1 + 2; // 此时1+2是一个临时值，rref是一个绑定到该�
 2. **线程池任务队列:**
    对于线程池的实现，任务通常需要被放入队列中等待执行。如果任务是以函数对象的形式存储的，那么通过std::function可以对它们进行封装。如果这些函数对象支持移动操作（如使用`std::bind` 生成的函数对象），那么使用右值引用将任务添加到队列中时可以避免复制，提升效率。
 
-   std::function 代码片段: [`std::function` code ](#stdfunction-代码片段)
+   std::function 代码片段: [`std::function`](#stdfunction-代码片段)
 
    ```cpp
    std::vector<std::thread> pool;
