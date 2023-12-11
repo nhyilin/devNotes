@@ -4,9 +4,9 @@
   - [几个应用场景](#几个应用场景)
   - [右值引用提升代码性能应用场景](#右值引用提升代码性能应用场景)
   - [完美转发机制](#完美转发机制)
-- [几个代码片段](#几个代码片段)
-  - [std::function 代码片段](#stdfunction-代码片段)
-  - [std::forward 替换 std::bind](#stdforward-替换-stdbind)
+- [Code Snippet](#code-snippet)
+  - [std::function](#stdfunction)
+  - [std::forward replaces std::bind](#stdforward-replaces-stdbind)
 # c++ 右值引用
 
 **左值 (lvalue):**
@@ -113,7 +113,7 @@ int&& rref = 1 + 2; // 此时1+2是一个临时值，rref是一个绑定到该�
 2. **线程池任务队列:**
    对于线程池的实现，任务通常需要被放入队列中等待执行。如果任务是以函数对象的形式存储的，那么通过std::function可以对它们进行封装。如果这些函数对象支持移动操作（如使用`std::bind` 生成的函数对象），那么使用右值引用将任务添加到队列中时可以避免复制，提升效率。
 
-   std::function 代码片段: [`std::function`](#stdfunction-代码片段)
+   std::function 代码片段: [`std::function`](#stdfunction)
 
    ```cpp
    std::vector<std::thread> pool;
@@ -201,10 +201,10 @@ int main() {
   return 0;
 }
 ```
-# 几个代码片段
-## std::function 代码片段
+# Code Snippet
+## std::function
 
-code refactor 见 [std::forward 替换 std::bind 代码片段](#stdforward-替换-stdbind)
+code refactor 见 [std::forward replaces std::bind](#stdforward-replaces-stdbind)
 
 ```cpp
 #include <functional>
@@ -275,7 +275,7 @@ int main() {
 }
 ```
 
-## std::forward 替换 std::bind
+## std::forward replaces std::bind
 
 ```cpp
   //  std::function<void(int)> f_add_display2 = std::bind(&Foo::print_add, foo, _1);
