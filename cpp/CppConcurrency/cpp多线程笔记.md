@@ -23,7 +23,13 @@
   - [1.21. promise和future多线程异步传值](#121-promise和future多线程异步传值)
   - [1.22. packaged\_task 异步调用函数打包](#122-packaged_task-异步调用函数打包)
   - [1.23. async创建异步线程替代thread](#123-async创建异步线程替代thread)
+    - [1.23.1. `std::launch::async`和`std::launch::deferred`](#1231-stdlaunchasync和stdlaunchdeferred)
   - [1.24. c++多核计算分析并实现base16编码](#124-c多核计算分析并实现base16编码)
+  - [c++11实现多核base16编码并与单核性能测试对比](#c11实现多核base16编码并与单核性能测试对比)
+  - [c++17for\_each多核运算示例编码base16](#c17for_each多核运算示例编码base16)
+  - [线程池实现步骤说明](#线程池实现步骤说明)
+  - [完成线程池的初始化和启动](#完成线程池的初始化和启动)
+  - [完成线程池任务调度](#完成线程池任务调度)
 
 
 借鉴Anthony Williams的《C++ Concurrency In Action》一书
@@ -1441,8 +1447,9 @@ cv.notify_all(); // 通知所有等待信号线程 一般是程序或者业务�
 
 `unique_lock lock(mux);`
 
-2. wait() 等待信号通知 
-   2.1 无lambada 表达式
+2. wait() 等待信号通知  
+
+  2.1 无lambada 表达式
 ```cpp
 //解锁lock,并阻塞等待 notify_one notify_all 通知
 cv.wait(lock);
@@ -1832,20 +1839,565 @@ int main(int argc, char* argv[]) {
 
 所以，你要根据实际的需求和上下文来选择使用 `std::async` 还是 `std::thread`，如果你需要对线程有更细的控制，或者需要优化到OS级别的并发，那么 `std::thread` 可能是一个更好的选择。如果你更关注任务结果，并愿意将具体的运行方式交给系统来决定，希望能简化并发编程，确保异常安全，那么 `std::async` 可能是更合适的选择。  
 
+### 1.23.1. `std::launch::async`和`std::launch::deferred`
+
+在C++中，`std::launch`是一个枚举类型，它与`std::async`函数一起使用，以控制异步操作的行为。这个函数主要用于异步的执行一个任务，返回一个`std::future`对象，你可以通过这个对象来获取任务的结果。`std::launch`有两个可能的值：`std::launch::async`和`std::launch::deferred`，这两个选项告诉`std::async`如何执行给定的任务。
+
+1. `std::launch::async`：
+   - 当使用该选项时，`std::async`会尝试在另一个线程上立即启动所提供的任务。
+   - 这意味着任务会并行执行，与主线程同时进行。
+   - 当你需要任务并行执行，不阻塞当前线程时使用`std::launch::async`。
+   - `std::future`对象会与一个正在运行的异步任务相关联，你可以等待或获取这个任务的结果。
+
+2. `std::launch::deferred`：
+   - 当使用该选项时，任务不会立即启动，而是延迟到对应的`std::future`对象的`get()`或`wait()`成员函数被调用时才执行。
+   - 这意味着任务会在这些函数被调用时在调用者线程上执行，也就是说，它实际上变成了惰性求值。
+   - 当你不需要立刻执行任务，或者希望在将来的某个点上，根据需要执行任务时使用`std::launch::deferred`。
+   - 如果从未调用`get()`或`wait()`，则对应的任务可能永远不会执行。
+
+使用`std::async`时可以选择给这两个选项中的一个，或者不给，不给的话，实现可以自行选择是立即执行还是延迟执行。如果你想要确保异步任务的执行方式，你应该指定`std::launch::async`或`std::launch::deferred`。
+
+这是一个简单的例子，展示了如何使用`std::async`和`std::launch::async`启动一个异步任务：
+
+```cpp
+#include <iostream>
+#include <future>
+#include <thread>
+
+void task() {
+  // 假设的耗时任务
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+  std::cout << "Task completed" << std::endl;
+}
+
+int main() {
+  auto start = std::chrono::high_resolution_clock::now();
+  
+  // 启动异步任务
+  std::future<void> result = std::async(std::launch::deferred, task);
+  std::this_thread::sleep_for(std::chrono::seconds(1));
+  std::cout << "Main thread continues" << std::endl;
+
+  // 等待异步任务完成
+  result.wait();
+
+  auto end = std::chrono::high_resolution_clock::now();
+
+  // 计算时间差
+  auto duration =
+      std::chrono::duration_cast<std::chrono::microseconds>(end - start)
+          .count();
+
+  std::cout << "Function execution took " << duration << " microseconds."
+            << std::endl;
+
+  return 0;
+}
+
+```
+
+在这个例子中，任务会在一个新的线程中异步地启动。当`main`函数继续执行时，任务也在并行运行。一旦调用了`result.wait()`，主线程将会等待直到异步任务完成。如果改用`std::launch::deferred`，则任务会在调用`result.wait()`或`result.get()`时在主线程上同步执行。  
+
 [![top] Goto Top](#table-of-contents)
 
 ## 1.24. c++多核计算分析并实现base16编码
 
+一个简单实例
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <chrono>
+
+static const char base16[] = "0123456789abcdef";
+void Base16Encode(const unsigned char* data, int size, unsigned char* out) {
+  for (int i = 0; i < size; i++) {
+    unsigned char d = data[i];
+    // 0000 0000
+    // 1234 5678 >>4 0000 1234
+    // 1234 5678 & 0000 1111   0000 5678
+    char a = base16[d >> 4];
+    char b = base16[d & 0x0F];
+    out[i * 2] = a;
+    out[i * 2 + 1] = b;
+  }
+}
+// C++11 多核base16编码
+void Base16EncodeThread(const std::vector<unsigned char>& data,
+                        std::vector<unsigned char>& out) {
+  int size = data.size();
+  int th_count = std::thread::hardware_concurrency();  // 系统支持的线程核心数
+  // 切片数据
+  int slice_count = size / th_count;  // 余数丢弃
+  if (size < th_count)                // 只切一片
+  {
+    th_count = 1;
+    slice_count = size;
+  }
+
+  // 准备好线程
+  std::vector<std::thread> ths;
+  ths.resize(th_count);
+
+  // 任务分配到各个线程
+  for (int i = 0; i < th_count; i++) {
+    // 1234 5678 9abc defg hi
+    int offset = i * slice_count;
+    int count = slice_count;
+
+    // 最后一个线程
+    if (th_count > 1 && i == th_count - 1) {
+      count = slice_count + size % th_count;
+    }
+    // cout << offset << ":" << count << endl;
+    ths[i] = std::thread(Base16Encode, data.data() + offset, count, out.data());
+  }
+  // 等待所有线程处理结束
+  for (auto& th : ths) {
+    th.join();
+  }
+}
+
+int main(int argc, char* argv[]) {
+  std::string test_data = "测试base16编码";
+  unsigned char out[1024] = {0};
+  Base16Encode((unsigned char*)test_data.data(), test_data.size(), out);
+  std::cout << "base16:" << out << std::endl;
+
+  // 初始化测试数据
+  std::vector<unsigned char> in_data;
+  in_data.resize(1024 * 1024 * 20);  // 20M
+  // in_data.data();
+  for (int i = 0; i < in_data.size(); i++) {
+    in_data[i] = i % 256;
+  }
+  std::vector<unsigned char> out_data;
+  out_data.resize(in_data.size() * 2);
+
+  // 测试单线程base16编码效率
+  {
+    std::cout << "单线程base16开始计算" << std::endl;
+    auto start = std::chrono::system_clock::now();
+    Base16Encode(in_data.data(), in_data.size(), out_data.data());
+    auto end = std::chrono::system_clock::now();
+    auto duration = duration_cast<std::chrono::milliseconds>(end - start);
+    std::cout << "编码：" << in_data.size() << "字节数据花费"
+              << double(duration.count()) << "毫秒" << std::endl;
+    // cout << out_data.data() << endl;
+  }
+
+  // 测试c++11 多线程Base16编码
+  {
+    std::cout << "c++11 多线程Base16编码 开始计算" << std::endl;
+    auto start = std::chrono::system_clock::now();
+    Base16EncodeThread(in_data, out_data);
+    auto end = std::chrono::system_clock::now();
+    auto duration = duration_cast<std::chrono::milliseconds>(end - start);
+    std::cout << "编码：" << in_data.size() << "字节数据花费"
+              << double(duration.count()) << "毫秒" << std::endl;
+    // cout << out_data.data() << endl;
+  }
+
+  std::cin.get();
+  return 0;
+}
+```
+
+[![top] Goto Top](#table-of-contents)
+
+## c++11实现多核base16编码并与单核性能测试对比
+
+请注意一点，hardware_concurrency，如果线程数多余系统硬件线程数，如果您在一个仅支持两个硬件线程的计算机上创建四个线程，这可能不会产生立即明显的负面影响，但以下是一些可能的影响和考虑因素：
+
+- 上下文切换： 当有多个线程可运行时，操作系统需要在它们之间进行上下文切换。每次切换都涉及保存当前线程的状态并加载下一个线程的状态，这些操作会产生开销。如果线程数量远多于处理器核心，这种上下文切换的成本可能会显著影响性能。
+
+- 资源竞争： 如果线程需要共享资源（如内存、I/O设备等），那么多个线程可能会导致竞争条件和锁争用。这些因素会降低并发性能。
+
+- 线程调度开销： 线程调度器需要跟踪更多的线程，分配CPU时间可能会变得更复杂，并导致额外的开销。
+
+- 应用逻辑复杂性： 编写多线程代码需要仔细的设计来避免死锁、竞态条件和其他多线程问题。线程越多，管理这些问题的难度就越大。
+
+然而，如果这些线程不会经常同时运行（即它们大部分时间都在等待外部事件或I/O操作完成），那么创建多于处理器核心数量的线程并不一定会对性能产生负面影响。实际上，这种情况下添加更多的线程可能会帮助提高CPU利用率，因为当其中的一些线程由于I/O操作而阻塞时，其他线程可以继续执行处理。
+
+对于I/O密集型应用（比如网络服务器或数据库应用），通常可以通过创建远多于CPU核心数的线程来提高并发性和吞吐量，因为这些线程大部分时间都在等待I/O操作的完成。
+
+总之，创建的线程数量是否会对应用程序产生负面影响取决于多种因素，包括应用程序的性能要求、线程的实际工作负载，以及系统的整体行为。通常，在设计多线程应用时，开发者需要仔细评估和测试以确保理想的性能。
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <chrono>
+#include <execution>
+using namespace std;
+using namespace chrono;
+static const char base16[] = "0123456789abcdef";
+void Base16Encode(const unsigned char* data, int size, unsigned char* out) {
+  for (int i = 0; i < size; i++) {
+    unsigned char d = data[i];
+    // 0000 0000
+    // 1234 5678 >>4 0000 1234
+    // 1234 5678 & 0000 1111   0000 5678
+    char a = base16[d >> 4];
+    char b = base16[d & 0x0F];
+    out[i * 2] = a;
+    out[i * 2 + 1] = b;
+  }
+}
+// C++11 多核base16编码
+void Base16EncodeThread(const vector<unsigned char>& data,
+                        vector<unsigned char>& out) {
+  int size = data.size();
+  int th_count = thread::hardware_concurrency();  // 系统支持的线程核心数
+  // 切片数据
+  int slice_count = size / th_count;  // 余数丢弃
+  if (size < th_count)                // 只切一片
+  {
+    th_count = 1;
+    slice_count = size;
+  }
+
+  // 准备好线程
+  vector<thread> ths;
+  ths.resize(th_count);
+
+  // 任务分配到各个线程
+  for (int i = 0; i < th_count; i++) {
+    // 1234 5678 9abc defg hi
+    int offset = i * slice_count;
+    int count = slice_count;
+
+    // 最后一个线程
+    if (th_count > 1 && i == th_count - 1) {
+      count = slice_count + size % th_count;
+    }
+    // cout << offset << ":" << count << endl;
+    ths[i] = thread(Base16Encode, data.data() + offset, count, out.data());
+  }
+  // 等待所有线程处理结束
+  for (auto& th : ths) {
+    th.join();
+  }
+}
+
+int main(int argc, char* argv[]) {
+  string test_data = "测试base16编码";
+  unsigned char out[1024] = {0};
+  Base16Encode((unsigned char*)test_data.data(), test_data.size(), out);
+  cout << "base16:" << out << endl;
+
+  // 初始化测试数据
+  vector<unsigned char> in_data;
+  in_data.resize(1024 * 1024 * 200);  // 20M
+  // in_data.resize(32); //20M
+  // in_data.data();
+  // for (int i = 0; i < in_data.size(); i++)
+  //{
+  //     in_data[i] = i % 256;
+  // }
+  vector<unsigned char> out_data;
+  out_data.resize(in_data.size() * 2);
+
+  // 测试单线程base16编码效率
+  {
+    cout << "单线程base16开始计算" << endl;
+    auto start = system_clock::now();
+    Base16Encode(in_data.data(), in_data.size(), out_data.data());
+    auto end = system_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "编码：" << in_data.size() << "字节数据花费"
+         << double(duration.count()) << "毫秒" << endl;
+
+    // cout << out_data.data() << endl;
+  }
+
+  // 测试c++11 多线程Base16编码
+  {
+    cout << "c++11 多线程Base16编码 开始计算" << endl;
+    auto start = system_clock::now();
+    Base16EncodeThread(in_data, out_data);
+    auto end = system_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "编码：" << in_data.size() << "字节数据花费"
+         << double(duration.count()) << "毫秒" << endl;
+    // cout << out_data.data() << endl;
+  }
+
+  // 测试C++17 多线程base16编码
+  {
+    cout << "C++17 多线程base16编码 开始计算" << endl;
+    auto start = system_clock::now();
+    unsigned char* idata = in_data.data();
+    unsigned char* odata = out_data.data();
+    // #include <execution> c++17
+    std::for_each(std::execution::par,  // 并行计算 多核
+                  in_data.begin(), in_data.end(),
+                  [&](auto& d)  // 多线程进入此函数
+                  {
+                    char a = base16[(d >> 4)];
+                    char b = base16[(d & 0x0F)];
+                    int index = &d - idata;
+                    odata[index * 2] = a;
+                    odata[index * 2 + 1] = b;
+                  });
+
+    auto end = system_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "编码：" << in_data.size() << "字节数据花费"
+         << double(duration.count()) << "毫秒" << endl;
+    // cout << out_data.data() << endl;
+  }
+  getchar();
+  return 0;
+}
+```
+[![top] Goto Top](#table-of-contents)
+
+## c++17for_each多核运算示例编码base16
+
+clang的c++2017暂未支持execution
+
+```cpp
+#include <thread>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <chrono>
+#include <execution>
+using namespace std;
+using namespace chrono;
+static const char base16[] = "0123456789abcdef";
+void Base16Encode(const unsigned char* data, int size, unsigned char* out) {
+  for (int i = 0; i < size; i++) {
+    unsigned char d = data[i];
+    // 0000 0000
+    // 1234 5678 >>4 0000 1234
+    // 1234 5678 & 0000 1111   0000 5678
+    char a = base16[d >> 4];
+    char b = base16[d & 0x0F];
+    out[i * 2] = a;
+    out[i * 2 + 1] = b;
+  }
+}
+// C++11 多核base16编码
+void Base16EncodeThread(const vector<unsigned char>& data,
+                        vector<unsigned char>& out) {
+  int size = data.size();
+  int th_count = thread::hardware_concurrency();  // 系统支持的线程核心数
+  // 切片数据
+  int slice_count = size / th_count;  // 余数丢弃
+  if (size < th_count)                // 只切一片
+  {
+    th_count = 1;
+    slice_count = size;
+  }
+
+  // 准备好线程
+  vector<thread> ths;
+  ths.resize(th_count);
+
+  // 任务分配到各个线程
+  for (int i = 0; i < th_count; i++) {
+    // 1234 5678 9abc defg hi
+    int offset = i * slice_count;
+    int count = slice_count;
+
+    // 最后一个线程
+    if (th_count > 1 && i == th_count - 1) {
+      count = slice_count + size % th_count;
+    }
+    // cout << offset << ":" << count << endl;
+    ths[i] = thread(Base16Encode, data.data() + offset, count, out.data());
+  }
+  // 等待所有线程处理结束
+  for (auto& th : ths) {
+    th.join();
+  }
+}
+
+int main(int argc, char* argv[]) {
+  string test_data = "测试base16编码";
+  unsigned char out[1024] = {0};
+  Base16Encode((unsigned char*)test_data.data(), test_data.size(), out);
+  cout << "base16:" << out << endl;
+
+  // 初始化测试数据
+  vector<unsigned char> in_data;
+  in_data.resize(1024 * 1024 * 200);  // 20M
+  // in_data.resize(32); //20M
+  // in_data.data();
+  // for (int i = 0; i < in_data.size(); i++)
+  //{
+  //     in_data[i] = i % 256;
+  // }
+  vector<unsigned char> out_data;
+  out_data.resize(in_data.size() * 2);
+
+  // 测试单线程base16编码效率
+  {
+    cout << "单线程base16开始计算" << endl;
+    auto start = system_clock::now();
+    Base16Encode(in_data.data(), in_data.size(), out_data.data());
+    auto end = system_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "编码：" << in_data.size() << "字节数据花费"
+         << double(duration.count()) << "毫秒" << endl;
+
+    // cout << out_data.data() << endl;
+  }
+
+  // 测试c++11 多线程Base16编码
+  {
+    cout << "c++11 多线程Base16编码 开始计算" << endl;
+    auto start = system_clock::now();
+    Base16EncodeThread(in_data, out_data);
+    auto end = system_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "编码：" << in_data.size() << "字节数据花费"
+         << double(duration.count()) << "毫秒" << endl;
+    // cout << out_data.data() << endl;
+  }
+
+  // 测试C++17 多线程base16编码
+  {
+    cout << "C++17 多线程base16编码 开始计算" << endl;
+    auto start = system_clock::now();
+    unsigned char* idata = in_data.data();
+    unsigned char* odata = out_data.data();
+    // #include <execution> c++17
+    std::for_each(std::execution::par,  // 并行计算 多核
+                  in_data.begin(), in_data.end(),
+                  [&](auto& d)  // 多线程进入此函数
+                  {
+                    char a = base16[(d >> 4)];
+                    char b = base16[(d & 0x0F)];
+                    int index = &d - idata;
+                    odata[index * 2] = a;
+                    odata[index * 2 + 1] = b;
+                  });
+
+    auto end = system_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "编码：" << in_data.size() << "字节数据花费"
+         << double(duration.count()) << "毫秒" << endl;
+    // cout << out_data.data() << endl;
+  }
+  getchar();
+  return 0;
+}
+```
+[![top] Goto Top](#table-of-contents)
+
+## 线程池实现步骤说明
+
+高并发运算时，线程频繁**创建**和**销毁**会有性能损耗，我们实现线程池直接在里面取即可。
+
+1. 初始化线程池
+2. 启动所有线程
+3. 准备好任务处理基类和插入任务
+4. 获取任务接口
+5. 执行任务线程入口函数
+
+[![top] Goto Top](#table-of-contents)
+
+## 完成线程池的初始化和启动
+
+demo里仅有初始化和启动
+
+[CMakeLists](./XThreadPool/CMakeLists.txt)  
+[main.cpp](./XThreadPool/main.cpp)  
+[XThreadPool.cpp](./XThreadPool/XThreadPool.cpp)  
+[XThreadPool.h](./XThreadPool/XThreadPool.h)  
+
+[![top] Goto Top](#table-of-contents)
+
+## 完成线程池任务调度
+
+`cv_.wait(lock, predicate)`实际上类似于下面这样：
+```cpp
+while (!predicate()) {
+    cv_.wait(lock);
+}
+```
+在这个重载版本的wait()调用中，当线程被唤醒时（不管是因为notify_*调用还是假唤醒），它会自动检查lambda表达式。只有当lambda表达式返回true（这里是!tasks_.empty()），wait()函数才会返回。如果谓词返回false，wait()会再次阻塞线程，这实现了内部的循环检查机制，而不需要显式的while循环。
+
+
+```cpp
+  std::unique_lock<std::mutex> lock(mux_);
+  cv_.wait(lock, [this]() { return !tasks_.empty(); });
+```
+有哪些优化：
+
+针对减少虚假唤醒带来的性能影响，你可以考虑通过减少条件变量的使用或者增加批量处理来实现。由于没有具体的任务处理代码，以下是一段示例代码，说明如何在接收到一个任务时尝试处理多个任务：
+
+```cpp
+#include <vector>
+#include <mutex>
+#include <condition_variable>
+#include <functional>
+#include <queue>
+
+// 假设有一个任务类型
+using Task = std::function<void()>;
+
+// 任务队列和同步原语
+std::queue<Task> tasks_;
+std::mutex mux_;
+std::condition_variable cv_;
+
+void processTaskBatch() {
+  // 在拿锁之前先定义要处理的任务
+  std::vector<Task> tasksToProcess;
+
+  {
+    std::unique_lock<std::mutex> lock(mux_);
+    cv_.wait(lock, []() { return !tasks_.empty(); }); // 等待直到有任务
+
+    // 一次处理多个任务
+    while (!tasks_.empty()) {
+      tasksToProcess.emplace_back(std::move(tasks_.front()));
+      tasks_.pop();
+      // 可以根据需要在这里设置一个批处理的最大值来限制每次处理的任务数量
+      // 如果性能测试表明处理太多任务会导致锁竞争导致的性能瓶颈
+    }
+  } // 解锁mutex
+
+  // 现在已经不持有锁了，在没有阻塞其他线程的情况下处理所有任务
+  for (auto &task : tasksToProcess) {
+    task(); // 执行任务
+  }
+}
+
+// 示例：工作线程函数
+void workerThread() {
+  while (true) {
+    processTaskBatch();
+  }
+}
+
+// 假设有一个函数来添加任务到队列中
+void addTask(const Task &task) {
+  {
+    std::unique_lock<std::mutex> lock(mux_);
+    tasks_.push(task);
+  } // 已经解锁
+
+  // 通知一个等待中的线程有新任务到来
+  cv_.notify_one();
+}
+
+```
+
+这个代码示例展示了如何让工作线程不只是处理单个任务，而是尝试一次性处理多个任务，以此来减少锁的频繁请求和条件变量的多次等待。这样，拿到锁的线程会尽可能多地完成任务，减少下次需要等待和锁定的概率，同时减少了对条件变量的依赖，也就减少了虚假唤醒所造成的性能影响。
+
 
 
 [![top] Goto Top](#table-of-contents)
-<!-- 
 
-c++11实现多核base16编码并与单核性能测试对比
-c++17for_each多核运算示例编码base16
-线程池实现步骤说明
-完成线程池的初始化和启动
-完成线程池任务调度
+<!-- 
 完成线程池退出并等待任务处理结束利用lambada表达式
 线程池中在在运行的任务数量获取使用atomic原子变量
 使用智能指针管理线程对象和任务对象的生命走起

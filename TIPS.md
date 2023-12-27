@@ -694,6 +694,7 @@ $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
 - Windows+M：最小化所有窗口
 - Windows+Shift+M：还原最小化的窗口。
 - [3DMax离线安装激活](https://mp.weixin.qq.com/s?__biz=MzA4MjU4MTg2Ng==&mid=2247501581&idx=2&sn=05f48702515e57c3a145d601ed89501f&chksm=9f810708a8f68e1ea24951e5ee426ae5e69552a1104c7d7c2ffcd8b9fe95a0b6d992d0307085&scene=21#wechat_redirect)：安装时可能会失败，1. 打开Windows自动更新服务； 2. [离线安装.net framework 3.5](https://blog.csdn.net/chuozan6114/article/details/100768375)
+- 在word中出现十字箭头才能全部选中表格,但有时候它不出现，方法1、把鼠标移至表格的最后一行的，表格外的“回车”按钮旁边，然后再滚动鼠标，返回表格最前方，就可以看到十字箭头了。 方法2、把鼠标移动到表格后面（必须是表格外）的文字，然后再滚动鼠标，返回表格最前方，就可以看到十字箭头了。 方法3、随便修改一下表格内容，然后Ctrl+S也能显示十字箭头。
 
 ## office
 ### word
