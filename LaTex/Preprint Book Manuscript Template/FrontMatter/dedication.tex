@@ -1,0 +1,31 @@
+% This code snippet creates a centered dedication page with two authors' names.
+
+\begin{center}
+    % The dedication page has no page number (empty page style).
+    \thispagestyle{empty}
+    
+    % Vertically space the content evenly, pushing the text to the center of the page.
+    \vspace*{\fill}
+    
+    % First author's dedication text in italics.
+    \textit{To my someone and someone}
+    
+    % The first author's name is right-aligned and set in sans-serif small caps.
+    \begin{flushright}
+        {\sffamily\scshape First Author}
+    \end{flushright}
+    
+    % Add some vertical space between the first and second author.
+    \bigskip
+    
+    % Second author's dedication text in italics.
+    \textit{To my someone and someone}
+    
+    % The second author's name is right-aligned and set in sans-serif small caps.
+    \begin{flushright}
+        {\sffamily\scshape Second Author}
+    \end{flushright}
+    
+    % Vertically space the content evenly again, pushing any remaining space to the bottom of the page.
+    \vspace*{\fill}
+\end{center}

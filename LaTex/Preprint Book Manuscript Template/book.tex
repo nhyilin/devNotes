@@ -1,0 +1,116 @@
+% Document class with options: openright - chapters start on right-hand pages, twoside - two-sided layout, british - using British English language settings.
+\documentclass[openright, twoside, british]{book}
+\usepackage[fontset=none]{ctex}
+
+% 中文默认字体：方正书宋_GBK，粗体为思源宋体半粗体，斜体为方正楷体_GBK
+\setCJKmainfont{FZKBFSJW--GB1-0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%字体设置选项
+
+%% 文档类选项
+%\documentclass[fontset=none]{ctexart}
+%% 或者宏包选项
+%% \usepackage[fontset=none]{ctex}
+%
+%% 中文默认字体：方正书宋_GBK，粗体为思源宋体半粗体，斜体为方正楷体_GBK
+%\setCJKmainfont{FZShuSong-Z01}[BoldFont={Source Han Serif SC SemiBold}, ItalicFont=FZKai-Z03]
+%% 中文无衬线字体：方正黑体_GBK，粗体为思源黑体中粗体
+%\setCJKsansfont{FZHei-B01}[BoldFont={Source Han Sans SC Medium}]
+%% 中文等宽字体：方正仿宋_GBK
+%\setCJKmonofont{FZFangSong-Z02}
+%
+%\newCJKfontfamily\songti{FZShuSong-Z01}[BoldFont={Source Han Serif SC SemiBold}]
+%\newCJKfontfamily\xbsong{Source Han Serif SC SemiBold} % 小标宋
+%\newCJKfontfamily\dbsong{Source Han Serif SC Bold} % 大标宋
+%\newCJKfontfamily\cusong{Source Han Serif SC Heavy} % 粗宋
+%\newCJKfontfamily\heiti{FZHei-B01}[BoldFont={Source Han Sans SC Medium}]
+%\newCJKfontfamily\dahei{Source Han Sans SC Medium} % 大黑
+%\newCJKfontfamily\cuhei{Source Han Sans SC Bold} % 粗黑
+%\newCJKfontfamily\fangsong{FZFangSong-Z02}
+%\newCJKfontfamily\kaiti{FZKai-Z03}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\setCJKmonofont{FangSong}
+
+% Load the blindtext package, which provides commands for generating dummy text.
+\usepackage{blindtext}
+
+% Load the ptmt package, presumably for formatting.
+\usepackage{ptmt}
+
+% Set the title of the book.
+\title{测试Name of the Book}
+
+% Set the authors of the book (multiple authors separated by \and).
+\author{First Author \and Second Author}
+
+% Set the date to the current date.
+\date{\today}
+
+% Begin the document.
+\begin{document}
+
+% Front matter section.
+\frontmatter
+
+% Include the title page, which is located in the FrontMatter subfolder.
+\include{./FrontMatter/titlepage}
+
+% Create the book's title page.
+\maketitle\pagebreak
+
+% Include the dedication page from the FrontMatter subfolder.
+\include{./FrontMatter/dedication}
+
+% Include the epigraph page from the FrontMatter subfolder.
+\include{./FrontMatter/epigraph}
+
+% Include the foreword page from the FrontMatter subfolder.
+\include{./FrontMatter/foreword}
+
+% Include the preface page from the FrontMatter subfolder.
+\include{./FrontMatter/preface}
+
+% Include the acknowledgement page from the FrontMatter subfolder.
+\include{./FrontMatter/acknowledgement}
+
+% Table of contents page.
+\tableofcontents
+
+% Main matter section.
+\mainmatter
+
+% Part 1: Preliminaries.
+\part{Preliminaries}
+
+% Include Chapter 1 from the MainMatter subfolder.
+\include{./MainMatter/Chapter1}
+
+% Appendices section.
+\appendix
+
+% Include the "about" appendix from the BackMatter subfolder.
+\include{./BackMatter/about}
+
+% Include the "abbreviation" appendix from the BackMatter subfolder.
+\include{./BackMatter/abbreviation}
+
+% Include the "notation" appendix from the BackMatter subfolder.
+\include{./BackMatter/notation}
+
+% Include the "code" appendix from the BackMatter subfolder.
+\include{./BackMatter/code}
+
+% Include the "glossary" appendix from the BackMatter subfolder.
+\include{./BackMatter/glossary}
+
+% Include the "index" appendix from the BackMatter subfolder.
+\include{./BackMatter/index}
+
+% Include the "references" appendix from the BackMatter subfolder.
+\include{./BackMatter/references}
+
+% End the document.
+\end{document}

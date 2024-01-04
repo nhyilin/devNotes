@@ -1,0 +1,264 @@
+% This code snippet is a LaTeX preamble that loads various packages
+% for typesetting mathematical content.
+
+% The amsfonts package provides additional mathematical fonts.
+\usepackage{amsfonts}
+
+% The amsmath package enhances the typesetting of mathematical formulas
+% and provides various additional math environments and symbols.
+\usepackage{amsmath}
+
+% The amssymb package provides a collection of additional mathematical symbols.
+\usepackage{amssymb}
+
+% The 'amsthm' package provides enhanced theorem environments.
+\usepackage{amsthm}
+
+% The lmodern package sets the font used in the document to Latin Modern.
+% It is a modernized version of the Computer Modern font family.
+\usepackage{lmodern}
+
+% The courierten package sets the font for the typewriter (monospaced) text
+% to Courier with enhanced kerning.
+\usepackage{courierten}
+
+% The biolinum package sets the font for sans-serif text to Biolinum,
+% a sans-serif font with a distinct style.
+\usepackage{biolinum}
+
+% The mathalpha package is used to customize the math alphabet in the document.
+% Here, it sets the calligraphic math alphabet to "boondoxo".
+% Note: This package requires the "boondox" font family.
+\usepackage[cal = boondoxo]{mathalpha}
+
+% The geometry package is used to customize the page margins.
+\usepackage[rmargin = 3.85cm, lmargin = 3.85cm, bmargin = 4cm, tmargin = 4cm]{geometry}
+
+% The algorithm2e package provides algorithms and customizable algorithm environments.
+\usepackage[algoruled]{algorithm2e}
+
+% The babel package is used for multilingual support.
+\usepackage[british]{babel}
+
+% The booktabs package enhances the quality of tables in the document.
+\usepackage{booktabs}
+
+% The bxpdfver package is used to set the PDF version to 2.0.
+\usepackage[2.0, compress]{bxpdfver}
+
+% The csquotes package provides advanced quoting facilities.
+\usepackage{csquotes}
+
+% The setspace package is used to set the spacing between lines in the document.
+\usepackage[onehalfspacing]{setspace}
+
+% The enumitem package is used to customize the formatting of itemized and enumerated lists.
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, nosep, noitemsep}
+\setlist[enumerate]{leftmargin=*, nosep, noitemsep, label=(\arabic*)}
+
+% The fancyhdr package allows customization of headers and footers.
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\fancyfoot{}
+\fancyhead[LE, RO]{\thepage}
+\fancyhead[LO, RE]{\normalfont\rightmark}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% The float package improves the handling of floating elements such as figures and tables.
+\usepackage{float}
+
+% The footmisc package provides more footnote options and symbols.
+\usepackage[bottom, hang, symbol]{footmisc}
+
+% The graphicx package is used for including images in the document.
+\usepackage{graphicx}
+
+% The hyperref package enables hyperlinks and provides options for PDF metadata and link colors.
+\usepackage[bookmarks = true, citecolor = blue, colorlinks = true, frenchlinks = true, linkcolor = blue, pdfencoding = unicode, urlcolor = blue]{hyperref}
+\hypersetup{
+    pdftitle = {Name of the Book},
+    pdfauthor = {First Author et al.},
+    pdfsubject = {computer science},
+    pdfkeywords = {computer science}
+ }
+
+% The luainputenc package allows using Unicode characters with LuaLaTeX.
+\usepackage[utf8x]{luainputenc}
+
+% The mdframed package provides customizable framed boxes.
+\usepackage{mdframed}
+
+% The microtype package improves the typesetting quality by adjusting character spacing.
+\usepackage[babel = true, final]{microtype}
+
+% The parskip package sets the space between paragraphs.
+\usepackage{parskip}
+
+% The ragged2e package provides additional options for paragraph alignment.
+\usepackage{ragged2e}
+
+% The titlesec package is used for customizing the formatting of section headings.
+
+% The \titleformat command is used to customize the format of a specific sectioning command.
+% Here, we are customizing the format of chapter headings.
+
+% \titleformat syntax:
+% \titleformat{command}[shape]{format}{label}{sep}{before}[after]
+
+% The command to be formatted is \chapter, which is a chapter heading.
+
+% 'display' shape means the title will be displayed on a new line, occupying the whole text width.
+
+% The format for the chapter heading is set to be bold and huge (\bfseries\huge).
+
+% The label for the chapter heading consists of the chapter name (\chaptertitlename) and the chapter number (\thechapter).
+% They will be right-aligned with a separation of 1ex from the chapter title.
+
+% The before-code is used to draw a horizontal line (\titlerule) and add vertical space (1ex) above the chapter title.
+% The chapter title will be left-aligned (\filleft) relative to this line.
+
+% The after-code is used to add vertical space (1ex) and draw another horizontal line (\titlerule) after the chapter title.
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\bfseries\huge}
+  {\filright \bf{\chaptertitlename} \Huge\thechapter}
+  {1ex}
+  {\titlerule\vspace{1ex}\filleft}
+  [\vspace{1ex}\titlerule]
+
+% The xcolor package allows defining and using colors in the document.
+\usepackage{xcolor}
+
+% The secnumdepth counter controls the level of section numbering depth.
+% Here, it is set to 5, which means all sectional units up to \subparagraph will be numbered.
+\setcounter{secnumdepth}{5}
+
+% The tocdepth counter controls the level of section entries displayed in the table of contents.
+% Here, it is set to 5, which means all sectional units up to \subparagraph will be included in the table of contents.
+\setcounter{tocdepth}{5}
+
+% The following command defines a new command called \undersign.
+% When you use \undersign in the document, it will produce a specific formatted text.
+\newcommand{\undersign}{%
+    \begin{flushright}
+        \vfill
+        First Author {\normalfont\textit{\&}} Second Author
+        \rmfamily\normalfont
+    \end{flushright}
+}
+
+% The following code defines several theorem-like environments with different styles.
+% The 'plain' style is used for propositions, claims, conjectures, corollaries, definitions, facts, and lemmas.
+% The 'definition' style is used for examples, exercises, problems, and solutions.
+% The 'remark' style is used for remarks.
+% Each environment is conditionally defined based on the existence of the '\thechapter' macro, which is defined when chapters are present.
+% If '\thechapter' is undefined, the environments are not chapter-specific; otherwise, they are defined to be chapter-specific.
+
+\makeatletter
+% Proposition environment
+\theoremstyle{plain}
+\ifx\thechapter\undefined
+  \newtheorem{prop}{\protect\propositionname}
+\else
+  \newtheorem{prop}{\protect\propositionname}[chapter]
+\fi
+
+% Claim environment
+\theoremstyle{remark}
+\ifx\thechapter\undefined
+  \newtheorem{claim}{\protect\claimname}
+\else
+  \newtheorem{claim}{\protect\claimname}[chapter]
+\fi
+
+% Conjecture environment
+\theoremstyle{plain}
+\ifx\thechapter\undefined
+  \newtheorem{conjecture}{\protect\conjecturename}
+\else
+  \newtheorem{conjecture}{\protect\conjecturename}[chapter]
+\fi
+
+% Corollary environment
+\theoremstyle{plain}
+\ifx\thechapter\undefined
+  \newtheorem{cor}{\protect\corollaryname}
+\else
+  \newtheorem{cor}{\protect\corollaryname}[chapter]
+\fi
+
+% Definition environment
+\theoremstyle{plain}
+\ifx\thechapter\undefined
+  \newtheorem{defn}{\protect\definitionname}
+\else
+  \newtheorem{defn}{\protect\definitionname}[chapter]
+\fi
+
+% Example environment
+\theoremstyle{definition}
+\ifx\thechapter\undefined
+  \newtheorem{example}{\protect\examplename}
+\else
+  \newtheorem{example}{\protect\examplename}[chapter]
+\fi
+
+% Case environment specialized list
+\newlist{casenv}{enumerate}{4}
+\setlist[casenv]{leftmargin=*,align=left,widest={iiii}}
+\setlist[casenv,1]{label={{\itshape\ \casename} \arabic*.},ref=\arabic*}
+\setlist[casenv,2]{label={{\itshape\ \casename} \roman*.},ref=\roman*}
+\setlist[casenv,3]{label={{\itshape\ \casename\ \alph*.}},ref=\alph*}
+\setlist[casenv,4]{label={{\itshape\ \casename} \arabic*.},ref=\arabic*}
+
+% Problem environment
+\theoremstyle{definition}
+\ifx\thechapter\undefined
+  \newtheorem{problem}{\protect\problemname}
+\else
+  \newtheorem{problem}{\protect\problemname}[chapter]
+\fi
+
+% Remark environment
+\theoremstyle{remark}
+\ifx\thechapter\undefined
+  \newtheorem{rem}{\protect\remarkname}
+\else
+  \newtheorem{rem}{\protect\remarkname}[chapter]
+\fi
+
+% Solution environment
+\theoremstyle{definition}
+\ifx\thechapter\undefined
+  \newtheorem{sol}{\protect\solutionname}
+\else
+  \newtheorem{sol}{\protect\solutionname}[chapter]
+\fi
+
+% Theorem environment
+\theoremstyle{plain}
+\ifx\thechapter\undefined
+  \newtheorem{thm}{\protect\theoremname}
+\else
+  \newtheorem{thm}{\protect\theoremname}[chapter]
+\fi
+\makeatother
+
+% Custom names for theorem-like environments
+\providecommand{\casename}{Case}
+\providecommand{\claimname}{Claim}
+\providecommand{\conjecturename}{Conjecture}
+\providecommand{\corollaryname}{Corollary}
+\providecommand{\definitionname}{Definition}
+\providecommand{\examplename}{Example}
+\providecommand{\exercisename}{Exercise}
+\providecommand{\factname}{Fact}
+\providecommand{\lemmaname}{Lemma}
+\providecommand{\problemname}{Problem}
+\providecommand{\propositionname}{Proposition}
+\providecommand{\remarkname}{Remark}
+\providecommand{\solutionname}{Solution}
+\providecommand{\theoremname}{Theorem}
