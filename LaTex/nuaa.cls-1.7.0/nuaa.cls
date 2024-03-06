@@ -80,7 +80,7 @@
 \setlist{nosep}
 \RequirePackage{lastpage}
 \RequirePackage{setspace}
-\setstretch{1.08}
+\setstretch{1.3}
 \RequirePackage[maxnames=1,minnames=1,natbib=true,citestyle=numeric,bibstyle=numeric,url=false,isbn=false,isbn=false]{biblatex}
 \PassOptionsToPackage{table}{xcolor}
 \RequirePackage{xcolor}
