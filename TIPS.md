@@ -578,7 +578,33 @@ git push <远程主机名> <本地分支名>:<远程分支名>
     主要原因是因为所下载的项目仓库的一些子模块是通过链接的方式链接到主项目目录上的。而这些子模块的仓库是单独建立在另外的目录下
     在clone目录中执行即可：`git submodule update --init --recursive`
 
-7. 禁止单击alt的功能，但是保留alt+tab的功能，防止写代码按到alt影响书写体验
+
+[![top] Goto Top](#table-of-contents)
+
+# dump windows
+
+- 右键我的电脑，管理，服务和应用程序，来查看本地服务（若有自己手动注册或删除服务的需求，则在此观察并操作）
+
+- 开发Windows程序时，win的api报错，如740等，可在vs中查询报错信息，具体在"Tools->Error Lookup"
+
+- `win+shift+s`：截屏快捷键
+
+- 检测本地IP：在cmd中敲：`ipconfig/all`，其中IPv4地址即为本机IP地址（随即敲`arp -a`可显示局域网内IP列表）
+
+- 静态网页局域网访问，百度该关键字即可
+- VMware快捷键：`Ctrl + B`启动，`Ctrl + E`关闭，`Ctrl + R`重启
+- `netsh advfirewall set allprofiles state off`：关闭防火墙
+- 测试软件时，尽量在虚拟机上搞...
+- 修改键位：
+- ALT+Esc 当前窗口最小化
+- Win+D 最小化所有窗口，再按一下就可以还原窗口
+- Windows+M：最小化所有窗口
+- Windows+Shift+M：还原最小化的窗口。
+- [3DMax离线安装激活](https://mp.weixin.qq.com/s?__biz=MzA4MjU4MTg2Ng==&mid=2247501581&idx=2&sn=05f48702515e57c3a145d601ed89501f&chksm=9f810708a8f68e1ea24951e5ee426ae5e69552a1104c7d7c2ffcd8b9fe95a0b6d992d0307085&scene=21#wechat_redirect)：安装时可能会失败，1. 打开Windows自动更新服务； 2. [离线安装.net framework 3.5](https://blog.csdn.net/chuozan6114/article/details/100768375)
+- 在word中出现十字箭头才能全部选中表格,但有时候它不出现，方法1、把鼠标移至表格的最后一行的，表格外的“回车”按钮旁边，然后再滚动鼠标，返回表格最前方，就可以看到十字箭头了。 方法2、把鼠标移动到表格后面（必须是表格外）的文字，然后再滚动鼠标，返回表格最前方，就可以看到十字箭头了。 方法3、随便修改一下表格内容，然后Ctrl+S也能显示十字箭头。
+
+
+- 禁止单击alt的功能，但是保留alt+tab的功能，防止写代码按到alt影响书写体验
 AutoHotkey软件：
 ```bash
 ; 禁用左alt键
@@ -671,30 +697,6 @@ $!+Down::Send {Ctrl Down}{shift down}{End}{shift up}{Ctrl Up}
 
 $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
 ```
-
-[![top] Goto Top](#table-of-contents)
-
-# dump windows
-
-- 右键我的电脑，管理，服务和应用程序，来查看本地服务（若有自己手动注册或删除服务的需求，则在此观察并操作）
-
-- 开发Windows程序时，win的api报错，如740等，可在vs中查询报错信息，具体在"Tools->Error Lookup"
-
-- `win+shift+s`：截屏快捷键
-
-- 检测本地IP：在cmd中敲：`ipconfig/all`，其中IPv4地址即为本机IP地址（随即敲`arp -a`可显示局域网内IP列表）
-
-- 静态网页局域网访问，百度该关键字即可
-- VMware快捷键：`Ctrl + B`启动，`Ctrl + E`关闭，`Ctrl + R`重启
-- `netsh advfirewall set allprofiles state off`：关闭防火墙
-- 测试软件时，尽量在虚拟机上搞...
-- 修改键位：
-- ALT+Esc 当前窗口最小化
-- Win+D 最小化所有窗口，再按一下就可以还原窗口
-- Windows+M：最小化所有窗口
-- Windows+Shift+M：还原最小化的窗口。
-- [3DMax离线安装激活](https://mp.weixin.qq.com/s?__biz=MzA4MjU4MTg2Ng==&mid=2247501581&idx=2&sn=05f48702515e57c3a145d601ed89501f&chksm=9f810708a8f68e1ea24951e5ee426ae5e69552a1104c7d7c2ffcd8b9fe95a0b6d992d0307085&scene=21#wechat_redirect)：安装时可能会失败，1. 打开Windows自动更新服务； 2. [离线安装.net framework 3.5](https://blog.csdn.net/chuozan6114/article/details/100768375)
-- 在word中出现十字箭头才能全部选中表格,但有时候它不出现，方法1、把鼠标移至表格的最后一行的，表格外的“回车”按钮旁边，然后再滚动鼠标，返回表格最前方，就可以看到十字箭头了。 方法2、把鼠标移动到表格后面（必须是表格外）的文字，然后再滚动鼠标，返回表格最前方，就可以看到十字箭头了。 方法3、随便修改一下表格内容，然后Ctrl+S也能显示十字箭头。
 
 ## office
 ### word
