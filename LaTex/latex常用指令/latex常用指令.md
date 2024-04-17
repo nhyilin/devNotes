@@ -8,6 +8,7 @@ latex常用指令
   - [加粗](#加粗)
   - [附录](#附录)
   - [代码段](#代码段)
+  - [行间代码](#行间代码)
   - [行间公式](#行间公式)
   - [字体字号设置](#字体字号设置)
 - [elegent主题](#elegent主题)
@@ -56,18 +57,20 @@ latex常用指令
 
 ## 代码段  
 ```latex
-\lstset{basicstyle=\ttfamily,
-        keywordstyle=\bfseries\color{blue}\ttfamily,
-        stringstyle=\color{red}\ttfamily,
-        commentstyle=\color{green}\ttfamily,
-        morecomment=[l][\color{magenta}]{\#},
-        breaklines=true,
-        basicstyle=\ttfamily, 
-        numbers=left,
-        numbersep=2em,
-        columns=flexible,
-        frame=single,
-        framesep=1em
+\lstset{
+      basicstyle=\linespread{1.0}\ttfamily\small,
+      keywordstyle=\bfseries, % 设置关键字风格
+      commentstyle=\itshape\color{gray}, % 设置注释风格
+      stringstyle=\color{darkgray}, % 设置字符串风格
+      breaklines=true,
+      showstringspaces=false, % 不特别显示字符串中的空格
+      numbers=left,
+      numberstyle=\tiny\color{gray}, % 设置行号风格
+      numbersep=2em,
+      columns=flexible,
+      frame=single,
+      framesep=0.5em,
+      postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}, % 自动换行后的标记
 }
 
 \begin{lstlisting}[language=C++]
@@ -84,6 +87,11 @@ int main() {
 
 
 ```
+## 行间代码
+```latex
+\texttt{printf("Hello, world!");}
+```
+
 ## 行间公式  
 ```latex
 \begin{equation}

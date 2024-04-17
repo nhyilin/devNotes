@@ -142,7 +142,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 
 - vs在Release模式下开启Debug调试
   - 项目属性 -> c/c++ -> 常规 -> 调试信息格式化 -> 程序数据库(/Zi)
-  - 项目属性 -> c/c++ -> 常规 -> 优化 -> 已禁用(/Od)
+  - 项目属性 -> c/c++ -> 优化 -> 已禁用(/Od)
   - 项目属性 -> 链接器 -> 调试 -> 生成调试信息 -> 生成调试信息(/DEBUG)
 
 - 【以下文件中的行尾不一致。是否将行尾标准化?】原因分析可能是写代码的时候行尾的标识可能不一样造成的。默认情况下是坐对行尾进行检查。建议直接忽略检查即可：选项->环境->文档->"加载时检查一致的行尾(Check for consistent line endings on load)"钩去掉就不会检查了
