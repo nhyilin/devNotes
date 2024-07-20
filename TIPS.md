@@ -158,6 +158,7 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
 - vs全屏显示：<kbd>shift</kbd>+<kbd>alt</kbd>+<kbd>enter</kbd>，返回正常状态相同按键
 - 剪切整行：<kbd>ctrl</kbd>+<kbd>l</kbd>
 - 删除整行：<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>l</kbd>
+- 设置<kbd>F1</kbd>为`Resharper.Resharper FindUsages`的快捷键，先把`Help.F1Help`的快捷键移除，这个快捷键太常用了
 
 [![top] Goto Top](#table-of-contents)
 

@@ -10,7 +10,7 @@
 ```
 问题就出在这里了。IDE(Clion)提示我"`Condition is always false`"，并且VS好像还不会报出来这个。
 
-因此下来研究、学习了一下。C++中`operator new`的行为及其与`malloc`的区别。`new`在实现中会调用`malloc`并且由编译器安插调用构造函数的代码，`malloc`失败返回0，而`new`直接抛异常。但不清楚有没有不抛异常的`new`和不调用构造函数的new这一点。下面结合代码分析一下。
+因此下来深入了解了一下。C++中`operator new`的行为及其与`malloc`的区别。`new`在实现中会调用`malloc`并且由编译器安插调用构造函数的代码，`malloc`失败返回0，而`new`直接抛异常。但不清楚有没有不抛异常的`new`和不调用构造函数的new这一点。下面结合代码分析一下。
 
 ```assembly
 19:     CTest *pTest = new CTest(3, 2);
@@ -155,4 +155,4 @@ void* __CRTDECL operator new(size_t const size, std::nothrow_t const&) noexcept
 
 结论：可以通过`std::nothrow让new`不抛异常，VS22下的做法是在该`new`函数中用try捕获了异常，并不再抛出，同时让其返回`0`；对于有构造函数的类对象，`new`时都会调用其构造函数，是由编译器自动插入代码的。
 
-最最后，JetBrains真香。
+最最后，JetBrains有点意思。
