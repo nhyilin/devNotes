@@ -13,9 +13,10 @@
 
 表示可用性向量，表征系统在执行任务之前的状态。
 
-假设系统有$n$种不同的状态，且在任一时刻系统处于状态$i$的概率为$a_i$，则可用性向量$A=(a_1,a_2,\cdots a_n\cdots,a_n)$表示。
+假设系统有 $n$ 种不同的状态，且在任一时刻系统处于状态 $i$ 的概率为 $a_i$，则可用性向量 $A=(a_1, a_2, \cdots, a_n)$ 表示。
 
-设A、B、C分别表示发射平台、飞航导弹和技术保障设备３个系统，这３个系统的平均故障间隔时 间分别表示为$T_1$、$T_2$、$T_3$平均故障修复时间分别为$M_1$、$M_2$、$M_3$。３个组成部分在工作时有８种工作状态，从$(\begin{array}{c}ABC\end{array})$示三部分全部处于正常状态、$(\begin{array}{c}AB\overline{C}\end{array})$示发射平台和飞航导弹正常、技术保障 设备故障，到$(\begin{array}{c}\overline{AB}\overline{C}\end{array})$表示三部分全部处于故障状态等八个。
+设 A、B、C 分别表示发射平台、飞航导弹和技术保障设备 3 个系统，这 3 个系统的平均故障间隔时间分别表示为 $T_1$、$T_2$、$T_3$，平均故障修复时间分别为 $M_1$、$M_2$、$M_3$。3 个组成部分在工作时有 8 种工作状态，从 $(ABC)$ 示三部分全部处于正常状态、$(AB\overline{C})$ 示发射平台和飞航导弹正常、技术保障设备故障，到 $(\overline{A}\overline{B}\overline{C})$ 表示三部分全部处于故障状态等八个。
+
 
 可用度是该系统处于工作状态的概率，计算公式如下：
 
@@ -50,13 +51,23 @@ $$D(t)=\begin{bmatrix}d_{11}&d_{12}&\cdots&d_{1n}\\d_{21}&d_{22}&\cdots&d_{2n}\\
 
 因此，发射平台、飞航导弹和技术保障设备的可靠性如下：
 
-$R_A=\exp(-t/T_1)$
-$R_B=\exp(-t/T_2)$
-$R_C=\exp(-t/T_3)$
+$$ R_A=\exp\left(-\frac{t}{T_1}\right) $$
+
+$$ R_B=\exp\left(-\frac{t}{T_2}\right) $$
+
+$$ R_C=\exp\left(-\frac{t}{T_3}\right) $$
 
 基本的转移概率为：
 
-$\begin{aligned}&P(A\to A)=R_{_A} ,\quad P(B\to B)=R_{_B} , \\&P(C\rightarrow C)=R_{c} , P(A\rightarrow\overline{A})=1-R_{_A} , \\& P(B\to\overline{B})=1-R_{_B} , P(C\to\overline{C})=1-R_{_C} , \\& P(\overline{A}\to A)=0 , P(\overline{B}\to B)=0 , P(\overline{C}\to C)=0 , \\&P(\overline{A}\to\overline{A})=1 , P(\overline{B}\to\overline{B})=1 , P(\overline{C}\to\overline{C})=1 \end{aligned}$
+$$
+\begin{aligned}
+&P(A\to A)=R_{A},\quad P(B\to B)=R_{B}, \\ 
+&P(C\to C)=R_{C},\quad P(A\to\overline{A})=1-R_{A}, \\ 
+&P(B\to\overline{B})=1-R_{B},\quad P(C\to\overline{C})=1-R_{C}, \\ 
+&P(\overline{A}\to A)=0,\quad P(\overline{B}\to B)=0,\quad P(\overline{C}\to C)=0, \\
+&P(\overline{A}\to\overline{A})=1,\quad P(\overline{B}\to\overline{B})=1,\quad P(\overline{C}\to\overline{C})=1
+\end{aligned}
+$$
 
 定义$d_{ij}=P\left\{t\text{ 时间内状态}i\text{ 转移到状态 }j\right\}$
 
@@ -81,24 +92,31 @@ $p_1$表⽰发射平台状态良好，能顺利完成发射任务的概率；$p_
 $p_1^{\prime}$表示发射平台发⽣故障，但能顺利完成发射任务的概率；$p_2^{\prime}$表示导弹发射后，⻜⾏过程中某部件发⽣故障，但能够完成制导、突防以及有效打击对⽅⽬标的概率；$p_3^{\prime}$表示技术保障设备发⽣故障，能够保障顺利发射的概率。
 
 故能力参数如下：
-$$\begin{aligned}&c_{1}=p_{1}p_{2}p_{3} , c_{2}=p_{1}p_{2}p_{3}^{\prime} \end{aligned}$$
-
-$$\begin{aligned}c_{3}=p_{1}p_{2}^{\prime}p_{3} ,&c_{4}=p_{1}p_{2}^{\prime}p_{3}^{\prime}\end{aligned} $$
-
-$$\begin{aligned} c_{5}=p_{1}^{\prime}p_{2}p_{3} , c_{6}=p_{1}^{\prime}p_{2}p_{3}^{\prime} \end{aligned}$$
-
-$$\begin{aligned}c_{7}=p_{1}^{\prime}p_{2}^{\prime}p_{3} , c_{8}=p_{1}^{\prime}p_{2}^{\prime}p_{3}^{\prime} \end{aligned}$$
+$$
+\begin{aligned}
+&c_1=p_1p_2p_3, \\
+&c_2=p_1p_2p_3^{\prime}, \\
+&c_3=p_1p_2^{\prime}p_3, \\
+&c_4=p_1p_2^{\prime}p_3^{\prime}, \\
+&c_5=p_1^{\prime}p_2p_3, \\
+&c_{6}=p_1^{\prime}p_2p_3^{\prime}, \\
+&c_{7}=p_1^{\prime}p_2^{\prime}p_3, \\
+&c_{8}=p_1^{\prime}p_2^{\prime}p_3^{\prime}
+\end{aligned}
+$$
 
 能⼒参数矩阵应表⽰为：
 
-$$C=\begin{bmatrix}c_1\\c_2\\c_3\\c_4\\c_5\\c_6\\c_7\\c_8\end{bmatrix}=\begin{bmatrix}p_1p_2p_3\\p_1p_2p_3^{\prime}\\p_1p_2^{\prime}p_3\\p_1p_2^{\prime}p_3\\p_1p_2^{\prime}p_3^{\prime}\\p_1^{\prime}p_2^{\prime}p_3^{\prime}\\p_1^{\prime}p_2^{\prime}p_3^{\prime}\\p_1^{\prime}p_2^{\prime}p_3^{\prime}\end{bmatrix}$$
+$$
+C=\begin{bmatrix}c_1\\c_2\\c_3\\c_4\\c_5\\c_6\\c_7\\c_8\end{bmatrix}=\begin{bmatrix}p_1p_2p_3\\p_1p_2p_3^{\prime}\\p_1p_2^{\prime}p_3\\p_1p_2^{\prime}p_3^{\prime}\\p_1^{\prime}p_2p_3\\p_1^{\prime}p_2p_3^{\prime}\\p_1^{\prime}p_2^{\prime}p_3\\p_1^{\prime}p_2^{\prime}p_3^{\prime}\end{bmatrix}
+$$
 
 
 ## 效能模型
 
-令$F=D\cdot C$、$F_i = \sum_{j=1}^{8} D_{ij} \cdot C_j$
+令 $F=D\cdot C$、$F_i = \sum_{j=1}^{8} D_{ij} \cdot C_j$
 
-$$E = A\cdot D\cdot C= \sum_{k=1}^{8} A_k \cdot F_k $$
+$$ E = A\cdot D\cdot C= \sum_{k=1}^{8} A_k \cdot F_k $$
 
 ## 实现Demo
 
@@ -225,5 +243,4 @@ int main() {
 3. 深夜适配美食，想下楼吃碗烤冷面。
 
 <img src="https://upload.nhyilin.cn/2020-07-29-IMG_0606.jpeg" style="zoom:30%;" />
-
 
