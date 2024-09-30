@@ -32,10 +32,6 @@ $$
 
 ![](https://upload.nhyilin.cn/2024-09-19-150824.png)
 
-<div style="display:none">
-$\begin{aligned}&A=(a_{1},a_{2},a_{3},a_{4},a_{5},a_{6},a_{7},a_{8}) \\ =&\frac{1}{(T_{1}+M_{1})(T_{2}+M_{2})(T_{3}+M_{3})} [T_{1}T_{2}T_{3}\quad T_{1}T_{2}M_{3}\quad T_{1}M_{2}T_{3}\quad T_{1}M_{2}M_{3}\quad M_{1}T_{2}T_{3}\quad M_{1}T_{2}M_{3}\quad M_{1}M_{2}T_{3}\quad M_{1}M_{2}M_{3}]\end{aligned}$
-</div>
-
 ### 可信性分析
 
 可信性是指系统在任务开始时可用性给定的情况下，规定的任务剖面中的任一随机时刻，能够使用且能完成规定任务的能力。
@@ -75,10 +71,6 @@ $$
 
 ![](https://upload.nhyilin.cn/2024-09-19-150703.png)
 
-
-<div style="display:none">
-$\begin{aligned}&D=&\begin{bmatrix}R_AR_AR_Y&R_AR_B(1-R_C)&R_A(1-R_B)R_C&R_A(1-R_B)(1-R_C)&(1-R_A)R_C&(1-R_A)R_B(1-R_C)&(1-R_A)(1-R_B)R_C&(1-R_A)(1-R_B)(1-R_C)\\0&R_AR_B&0&R_A(1-R_B)&0&(1-R_A)R_B&0&(1-R_A)(1-R_B)\\0&0&R_AR_C&R_A(1-R_C)&0&0&(1-R_A)R_C&(1-R_A)(1-R_C)\\0&0&0&R_A&0&0&0&1-R_A\\0&0&0&0&R_BR_C&R_B(1-R_C)&(1-R_B)R_C&(1-R_B)(1-R_C)\\0&0&0&0&0&R_B&0&1-R_B\\0&0&0&0&0&0&R_C&1-R_C\\0&0&0&0&0&0&0&0&1\end{bmatrix}\end{aligned}$
-</div>
 
 ### 能⼒分析
 
