@@ -19,7 +19,13 @@
 
 可用度是该系统处于工作状态的概率，计算公式如下：
 
-$$\begin{cases}A_A=T_1/(T_1+M_1)\\A_B=T_2/(T_2+M_2)\\A_C=T_3/(T_3+M_3)\end{cases}$$
+$$
+\begin{cases}
+A_A=\frac{T_1}{T_1+M_1}\\
+A_B=\frac{T_2}{T_2+M_2}\\
+A_C=\frac{T_3}{T_3+M_3}
+\end{cases}
+$$
 
 推算步骤省略，可计算得到系统可用性向量：
 
