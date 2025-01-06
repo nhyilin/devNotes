@@ -561,21 +561,30 @@ btw: `git checkout`、`git reset`本地的修改并不会消失，而只是从�
 ## git常用操作
 
 1. 恢复所有本地修改至当前分枝`git checkout .`
-2. 当修改`.ignore`文件后，清除远端数据：
+2. 当修改`.ignore`文件后，清除远端数据（这个操作太鲁莽，全部重新提交，其实指定某一个文件即可）：
+
+
 ```git
 git rm -r --cached . 
 git add . 
 git commit -m 'update .gitignore'
 git push <远程主机名> <本地分支名>:<远程分支名>
 ```
+
+```git
+git rm --cached <文件路径>
+git commit -m "Stop tracking <文件路径>"
+git push <远程主机名> <本地分支名>:<远程分支名>
+```
+
 - 不删除工作空间改动代码，撤销`commit`，并且撤销`git add .` ：`git reset --mixed HEAD^`
 - 撤销`commit`，不撤销`git add .` ：`git reset --soft HEAD^`
 - 删除工作空间改动代码，撤销`commit`，撤销`git add .` ,注意完成这个操作后，会删除工作空间代码！！！恢复到上一次的`commit`状态。慎重！！！：`git reset --hard HEAD^`
 - LF will be replaced by CRLF: Windows中换行符为CRLF，而Linux换行符是LF，git默认是CRLF，若发现项目有LF，就会弹出警告了，最终push就会统一转成CRLF作为换行符。false就是不转换符号，默认是true，[参考这里](https://blog.csdn.net/Jae_Wang/article/details/80379133)
-3. git的pull操作会导致本地未提交修改消失，[Git 少用 Pull 多用 Fetch 和 Merge](https://www.oschina.net/translate/git-fetch-and-merge?print)
-4. [Git更新合并代码后，本地修改丢失](https://blog.csdn.net/wjw_de_java/article/details/110224170)
-5. git清除本地所有修改`git checkout . && git clean -xdf`前半段是丢弃所有git追踪的修改，`git clean`是删除文件夹内git没有跟踪的文件
-6. [GitHub执行git clone项目下载不全不完整](https://blog.csdn.net/zhuiqiuzhuoyue583/article/details/108115638):
+1. git的pull操作会导致本地未提交修改消失，[Git 少用 Pull 多用 Fetch 和 Merge](https://www.oschina.net/translate/git-fetch-and-merge?print)
+2. [Git更新合并代码后，本地修改丢失](https://blog.csdn.net/wjw_de_java/article/details/110224170)
+3. git清除本地所有修改`git checkout . && git clean -xdf`前半段是丢弃所有git追踪的修改，`git clean`是删除文件夹内git没有跟踪的文件
+4. [GitHub执行git clone项目下载不全不完整](https://blog.csdn.net/zhuiqiuzhuoyue583/article/details/108115638):
     主要原因是因为所下载的项目仓库的一些子模块是通过链接的方式链接到主项目目录上的。而这些子模块的仓库是单独建立在另外的目录下
     在clone目录中执行即可：`git submodule update --init --recursive`
 
