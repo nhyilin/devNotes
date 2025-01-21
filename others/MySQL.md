@@ -1,4 +1,133 @@
 # 基础篇
+- [基础篇](#基础篇)
+	- [通用语法及分类](#通用语法及分类)
+		- [DDL（数据定义语言）](#ddl数据定义语言)
+			- [数据库操作](#数据库操作)
+				- [注意事项](#注意事项)
+			- [表操作](#表操作)
+		- [DML（数据操作语言）](#dml数据操作语言)
+			- [添加数据](#添加数据)
+				- [注意事项](#注意事项-1)
+			- [更新和删除数据](#更新和删除数据)
+		- [DQL（数据查询语言）](#dql数据查询语言)
+			- [基础查询](#基础查询)
+			- [条件查询](#条件查询)
+			- [聚合查询（聚合函数）](#聚合查询聚合函数)
+			- [分组查询](#分组查询)
+				- [注意事项](#注意事项-2)
+			- [排序查询](#排序查询)
+				- [注意事项](#注意事项-3)
+			- [分页查询](#分页查询)
+				- [注意事项](#注意事项-4)
+			- [DQL执行顺序](#dql执行顺序)
+		- [DCL](#dcl)
+			- [管理用户](#管理用户)
+				- [注意事项](#注意事项-5)
+			- [权限控制](#权限控制)
+				- [注意事项](#注意事项-6)
+	- [函数](#函数)
+		- [字符串函数](#字符串函数)
+		- [数值函数](#数值函数)
+		- [日期函数](#日期函数)
+		- [流程函数](#流程函数)
+	- [约束](#约束)
+		- [常用约束](#常用约束)
+		- [外键约束](#外键约束)
+			- [删除/更新行为](#删除更新行为)
+	- [多表查询](#多表查询)
+		- [多表关系](#多表关系)
+			- [一对多](#一对多)
+			- [多对多](#多对多)
+			- [一对一](#一对一)
+		- [查询](#查询)
+		- [内连接查询](#内连接查询)
+		- [外连接查询](#外连接查询)
+		- [自连接查询](#自连接查询)
+		- [联合查询 union, union all](#联合查询-union-union-all)
+			- [注意事项](#注意事项-7)
+		- [子查询](#子查询)
+			- [标量子查询](#标量子查询)
+			- [列子查询](#列子查询)
+			- [行子查询](#行子查询)
+			- [表子查询](#表子查询)
+	- [事务](#事务)
+		- [四大特性ACID](#四大特性acid)
+		- [并发事务](#并发事务)
+- [进阶篇](#进阶篇)
+	- [存储引擎](#存储引擎)
+		- [InnoDB](#innodb)
+		- [MyISAM](#myisam)
+		- [Memory](#memory)
+		- [存储引擎特点](#存储引擎特点)
+		- [存储引擎的选择](#存储引擎的选择)
+	- [性能分析](#性能分析)
+		- [查看执行频次](#查看执行频次)
+		- [慢查询日志](#慢查询日志)
+		- [profile](#profile)
+		- [explain](#explain)
+	- [索引](#索引)
+		- [索引结构](#索引结构)
+			- [B-Tree](#b-tree)
+			- [B+Tree](#btree)
+			- [Hash](#hash)
+			- [面试题](#面试题)
+		- [索引分类](#索引分类)
+			- [思考题](#思考题)
+		- [语法](#语法)
+		- [使用规则](#使用规则)
+			- [最左前缀法则](#最左前缀法则)
+			- [索引失效情况](#索引失效情况)
+			- [SQL 提示](#sql-提示)
+			- [覆盖索引\&回表查询](#覆盖索引回表查询)
+			- [前缀索引](#前缀索引)
+			- [单列索引\&联合索引](#单列索引联合索引)
+				- [注意事项](#注意事项-8)
+		- [设计原则](#设计原则)
+	- [SQL 优化](#sql-优化)
+		- [插入数据](#插入数据)
+		- [主键优化](#主键优化)
+		- [order by优化](#order-by优化)
+		- [group by优化](#group-by优化)
+		- [limit优化](#limit优化)
+		- [count优化](#count优化)
+		- [update优化（避免行锁升级为表锁）](#update优化避免行锁升级为表锁)
+	- [视图](#视图)
+		- [创建视图](#创建视图)
+		- [查询视图](#查询视图)
+		- [修改视图](#修改视图)
+		- [删除视图](#删除视图)
+		- [视图检查选项](#视图检查选项)
+			- [CASCADED](#cascaded)
+			- [LOCAL](#local)
+		- [更新及作用](#更新及作用)
+	- [存储过程](#存储过程)
+		- [创建](#创建)
+		- [调用](#调用)
+		- [查看](#查看)
+		- [删除](#删除)
+		- [游标](#游标)
+	- [触发器](#触发器)
+	- [锁](#锁)
+	- [InnoDB 引擎](#innodb-引擎)
+		- [逻辑存储结构](#逻辑存储结构)
+		- [架构](#架构)
+	- [事务原理](#事务原理)
+	- [MVCC](#mvcc)
+		- [当前读:](#当前读)
+		- [快照读:](#快照读)
+		- [MVCC:](#mvcc-1)
+			- [MVCC 实现原理:](#mvcc-实现原理)
+- [数据类型](#数据类型)
+	- [整型](#整型)
+	- [浮点型](#浮点型)
+	- [日期和时间](#日期和时间)
+	- [字符串](#字符串)
+	- [二进制类型](#二进制类型)
+- [权限一览表](#权限一览表)
+- [图形化界面工具](#图形化界面工具)
+- [安装](#安装)
+- [小技巧](#小技巧)
+- [参考文献](#参考文献)
 
 ## 通用语法及分类
 
@@ -6,6 +135,8 @@
 - DML: 数据操作语言，用来对数据库表中的数据进行增删改
 - DQL: 数据查询语言，用来查询数据库中表的记录
 - DCL: 数据控制语言，用来创建数据库用户、控制数据库的控制权限
+
+[![top] Goto Top](#table-of-contents)
 
 ### DDL（数据定义语言）
 
@@ -142,6 +273,7 @@ CREATE TABLE 表名(
 
 ---
 
+[![top] Goto Top](#table-of-contents)
 
 ### DML（数据操作语言）
 
@@ -170,6 +302,8 @@ CREATE TABLE 表名(
 
 删除数据：  
 `DELETE FROM 表名 [ WHERE 条件 ];`  
+
+[![top] Goto Top](#table-of-contents)
 
 ### DQL（数据查询语言）
 
@@ -336,6 +470,8 @@ SELECT * FROM employee ORDER BY age ASC, entrydate DESC;
 
 如果是多字段排序，当第一个字段值相同时，才会根据第二个字段进行排序
 
+[![top] Goto Top](#table-of-contents)
+
 #### 分页查询
 
 语法：  
@@ -359,6 +495,9 @@ SELECT * FROM employee LIMIT 10, 10;
 #### DQL执行顺序
 
 FROM -> WHERE -> GROUP BY -> SELECT -> ORDER BY -> LIMIT
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### DCL
 
@@ -429,6 +568,9 @@ drop user 'test'@'localhost';
 - 多个权限用逗号分隔
 - 授权时，数据库名和表名可以用 * 进行通配，代表所有
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## 函数
 
 函数  是指一段可以直接被另外一段程序调用的程序或代码。
@@ -437,6 +579,9 @@ drop user 'test'@'localhost';
 - 数值函数
 - 日期函数
 - 流程函数
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 字符串函数
 
@@ -471,6 +616,9 @@ SELECT TRIM(' Hello World ');
 SELECT SUBSTRING('Hello World', 1, 5);
 ```
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 数值函数
 
 常见函数：
@@ -482,6 +630,9 @@ SELECT SUBSTRING('Hello World', 1, 5);
 | MOD(x, y)  | 返回x/y的模  |
 | RAND() | 返回0~1内的随机数 |
 | ROUND(x, y) | 求参数x的四舍五入值，保留y位小数 |
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 日期函数
 
@@ -504,6 +655,9 @@ SELECT SUBSTRING('Hello World', 1, 5);
 -- DATE_ADD
 SELECT DATE_ADD(NOW(), INTERVAL 70 YEAR);
 ```
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 流程函数
 
@@ -529,6 +683,9 @@ select
 from employee;
 ```
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## 约束
 
 1. 概念：约束是用来作用于表中字段上的规则，用于限制存储在表中的数据。
@@ -546,6 +703,9 @@ from employee;
 | 外键约束  | 用来让两张图的数据之间建立连接，保证数据的一致性和完整性  | FOREIGN KEY  |
 
 约束是作用于表中字段上的，可以再创建表/修改表的时候添加约束。
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 常用约束
 
@@ -569,6 +729,9 @@ create table user(
 	gender char(1)
 );
 ```
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 外键约束
 
@@ -612,11 +775,17 @@ alter table emp add constraint fk_emp_dept_id foreign key(dept_id) references de
 - 多对多
 - 一对一
 
+[![top] Goto Top](#table-of-contents)
+
+
 #### 一对多
 
 案例：部门与员工  
 关系：一个部门对应多个员工，一个员工对应一个部门  
 实现：在多的一方建立外键，指向一的一方的主键  
+
+[![top] Goto Top](#table-of-contents)
+
 
 #### 多对多
 
@@ -630,6 +799,9 @@ alter table emp add constraint fk_emp_dept_id foreign key(dept_id) references de
 关系：一对一关系，多用于单表拆分，将一张表的基础字段放在一张表中，其他详情字段放在另一张表中，以提升操作效率  
 实现：在任意一方加入外键，关联另外一方的主键，并且设置外键为唯一的（UNIQUE）  
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 查询
 
 合并查询（笛卡尔积，会展示所有组合结果）：  
@@ -639,6 +811,9 @@ alter table emp add constraint fk_emp_dept_id foreign key(dept_id) references de
 
 消除无效笛卡尔积：  
 `select * from employee, dept where employee.dept = dept.id;`  
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 内连接查询
 
@@ -661,6 +836,9 @@ select e.name, d.name from employee as e, dept as d where e.dept = d.id;
 -- 显式
 select e.name, d.name from employee as e inner join dept as d on e.dept = d.id;
 ```
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 外连接查询
 
@@ -685,6 +863,9 @@ select d.name, e.* from employee as e right outer join dept as d on e.dept = d.i
 
 左连接可以查询到没有dept的employee，右连接可以查询到没有employee的dept  
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 自连接查询
 
 当前表与自身的连接查询，自连接必须使用表别名  
@@ -703,6 +884,9 @@ select a.name, b.name from employee a, employee b where a.manager = b.id;
 select a.name, b.name from employee a left join employee b on a.manager = b.id;  
 ```
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 联合查询 union, union all
 
 把多次查询的结果合并，形成一个新的查询集
@@ -719,6 +903,9 @@ SELECT 字段列表 FROM 表B ...
 
 - UNION ALL 会有重复结果，UNION 不会
 - 联合查询比使用or效率高，不会使索引失效
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 子查询
 
@@ -810,6 +997,9 @@ select * from employee where (job, salary) in (select job, salary from employee 
 select e.*, d.* from (select * from employee where entrydate > '2006-01-01') as e left join dept as d on e.dept = d.id;
 ```
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## 事务
 
 事务是一组操作的集合，事务会把所有操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。
@@ -861,12 +1051,19 @@ update account set money = money + 1000 where name = '李四';
 commit;
 ```
 开启事务后，只有手动提交才会改变数据库中的数据。  
+
+[![top] Goto Top](#table-of-contents)
+
+
 ### 四大特性ACID
 
 - 原子性(Atomicity)：事务是不可分割的最小操作但愿，要么全部成功，要么全部失败
 - 一致性(Consistency)：事务完成时，必须使所有数据都保持一致状态
 - 隔离性(Isolation)：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行
 - 持久性(Durability)：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 并发事务
 
@@ -896,6 +1093,9 @@ commit;
 `SET [ SESSION | GLOBAL ] TRANSACTION ISOLATION LEVEL {READ UNCOMMITTED | READ COMMITTED | REPEATABLE READ | SERIALIZABLE };  `
 SESSION 是会话级别，表示只针对当前会话有效，GLOBAL 表示对所有会话有效  
 
+[![top] Goto Top](#table-of-contents)
+
+
 # 进阶篇
 
 ## 存储引擎
@@ -920,6 +1120,9 @@ CREATE TABLE 表名(
 -- 查看当前数据库支持的存储引擎
 show engines;
 ```
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### InnoDB
 
@@ -949,6 +1152,9 @@ InnoDB 是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 
 InnoDB 逻辑存储结构：  
 ![InnoDB逻辑存储结构](https://dhc.pythonanywhere.com/media/editor/逻辑存储结构_20220316030616590001.png "InnoDB逻辑存储结构")  
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### MyISAM
 
 MyISAM 是 MySQL 早期的默认存储引擎。
@@ -965,6 +1171,9 @@ MyISAM 是 MySQL 早期的默认存储引擎。
 - xxx.MYD: 存储数据
 - xxx.MYI: 存储索引
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### Memory
 
 Memory 引擎的表数据是存储在内存中的，受硬件问题、断电问题的影响，只能将这些表作为临时表或缓存使用。
@@ -977,6 +1186,9 @@ Memory 引擎的表数据是存储在内存中的，受硬件问题、断电问�
 文件：
 
 - xxx.sdi: 存储表结构信息
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 存储引擎特点
 
@@ -993,6 +1205,9 @@ Memory 引擎的表数据是存储在内存中的，受硬件问题、断电问�
 | 批量插入速度  | 低  | 高  | 高  |
 | 支持外键  | 支持  | -  | -  |
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 存储引擎的选择
 
 在选择存储引擎时，应该根据应用系统的特点选择合适的存储引擎。对于复杂的应用系统，还可以根据实际情况选择多种存储引擎进行组合。
@@ -1002,6 +1217,9 @@ Memory 引擎的表数据是存储在内存中的，受硬件问题、断电问�
 - Memory: 将所有数据保存在内存中，访问速度快，通常用于临时表及缓存。Memory 的缺陷是对表的大小有限制，太大的表无法缓存在内存中，而且无法保障数据的安全性
 
 电商中的足迹和评论适合使用 MyISAM 引擎，缓存适合使用 Memory 引擎。
+
+[![top] Goto Top](#table-of-contents)
+
 
 ## 性能分析
 
@@ -1037,6 +1255,9 @@ profiling 默认关闭，可以通过set语句在session/global级别开启 prof
 查看指定query_id的SQL语句CPU的使用情况  
 `show profile cpu for query query_id;`  
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### explain
 
 EXPLAIN 或者 DESC 命令获取 MySQL 如何执行 SELECT 语句的信息，包括在 SELECT 语句执行过程中表如何连接和连接的顺序。  
@@ -1054,6 +1275,9 @@ EXPLAIN 各字段含义：
 - Key_len：表示索引中使用的字节数，该值为索引字段最大可能长度，并非实际使用长度，在不损失精确性的前提下，长度越短越好
 - rows：MySQL认为必须要执行的行数，在InnoDB引擎的表中，是一个估计值，可能并不总是准确的
 - filtered：表示返回结果的行数占需读取行数的百分比，filtered的值越大越好
+
+[![top] Goto Top](#table-of-contents)
+
 
 ## 索引
 
@@ -1146,6 +1370,9 @@ MySQL 索引数据结构对经典的 B+Tree 进行了优化。在原 B+Tree 的�
 - 对于 B-Tree，无论是叶子节点还是非叶子节点，都会保存数据，这样导致一页中存储的键值减少，指针也跟着减少，要同样保存大量数据，只能增加树的高度，导致性能降低
 - 相对于 Hash 索引，B+Tree 支持范围匹配及排序操作
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 索引分类
 
 | 分类  | 含义  | 特点  | 关键字  |
@@ -1195,6 +1422,9 @@ select * from user where name = 'Arm';
 
 另外，如果有成千上万的数据，那么就要考虑分表，涉及运维篇知识。  
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 语法
 
 创建索引：  
@@ -1222,6 +1452,9 @@ create index idx_user_email on tb_user(email);
 -- 删除索引  
 drop index idx_user_email on tb_user;  
 ```
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 使用规则
 
@@ -1318,6 +1551,9 @@ phone 和 name 都建立了索引情况下，这句只会用到phone索引字段
 
 - 多条件联合查询时，MySQL优化器会评估哪个字段的索引效率更高，会选择该索引完成本次查询。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 设计原则
 
 1. 针对于数据量较大，且查询比较频繁的表建立索引
@@ -1351,6 +1587,9 @@ select @@local_infile;
 load data local infile '/root/sql1.log' into table 'tb_user' fields terminated by ',' lines terminated by '\n';
 ```
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 主键优化
 
 数据组织方式：在InnoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表（Index organized table, IOT）
@@ -1376,6 +1615,9 @@ MERGE_THRESHOLD：合并页的阈值，可以自己设置，在创建表或创�
 - 尽量不要使用 UUID 做主键或者是其他的自然主键，如身份证号，占用的空间大。
 - 业务操作时，避免对主键的修改
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### order by优化
 
 1. Using filesort：通过表的索引或全表扫描，读取满足条件的数据行，然后在排序缓冲区 sort buffer 中完成排序操作，所有不是通过索引直接返回排序结果的排序都叫 FileSort 排序
@@ -1390,12 +1632,18 @@ MERGE_THRESHOLD：合并页的阈值，可以自己设置，在创建表或创�
 - 多字段排序，一个升序一个降序，此时需要注意联合索引在创建时的规则（ASC/DESC）
 - 如果不可避免出现filesort，大数据量排序时，可以适当增大排序缓冲区大小 sort_buffer_size（默认256k）
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### group by优化
 
 - 在分组操作时，可以通过索引来提高效率
 - 分组操作时，索引的使用也是满足最左前缀法则的
 
 如索引为`idx_user_pro_age_stat`，则句式可以是`select ... where profession order by age`，这样也符合最左前缀法则
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### limit优化
 
@@ -1414,6 +1662,9 @@ select id from tb_sku order by id limit 9000000, 10;
 -- 通过连表查询即可实现第一句的效果，并且能达到第二句的速度
 select * from tb_sku as s, (select id from tb_sku order by id limit 9000000, 10) as a where s.id = a.id;
 ```
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### count优化
 
@@ -1436,6 +1687,9 @@ count的几种用法：
 
 按效率排序：count(字段) < count(主键) < count(1) < count(\*)，所以尽量使用 count(\*)
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### update优化（避免行锁升级为表锁）
 
 InnoDB 的行锁是针对索引加的锁，不是针对记录加的锁，并且该索引不能失效，否则会从行锁升级为表锁。
@@ -1457,20 +1711,32 @@ InnoDB 的行锁是针对索引加的锁，不是针对记录加的锁，并且�
 
 > 例子： ` create or replace view stu_wll as select id,name from student where id<=10; `
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 查询视图
 查看创建视图语句： `SHOW CREATE VIEW `视图名称；  
 
 查看视图数据：`SELECT*FROM ` 视图名称；  
 `show create view stu_v_1;`
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 修改视图
 方式一：`CREATE[OR REPLACE] VIEW 视图名称[（列名列表)）] AS SELECT 语句[ WITH[ CASCADED | LOCAL ] CHECK OPTION ]`
 
 方式二：`ALTER VIEW 视图名称 [（列名列表)] AS SELECT语句 [WITH [CASCADED | LOCAL] CHECK OPTION]`
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 删除视图
 
 `DROP VIEW [IF EXISTS] 视图名称 [视图名称]`
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 视图检查选项
 
@@ -1493,6 +1759,9 @@ NOTE：如果没有开检查选项就不会进行检查。不同版本是不同�
 #### LOCAL
 
 本地的条件也会检查，还会向上检查。在向上找的时候，就要看是否上面开了检查选项，如果没开就不检查。和 CASCADED 的区别就是 CASCADED 不管上面开没开检查选项都会进行检查。
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 更新及作用
 
@@ -1518,6 +1787,9 @@ NOTE：如果没有开检查选项就不会进行检查。不同版本是不同�
 
 总而言之 类似于给表加上了一个外壳，通过这个外壳访问表的时候，只能按照所设计的方式进行访问与更新。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## 存储过程
 
 存储过程是事先经过编译并存储在数据库中的一段SQL 语句的集合，调用存储过程可以简化应用开发人员的很多工作，减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率是有好处的。
@@ -1527,6 +1799,9 @@ NOTE：如果没有开检查选项就不会进行检查。不同版本是不同�
 1. 封装
 2. 复用
 3. 可以接收参数，也可以返回数据减少网络交互，效率提升
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 创建
 
@@ -1543,8 +1818,14 @@ NOTE: 在命令行中，执行创建存储过程的SQL时，需要通过关键�
 
 delimiter $ ，则 $ 符作为结束符。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 调用
 CALL 名称 ( [参数])
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 查看
 
@@ -1556,9 +1837,15 @@ CALL 名称 ( [参数])
 
 `SHOW CREATE PROCEDURE`
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 删除
 
 `DROP PROCEDURE [ IFEXISTS ] 存储过程名称`
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 游标
 
@@ -1636,6 +1923,10 @@ NOTE：要先声明普通变量，再申请游标。
 			close u_cursor; 
 
 		end;
+
+[![top] Goto Top](#table-of-contents)
+
+
 ## 触发器
 介绍  
 触发器是与表有关的数据库对象，指在insert/update/delete之前或之后，触发并执行触发器中定义的SQL语句集合。触发器的这种特性可以协助应用在数据库端确保数据的完整性，日志记录，数据校验等操作。   
@@ -1646,6 +1937,9 @@ NOTE：要先声明普通变量，再申请游标。
 | INSERT         | NEW 表示将要或者已经新增的数据              				| 
 | UPDATE         | OLD表示修改之前的数据，NEW表示将要或已经修改后的数据       |
 | DELETE         | OLD表示将要或者已经删除的数据                            |
+
+
+[![top] Goto Top](#table-of-contents)
 
 
 ## 锁
@@ -1723,6 +2017,9 @@ InnoDB实现了以下两种类型的行锁：
 
 注意：间隙锁唯一目的是防止其他事务插入间隙。间隙锁可以共存，一个事务采用的间隙锁不会阻止另一个事务在同一间隙上采用间隙锁。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## InnoDB 引擎
 
 ### 逻辑存储结构
@@ -1736,6 +2033,9 @@ InnoDB实现了以下两种类型的行锁：
 页，是InnoDB存储引擎磁盘管理的最小单元，每个页的大小默认为16KB。为了保证页的连续性，InnoDB存储引擎每从磁盘申请4-5个区。一页包含若干行。
 
 行，InnoDB存储引擎数据是按进行存放的。
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### 架构
 
@@ -1758,6 +2058,9 @@ InnoDB的整个体系结构为：
 
 当业务操作的时候直接操作的是内存缓冲区，如果缓冲区当中没有数据，则会从磁盘中加载到缓冲区，增删改查都是在缓冲区的，后台线程以一定的速率刷新到磁盘。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## 事务原理
 事务是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时败。具有ACID四大特征。
 
@@ -1778,6 +2081,9 @@ undo log和redo log记录物理日志不一样，它是逻辑日志。可以认�
 > Undo log销毁：undo log在事务执行时产生，事务提交时，并不会立即删除undo log，因为这些日志可能还用于MVCC。
 > Undo log存储：undo log采用段的方式进行管理和记录，存放在前面介绍的rollback segment回滚段中，内部包含1024个undo log segment。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## MVCC
 ### 当前读:
 
@@ -1785,12 +2091,18 @@ undo log和redo log记录物理日志不一样，它是逻辑日志。可以认�
 * select...lock in share mode（共享锁）。
 * select..…for update、update、insert、delete（排他锁）都是一种当前读。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ### 快照读:
 
 简单的select（不加锁）就是快照读，快照读，读取的是记录数据的可见版本，有可能是历史数据，不加锁，是非阻塞读。
 * Read Committed：每次select，都生成一个快照读。
 * Repeatable Read：开启事务后第一个select语句才是快照读的地方。
 * Serializable：快照读会退化为当前读。
+
+[![top] Goto Top](#table-of-contents)
+
 
 ### MVCC: 
 
@@ -1830,6 +2142,9 @@ MVCC 靠 隐藏字段 , undo log 版本链 , read view 实现的。
 
 ![images](https://github.com/Buildings-Lei/mysql_note/blob/main/images/readview.png )
 
+[![top] Goto Top](#table-of-contents)
+
+
 # 数据类型
 
 ## 整型
@@ -1844,6 +2159,9 @@ MVCC 靠 隐藏字段 , undo log 版本链 , read view 实现的。
 
 无符号在数据类型后加 unsigned 关键字。
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## 浮点型
 
 | 类型名称            | 说明               | 存储需求   |
@@ -1851,6 +2169,9 @@ MVCC 靠 隐藏字段 , undo log 版本链 , read view 实现的。
 | FLOAT               | 单精度浮点数       | 4 个字节   |
 | DOUBLE              | 双精度浮点数       | 8 个字节   |
 | DECIMAL (M, D)，DEC | 压缩的“严格”定点数 | M+2 个字节 |
+
+[![top] Goto Top](#table-of-contents)
+
 
 ## 日期和时间
 
@@ -1861,6 +2182,9 @@ MVCC 靠 隐藏字段 , undo log 版本链 , read view 实现的。
 | DATE      | YYYY-MM-DD          | 1000-01-01 ~ 9999-12-3                            | 3 个字节 |
 | DATETIME  | YYYY-MM-DD HH:MM:SS | 1000-01-01 00:00:00 ~ 9999-12-31 23:59:59         | 8 个字节 |
 | TIMESTAMP | YYYY-MM-DD HH:MM:SS | 1980-01-01 00:00:01 UTC ~ 2040-01-19 03:14:07 UTC | 4 个字节 |
+
+[![top] Goto Top](#table-of-contents)
+
 
 ## 字符串
 
@@ -1875,6 +2199,9 @@ MVCC 靠 隐藏字段 , undo log 版本链 , read view 实现的。
 | ENUM       | 枚举类型，只能有一个枚举字符串值             | 1或2个字节，取决于枚举值的数目 (最大值为65535)             |
 | SET        | 一个设置，字符串对象可以有零个或 多个SET成员 | 1、2、3、4或8个字节，取决于集合 成员的数量（最多64个成员） |
 
+[![top] Goto Top](#table-of-contents)
+
+
 ## 二进制类型
 
 | 类型名称       | 说明                 | 存储需求               |
@@ -1886,6 +2213,9 @@ MVCC 靠 隐藏字段 , undo log 版本链 , read view 实现的。
 | BLOB (M)       | 小 BLOB              | L+2 字节，在此，L<2^16 |
 | MEDIUMBLOB (M) | 中等大小的BLOB       | L+3 字节，在此，L<2^24 |
 | LONGBLOB (M)   | 非常大的BLOB         | L+4 字节，在此，L<2^32 |
+
+[![top] Goto Top](#table-of-contents)
+
 
 # 权限一览表
 
@@ -1971,6 +2301,9 @@ GRANT 和 REVOKE 允许的动态权限
 | [`VERSION_TOKEN_ADMIN`](https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_version-token-admin) | Server administration                             |
 | [`XA_RECOVER_ADMIN`](https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_xa-recover-admin) | Server administration                             |
 
+[![top] Goto Top](#table-of-contents)
+
+
 # 图形化界面工具
 
 - Workbench(免费): http://dev.mysql.com/downloads/workbench/
@@ -1996,3 +2329,15 @@ GROUP BY table_schema;
 # 参考文献
 > https://dhc.pythonanywhere.com/entry/share/?key=3ad29aad765a2b98b2b2a745d71bef715507ee9db8adbec98257bac0ad84cbe4#h1-u6743u9650u4E00u89C8u8868
 > 这篇笔记是在别人的基础上完善而来，感谢B站的黑马程序员up主，也感谢路途博客。
+
+
+
+[![top] Goto Top](#table-of-contents)
+
+
+
+
+<!-- figures -->
+[top]: up.png
+
+[top]: https://upload.nhyilin.cn/2021-11-19-up.png
