@@ -89,7 +89,7 @@ void ThreadMain() {
 
 int main(int argc, char *argv[]) {
   {
-       thread th(ThreadMain); //出错，thread对象被销毁 子线程还在运行
+       std:: thread th(ThreadMain); //出错，thread对象被销毁 子线程还在运行
   }
 
   {
@@ -174,7 +174,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 ```
-如何避免复制，[4. 线程函数传递指针和引用](#4-线程函数传递指针和引用) 中解释。
+如何避免复制，[1.4. 线程函数传递指针和引用](#14-线程函数传递指针和引用) 中解释。
 
 [![top] Goto Top](#table-of-contents)
 
