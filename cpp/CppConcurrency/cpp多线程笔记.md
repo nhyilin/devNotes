@@ -345,7 +345,7 @@ class TestLambda {
 };
 int main(int argc, char *argv[]) {
   std::thread th(
-      [](int i) { std::cout << "test lmbda " << i << std::endl; },
+      [](int i) { std::cout << "test lambda " << i << std::endl; },
       123
   );
   th.join();
