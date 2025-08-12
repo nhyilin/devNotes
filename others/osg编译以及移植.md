@@ -13,7 +13,7 @@
     - [4.4 报错未发现QtOpenGL](#44-报错未发现qtopengl)
     - [4.5 安装qt时](#45-安装qt时)
     - [4.6 qtchooser加入新的qmake版本](#46-qtchooser加入新的qmake版本)
-    - [4.7 missing: ZLIB_LIBRARY](#47-missing-zlib_library)
+    - [4.7 missing: ZLIB\_LIBRARY](#47-missing-zlib_library)
 - [移植](#移植)
 
 
@@ -27,11 +27,11 @@
 
 3. 注意在切换`osg`版本时，一定要将原版本卸载干净。我在这儿就吃了亏，一开始选用`osg3.6.4`版本，后来更换为`osg3.4.0`版本，当时没清理干净，导致在编译`osgEarth`时，不断报错，提示`xxx:未定义的引用`，当时很奇怪，这函数明明是源代码自带的代码中的函数，为什么一直报未定义的引用，这个报错，意思是在在头文件声明了，但是cpp中，或者说编译后的库文件中，未定义。后来我查到，库文件的链接，即`LINK`不对，指向了`osg3.6.4`版本，就是没删除干净。要删除干净，就需要搞清楚源代码编译究竟生成了什么，放在了哪里。源代码编译的时候，根据个人习惯，一是可以将依赖的库文件编译后放在一个自定义的位置，比如通过再`configure`后追加参数，`./configure --prefix=/home/iscas/`，另一种是放在默认位置，即`/usr/local`下，这个看个人习惯，各有各的好处，放在自定义的位置，方便卸载，放在默认位置，不用考虑环境变量的问题。源代码编译后的结果无非三种文件，一种是头文件，即函数的声明，默认放在`/usr/local/include`下，一种的可执行文件，默认放在`/usr/local/bin`下，一种是库文件，即函数的定义，默认放在`/usr/local/lib`或者`/usr/local/lib64`下。因此，知道了有什么东西，放在哪，卸载的时候，即手动去删除，务必删除干净。
 
-4. 在编译`osg`代码时，需要指定使用`QT5`版本，因为现在大部分`linux`系统下，自带`QT4`和`QT5`，所以需要指定位置。在`CMakeList.txt`文件的`IF(OSG_USE_QT AND NOT ANDROID)`的前一行，添加`SET(DESIRED_QT_VERSION 5)`。
+4. 在编译`osg`代码时，需要指定使用`QT5`版本，因为现在大部分`linux`系统下，自带`QT4`和`QT5`，所以需要指定位置。在`CMakeLists.txt`文件的`IF(OSG_USE_QT AND NOT ANDROID)`的前一行，添加`SET(DESIRED_QT_VERSION 5)`。
 
-5. 在编译`osgEarth`时，在2.8版本中，如果不指定使用`X11`版本，会报错，因此，需要修改`CMakeList.txt`文件，在首行添加，`add_definitions(-std=gnu++11)`或者`add_definitions(-std=c++11)`。
+5. 在编译`osgEarth`时，在2.8版本中，如果不指定使用`X11`版本，会报错，因此，需要修改`CMakeLists.txt`文件，在首行添加，`add_definitions(-std=gnu++11)`或者`add_definitions(-std=c++11)`。
 
-6. 在`osgEarth`编译时，为生成可供`Qt`使用的库文件，修改`CMakeList.txt`中如下两处，由`OFF`改为`ON`。
+6. 在`osgEarth`编译时，为生成可供`Qt`使用的库文件，修改`CMakeLists.txt`中如下两处，由`OFF`改为`ON`。
 ```bash
 OPTION(OSGEARTH_QT_BUILD "Enable to use Qt (build Qt-dependent libraries, plugins and examples)" ON)
 OPTION(OSGEARTH_QT_BUILD_LEGACY_WIDGETS "Build the legacy Qt widgets" ON)
@@ -58,7 +58,7 @@ sudo rm -rf /usr/local/bin/cmake*
 12. 我个人将其编译路径设置为：`/home/iscas/osg_install/usr/local`，这样目的是为了没有makefile的第三方库在利用cmakelists生成时，和其他第三方库层次不一的问题，具体见下方install步骤
 
 ## 二、库文件依赖的解决
-依赖问题始终是最棘手的问题，为了解决依赖问题，可以根据`osg`和`osgEarth`中的`CMakeList`中的提示，可以获悉需要什么依赖，以及该库的版本号。我在解决依赖问题的时候，将所有能下到的依赖库的源代码下了下来，自行编译，其实本人觉得，直接编译源代码会简单一些，源代码的编译方法其实相对比较简单，大致上就是两个方法去编译，一个就是看见源代码目录下，有`configure`文件，就使用`./configure`来编译，生成Makefile文件，第二种方法是看见目录下，有`CMakeList.txt`文件，就使用`cmake CMakeList.txt`去生成Makefile，总之，都是为了生成`Makefile`文件，然后可以进一步`make`，`sudo make install`。
+依赖问题始终是最棘手的问题，为了解决依赖问题，可以根据`osg`和`osgEarth`中的`CMakeList`中的提示，可以获悉需要什么依赖，以及该库的版本号。我在解决依赖问题的时候，将所有能下到的依赖库的源代码下了下来，自行编译，其实本人觉得，直接编译源代码会简单一些，源代码的编译方法其实相对比较简单，大致上就是两个方法去编译，一个就是看见源代码目录下，有`configure`文件，就使用`./configure`来编译，生成Makefile文件，第二种方法是看见目录下，有`CMakeLists.txt`文件，就使用`cmake CMakeLists.txt`去生成Makefile，总之，都是为了生成`Makefile`文件，然后可以进一步`make`，`sudo make install`。
 
 在处理`osg`和`osgEarth`中涉及的依赖时，只编译了部分依赖，其实还有一些依赖未解决，但不影响`osg`和osgEarth编译的成功，不过不解决，会导致后面部分功能无法使用。
 
@@ -89,9 +89,9 @@ sudo rm -rf /usr/local/bin/cmake*
 make -j8
 sudo make install
 ```
-有CMakeList.txt时，使用
+有CMakeLists.txt时，使用
 ```bash
-cmake CMakeList.txt
+cmake CMakeLists.txt
 make -j8
 sudo make install DESTDIR=/home/iscas/osg_install
 ```

@@ -146,7 +146,8 @@ cmake.exe -G "Visual Studio 15 2017" -A x64 -DTHIRDPARTY_ROOT_DIR=D:\myDevelop\T
   - 项目属性 -> c/c++ -> 优化 -> 已禁用(/Od)
   - 项目属性 -> 链接器 -> 调试 -> 生成调试信息 -> 生成调试信息(/DEBUG)
 
-- 【以下文件中的行尾不一致。是否将行尾标准化?】原因分析可能是写代码的时候行尾的标识可能不一样造成的。默认情况下是坐对行尾进行检查。建议直接忽略检查即可：选项->环境->文档->"加载时检查一致的行尾(Check for consistent line endings on load)"钩去掉就不会检查了
+- 【以下文件中的行尾不一致。是否将行尾标准化?】原因分析可能是写代码的时候行尾的标识可能不一样造成的。默认情况下是坐对行尾进行检查。建议直接忽略检查即可：选项->环境->文档->"加载时检查一致的行尾(Check for consistent line endings on load)"钩去掉就不会检查了]
+- 可以设置自动保存文件编码：选项->环境->文档->Save files with a specific encoding: Unicode(UTF-8 with signature - Code  page 65001)
 - 查看dll导出函数接口：工具->命令行->开发者PowerShell，执行`dumpbin /exports ./release/cstkkernel.dll /out:D:/a.txt`，将cstkkernel.dll输出到D盘的`a.txt`
 - 在vs中设置目标生成路径，也可以设置生成后事件：项目属性->生成事件->后期生成事件->命令行中：
   ```bash
@@ -767,8 +768,10 @@ $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
 
 
 ### visio
-- visio对其所有连接线：在`设计`中点击连接线下面的小三角，`分隔：相关线条(有时候相关也可以，但是很少)`，`重叠：相关线条`。
-
+- visio对其所有连接线：在`设计`中点击连接线下面的小三角，`分隔：相关线条(有时候相关也可以，但是很少)`，`重叠：相关线条`
+- 调整Visio画布默认画布长度：按住Ctrl+鼠标左键，停留在要调整的边线，会出现调整的双向箭头，此时拖拽鼠标即可调整画布
+- 调整页面大小：<kbd>设计</kbd>-><kbd>大小</kbd>-><kbd>适应绘图内容</kbd>。此选项会根据当前绘图内容自动调整画布大小
+- 如果复制粘贴到另一个Visio（尤其是带格式的）不全，少文字或者少格式，可以直接从文件夹里把需要复制的Visio图直接拖进Visio页中，完成复制操作
 
 [![top] Goto Top](#table-of-contents)
 
@@ -787,12 +790,12 @@ $#Space::Send {Ctrl Down}{LWin Down}{Space}{LWin Up}{Ctrl Up}
   - `140.82.112.3    github.com`
   - `146.75.77.194  github.global.ssl.fastly.net`
  重启DNS：`sudo killall -HUP mDNSResponder`再ping github.com就通了！（Ubuntu下`udo /etc/init.d/network-manager restart`重启网络)
-11. brew安装：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
-12. brew卸载：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`
-13. 显示隐藏文件：`cmd + shift + .`
-14. 前往文件夹：`cmd + shift +g`
-15. 当文件夹显示为列表时，可以`cmd + ➕`，放大显示效果
-16. brew 安装文件报错：[Error: No such file or directory @ rb_sysopen](https://blog.csdn.net/yuchangyuan5237/article/details/126925843?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&utm_relevant_index=1)使用国内镜像而该镜像未完全同步问题。临时去除镜像即可。
+1.  brew安装：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"`
+2.  brew卸载：`/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"`
+3.  显示隐藏文件：`cmd + shift + .`
+4.  前往文件夹：`cmd + shift +g`
+5.  当文件夹显示为列表时，可以`cmd + ➕`，放大显示效果
+6.  brew 安装文件报错：[Error: No such file or directory @ rb_sysopen](https://blog.csdn.net/yuchangyuan5237/article/details/126925843?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-1-126925843-blog-121221676.pc_relevant_recovery_v2&utm_relevant_index=1)使用国内镜像而该镜像未完全同步问题。临时去除镜像即可。
 
 ```bash
 export HOMEBREW_BOTTLE_DOMAIN=''
