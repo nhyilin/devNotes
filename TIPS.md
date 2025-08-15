@@ -102,6 +102,7 @@ Xcode中查看项目的C++版本,可以在项目的任何一个.cpp文件中添�
 `std::cout << __cplusplus << std::endl;`
 
 # visual studio
+-创建离线安装包：在Visual Studio Installer中导出.vsconfig文件，然后下载引导程序后，上述两个文件放在D:\vs2022文件夹中。执行`vs_enterprise.exe --layout "D:\vs2022" --config "D:\vs2022\.vsconfig`
 - [CMake命令/函数汇总（翻译自官方手册）](https://www.cnblogs.com/52php/p/5684588.html)
 - 项目结构(base on cmake)：
 ```bash
