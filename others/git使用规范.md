@@ -208,3 +208,7 @@ git merge source-branch
 - **变基**：适用于整理提交史，形成线性历史，但要谨慎使用，不要在公共分支上重写历史。
 
 选择哪种合并策略，需根据项目的具体需求和团队协作方式综合考虑。 
+
+
+
+<img src="./pics/IMG_3607.jpeg" alt="简易git工作流" style="width:600px;">
